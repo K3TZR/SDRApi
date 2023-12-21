@@ -8,18 +8,31 @@
 
 /* Begin PBXBuildFile section */
 		9FDF6A732B339AA500253D01 /* SDRApiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6A722B339AA500253D01 /* SDRApiApp.swift */; };
-		9FDF6A752B339AA500253D01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6A742B339AA500253D01 /* ContentView.swift */; };
+		9FDF6A752B339AA500253D01 /* ApiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6A742B339AA500253D01 /* ApiView.swift */; };
 		9FDF6A772B339AA600253D01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FDF6A762B339AA600253D01 /* Assets.xcassets */; };
 		9FDF6A7A2B339AA600253D01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FDF6A792B339AA600253D01 /* Preview Assets.xcassets */; };
+		9FDF6A832B339BC900253D01 /* SharedModel in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A822B339BC900253D01 /* SharedModel */; };
+		9FDF6A852B339F6C00253D01 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6A842B339F6C00253D01 /* SettingsView.swift */; };
+		9FDF6A872B33D2E500253D01 /* MessagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6A862B33D2E500253D01 /* MessagesModel.swift */; };
+		9FDF6A892B33D35300253D01 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6A882B33D35300253D01 /* MessagesView.swift */; };
+		9FDF6A8C2B33D56500253D01 /* FlexApi in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A8B2B33D56500253D01 /* FlexApi */; };
+		9FDF6A8E2B33D56500253D01 /* FlexErrors in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A8D2B33D56500253D01 /* FlexErrors */; };
+		9FDF6A902B33D56500253D01 /* Listener in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A8F2B33D56500253D01 /* Listener */; };
+		9FDF6A922B33D56500253D01 /* Tcp in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A912B33D56500253D01 /* Tcp */; };
+		9FDF6A942B33D56500253D01 /* Udp in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A932B33D56500253D01 /* Udp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9FDF6A6F2B339AA500253D01 /* SDRApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDRApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FDF6A722B339AA500253D01 /* SDRApiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDRApiApp.swift; sourceTree = "<group>"; };
-		9FDF6A742B339AA500253D01 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9FDF6A742B339AA500253D01 /* ApiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiView.swift; sourceTree = "<group>"; };
 		9FDF6A762B339AA600253D01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FDF6A792B339AA600253D01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9FDF6A7B2B339AA600253D01 /* SDRApi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDRApi.entitlements; sourceTree = "<group>"; };
+		9FDF6A842B339F6C00253D01 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		9FDF6A862B33D2E500253D01 /* MessagesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesModel.swift; sourceTree = "<group>"; };
+		9FDF6A882B33D35300253D01 /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		9FDF6A952B33D86600253D01 /* CommonFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CommonFeatures; path = ../Packages/CommonFeatures; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +40,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FDF6A942B33D56500253D01 /* Udp in Frameworks */,
+				9FDF6A922B33D56500253D01 /* Tcp in Frameworks */,
+				9FDF6A8E2B33D56500253D01 /* FlexErrors in Frameworks */,
+				9FDF6A8C2B33D56500253D01 /* FlexApi in Frameworks */,
+				9FDF6A902B33D56500253D01 /* Listener in Frameworks */,
+				9FDF6A832B339BC900253D01 /* SharedModel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -36,6 +55,7 @@
 		9FDF6A662B339AA500253D01 = {
 			isa = PBXGroup;
 			children = (
+				9FDF6A952B33D86600253D01 /* CommonFeatures */,
 				9FDF6A712B339AA500253D01 /* SDRApi */,
 				9FDF6A702B339AA500253D01 /* Products */,
 			);
@@ -53,10 +73,13 @@
 			isa = PBXGroup;
 			children = (
 				9FDF6A722B339AA500253D01 /* SDRApiApp.swift */,
-				9FDF6A742B339AA500253D01 /* ContentView.swift */,
+				9FDF6A742B339AA500253D01 /* ApiView.swift */,
 				9FDF6A762B339AA600253D01 /* Assets.xcassets */,
 				9FDF6A7B2B339AA600253D01 /* SDRApi.entitlements */,
 				9FDF6A782B339AA600253D01 /* Preview Content */,
+				9FDF6A842B339F6C00253D01 /* SettingsView.swift */,
+				9FDF6A862B33D2E500253D01 /* MessagesModel.swift */,
+				9FDF6A882B33D35300253D01 /* MessagesView.swift */,
 			);
 			path = SDRApi;
 			sourceTree = "<group>";
@@ -85,6 +108,14 @@
 			dependencies = (
 			);
 			name = SDRApi;
+			packageProductDependencies = (
+				9FDF6A822B339BC900253D01 /* SharedModel */,
+				9FDF6A8B2B33D56500253D01 /* FlexApi */,
+				9FDF6A8D2B33D56500253D01 /* FlexErrors */,
+				9FDF6A8F2B33D56500253D01 /* Listener */,
+				9FDF6A912B33D56500253D01 /* Tcp */,
+				9FDF6A932B33D56500253D01 /* Udp */,
+			);
 			productName = SDRApi;
 			productReference = 9FDF6A6F2B339AA500253D01 /* SDRApi.app */;
 			productType = "com.apple.product-type.application";
@@ -113,6 +144,10 @@
 				Base,
 			);
 			mainGroup = 9FDF6A662B339AA500253D01;
+			packageReferences = (
+				9FDF6A812B339BC900253D01 /* XCRemoteSwiftPackageReference "CommonFeatures" */,
+				9FDF6A8A2B33D56500253D01 /* XCRemoteSwiftPackageReference "ApiFeatures" */,
+			);
 			productRefGroup = 9FDF6A702B339AA500253D01 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,8 +174,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FDF6A752B339AA500253D01 /* ContentView.swift in Sources */,
+				9FDF6A892B33D35300253D01 /* MessagesView.swift in Sources */,
+				9FDF6A852B339F6C00253D01 /* SettingsView.swift in Sources */,
+				9FDF6A752B339AA500253D01 /* ApiView.swift in Sources */,
 				9FDF6A732B339AA500253D01 /* SDRApiApp.swift in Sources */,
+				9FDF6A872B33D2E500253D01 /* MessagesModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +379,58 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9FDF6A812B339BC900253D01 /* XCRemoteSwiftPackageReference "CommonFeatures" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/K3TZR/CommonFeatures.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		9FDF6A8A2B33D56500253D01 /* XCRemoteSwiftPackageReference "ApiFeatures" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/K3TZR/ApiFeatures.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9FDF6A822B339BC900253D01 /* SharedModel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A812B339BC900253D01 /* XCRemoteSwiftPackageReference "CommonFeatures" */;
+			productName = SharedModel;
+		};
+		9FDF6A8B2B33D56500253D01 /* FlexApi */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A8A2B33D56500253D01 /* XCRemoteSwiftPackageReference "ApiFeatures" */;
+			productName = FlexApi;
+		};
+		9FDF6A8D2B33D56500253D01 /* FlexErrors */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A8A2B33D56500253D01 /* XCRemoteSwiftPackageReference "ApiFeatures" */;
+			productName = FlexErrors;
+		};
+		9FDF6A8F2B33D56500253D01 /* Listener */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A8A2B33D56500253D01 /* XCRemoteSwiftPackageReference "ApiFeatures" */;
+			productName = Listener;
+		};
+		9FDF6A912B33D56500253D01 /* Tcp */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A8A2B33D56500253D01 /* XCRemoteSwiftPackageReference "ApiFeatures" */;
+			productName = Tcp;
+		};
+		9FDF6A932B33D56500253D01 /* Udp */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A8A2B33D56500253D01 /* XCRemoteSwiftPackageReference "ApiFeatures" */;
+			productName = Udp;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9FDF6A672B339AA500253D01 /* Project object */;
 }
