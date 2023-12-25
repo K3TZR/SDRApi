@@ -7,12 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F0569382B349E5400C950E1 /* TnfSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0569362B349E5400C950E1 /* TnfSubView.swift */; };
+		9F0569392B349E5400C950E1 /* TransmitSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0569372B349E5400C950E1 /* TransmitSubView.swift */; };
+		9F05693C2B349F6F00C950E1 /* InterlockSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F05693A2B349F6F00C950E1 /* InterlockSubView.swift */; };
+		9F05693D2B349F6F00C950E1 /* MemorySubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F05693B2B349F6F00C950E1 /* MemorySubView.swift */; };
+		9F0569462B353BDA00C950E1 /* PanadapterSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F05693F2B353BDA00C950E1 /* PanadapterSubView.swift */; };
+		9F0569472B353BDA00C950E1 /* MiscSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0569402B353BDA00C950E1 /* MiscSubView.swift */; };
+		9F0569482B353BDA00C950E1 /* MeterSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0569412B353BDA00C950E1 /* MeterSubView.swift */; };
+		9F0569492B353BDA00C950E1 /* ProfileSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0569422B353BDA00C950E1 /* ProfileSubView.swift */; };
+		9F05694A2B353BDA00C950E1 /* StreamSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0569432B353BDA00C950E1 /* StreamSubView.swift */; };
+		9F05694B2B353BDA00C950E1 /* MeterStreamSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0569442B353BDA00C950E1 /* MeterStreamSubView.swift */; };
+		9F05694C2B353BDA00C950E1 /* NetworkSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0569452B353BDA00C950E1 /* NetworkSubView.swift */; };
+		9F0569512B353CDF00C950E1 /* XvtrSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F05694D2B353CDF00C950E1 /* XvtrSubView.swift */; };
+		9F0569522B353CDF00C950E1 /* UsbCableSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F05694E2B353CDF00C950E1 /* UsbCableSubView.swift */; };
+		9F0569532B353CDF00C950E1 /* WaveformSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F05694F2B353CDF00C950E1 /* WaveformSubView.swift */; };
+		9F0569542B353CDF00C950E1 /* WanSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0569502B353CDF00C950E1 /* WanSubView.swift */; };
 		9FDF6A732B339AA500253D01 /* SDRApiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6A722B339AA500253D01 /* SDRApiApp.swift */; };
 		9FDF6A752B339AA500253D01 /* ApiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6A742B339AA500253D01 /* ApiView.swift */; };
 		9FDF6A772B339AA600253D01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FDF6A762B339AA600253D01 /* Assets.xcassets */; };
 		9FDF6A7A2B339AA600253D01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FDF6A792B339AA600253D01 /* Preview Assets.xcassets */; };
 		9FDF6A832B339BC900253D01 /* SharedModel in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A822B339BC900253D01 /* SharedModel */; };
-		9FDF6A852B339F6C00253D01 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6A842B339F6C00253D01 /* SettingsView.swift */; };
 		9FDF6A872B33D2E500253D01 /* MessagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6A862B33D2E500253D01 /* MessagesModel.swift */; };
 		9FDF6A892B33D35300253D01 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6A882B33D35300253D01 /* MessagesView.swift */; };
 		9FDF6A8C2B33D56500253D01 /* FlexApi in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A8B2B33D56500253D01 /* FlexApi */; };
@@ -20,19 +34,74 @@
 		9FDF6A902B33D56500253D01 /* Listener in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A8F2B33D56500253D01 /* Listener */; };
 		9FDF6A922B33D56500253D01 /* Tcp in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A912B33D56500253D01 /* Tcp */; };
 		9FDF6A942B33D56500253D01 /* Udp in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A932B33D56500253D01 /* Udp */; };
+		9FDF6A972B3465A000253D01 /* SDRModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6A962B3465A000253D01 /* SDRModel.swift */; };
+		9FDF6A9A2B346DFD00253D01 /* AudioPopover in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A992B346DFD00253D01 /* AudioPopover */; };
+		9FDF6A9C2B346DFD00253D01 /* ClientSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A9B2B346DFD00253D01 /* ClientSheet */; };
+		9FDF6A9E2B346DFD00253D01 /* Dax2Panel in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A9D2B346DFD00253D01 /* Dax2Panel */; };
+		9FDF6AA02B346DFD00253D01 /* DaxPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6A9F2B346DFD00253D01 /* DaxPanel */; };
+		9FDF6AA22B346DFD00253D01 /* Flag in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6AA12B346DFD00253D01 /* Flag */; };
+		9FDF6AA42B346DFD00253D01 /* FlagAntennaPopover in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6AA32B346DFD00253D01 /* FlagAntennaPopover */; };
+		9FDF6AA62B346DFD00253D01 /* LogViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6AA52B346DFD00253D01 /* LogViewer */; };
+		9FDF6AA82B346DFD00253D01 /* LoginSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6AA72B346DFD00253D01 /* LoginSheet */; };
+		9FDF6AAA2B346DFD00253D01 /* MonitorControl in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6AA92B346DFD00253D01 /* MonitorControl */; };
+		9FDF6AAC2B346DFD00253D01 /* Panadapter in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6AAB2B346DFD00253D01 /* Panadapter */; };
+		9FDF6AAE2B346DFD00253D01 /* Panafall in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6AAD2B346DFD00253D01 /* Panafall */; };
+		9FDF6AB02B346DFD00253D01 /* PickerSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6AAF2B346DFD00253D01 /* PickerSheet */; };
+		9FDF6AB22B346DFD00253D01 /* SettingsPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6AB12B346DFD00253D01 /* SettingsPanel */; };
+		9FDF6AB42B346DFD00253D01 /* SidePanel in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6AB32B346DFD00253D01 /* SidePanel */; };
+		9FDF6AB62B346DFD00253D01 /* Waterfall in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDF6AB52B346DFD00253D01 /* Waterfall */; };
+		9FDF6AB82B348B6C00253D01 /* ObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6AB72B348B6C00253D01 /* ObjectModel.swift */; };
+		9FDF6ABA2B348BBE00253D01 /* ObjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6AB92B348BBE00253D01 /* ObjectsView.swift */; };
+		9FDF6ABE2B348FE000253D01 /* RadioSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6ABD2B348FE000253D01 /* RadioSubView.swift */; };
+		9FDF6AC02B348FF800253D01 /* AmplifierSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6ABF2B348FF800253D01 /* AmplifierSubView.swift */; };
+		9FDF6AC22B348FFF00253D01 /* AtuSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6AC12B348FFF00253D01 /* AtuSubView.swift */; };
+		9FDF6AC62B34900E00253D01 /* GuiClientSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6AC52B34900E00253D01 /* GuiClientSubView.swift */; };
+		9FDF6AC82B34904700253D01 /* BandSettingSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6AC72B34904700253D01 /* BandSettingSubView.swift */; };
+		9FDF6ACA2B34905700253D01 /* CwxSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6AC92B34905700253D01 /* CwxSubView.swift */; };
+		9FDF6ACC2B34906400253D01 /* EqualizerSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6ACB2B34906400253D01 /* EqualizerSubView.swift */; };
+		9FDF6ACE2B34907100253D01 /* GpsSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6ACD2B34907100253D01 /* GpsSubView.swift */; };
+		9FDF6AE22B34910900253D01 /* TesterSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDF6AE12B34910900253D01 /* TesterSubView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F0569362B349E5400C950E1 /* TnfSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TnfSubView.swift; sourceTree = "<group>"; };
+		9F0569372B349E5400C950E1 /* TransmitSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmitSubView.swift; sourceTree = "<group>"; };
+		9F05693A2B349F6F00C950E1 /* InterlockSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterlockSubView.swift; sourceTree = "<group>"; };
+		9F05693B2B349F6F00C950E1 /* MemorySubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemorySubView.swift; sourceTree = "<group>"; };
+		9F05693F2B353BDA00C950E1 /* PanadapterSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PanadapterSubView.swift; path = SDRApi/PanadapterSubView.swift; sourceTree = SOURCE_ROOT; };
+		9F0569402B353BDA00C950E1 /* MiscSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiscSubView.swift; path = SDRApi/MiscSubView.swift; sourceTree = SOURCE_ROOT; };
+		9F0569412B353BDA00C950E1 /* MeterSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeterSubView.swift; path = SDRApi/MeterSubView.swift; sourceTree = SOURCE_ROOT; };
+		9F0569422B353BDA00C950E1 /* ProfileSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileSubView.swift; path = SDRApi/ProfileSubView.swift; sourceTree = SOURCE_ROOT; };
+		9F0569432B353BDA00C950E1 /* StreamSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamSubView.swift; path = SDRApi/StreamSubView.swift; sourceTree = SOURCE_ROOT; };
+		9F0569442B353BDA00C950E1 /* MeterStreamSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeterStreamSubView.swift; path = SDRApi/MeterStreamSubView.swift; sourceTree = SOURCE_ROOT; };
+		9F0569452B353BDA00C950E1 /* NetworkSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkSubView.swift; path = SDRApi/NetworkSubView.swift; sourceTree = SOURCE_ROOT; };
+		9F05694D2B353CDF00C950E1 /* XvtrSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XvtrSubView.swift; path = SDRApi/XvtrSubView.swift; sourceTree = SOURCE_ROOT; };
+		9F05694E2B353CDF00C950E1 /* UsbCableSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UsbCableSubView.swift; path = SDRApi/UsbCableSubView.swift; sourceTree = SOURCE_ROOT; };
+		9F05694F2B353CDF00C950E1 /* WaveformSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaveformSubView.swift; path = SDRApi/WaveformSubView.swift; sourceTree = SOURCE_ROOT; };
+		9F0569502B353CDF00C950E1 /* WanSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WanSubView.swift; path = SDRApi/WanSubView.swift; sourceTree = SOURCE_ROOT; };
+		9F06314A2B35DECE00C490E5 /* ViewFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ViewFeatures; path = ../Packages/ViewFeatures; sourceTree = "<group>"; };
+		9F06314B2B3640A500C490E5 /* ApiFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiFeatures; path = ../Packages/ApiFeatures; sourceTree = "<group>"; };
 		9FDF6A6F2B339AA500253D01 /* SDRApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDRApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FDF6A722B339AA500253D01 /* SDRApiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDRApiApp.swift; sourceTree = "<group>"; };
 		9FDF6A742B339AA500253D01 /* ApiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiView.swift; sourceTree = "<group>"; };
 		9FDF6A762B339AA600253D01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FDF6A792B339AA600253D01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9FDF6A7B2B339AA600253D01 /* SDRApi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDRApi.entitlements; sourceTree = "<group>"; };
-		9FDF6A842B339F6C00253D01 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9FDF6A862B33D2E500253D01 /* MessagesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesModel.swift; sourceTree = "<group>"; };
 		9FDF6A882B33D35300253D01 /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		9FDF6A952B33D86600253D01 /* CommonFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CommonFeatures; path = ../Packages/CommonFeatures; sourceTree = "<group>"; };
+		9FDF6A962B3465A000253D01 /* SDRModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDRModel.swift; sourceTree = "<group>"; };
+		9FDF6AB72B348B6C00253D01 /* ObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectModel.swift; sourceTree = "<group>"; };
+		9FDF6AB92B348BBE00253D01 /* ObjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsView.swift; sourceTree = "<group>"; };
+		9FDF6ABD2B348FE000253D01 /* RadioSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioSubView.swift; sourceTree = "<group>"; };
+		9FDF6ABF2B348FF800253D01 /* AmplifierSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmplifierSubView.swift; sourceTree = "<group>"; };
+		9FDF6AC12B348FFF00253D01 /* AtuSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtuSubView.swift; sourceTree = "<group>"; };
+		9FDF6AC52B34900E00253D01 /* GuiClientSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuiClientSubView.swift; sourceTree = "<group>"; };
+		9FDF6AC72B34904700253D01 /* BandSettingSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BandSettingSubView.swift; sourceTree = "<group>"; };
+		9FDF6AC92B34905700253D01 /* CwxSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CwxSubView.swift; sourceTree = "<group>"; };
+		9FDF6ACB2B34906400253D01 /* EqualizerSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EqualizerSubView.swift; sourceTree = "<group>"; };
+		9FDF6ACD2B34907100253D01 /* GpsSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GpsSubView.swift; sourceTree = "<group>"; };
+		9FDF6AE12B34910900253D01 /* TesterSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TesterSubView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,21 +109,69 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FDF6AAE2B346DFD00253D01 /* Panafall in Frameworks */,
+				9FDF6AA82B346DFD00253D01 /* LoginSheet in Frameworks */,
+				9FDF6AB42B346DFD00253D01 /* SidePanel in Frameworks */,
+				9FDF6AA42B346DFD00253D01 /* FlagAntennaPopover in Frameworks */,
 				9FDF6A942B33D56500253D01 /* Udp in Frameworks */,
+				9FDF6AB02B346DFD00253D01 /* PickerSheet in Frameworks */,
+				9FDF6AA02B346DFD00253D01 /* DaxPanel in Frameworks */,
 				9FDF6A922B33D56500253D01 /* Tcp in Frameworks */,
 				9FDF6A8E2B33D56500253D01 /* FlexErrors in Frameworks */,
+				9FDF6A9C2B346DFD00253D01 /* ClientSheet in Frameworks */,
 				9FDF6A8C2B33D56500253D01 /* FlexApi in Frameworks */,
+				9FDF6AB22B346DFD00253D01 /* SettingsPanel in Frameworks */,
+				9FDF6AB62B346DFD00253D01 /* Waterfall in Frameworks */,
+				9FDF6AA62B346DFD00253D01 /* LogViewer in Frameworks */,
+				9FDF6AAA2B346DFD00253D01 /* MonitorControl in Frameworks */,
+				9FDF6AAC2B346DFD00253D01 /* Panadapter in Frameworks */,
+				9FDF6A9E2B346DFD00253D01 /* Dax2Panel in Frameworks */,
 				9FDF6A902B33D56500253D01 /* Listener in Frameworks */,
 				9FDF6A832B339BC900253D01 /* SharedModel in Frameworks */,
+				9FDF6AA22B346DFD00253D01 /* Flag in Frameworks */,
+				9FDF6A9A2B346DFD00253D01 /* AudioPopover in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F05693E2B35385200C950E1 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				9FDF6ABF2B348FF800253D01 /* AmplifierSubView.swift */,
+				9FDF6AC12B348FFF00253D01 /* AtuSubView.swift */,
+				9FDF6AC72B34904700253D01 /* BandSettingSubView.swift */,
+				9FDF6AC92B34905700253D01 /* CwxSubView.swift */,
+				9FDF6ACB2B34906400253D01 /* EqualizerSubView.swift */,
+				9FDF6ACD2B34907100253D01 /* GpsSubView.swift */,
+				9FDF6AC52B34900E00253D01 /* GuiClientSubView.swift */,
+				9F05693A2B349F6F00C950E1 /* InterlockSubView.swift */,
+				9F05693B2B349F6F00C950E1 /* MemorySubView.swift */,
+				9F0569442B353BDA00C950E1 /* MeterStreamSubView.swift */,
+				9F0569412B353BDA00C950E1 /* MeterSubView.swift */,
+				9F0569402B353BDA00C950E1 /* MiscSubView.swift */,
+				9F0569452B353BDA00C950E1 /* NetworkSubView.swift */,
+				9F05693F2B353BDA00C950E1 /* PanadapterSubView.swift */,
+				9F0569422B353BDA00C950E1 /* ProfileSubView.swift */,
+				9FDF6ABD2B348FE000253D01 /* RadioSubView.swift */,
+				9F0569432B353BDA00C950E1 /* StreamSubView.swift */,
+				9FDF6AE12B34910900253D01 /* TesterSubView.swift */,
+				9F0569362B349E5400C950E1 /* TnfSubView.swift */,
+				9F0569372B349E5400C950E1 /* TransmitSubView.swift */,
+				9F05694E2B353CDF00C950E1 /* UsbCableSubView.swift */,
+				9F0569502B353CDF00C950E1 /* WanSubView.swift */,
+				9F05694F2B353CDF00C950E1 /* WaveformSubView.swift */,
+				9F05694D2B353CDF00C950E1 /* XvtrSubView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
 		9FDF6A662B339AA500253D01 = {
 			isa = PBXGroup;
 			children = (
+				9F06314B2B3640A500C490E5 /* ApiFeatures */,
+				9F06314A2B35DECE00C490E5 /* ViewFeatures */,
 				9FDF6A952B33D86600253D01 /* CommonFeatures */,
 				9FDF6A712B339AA500253D01 /* SDRApi */,
 				9FDF6A702B339AA500253D01 /* Products */,
@@ -72,14 +189,17 @@
 		9FDF6A712B339AA500253D01 /* SDRApi */ = {
 			isa = PBXGroup;
 			children = (
+				9F05693E2B35385200C950E1 /* SubViews */,
 				9FDF6A722B339AA500253D01 /* SDRApiApp.swift */,
 				9FDF6A742B339AA500253D01 /* ApiView.swift */,
 				9FDF6A762B339AA600253D01 /* Assets.xcassets */,
 				9FDF6A7B2B339AA600253D01 /* SDRApi.entitlements */,
 				9FDF6A782B339AA600253D01 /* Preview Content */,
-				9FDF6A842B339F6C00253D01 /* SettingsView.swift */,
 				9FDF6A862B33D2E500253D01 /* MessagesModel.swift */,
 				9FDF6A882B33D35300253D01 /* MessagesView.swift */,
+				9FDF6A962B3465A000253D01 /* SDRModel.swift */,
+				9FDF6AB72B348B6C00253D01 /* ObjectModel.swift */,
+				9FDF6AB92B348BBE00253D01 /* ObjectsView.swift */,
 			);
 			path = SDRApi;
 			sourceTree = "<group>";
@@ -115,6 +235,21 @@
 				9FDF6A8F2B33D56500253D01 /* Listener */,
 				9FDF6A912B33D56500253D01 /* Tcp */,
 				9FDF6A932B33D56500253D01 /* Udp */,
+				9FDF6A992B346DFD00253D01 /* AudioPopover */,
+				9FDF6A9B2B346DFD00253D01 /* ClientSheet */,
+				9FDF6A9D2B346DFD00253D01 /* Dax2Panel */,
+				9FDF6A9F2B346DFD00253D01 /* DaxPanel */,
+				9FDF6AA12B346DFD00253D01 /* Flag */,
+				9FDF6AA32B346DFD00253D01 /* FlagAntennaPopover */,
+				9FDF6AA52B346DFD00253D01 /* LogViewer */,
+				9FDF6AA72B346DFD00253D01 /* LoginSheet */,
+				9FDF6AA92B346DFD00253D01 /* MonitorControl */,
+				9FDF6AAB2B346DFD00253D01 /* Panadapter */,
+				9FDF6AAD2B346DFD00253D01 /* Panafall */,
+				9FDF6AAF2B346DFD00253D01 /* PickerSheet */,
+				9FDF6AB12B346DFD00253D01 /* SettingsPanel */,
+				9FDF6AB32B346DFD00253D01 /* SidePanel */,
+				9FDF6AB52B346DFD00253D01 /* Waterfall */,
 			);
 			productName = SDRApi;
 			productReference = 9FDF6A6F2B339AA500253D01 /* SDRApi.app */;
@@ -147,6 +282,7 @@
 			packageReferences = (
 				9FDF6A812B339BC900253D01 /* XCRemoteSwiftPackageReference "CommonFeatures" */,
 				9FDF6A8A2B33D56500253D01 /* XCRemoteSwiftPackageReference "ApiFeatures" */,
+				9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */,
 			);
 			productRefGroup = 9FDF6A702B339AA500253D01 /* Products */;
 			projectDirPath = "";
@@ -174,11 +310,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F05693C2B349F6F00C950E1 /* InterlockSubView.swift in Sources */,
+				9F0569522B353CDF00C950E1 /* UsbCableSubView.swift in Sources */,
+				9FDF6ACC2B34906400253D01 /* EqualizerSubView.swift in Sources */,
+				9FDF6AC22B348FFF00253D01 /* AtuSubView.swift in Sources */,
+				9FDF6AC02B348FF800253D01 /* AmplifierSubView.swift in Sources */,
+				9FDF6ACE2B34907100253D01 /* GpsSubView.swift in Sources */,
+				9F0569512B353CDF00C950E1 /* XvtrSubView.swift in Sources */,
 				9FDF6A892B33D35300253D01 /* MessagesView.swift in Sources */,
-				9FDF6A852B339F6C00253D01 /* SettingsView.swift in Sources */,
+				9FDF6ABE2B348FE000253D01 /* RadioSubView.swift in Sources */,
+				9FDF6ABA2B348BBE00253D01 /* ObjectsView.swift in Sources */,
 				9FDF6A752B339AA500253D01 /* ApiView.swift in Sources */,
+				9FDF6AE22B34910900253D01 /* TesterSubView.swift in Sources */,
+				9F0569392B349E5400C950E1 /* TransmitSubView.swift in Sources */,
+				9F0569462B353BDA00C950E1 /* PanadapterSubView.swift in Sources */,
+				9F0569382B349E5400C950E1 /* TnfSubView.swift in Sources */,
+				9F05694B2B353BDA00C950E1 /* MeterStreamSubView.swift in Sources */,
 				9FDF6A732B339AA500253D01 /* SDRApiApp.swift in Sources */,
+				9F05694C2B353BDA00C950E1 /* NetworkSubView.swift in Sources */,
+				9FDF6AC82B34904700253D01 /* BandSettingSubView.swift in Sources */,
+				9F05694A2B353BDA00C950E1 /* StreamSubView.swift in Sources */,
+				9F0569532B353CDF00C950E1 /* WaveformSubView.swift in Sources */,
+				9F0569542B353CDF00C950E1 /* WanSubView.swift in Sources */,
 				9FDF6A872B33D2E500253D01 /* MessagesModel.swift in Sources */,
+				9FDF6ACA2B34905700253D01 /* CwxSubView.swift in Sources */,
+				9F05693D2B349F6F00C950E1 /* MemorySubView.swift in Sources */,
+				9FDF6AB82B348B6C00253D01 /* ObjectModel.swift in Sources */,
+				9F0569472B353BDA00C950E1 /* MiscSubView.swift in Sources */,
+				9F0569482B353BDA00C950E1 /* MeterSubView.swift in Sources */,
+				9F0569492B353BDA00C950E1 /* ProfileSubView.swift in Sources */,
+				9FDF6AC62B34900E00253D01 /* GuiClientSubView.swift in Sources */,
+				9FDF6A972B3465A000253D01 /* SDRModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +559,14 @@
 				kind = branch;
 			};
 		};
+		9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/K3TZR/ViewFeatures.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -429,6 +599,81 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9FDF6A8A2B33D56500253D01 /* XCRemoteSwiftPackageReference "ApiFeatures" */;
 			productName = Udp;
+		};
+		9FDF6A992B346DFD00253D01 /* AudioPopover */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = AudioPopover;
+		};
+		9FDF6A9B2B346DFD00253D01 /* ClientSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = ClientSheet;
+		};
+		9FDF6A9D2B346DFD00253D01 /* Dax2Panel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = Dax2Panel;
+		};
+		9FDF6A9F2B346DFD00253D01 /* DaxPanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = DaxPanel;
+		};
+		9FDF6AA12B346DFD00253D01 /* Flag */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = Flag;
+		};
+		9FDF6AA32B346DFD00253D01 /* FlagAntennaPopover */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = FlagAntennaPopover;
+		};
+		9FDF6AA52B346DFD00253D01 /* LogViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = LogViewer;
+		};
+		9FDF6AA72B346DFD00253D01 /* LoginSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = LoginSheet;
+		};
+		9FDF6AA92B346DFD00253D01 /* MonitorControl */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = MonitorControl;
+		};
+		9FDF6AAB2B346DFD00253D01 /* Panadapter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = Panadapter;
+		};
+		9FDF6AAD2B346DFD00253D01 /* Panafall */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = Panafall;
+		};
+		9FDF6AAF2B346DFD00253D01 /* PickerSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = PickerSheet;
+		};
+		9FDF6AB12B346DFD00253D01 /* SettingsPanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = SettingsPanel;
+		};
+		9FDF6AB32B346DFD00253D01 /* SidePanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = SidePanel;
+		};
+		9FDF6AB52B346DFD00253D01 /* Waterfall */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDF6A982B346DFD00253D01 /* XCRemoteSwiftPackageReference "ViewFeatures" */;
+			productName = Waterfall;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

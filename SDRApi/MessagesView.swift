@@ -47,7 +47,7 @@ public struct MessagesView: View {
         ScrollView([.vertical, .horizontal]) {
           VStack(alignment: .leading) {
             if messagesModel.filteredMessages.count == 0 {
-              Text("TCP Message will be displayed here")
+              Text("TCP Messages will be displayed here")
             } else {
               Text("Top").hidden()
                 .id(topID)
@@ -77,7 +77,7 @@ public struct MessagesView: View {
       }
       Spacer()
       Divider()
-        .frame(height: 4)
+        .frame(height: 3)
         .background(Color(.gray))
       BottomButtonsView()
     }

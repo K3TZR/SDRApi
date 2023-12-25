@@ -1,21 +1,21 @@
 {
   "pins" : [
     {
-      "identity" : "apifeatures",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/K3TZR/ApiFeatures.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "cd5b8a2aa6a2859bc1f7abc3f55ba9ed8518881a"
-      }
-    },
-    {
       "identity" : "cocoaasyncsocket",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/robbiehanson/CocoaAsyncSocket",
       "state" : {
         "revision" : "dbdc00669c1ced63b27c3c5f052ee4d28f10150c",
         "version" : "7.6.5"
+      }
+    },
+    {
+      "identity" : "customcontrols",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/K3TZR/CustomControls.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "13bfa9913ac704069b2bd480a257306f1ce3fa35"
       }
     },
     {
@@ -43,6 +43,24 @@
       "state" : {
         "revision" : "d1e45f3e1eee2c9193f5369fa9d70a6ddad635e8",
         "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "utilityfeatures",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/K3TZR/UtilityFeatures.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "9418be2021a99c705b5281bac0b79ffaa5dba4c4"
+      }
+    },
+    {
+      "identity" : "xcglogger",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/DaveWoodCom/XCGLogger.git",
+      "state" : {
+        "revision" : "a9c4667b247928a29bdd41be2ec2c8d304215a54",
+        "version" : "7.0.1"
       }
     }
   ],
