@@ -1,0 +1,543 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9FDCEE8D2B5ED1310055FF11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FDCEE8C2B5ED1310055FF11 /* Assets.xcassets */; };
+		9FDCEE902B5ED1310055FF11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FDCEE8F2B5ED1310055FF11 /* Preview Assets.xcassets */; };
+		9FDCEEA32B5ED1720055FF11 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9FDCEE972B5ED1720055FF11 /* README.md */; };
+		9FDCEEA42B5ED1720055FF11 /* SDRApiCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDCEE9A2B5ED1720055FF11 /* SDRApiCore.swift */; };
+		9FDCEEA52B5ED1720055FF11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FDCEE9B2B5ED1720055FF11 /* Assets.xcassets */; };
+		9FDCEEA62B5ED1720055FF11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FDCEE9D2B5ED1720055FF11 /* Preview Assets.xcassets */; };
+		9FDCEEA72B5ED1720055FF11 /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDCEE9F2B5ED1720055FF11 /* SendView.swift */; };
+		9FDCEEA82B5ED1720055FF11 /* TopButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDCEEA02B5ED1720055FF11 /* TopButtonsView.swift */; };
+		9FDCEEA92B5ED1720055FF11 /* SDRApiViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDCEEA12B5ED1720055FF11 /* SDRApiViewerApp.swift */; };
+		9FDCEEAA2B5ED1720055FF11 /* SDRApiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDCEEA22B5ED1720055FF11 /* SDRApiView.swift */; };
+		9FDCEEAD2B5ED1CE0055FF11 /* ClientFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEAC2B5ED1CE0055FF11 /* ClientFeature */; };
+		9FDCEEAF2B5ED1CE0055FF11 /* DirectFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEAE2B5ED1CE0055FF11 /* DirectFeature */; };
+		9FDCEEB12B5ED1CE0055FF11 /* FlexApiFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEB02B5ED1CE0055FF11 /* FlexApiFeature */; };
+		9FDCEEB32B5ED1CE0055FF11 /* ListenerFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEB22B5ED1CE0055FF11 /* ListenerFeature */; };
+		9FDCEEB52B5ED1CE0055FF11 /* LoginFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEB42B5ED1CE0055FF11 /* LoginFeature */; };
+		9FDCEEB72B5ED1CE0055FF11 /* MessagesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEB62B5ED1CE0055FF11 /* MessagesFeature */; };
+		9FDCEEB92B5ED1CE0055FF11 /* ObjectsFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEB82B5ED1CE0055FF11 /* ObjectsFeature */; };
+		9FDCEEBB2B5ED1CE0055FF11 /* PickerFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEBA2B5ED1CE0055FF11 /* PickerFeature */; };
+		9FDCEEBD2B5ED1CE0055FF11 /* RingBufferFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEBC2B5ED1CE0055FF11 /* RingBufferFeature */; };
+		9FDCEEBF2B5ED1CE0055FF11 /* RxAudioFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEBE2B5ED1CE0055FF11 /* RxAudioFeature */; };
+		9FDCEEC12B5ED1CE0055FF11 /* SettingsFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEC02B5ED1CE0055FF11 /* SettingsFeature */; };
+		9FDCEEC32B5ED1CE0055FF11 /* SharedFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEC22B5ED1CE0055FF11 /* SharedFeature */; };
+		9FDCEEC52B5ED1CE0055FF11 /* TcpFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEC42B5ED1CE0055FF11 /* TcpFeature */; };
+		9FDCEEC72B5ED1CE0055FF11 /* UdpFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEC62B5ED1CE0055FF11 /* UdpFeature */; };
+		9FDCEEC92B5ED1CE0055FF11 /* VitaFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEC82B5ED1CE0055FF11 /* VitaFeature */; };
+		9FDCEECB2B5ED1CE0055FF11 /* XCGLogFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEECA2B5ED1CE0055FF11 /* XCGLogFeature */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9FDCEE852B5ED1300055FF11 /* SDRApiViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDRApiViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FDCEE8C2B5ED1310055FF11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9FDCEE8F2B5ED1310055FF11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9FDCEE912B5ED1310055FF11 /* SDRApiViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDRApiViewer.entitlements; sourceTree = "<group>"; };
+		9FDCEE972B5ED1720055FF11 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9FDCEE992B5ED1720055FF11 /* SDRApiViewer.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = SDRApiViewer.entitlements; sourceTree = "<group>"; };
+		9FDCEE9A2B5ED1720055FF11 /* SDRApiCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDRApiCore.swift; sourceTree = "<group>"; };
+		9FDCEE9B2B5ED1720055FF11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9FDCEE9D2B5ED1720055FF11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9FDCEE9F2B5ED1720055FF11 /* SendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
+		9FDCEEA02B5ED1720055FF11 /* TopButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopButtonsView.swift; sourceTree = "<group>"; };
+		9FDCEEA12B5ED1720055FF11 /* SDRApiViewerApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDRApiViewerApp.swift; sourceTree = "<group>"; };
+		9FDCEEA22B5ED1720055FF11 /* SDRApiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDRApiView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9FDCEE822B5ED1300055FF11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FDCEEB12B5ED1CE0055FF11 /* FlexApiFeature in Frameworks */,
+				9FDCEEB72B5ED1CE0055FF11 /* MessagesFeature in Frameworks */,
+				9FDCEEC92B5ED1CE0055FF11 /* VitaFeature in Frameworks */,
+				9FDCEEB32B5ED1CE0055FF11 /* ListenerFeature in Frameworks */,
+				9FDCEEB52B5ED1CE0055FF11 /* LoginFeature in Frameworks */,
+				9FDCEEC32B5ED1CE0055FF11 /* SharedFeature in Frameworks */,
+				9FDCEEC52B5ED1CE0055FF11 /* TcpFeature in Frameworks */,
+				9FDCEEC12B5ED1CE0055FF11 /* SettingsFeature in Frameworks */,
+				9FDCEEAF2B5ED1CE0055FF11 /* DirectFeature in Frameworks */,
+				9FDCEEAD2B5ED1CE0055FF11 /* ClientFeature in Frameworks */,
+				9FDCEEC72B5ED1CE0055FF11 /* UdpFeature in Frameworks */,
+				9FDCEEB92B5ED1CE0055FF11 /* ObjectsFeature in Frameworks */,
+				9FDCEEBD2B5ED1CE0055FF11 /* RingBufferFeature in Frameworks */,
+				9FDCEECB2B5ED1CE0055FF11 /* XCGLogFeature in Frameworks */,
+				9FDCEEBF2B5ED1CE0055FF11 /* RxAudioFeature in Frameworks */,
+				9FDCEEBB2B5ED1CE0055FF11 /* PickerFeature in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9FDCEE7C2B5ED1300055FF11 = {
+			isa = PBXGroup;
+			children = (
+				9FDCEE872B5ED1300055FF11 /* SDRApiViewer */,
+				9FDCEE862B5ED1300055FF11 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9FDCEE862B5ED1300055FF11 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9FDCEE852B5ED1300055FF11 /* SDRApiViewer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9FDCEE872B5ED1300055FF11 /* SDRApiViewer */ = {
+			isa = PBXGroup;
+			children = (
+				9FDCEE972B5ED1720055FF11 /* README.md */,
+				9FDCEE982B5ED1720055FF11 /* SDRApiViewer */,
+				9FDCEE8C2B5ED1310055FF11 /* Assets.xcassets */,
+				9FDCEE912B5ED1310055FF11 /* SDRApiViewer.entitlements */,
+				9FDCEE8E2B5ED1310055FF11 /* Preview Content */,
+			);
+			path = SDRApiViewer;
+			sourceTree = "<group>";
+		};
+		9FDCEE8E2B5ED1310055FF11 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				9FDCEE8F2B5ED1310055FF11 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9FDCEE982B5ED1720055FF11 /* SDRApiViewer */ = {
+			isa = PBXGroup;
+			children = (
+				9FDCEE992B5ED1720055FF11 /* SDRApiViewer.entitlements */,
+				9FDCEE9A2B5ED1720055FF11 /* SDRApiCore.swift */,
+				9FDCEE9B2B5ED1720055FF11 /* Assets.xcassets */,
+				9FDCEE9C2B5ED1720055FF11 /* Preview Content */,
+				9FDCEE9E2B5ED1720055FF11 /* SDRApiSubViews */,
+				9FDCEEA12B5ED1720055FF11 /* SDRApiViewerApp.swift */,
+				9FDCEEA22B5ED1720055FF11 /* SDRApiView.swift */,
+			);
+			path = SDRApiViewer;
+			sourceTree = "<group>";
+		};
+		9FDCEE9C2B5ED1720055FF11 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				9FDCEE9D2B5ED1720055FF11 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9FDCEE9E2B5ED1720055FF11 /* SDRApiSubViews */ = {
+			isa = PBXGroup;
+			children = (
+				9FDCEE9F2B5ED1720055FF11 /* SendView.swift */,
+				9FDCEEA02B5ED1720055FF11 /* TopButtonsView.swift */,
+			);
+			path = SDRApiSubViews;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9FDCEE842B5ED1300055FF11 /* SDRApiViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9FDCEE942B5ED1310055FF11 /* Build configuration list for PBXNativeTarget "SDRApiViewer" */;
+			buildPhases = (
+				9FDCEE812B5ED1300055FF11 /* Sources */,
+				9FDCEE822B5ED1300055FF11 /* Frameworks */,
+				9FDCEE832B5ED1300055FF11 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SDRApiViewer;
+			packageProductDependencies = (
+				9FDCEEAC2B5ED1CE0055FF11 /* ClientFeature */,
+				9FDCEEAE2B5ED1CE0055FF11 /* DirectFeature */,
+				9FDCEEB02B5ED1CE0055FF11 /* FlexApiFeature */,
+				9FDCEEB22B5ED1CE0055FF11 /* ListenerFeature */,
+				9FDCEEB42B5ED1CE0055FF11 /* LoginFeature */,
+				9FDCEEB62B5ED1CE0055FF11 /* MessagesFeature */,
+				9FDCEEB82B5ED1CE0055FF11 /* ObjectsFeature */,
+				9FDCEEBA2B5ED1CE0055FF11 /* PickerFeature */,
+				9FDCEEBC2B5ED1CE0055FF11 /* RingBufferFeature */,
+				9FDCEEBE2B5ED1CE0055FF11 /* RxAudioFeature */,
+				9FDCEEC02B5ED1CE0055FF11 /* SettingsFeature */,
+				9FDCEEC22B5ED1CE0055FF11 /* SharedFeature */,
+				9FDCEEC42B5ED1CE0055FF11 /* TcpFeature */,
+				9FDCEEC62B5ED1CE0055FF11 /* UdpFeature */,
+				9FDCEEC82B5ED1CE0055FF11 /* VitaFeature */,
+				9FDCEECA2B5ED1CE0055FF11 /* XCGLogFeature */,
+			);
+			productName = SDRTestViewer;
+			productReference = 9FDCEE852B5ED1300055FF11 /* SDRApiViewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9FDCEE7D2B5ED1300055FF11 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					9FDCEE842B5ED1300055FF11 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+				};
+			};
+			buildConfigurationList = 9FDCEE802B5ED1300055FF11 /* Build configuration list for PBXProject "SDRApiViewer" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9FDCEE7C2B5ED1300055FF11;
+			packageReferences = (
+				9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */,
+			);
+			productRefGroup = 9FDCEE862B5ED1300055FF11 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9FDCEE842B5ED1300055FF11 /* SDRApiViewer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9FDCEE832B5ED1300055FF11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FDCEEA32B5ED1720055FF11 /* README.md in Resources */,
+				9FDCEE902B5ED1310055FF11 /* Preview Assets.xcassets in Resources */,
+				9FDCEEA62B5ED1720055FF11 /* Preview Assets.xcassets in Resources */,
+				9FDCEEA52B5ED1720055FF11 /* Assets.xcassets in Resources */,
+				9FDCEE8D2B5ED1310055FF11 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9FDCEE812B5ED1300055FF11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FDCEEAA2B5ED1720055FF11 /* SDRApiView.swift in Sources */,
+				9FDCEEA82B5ED1720055FF11 /* TopButtonsView.swift in Sources */,
+				9FDCEEA72B5ED1720055FF11 /* SendView.swift in Sources */,
+				9FDCEEA92B5ED1720055FF11 /* SDRApiViewerApp.swift in Sources */,
+				9FDCEEA42B5ED1720055FF11 /* SDRApiCore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9FDCEE922B5ED1310055FF11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9FDCEE932B5ED1310055FF11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		9FDCEE952B5ED1310055FF11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SDRApiViewer/SDRApiViewer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"SDRApiViewer/Preview Content\"";
+				DEVELOPMENT_TEAM = EE5B8TYXGA;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.k3tzr.SDRApiViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		9FDCEE962B5ED1310055FF11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SDRApiViewer/SDRApiViewer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"SDRApiViewer/Preview Content\"";
+				DEVELOPMENT_TEAM = EE5B8TYXGA;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.k3tzr.SDRApiViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9FDCEE802B5ED1300055FF11 /* Build configuration list for PBXProject "SDRApiViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FDCEE922B5ED1310055FF11 /* Debug */,
+				9FDCEE932B5ED1310055FF11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9FDCEE942B5ED1310055FF11 /* Build configuration list for PBXNativeTarget "SDRApiViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FDCEE952B5ED1310055FF11 /* Debug */,
+				9FDCEE962B5ED1310055FF11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/K3TZR/SDRApiFeatures.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9FDCEEAC2B5ED1CE0055FF11 /* ClientFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = ClientFeature;
+		};
+		9FDCEEAE2B5ED1CE0055FF11 /* DirectFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = DirectFeature;
+		};
+		9FDCEEB02B5ED1CE0055FF11 /* FlexApiFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = FlexApiFeature;
+		};
+		9FDCEEB22B5ED1CE0055FF11 /* ListenerFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = ListenerFeature;
+		};
+		9FDCEEB42B5ED1CE0055FF11 /* LoginFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = LoginFeature;
+		};
+		9FDCEEB62B5ED1CE0055FF11 /* MessagesFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = MessagesFeature;
+		};
+		9FDCEEB82B5ED1CE0055FF11 /* ObjectsFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = ObjectsFeature;
+		};
+		9FDCEEBA2B5ED1CE0055FF11 /* PickerFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = PickerFeature;
+		};
+		9FDCEEBC2B5ED1CE0055FF11 /* RingBufferFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = RingBufferFeature;
+		};
+		9FDCEEBE2B5ED1CE0055FF11 /* RxAudioFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = RxAudioFeature;
+		};
+		9FDCEEC02B5ED1CE0055FF11 /* SettingsFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = SettingsFeature;
+		};
+		9FDCEEC22B5ED1CE0055FF11 /* SharedFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = SharedFeature;
+		};
+		9FDCEEC42B5ED1CE0055FF11 /* TcpFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = TcpFeature;
+		};
+		9FDCEEC62B5ED1CE0055FF11 /* UdpFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = UdpFeature;
+		};
+		9FDCEEC82B5ED1CE0055FF11 /* VitaFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = VitaFeature;
+		};
+		9FDCEECA2B5ED1CE0055FF11 /* XCGLogFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
+			productName = XCGLogFeature;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 9FDCEE7D2B5ED1300055FF11 /* Project object */;
+}
