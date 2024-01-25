@@ -28,15 +28,6 @@
       }
     },
     {
-      "identity" : "sdrapifeatures",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/K3TZR/SDRApiFeatures.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "ba7b9ccd3a9f6acf4009989205c600e911d72f1e"
-      }
-    },
-    {
       "identity" : "swift-case-paths",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-case-paths",
@@ -149,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
       "state" : {
-        "revision" : "23cbf2294e350076ea4dbd7d5d047c1e76b03631",
-        "version" : "1.0.2"
+        "revision" : "89a3632e62e817436df2900f6caf86c965a93501",
+        "version" : "1.0.3"
       }
     }
   ],

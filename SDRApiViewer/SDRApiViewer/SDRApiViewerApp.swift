@@ -39,7 +39,7 @@ struct SDRApiViewerApp: App {
   var appDelegate
   
   @State var apiModel = ApiModel.shared
-  @State var listener = Listener.shared
+  @State var listenerModel = ListenerModel.shared
   @State var messagesModel = MessagesModel.shared
   @State var settingsModel = SettingsModel.shared
 
@@ -49,7 +49,7 @@ struct SDRApiViewerApp: App {
         SDRApi()
       })
       .environment(apiModel)
-      .environment(listener)
+      .environment(listenerModel)
       .environment(messagesModel)
       .environment(settingsModel)
     }

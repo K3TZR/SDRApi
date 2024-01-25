@@ -73,9 +73,9 @@ public struct TopButtonsView: View {
       .disabled(store.connectionState != .disconnected)
       
       Group {
-        Toggle(isOn: $settings.loginRequired) {
+        Toggle(isOn: $settings.smartlinkLoginRequired) {
           Text("Smartlink Login")
-        }.disabled( store.connectionState != .disconnected || settingsModel.smartlinkEnabled == false )
+        }.disabled( store.connectionState != .disconnected)
         
         Toggle("Use Default", isOn: $settings.useDefault)
           .disabled( store.connectionState != .disconnected )

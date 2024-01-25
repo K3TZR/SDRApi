@@ -74,6 +74,7 @@ public struct SDRApi {
     case showAlert(Alert,String)
     case showClientSheet(String, IdentifiedArrayOf<GuiClient>)
     case showDirectSheet
+    case showLogAlert(LogEntry)
     case showLoginSheet
     case showPickerSheet
     
@@ -110,7 +111,10 @@ public struct SDRApi {
         
       case .onAppear:
         // perform initialization
-        return initState(&state)
+        return .merge(
+          initState(&state),
+          subscribeToLogAlerts()
+        )
         
       case .clearSendTextButtonTapped:
         // clear the command field
@@ -197,8 +201,13 @@ public struct SDRApi {
         state.showDirect = DirectFeature.State(ip: SettingsModel.shared.isGui ? SettingsModel.shared.directGuiIp : SettingsModel.shared.directNonGuiIp)
         return .none
         
+      case let .showLogAlert(logEntry):
+//        print("----->>>>> LogAlert, \(logEntry)")
+        state.showAlert = AlertState(title: TextState("\(logEntry.level == .warning ? "A Warning" : "An Error") was logged:"), message: TextState(logEntry.msg))
+        return .none
+        
       case .showLoginSheet:
-        state.showLogin = LoginFeature.State()
+        state.showLogin = LoginFeature.State(user: SettingsModel.shared.smartlinkUser)
         return .none
         
       case .showPickerSheet:
@@ -317,7 +326,7 @@ public struct SDRApi {
   }
   
   private func connect(_ state: State, _ selection: String, _ disconnectHandle: UInt32?) -> Effect<SDRApi.Action> {
-    Listener.shared.setActive(SettingsModel.shared.isGui, selection)
+    ListenerModel.shared.setActive(SettingsModel.shared.isGui, selection)
     return .run {
       // attempt to connect to the selected Radio / Station
       do {
@@ -364,7 +373,7 @@ public struct SDRApi {
         return .run { 
           if SettingsModel.shared.useDefault {
             // LOCAL/SMARTLINK mode connection using the Default, is there a valid? Default
-            if Listener.shared.isValidDefault(for: SettingsModel.shared.guiDefault, SettingsModel.shared.nonGuiDefault, SettingsModel.shared.isGui) {
+            if ListenerModel.shared.isValidDefault(for: SettingsModel.shared.guiDefault, SettingsModel.shared.nonGuiDefault, SettingsModel.shared.isGui) {
               // YES, valid default
               if SettingsModel.shared.isGui {
                 await $0(.multiflexStatus(SettingsModel.shared.guiDefault!))
@@ -428,6 +437,8 @@ public struct SDRApi {
       // instantiate the Logger, use the group defaults (not the Standard)
       _ = XCGWrapper(logLevel: .debug, group: "group.net.k3tzr.flexapps")
       
+//      subscribeToLogAlerts()
+      
       state.objects = ObjectsFeature.State(connectionState: state.connectionState)
       
       // mark as initialized
@@ -441,10 +452,37 @@ public struct SDRApi {
   // start/stop listener, as needed
   private func listenerStartStop(_ state: State) -> Effect<SDRApi.Action> {
     return .run {
-      Listener.shared.previousIdToken = SettingsModel.shared.smartlinkIdToken
-      Listener.shared.localMode(SettingsModel.shared.localEnabled)
-      if await !Listener.shared.smartlinkMode(SettingsModel.shared.smartlinkEnabled , SettingsModel.shared.smartlinkUser, SettingsModel.shared.loginRequired) {
-        await $0(.showLoginSheet)
+      // start/stop local mode
+      ListenerModel.shared.localMode(SettingsModel.shared.localEnabled)
+      
+      // start smartlink mode?
+      if SettingsModel.shared.smartlinkEnabled {
+        
+        if SettingsModel.shared.smartlinkLoginRequired || SettingsModel.shared.smartlinkUser.isEmpty {
+          // YES but login required or no user
+          SettingsModel.shared.previousIdToken = nil
+          SettingsModel.shared.refreshToken = nil
+          await $0(.showLoginSheet)
+          
+        } else {
+          // YES, try
+          let tokens = await ListenerModel.shared.smartlinkMode(SettingsModel.shared.smartlinkUser,
+                                                             SettingsModel.shared.smartlinkLoginRequired,
+                                                             SettingsModel.shared.previousIdToken,
+                                                             SettingsModel.shared.refreshToken)
+          if tokens.idToken != nil {
+            // success
+            SettingsModel.shared.previousIdToken = tokens.idToken
+            SettingsModel.shared.refreshToken = tokens.refreshToken
+          } else {
+            // failure
+            SettingsModel.shared.previousIdToken = nil
+            SettingsModel.shared.refreshToken = nil
+          }
+        }
+        
+      } else {
+        ListenerModel.shared.removePackets(condition: {$0.source == .smartlink})
       }
     }
   }
@@ -453,7 +491,7 @@ public struct SDRApi {
     return .run {
       if SettingsModel.shared.isGui {
         // GUI selection
-        if let selectedPacket = Listener.shared.packets[id: selection] {
+        if let selectedPacket = ListenerModel.shared.packets[id: selection] {
           
           // Gui connection with other stations?
           if selectedPacket.guiClients.count > 0 {
@@ -518,16 +556,24 @@ public struct SDRApi {
   private func smartlinkUserLogin(_ state: inout State, _ user: String, _ password: String) -> Effect<SDRApi.Action> {
     SettingsModel.shared.smartlinkUser = user
     return .run {
-      if await !Listener.shared.startSmartlink(user, password) {
+      let tokens = await ListenerModel.shared.smartlinkStart(user, password)
+      if tokens.idToken != nil {
+        SettingsModel.shared.previousIdToken = tokens.idToken
+        SettingsModel.shared.refreshToken = tokens.refreshToken
+      } else {
+        SettingsModel.shared.previousIdToken = nil
+        SettingsModel.shared.refreshToken = nil
         await $0(.showAlert(.smartlinkLoginFailed, "for user \(user)"))
       }
     }
   }
   
-//  private func testButton(_ selection: String) -> Effect<SDRApi.Action> {
-//    return .run {
-//      Listener.shared.smartlinkTest(selection)
-//      await $0(.showPickerSheet)
-//    }
-//  }
+  private func subscribeToLogAlerts() ->  Effect<SDRApi.Action>  {
+    return .run {
+      for await entry in logAlerts {
+        // a Warning or Error has been logged.
+        await $0(.showLogAlert(entry))
+      }
+    }
+  }
 }
