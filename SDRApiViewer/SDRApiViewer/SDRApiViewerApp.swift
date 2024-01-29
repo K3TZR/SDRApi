@@ -9,7 +9,6 @@ import SwiftUI
 
 import FlexApiFeature
 import ListenerFeature
-import MessagesFeature
 import SettingsFeature
 import SharedFeature
 
@@ -23,7 +22,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
     
   func applicationWillTerminate(_ notification: Notification) {
-    SettingsModel.shared.save()
     ApiModel.shared.disconnect()
     log("SDRApiViewer: application terminated", .debug, #function, #file, #line)
   }
@@ -40,7 +38,6 @@ struct SDRApiViewerApp: App {
   
   @State var apiModel = ApiModel.shared
   @State var listenerModel = ListenerModel.shared
-  @State var messagesModel = MessagesModel.shared
   @State var settingsModel = SettingsModel.shared
 
   var body: some Scene {
@@ -50,7 +47,6 @@ struct SDRApiViewerApp: App {
       })
       .environment(apiModel)
       .environment(listenerModel)
-      .environment(messagesModel)
       .environment(settingsModel)
     }
   }

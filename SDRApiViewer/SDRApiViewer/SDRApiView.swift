@@ -11,26 +11,25 @@ import SwiftUI
 import ClientFeature
 import DirectFeature
 import LoginFeature
-import MessagesFeature
-import ObjectsFeature
 import PickerFeature
+import SettingsFeature
 
 struct SDRApiView: View {
   @Bindable var store: StoreOf<SDRApi>
-      
+    
+  @Environment(SettingsModel.self) var settingsModel
+  
   var body: some View {
-    Grid(alignment: .leading, horizontalSpacing: 20) {
+    VStack(alignment: .leading) {
       TopButtonsView(store: store)
       SendView(store: store)
       Divider().background(Color(.gray))
       
       VSplitView {
-        ObjectsView(store: self.store.scope(state: \.objects, action: \.objects))
+        ObjectsView(store: store)
         Divider().background(Color(.cyan))
           .padding(.vertical, 10)
-        MessagesView(store: Store(initialState: MessagesFeature.State()) {
-          MessagesFeature()
-        })
+        MessagesView(store: store)
       }
     }
     

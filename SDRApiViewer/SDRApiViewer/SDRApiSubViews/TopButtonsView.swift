@@ -8,23 +8,19 @@
 import ComposableArchitecture
 import SwiftUI
 
-import SettingsFeature
-
 public struct TopButtonsView: View {
   @Bindable var store: StoreOf<SDRApi>
-  
-  @Environment(SettingsModel.self) var settingsModel
-  
+    
   var buttonText: String {
     switch store.connectionState {
     case .disconnected: "Connect"
-    case .connected:  "Disconnect"
+    case .connected: "Disconnect"
     default: "waiting"
     }
   }
 
   var buttonDisable: Bool {
-    guard settingsModel.directEnabled || settingsModel.localEnabled || settingsModel.smartlinkEnabled else { return true }
+    guard store.directEnabled || store.localEnabled || store.smartlinkEnabled else { return true }
     switch store.connectionState {
     case .disconnected: return false
     case .connected:  return false
@@ -33,61 +29,57 @@ public struct TopButtonsView: View {
   }
 
   public var body: some View {
-    @Bindable var settings = settingsModel
     
-    GridRow {
+    HStack(spacing: 30) {
       // Connection initiation
       Button(buttonText) {
         store.send(.connectButtonTapped)
       }
-      .background(Color(.green).opacity(0.3))
+      .background(Color(.green).opacity(0.2))
       .frame(width: 100)
       .disabled(buttonDisable)
       
-      ControlGroup {
-        Toggle(isOn: Binding(get: { settingsModel.isGui}, set: {settingsModel.isGui = $0})) {
-          Text("Gui") }
-        Toggle(isOn: Binding(get: { !settingsModel.isGui}, set: {settingsModel.isGui = !$0})) {
-          Text("Non-Gui") }
-      }
-      .frame(width: 130)
+      Toggle("Gui", isOn: $store.isGui)
+        .toggleStyle(.button)
  
-      ControlGroup {
-        Toggle(isOn: $settings.remoteRxAudioEnabled) {
-          Text("Rx Audio") }
-        Toggle(isOn: $settings.remoteTxAudioEnabled) {
-          Text("Tx Audio") }.disabled(true)
-      }
-      .frame(width: 130)
-      
       // Connection types
       ControlGroup {
-        Toggle(isOn: $settings.directEnabled) {
-          Text("Direct") }.disabled(true)
-        Toggle(isOn: $settings.localEnabled) {
+        Toggle(isOn: $store.directEnabled) {
+          Text("Direct") }
+        Toggle(isOn: $store.localEnabled) {
           Text("Local") }
-        Toggle(isOn: $settings.smartlinkEnabled) {
+        Toggle(isOn: $store.smartlinkEnabled) {
           Text("Smartlink") }
       }
       .frame(width: 180)
       .disabled(store.connectionState != .disconnected)
       
       Group {
-        Toggle(isOn: $settings.smartlinkLoginRequired) {
-          Text("Smartlink Login")
-        }.disabled( store.connectionState != .disconnected)
+        Toggle("Smartlink Login", isOn: $store.smartlinkLoginRequired)
+          .disabled( store.connectionState != .disconnected)
         
-        Toggle("Use Default", isOn: $settings.useDefault)
+        Spacer()
+        
+        ControlGroup {
+          Toggle(isOn: $store.remoteRxAudioEnabled) {
+            Text("Rx Audio") }
+          Toggle(isOn: $store.remoteTxAudioEnabled) {
+            Text("Tx Audio") }.disabled(true)
+        }
+        .frame(width: 130)
+        
+        Toggle("Use Default", isOn: $store.useDefaultEnabled)
           .disabled( store.connectionState != .disconnected )
+
+        Toggle("Alert on Error", isOn: $store.alertOnError)
+        
+        HStack(spacing: 5) {
+          Stepper("Font Size", value: $store.fontSize, in: 8...14)
+          Text(store.fontSize, format: .number).frame(alignment: .leading)
+        }
       }
       .toggleStyle(.button)
-      .frame(width: 120, alignment: .leading)
     }
-    .onChange(of: settingsModel.remoteRxAudioEnabled) { store.send(.remoteRxAudioEnabledChanged) }
-    .onChange(of: settingsModel.remoteTxAudioEnabled) { store.send(.remoteTxAudioEnabledChanged) }
-    .onChange(of: settingsModel.directEnabled) { store.send(.directEnabledChanged) }
-    .onChange(of: settingsModel.localEnabled) { store.send(.localEnabledChanged) }
-    .onChange(of: settingsModel.smartlinkEnabled) { store.send(.smartlinkEnabledChanged) }
   }
 }
 
