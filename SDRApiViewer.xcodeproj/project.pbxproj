@@ -52,7 +52,6 @@
 		9FDCEEBB2B5ED1CE0055FF11 /* PickerFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEBA2B5ED1CE0055FF11 /* PickerFeature */; };
 		9FDCEEBD2B5ED1CE0055FF11 /* RingBufferFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEBC2B5ED1CE0055FF11 /* RingBufferFeature */; };
 		9FDCEEBF2B5ED1CE0055FF11 /* RxAudioFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEBE2B5ED1CE0055FF11 /* RxAudioFeature */; };
-		9FDCEEC12B5ED1CE0055FF11 /* SettingsFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEC02B5ED1CE0055FF11 /* SettingsFeature */; };
 		9FDCEEC32B5ED1CE0055FF11 /* SharedFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEC22B5ED1CE0055FF11 /* SharedFeature */; };
 		9FDCEEC52B5ED1CE0055FF11 /* TcpFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEC42B5ED1CE0055FF11 /* TcpFeature */; };
 		9FDCEEC72B5ED1CE0055FF11 /* UdpFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEC62B5ED1CE0055FF11 /* UdpFeature */; };
@@ -115,7 +114,6 @@
 				9FDCEEB52B5ED1CE0055FF11 /* LoginFeature in Frameworks */,
 				9FDCEEC32B5ED1CE0055FF11 /* SharedFeature in Frameworks */,
 				9FDCEEC52B5ED1CE0055FF11 /* TcpFeature in Frameworks */,
-				9FDCEEC12B5ED1CE0055FF11 /* SettingsFeature in Frameworks */,
 				9FDCEEAF2B5ED1CE0055FF11 /* DirectFeature in Frameworks */,
 				9FDCEEAD2B5ED1CE0055FF11 /* ClientFeature in Frameworks */,
 				9FDCEEC72B5ED1CE0055FF11 /* UdpFeature in Frameworks */,
@@ -257,7 +255,6 @@
 				9FDCEEBA2B5ED1CE0055FF11 /* PickerFeature */,
 				9FDCEEBC2B5ED1CE0055FF11 /* RingBufferFeature */,
 				9FDCEEBE2B5ED1CE0055FF11 /* RxAudioFeature */,
-				9FDCEEC02B5ED1CE0055FF11 /* SettingsFeature */,
 				9FDCEEC22B5ED1CE0055FF11 /* SharedFeature */,
 				9FDCEEC42B5ED1CE0055FF11 /* TcpFeature */,
 				9FDCEEC62B5ED1CE0055FF11 /* UdpFeature */,
@@ -396,6 +393,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -459,6 +457,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -488,7 +487,8 @@
 				CODE_SIGN_ENTITLEMENTS = SDRApiViewer/SDRApiViewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SDRApiViewer/Preview Content\"";
 				DEVELOPMENT_TEAM = EE5B8TYXGA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -515,7 +515,8 @@
 				CODE_SIGN_ENTITLEMENTS = SDRApiViewer/SDRApiViewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SDRApiViewer/Preview Content\"";
 				DEVELOPMENT_TEAM = EE5B8TYXGA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -608,11 +609,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
 			productName = RxAudioFeature;
-		};
-		9FDCEEC02B5ED1CE0055FF11 /* SettingsFeature */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
-			productName = SettingsFeature;
 		};
 		9FDCEEC22B5ED1CE0055FF11 /* SharedFeature */ = {
 			isa = XCSwiftPackageProductDependency;

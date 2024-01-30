@@ -12,13 +12,10 @@ import ClientFeature
 import DirectFeature
 import LoginFeature
 import PickerFeature
-import SettingsFeature
 
 struct SDRApiView: View {
   @Bindable var store: StoreOf<SDRApi>
-    
-  @Environment(SettingsModel.self) var settingsModel
-  
+      
   var body: some View {
     VStack(alignment: .leading) {
       TopButtonsView(store: store)

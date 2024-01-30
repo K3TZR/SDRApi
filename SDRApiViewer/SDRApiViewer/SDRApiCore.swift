@@ -101,6 +101,7 @@ public struct SDRApi {
     case multiflexStatus(String)
     case connect(String, UInt32?)
     case connectionStatus(ConnectionState)
+    case saveTokens(Tokens)
     case showAlert(Alert,String)
     case showClientSheet(String, IdentifiedArrayOf<GuiClient>)
     case showDirectSheet
@@ -131,14 +132,6 @@ public struct SDRApi {
   public var body: some ReducerOf<Self> {
     BindingReducer()
     
-//    Scope(state: \.messages, action: \.messages) {
-//      MessagesFeature()
-//    }
-
-//    Scope(state: \.objects, action: \.objects) {
-//      ObjectsFeature()
-//    }
-
     Reduce { state, action in
       switch action {
         
@@ -181,7 +174,7 @@ public struct SDRApi {
         
       case .clearFilterTextTapped:
         state.messageFilterText = ""
-        MessagesModel.shared.reFilter()
+        MessagesModel.shared.reFilter(filterText: state.messageFilterText)
         return .none
 
       case .saveButtonTapped:
@@ -189,22 +182,6 @@ public struct SDRApi {
 
         // ----------------------------------------------------------------------------
         // MARK: - Root Binding Actions
-        
-//      case .binding(\.alertOnError):
-//        SettingsModel.shared.alertOnError = state.alertOnError
-//        return .none
-        
-//      case .binding(\.clearOnSend):
-//        SettingsModel.shared.clearOnSend = state.clearOnSend
-//        return .none
-        
-//      case .binding(\.commandToSend):
-//        SettingsModel.shared.commandToSend = state.commandToSend
-//        return .none
-        
-//      case .binding(\.fontSize):
-//        SettingsModel.shared.fontSize = state.fontSize
-//        return .none
         
       case .binding(\.directEnabled):
         state.localEnabled = false
@@ -217,13 +194,17 @@ public struct SDRApi {
           return .none
         }
         
-      case .binding(\.isGui):
-        return .none
-        
-        
       case .binding(\.localEnabled):
         state.directEnabled = false
         return listenerStartStop(&state)
+        
+      case .binding(\.messageFilter):
+        MessagesModel.shared.reFilter(filter: state.messageFilter)
+        return .none
+        
+      case .binding(\.messageFilterText):
+        MessagesModel.shared.reFilter(filterText: state.messageFilterText)
+        return .none
         
       case .binding(\.remoteRxAudioEnabled):
         return remoteRxAudioStartStop(state)
@@ -231,31 +212,19 @@ public struct SDRApi {
       case .binding(\.remoteTxAudioEnabled):
         return remoteTxAudioStartStop(state)
         
+      case .binding(\.showPings):
+        MessagesModel.shared.showPings = state.showPings
+        return .none
+
       case .binding(\.smartlinkEnabled):
         state.directEnabled = false
         return listenerStartStop(&state)
         
-      case .binding(\.smartlinkLoginRequired):
-        return .none
-        
-      case .binding(\.fontSize):
-        return .none
-                
-      case .binding(\.clearOnSend):
-        return .none
-
-      case .binding(\.commandToSend):
-        return .none
-
       case .binding(_):
         return .none
         
         // ----------------------------------------------------------------------------
         // MARK: - Effect Actions
-        
-      case let .multiflexStatus(selection):
-        // check for need to show Client view
-        return multiflexStatus(state, selection)
         
       case let .connect(selection, disconnectHandle):
         // connect and optionally disconnect another client
@@ -264,6 +233,22 @@ public struct SDRApi {
       case let .connectionStatus(status):
         // identify new state and take appropriate action(s)
         return connectionStatus(&state, status)
+        
+      case let .multiflexStatus(selection):
+        // check for need to show Client view
+        return multiflexStatus(state, selection)
+        
+      case let .saveTokens(tokens):
+        if tokens.idToken != nil {
+          // success
+          state.previousIdToken = tokens.idToken
+          state.refreshToken = tokens.refreshToken
+        } else {
+          // failure
+          state.previousIdToken = nil
+          state.refreshToken = nil
+        }
+        return .none
         
         // ----------------------------------------------------------------------------
         // MARK: - Presented Views
@@ -368,50 +353,6 @@ public struct SDRApi {
 
       case .picker(_):
         return .none
-               
-        // ----------------------------------------------------------------------------
-        // MARK: - Objects Actions (cause values to be persisted)
-        
-//      case .objects(_):
-//        return .none
-        
-        // ----------------------------------------------------------------------------
-        // MARK: - Messages Actions (cause values to be persisted)
-        
-//      case .messages(.binding(\.messageFilter)):
-//        SettingsModel.shared.messageFilter = state.messages.messageFilter
-//        return .none
-//        
-//      case .messages(.binding(\.messageFilterText)):
-//        SettingsModel.shared.messageFilterText = state.messages.messageFilterText
-//        return .none
-//        
-//      case .messages(.binding(\.gotoTop)):
-//        SettingsModel.shared.gotoTop = state.messages.gotoTop
-//        return .none
-//        
-//      case .messages(.binding(\.clearOnStart)):
-//        SettingsModel.shared.clearOnStart = state.messages.clearOnStart
-//        return .none
-//        
-//      case .messages(.binding(\.clearOnStop)):
-//        SettingsModel.shared.clearOnStop = state.messages.clearOnStop
-//        return .none
-//        
-//      case .messages(.binding(\.showTimes)):
-//        SettingsModel.shared.showTimes = state.messages.showTimes
-//        return .none
-//        
-//      case .messages(.binding(\.fontSize)):
-////        SettingsModel.shared.fontSize = state.messages.fontSize
-//        return .none
-//        
-//      case .messages(.binding(\.showPings)):
-//        SettingsModel.shared.showPings = state.messages.showPings
-//        return .none
-//        
-//      case .messages(_):
-//        return .none
       }
     }
 
@@ -425,7 +366,6 @@ public struct SDRApi {
     .ifLet(\.$showPicker, action: /Action.picker) { PickerFeature() }
   }
   
-  // ----------------------------------------------------------------------------
   // ----------------------------------------------------------------------------
   // MARK: - Private effect methods
   
@@ -480,8 +420,8 @@ public struct SDRApi {
   private func connectionStartStop(_ state: State)  -> Effect<SDRApi.Action> {
     if state.connectionState == .connected {
       // ----- STOPPING -----
-      MessagesModel.shared.stop()
-      return .run { 
+      MessagesModel.shared.stop(state.clearOnStop)
+      return .run {
         if state.remoteRxAudioEnabled { await remoteRxAudioStop(state) }
         await ApiModel.shared.disconnect()
         await $0(.connectionStatus(.disconnected))
@@ -489,7 +429,7 @@ public struct SDRApi {
       
     } else {
       // ----- STARTING -----
-      MessagesModel.shared.start()
+      MessagesModel.shared.start(state.clearOnStart)
       if state.directEnabled {
         // DIRECT Mode
         return .run {
@@ -607,8 +547,6 @@ public struct SDRApi {
       // instantiate the Logger, use the group defaults (not the Standard)
       _ = XCGWrapper(logLevel: .debug, group: "group.net.k3tzr.flexapps")
       
-//      subscribeToLogAlerts()
-      
       // mark as initialized
       state.initialized = true
       
@@ -635,20 +573,12 @@ public struct SDRApi {
         
       } else {
         // YES, try
-        return .run { [state] _ in
+        return .run { [state] in
           let tokens = await ListenerModel.shared.smartlinkMode(state.smartlinkUser,
                                                                 state.smartlinkLoginRequired,
                                                                 state.previousIdToken,
                                                                 state.refreshToken)
-          //          if tokens.idToken != nil {
-          //            // success
-          //            state.previousIdToken = tokens.idToken
-          //            state.refreshToken = tokens.refreshToken      // FIXME: need to save tokens ???
-          //          } else {
-          //            // failure
-          //            state.previousIdToken = nil
-          //            state.refreshToken = nil
-          //          }
+          await $0(.saveTokens(tokens))
         }
       }
     } else {
@@ -749,24 +679,17 @@ public struct SDRApi {
 
   private func smartlinkUserLogin(_ state: inout State, _ user: String, _ password: String) -> Effect<SDRApi.Action> {
     state.smartlinkUser = user
-    return .run { _ in
+    return .run {
       let tokens = await ListenerModel.shared.smartlinkStart(user, password)
-//      if tokens.idToken != nil {
-//        state.previousIdToken = tokens.idToken
-//        state.refreshToken = tokens.refreshToken            // FIXME: save tokens
-//      } else {
-//        state.previousIdToken = nil
-//        state.refreshToken = nil
-//        await $0(.showAlert(.smartlinkLoginFailed, "for user \(user)"))
-//      }
+      await $0(.saveTokens(tokens))
     }
   }
   
   private func subscribeToLogAlerts() ->  Effect<SDRApi.Action>  {
     return .run {
-      for await entry in logAlerts {
+      for await logEntry in logAlerts {
         // a Warning or Error has been logged.
-        await $0(.showLogAlert(entry))
+        await $0(.showLogAlert(logEntry))
       }
     }
   }

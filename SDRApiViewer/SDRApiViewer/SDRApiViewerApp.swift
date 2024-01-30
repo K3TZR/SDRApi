@@ -9,7 +9,6 @@ import SwiftUI
 
 import FlexApiFeature
 import ListenerFeature
-import SettingsFeature
 import SharedFeature
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
@@ -38,7 +37,6 @@ struct SDRApiViewerApp: App {
   
   @State var apiModel = ApiModel.shared
   @State var listenerModel = ListenerModel.shared
-  @State var settingsModel = SettingsModel.shared
 
   var body: some Scene {
     WindowGroup("SDRApiViewer  (v" + Version().string + ")") {
@@ -47,7 +45,6 @@ struct SDRApiViewerApp: App {
       })
       .environment(apiModel)
       .environment(listenerModel)
-      .environment(settingsModel)
     }
   }
 }

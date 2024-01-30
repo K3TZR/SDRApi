@@ -10,7 +10,6 @@ import SwiftUI
 
 import FlexApiFeature
 import ListenerFeature
-import SettingsFeature
 import SharedFeature
 
 // ----------------------------------------------------------------------------
