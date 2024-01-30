@@ -22,3 +22,13 @@ Please send any bugs / comments / questions to support@k3tzr.net
 ##### Components
 [SDRApiFeatures](https://github.com/K3TZR/SDRApiFeatures.git)
 
+##### Credits
+[CocoaAsyncSocket](https://github.com/robbiehanson/CocoaAsyncSocket)
+
+[The Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture)
+
+[JWTDecode](https://github.com/auth0/JWTDecode.swift)
+
+[TPCircularBuffer](https://github.com/michaeltyson/TPCircularBuffer)
+
+[XCGLogger](https://github.com/DaveWoodCom/XCGLogger.git)
