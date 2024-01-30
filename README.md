@@ -7,7 +7,7 @@ That branch is still under development and may have breaking changes in the futu
 Release builds should not be impacted.
 
 ##### Built on:
-*  macOS 14.2.1
+*  macOS 14.3
 *  Xcode 15.2 (15C500b)
 
 ##### Runs on:  
