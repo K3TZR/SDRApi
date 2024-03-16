@@ -60,6 +60,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F24BFB32BA4B7C5006B506B /* SDRApiFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SDRApiFeatures; path = ../Packages/SDRApiFeatures; sourceTree = "<group>"; };
 		9FA5CF3B2B66B7F5001BA737 /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		9FA5CF3D2B66BA1C001BA737 /* MessagesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesModel.swift; sourceTree = "<group>"; };
 		9FD26CD62B6847FD00397CBE /* ObjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsView.swift; sourceTree = "<group>"; };
@@ -160,6 +161,7 @@
 		9FDCEE7C2B5ED1300055FF11 = {
 			isa = PBXGroup;
 			children = (
+				9F24BFB32BA4B7C5006B506B /* SDRApiFeatures */,
 				9FDCEE972B5ED1720055FF11 /* README.md */,
 				9FDCEE872B5ED1300055FF11 /* SDRApiViewer */,
 				9FDCEE862B5ED1300055FF11 /* Products */,

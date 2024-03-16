@@ -71,7 +71,7 @@ public struct SDRApi {
     // non-persistent
     var initialized = false
     var connectionState: ConnectionState = .disconnected
-    var rxAVAudioPlayer = RxAVAudioPlayer()
+    var audioOutput: RxAudioPlayer?
 
     @Presents var showAlert: AlertState<Action.Alert>?
     @Presents var showClient: ClientFeature.State?
@@ -151,8 +151,12 @@ public struct SDRApi {
         return .none
         
       case .connectButtonTapped:
-        // attempt to connect to the selected radio
-        return connectionStartStop(state)
+        // start/stop the connection
+        if state.connectionState == .connected {
+          return connectionStop(state)
+        } else {
+          return connectionStart(state)
+        }
         
       case .commandNextTapped:
         // populate the command field with the next command in the stack (if any)
@@ -207,7 +211,11 @@ public struct SDRApi {
         return .none
         
       case .binding(\.remoteRxAudioEnabled):
-        return remoteRxAudioStartStop(state)
+        if state.remoteRxAudioEnabled {
+          return remoteRxAudioStart(&state)
+        } else {
+          return remoteRxAudioStop(&state)
+        }
         
       case .binding(\.remoteTxAudioEnabled):
         return remoteTxAudioStartStop(state)
@@ -417,62 +425,58 @@ public struct SDRApi {
     }
   }
   
-  private func connectionStartStop(_ state: State)  -> Effect<SDRApi.Action> {
-    if state.connectionState == .connected {
-      // ----- STOPPING -----
-      MessagesModel.shared.stop(state.clearOnStop)
+  private func connectionStart(_ state: State)  -> Effect<SDRApi.Action> {
+    MessagesModel.shared.start(state.clearOnStart)
+    if state.directEnabled {
+      // DIRECT Mode
       return .run {
-        if state.remoteRxAudioEnabled { await remoteRxAudioStop(state) }
-        await ApiModel.shared.disconnect()
-        await $0(.connectionStatus(.disconnected))
+        if state.isGui && !state.directGuiIp.isEmpty {
+          let selection = "9999-9999-9999-9999" + state.directGuiIp
+          await $0(.connect(selection, nil))
+          
+        } else if !state.directNonGuiIp.isEmpty {
+          let selection = "9999-9999-9999-9999" + state.directNonGuiIp
+          await $0(.connect(selection, nil))
+          
+        } else {
+          // no Ip Address for the current connection type
+          await $0(.showDirectSheet)
+        }
       }
       
     } else {
-      // ----- STARTING -----
-      MessagesModel.shared.start(state.clearOnStart)
-      if state.directEnabled {
-        // DIRECT Mode
-        return .run {
-          if state.isGui && !state.directGuiIp.isEmpty {
-            let selection = "9999-9999-9999-9999" + state.directGuiIp
-            await $0(.connect(selection, nil))
-            
-          } else if !state.directNonGuiIp.isEmpty {
-            let selection = "9999-9999-9999-9999" + state.directNonGuiIp
-            await $0(.connect(selection, nil))
-            
-          } else {
-            // no Ip Address for the current connection type
-            await $0(.showDirectSheet)
-          }
-        }
-        
-      } else {
-        return .run { 
-          if state.useDefaultEnabled {
-            // LOCAL/SMARTLINK mode connection using the Default, is there a valid? Default
-            if ListenerModel.shared.isValidDefault(for: state.guiDefault, state.nonGuiDefault, state.isGui) {
-              // YES, valid default
-              if state.isGui {
-                await $0(.multiflexStatus(state.guiDefault!))
-              } else {
-                await $0(.multiflexStatus(state.nonGuiDefault!))
-              }
+      return .run {
+        if state.useDefaultEnabled {
+          // LOCAL/SMARTLINK mode connection using the Default, is there a valid? Default
+          if ListenerModel.shared.isValidDefault(for: state.guiDefault, state.nonGuiDefault, state.isGui) {
+            // YES, valid default
+            if state.isGui {
+              await $0(.multiflexStatus(state.guiDefault!))
             } else {
-              // NO, invalid default
-              await $0(.showPickerSheet)
+              await $0(.multiflexStatus(state.nonGuiDefault!))
             }
           } else {
-            // default not in use, open the Picker
+            // NO, invalid default
             await $0(.showPickerSheet)
           }
+        } else {
+          // default not in use, open the Picker
+          await $0(.showPickerSheet)
         }
       }
     }
   }
-      
+  
+  private func connectionStop(_ state: State)  -> Effect<SDRApi.Action> {
+    MessagesModel.shared.stop(state.clearOnStop)
+    return .run {
+      await ApiModel.shared.disconnect()
+      await $0(.connectionStatus(.disconnected))
+    }
+  }
+  
   private func connectionStatus(_ state: inout State, _ status: ConnectionState) -> Effect<SDRApi.Action> {
-    
+      
     switch status {
     case .connected:
       state.connectionState = .connected
@@ -500,9 +504,11 @@ public struct SDRApi {
     }
 
     if state.connectionState == .connected && state.remoteRxAudioEnabled {
-      return .run { [state] send in
-        await remoteRxAudioStart(state, send)
-      }
+      return remoteRxAudioStart(&state)
+    }
+
+    if state.connectionState != .connected && state.remoteRxAudioEnabled {
+      return remoteRxAudioStop(&state)
     }
     return .none
   }
@@ -611,41 +617,27 @@ public struct SDRApi {
       }
     }
   }
-    
-  private func remoteRxAudioStartStop(_ state: State)  -> Effect<SDRApi.Action> {
-    if state.connectionState == .connected {
-      return .run { [state] send in
-        if state.remoteRxAudioEnabled {
-          await remoteRxAudioStart(state, send)
-        } else {
-          await remoteRxAudioStop(state)
-        }
+  
+  private func remoteRxAudioStart(_ state: inout State) -> Effect<SDRApi.Action> {
+    state.audioOutput = RxAudioPlayer()
+    return .run { [state] _ in
+      // request a stream, reply to handler
+      await ApiModel.shared.requestRemoteRxAudioStream(isCompressed: state.remoteRxAudioCompressed, replyTo: state.audioOutput!.streamReplyHandler)
+      log("SdrApiCore: remote rx audio stream REQUESTED", .debug, #function, #file, #line)
+    }
+  }
+
+  private func remoteRxAudioStop(_ state: inout State) -> Effect<SDRApi.Action> {
+    if state.audioOutput != nil, let streamId = state.audioOutput!.streamId {
+      state.audioOutput!.stop()
+      state.audioOutput = nil
+      return .run { [streamId] _ in
+        // remove stream(s)
+        await ApiModel.shared.sendRemoveStreams([streamId])
+        log("SdrApiCore: remote rx audiostream STOPPED", .debug, #function, #file, #line)
       }
     }
     return .none
-  }
-  
-  private func remoteRxAudioStart(_ state: State, _ send: Send<SDRApi.Action>) async {
-    let isCompressed = state.remoteRxAudioCompressed
-    
-    // request a stream
-    if let streamId = try! await ApiModel.shared.requestRemoteRxAudioStream(isCompressed: isCompressed).streamId {
-      // start player
-      state.rxAVAudioPlayer.setup(outputDeviceID: nil, volume: nil, isCompressed: isCompressed)
-      // finish audio setup
-      state.rxAVAudioPlayer.start(streamId)
-      await ApiModel.shared.remoteRxAudioStreams[id: streamId]?.delegate = state.rxAVAudioPlayer
-      
-    } else {
-      state.rxAVAudioPlayer.stop()
-      await send(.showAlert(.remoteRxAudioFailed, ""))
-    }
-  }
-  
-  private func remoteRxAudioStop(_ state: State) async {
-    // remove player and stream
-    state.rxAVAudioPlayer.stop()
-    await ApiModel.shared.sendRemoveStream(state.rxAVAudioPlayer.streamId)
   }
   
   private func remoteTxAudioStartStop(_ state: State)  -> Effect<SDRApi.Action> {
