@@ -69,7 +69,7 @@ private struct HeadingView: View {
 }
 
 private struct DetailView: View {
-  var meter: Meter
+  @ObservedObject var meter: Meter
   let sliceId: UInt32?
   
   func valueColor(_ value: Float, _ low: Float, _ high: Float) -> Color {
@@ -78,8 +78,7 @@ private struct DetailView: View {
     return .green
   }
   
-//  @State var interval: TimeInterval = 1.0
-//  @State var throttledValue: CGFloat = 0.0      // FIXME: need throttling
+  @State var throttledValue: CGFloat = 0.0      // FIXME: need throttling
   
   var body: some View {
     
@@ -93,10 +92,10 @@ private struct DetailView: View {
       }.frame(width: 60, alignment: .center)
       Text(meter.name).frame(width: 110, alignment: .leading)
       Group {
-        Text(String(format: "%-4.2f", meter.value))
+        Text(String(format: "%-4.2f", throttledValue))
           .help("        range: \(String(format: "%-4.2f", meter.low)) to \(String(format: "%-4.2f", meter.high))")
           .foregroundColor(valueColor(meter.value, meter.low, meter.high))
-//          .onReceive(meter.$value.throttle(for: RunLoop.SchedulerTimeType.Stride(interval), scheduler: RunLoop.main, latest: true)) { throttledValue = CGFloat($0) }
+          .onReceive(meter.$value.throttle(for: 1, scheduler: RunLoop.main, latest: true)) { throttledValue = CGFloat($0) }
 
         Text(meter.units)
         Text(String(format: "% 2d", meter.fps))
