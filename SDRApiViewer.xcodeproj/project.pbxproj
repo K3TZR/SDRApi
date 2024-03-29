@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9F8448402BB399B70000C95D /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 9F84483F2BB399B70000C95D /* AsyncAlgorithms */; };
 		9FA5CF3C2B66B7F5001BA737 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5CF3B2B66B7F5001BA737 /* MessagesView.swift */; };
 		9FA5CF3E2B66BA1C001BA737 /* MessagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5CF3D2B66BA1C001BA737 /* MessagesModel.swift */; };
 		9FD26CD72B6847FD00397CBE /* ObjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD26CD62B6847FD00397CBE /* ObjectsView.swift */; };
@@ -61,7 +60,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9F8448412BB49DA60000C95D /* SDRApiFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SDRApiFeatures; path = ../Packages/SDRApiFeatures; sourceTree = "<group>"; };
 		9FA5CF3B2B66B7F5001BA737 /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		9FA5CF3D2B66BA1C001BA737 /* MessagesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesModel.swift; sourceTree = "<group>"; };
 		9FD26CD62B6847FD00397CBE /* ObjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsView.swift; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 				9FDCEECB2B5ED1CE0055FF11 /* XCGLogFeature in Frameworks */,
 				9FDCEEBF2B5ED1CE0055FF11 /* RxAudioFeature in Frameworks */,
 				9FDCEEBB2B5ED1CE0055FF11 /* PickerFeature in Frameworks */,
-				9F8448402BB399B70000C95D /* AsyncAlgorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +160,6 @@
 		9FDCEE7C2B5ED1300055FF11 = {
 			isa = PBXGroup;
 			children = (
-				9F8448412BB49DA60000C95D /* SDRApiFeatures */,
 				9FDCEE972B5ED1720055FF11 /* README.md */,
 				9FDCEE872B5ED1300055FF11 /* SDRApiViewer */,
 				9FDCEE862B5ED1300055FF11 /* Products */,
@@ -262,7 +258,6 @@
 				9FDCEEC62B5ED1CE0055FF11 /* UdpFeature */,
 				9FDCEEC82B5ED1CE0055FF11 /* VitaFeature */,
 				9FDCEECA2B5ED1CE0055FF11 /* XCGLogFeature */,
-				9F84483F2BB399B70000C95D /* AsyncAlgorithms */,
 			);
 			productName = SDRTestViewer;
 			productReference = 9FDCEE852B5ED1300055FF11 /* SDRApiViewer.app */;
@@ -503,7 +498,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = net.k3tzr.SDRApiViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -531,7 +526,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = net.k3tzr.SDRApiViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -582,11 +577,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9F84483F2BB399B70000C95D /* AsyncAlgorithms */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9F84483E2BB399B70000C95D /* XCRemoteSwiftPackageReference "swift-async-algorithms" */;
-			productName = AsyncAlgorithms;
-		};
 		9FDCEEAC2B5ED1CE0055FF11 /* ClientFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;

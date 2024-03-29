@@ -30,43 +30,41 @@ public struct SDRApi {
   
   @ObservableState
   public struct State {
-    let AppDefaults = UserDefaults.standard
-    
     // persistent
-    var alertOnError = true                         {didSet { AppDefaults.set(alertOnError, forKey: "alertOnError")}}
-    var clearOnSend = false                         {didSet { AppDefaults.set(clearOnSend, forKey: "clearOnSend")}}
-    var clearOnStart = true                         {didSet { AppDefaults.set(clearOnStart, forKey: "clearOnStart")}}
-    var clearOnStop = false                         {didSet { AppDefaults.set(clearOnStop, forKey: "clearOnStop")}}
-    var commandToSend = ""                          {didSet { AppDefaults.set(commandToSend, forKey: "commandToSend")}}
-    var commandsArray = [String]()                  {didSet { AppDefaults.set(commandsArray, forKey: "commandsArray")}}
-    var commandsIndex = 0                           {didSet { AppDefaults.set(commandsIndex, forKey: "commandsIndex")}}
-    var directEnabled = false                       {didSet { AppDefaults.set(directEnabled, forKey: "directEnabled")}}
-    var directGuiIp = ""                            {didSet { AppDefaults.set(directGuiIp, forKey: "directGuiIp")}}
-    var directNonGuiIp = ""                         {didSet { AppDefaults.set(directNonGuiIp, forKey: "directNonGuiIp")}}
-    var fontSize = 12                               {didSet { AppDefaults.set(fontSize, forKey: "fontSize")}}
-    var gotoTop = false                             {didSet { AppDefaults.set(gotoTop, forKey: "gotoTop")}}
-    var guiDefault: String?                         {didSet { AppDefaults.set(guiDefault, forKey: "guiDefault")}}
-    var isGui = true                                {didSet { AppDefaults.set(isGui, forKey: "isGui")}}
-    var localEnabled = true                         {didSet { AppDefaults.set(localEnabled, forKey: "localEnabled")}}
-    var lowBandwidthDax = false                     {didSet { AppDefaults.set(lowBandwidthDax, forKey: "lowBandwidthDax")}}
-    var messageFilter: MessageFilter = .all         {didSet { AppDefaults.set(messageFilter.rawValue, forKey: "messageFilter")}}
-    var messageFilterText = ""                      {didSet { AppDefaults.set(messageFilterText, forKey: "messageFilterText")}}
-    var mtuValue = 1_300                            {didSet { AppDefaults.set(mtuValue, forKey: "mtuValue")}}
-    var nonGuiDefault: String?                      {didSet { AppDefaults.set(nonGuiDefault, forKey: "nonGuiDefault")}}
-    var objectFilter: ObjectFilter = .coreNoMeters  {didSet { AppDefaults.set(objectFilter.rawValue, forKey: "objectFilter")}}
-    var previousCommand = ""                        {didSet { AppDefaults.set(previousCommand, forKey: "previousCommand")}}
-    var previousIdToken: String?                    {didSet { AppDefaults.set(previousIdToken, forKey: "previousIdToken")}}
-    var refreshToken: String?                       {didSet { AppDefaults.set(refreshToken, forKey: "refreshToken")}}
-    var remoteRxAudioCompressed = true              {didSet { AppDefaults.set(remoteRxAudioCompressed, forKey: "remoteRxAudioCompressed")}}
-    var remoteRxAudioEnabled = false                {didSet { AppDefaults.set(remoteRxAudioEnabled, forKey: "remoteRxAudioEnabled")}}
-    var remoteTxAudioEnabled = false                {didSet { AppDefaults.set(remoteTxAudioEnabled, forKey: "remoteTxAudioEnabled")}}
-    var showPings = false                           {didSet { AppDefaults.set(showPings, forKey: "showPings")}}
-    var showTimes = true                            {didSet { AppDefaults.set(showTimes, forKey: "showTimes")}}
-    var smartlinkEnabled = false                    {didSet { AppDefaults.set(smartlinkEnabled, forKey: "smartlinkEnabled")}}
-    var smartlinkLoginRequired = false              {didSet { AppDefaults.set(smartlinkLoginRequired, forKey: "smartlinkLoginRequired")}}
-    var smartlinkUser = ""                          {didSet { AppDefaults.set(smartlinkUser, forKey: "smartlinkUser")}}
-    var station = "SDRApi"                          {didSet { AppDefaults.set(station, forKey: "station")}}
-    var useDefaultEnabled = false                   {didSet { AppDefaults.set(useDefaultEnabled, forKey: "useDefaultEnabled")}}
+    @Shared(.appStorage("alertOnError")) var alertOnError = false
+    @Shared(.appStorage("clearOnSend")) var clearOnSend = false
+    @Shared(.appStorage("clearOnStart")) var clearOnStart = true
+    @Shared(.appStorage("clearOnStop")) var clearOnStop = true
+    @Shared(.appStorage("commandToSend")) var commandToSend = ""
+    @Shared(.appStorage("commandsArray")) var commandsArray = [String]()
+    @Shared(.appStorage("commandsIndex")) var commandsIndex = 0
+    @Shared(.appStorage("directEnabled")) var directEnabled = false
+    @Shared(.appStorage("directGuiIp")) var directGuiIp = ""
+    @Shared(.appStorage("directNonGuiIp")) var directNonGuiIp = ""
+    @Shared(.appStorage("fontSize")) var fontSize = 12
+    @Shared(.appStorage("gotoTop")) var gotoTop = false
+    @Shared(.appStorage("guiDefault")) var guiDefault: String? = nil
+    @Shared(.appStorage("isGui")) var isGui = true
+    @Shared(.appStorage("localEnabled")) var localEnabled = true
+    @Shared(.appStorage("lowBandwidthDax")) var lowBandwidthDax = false
+    @Shared(.appStorage("messageFilter")) var messageFilter: MessageFilter = .all
+    @Shared(.appStorage("messageFilterText")) var messageFilterText = ""
+    @Shared(.appStorage("mtuValue")) var mtuValue = 1_300
+    @Shared(.appStorage("nonGuiDefault")) var nonGuiDefault: String? = nil
+    @Shared(.appStorage("objectFilter")) var objectFilter: ObjectFilter = .coreNoMeters
+    @Shared(.appStorage("previousCommand")) var previousCommand = ""
+    @Shared(.appStorage("previousIdToken")) var previousIdToken: String? = nil
+    @Shared(.appStorage("refreshToken")) var refreshToken: String? = nil
+    @Shared(.appStorage("remoteRxAudioCompressed")) var remoteRxAudioCompressed = false
+    @Shared(.appStorage("remoteRxAudioEnabled")) var remoteRxAudioEnabled = false
+    @Shared(.appStorage("remoteTxAudioEnabled")) var remoteTxAudioEnabled = false
+    @Shared(.appStorage("showPings")) var showPings = false
+    @Shared(.appStorage("showTimes")) var showTimes = true
+    @Shared(.appStorage("smartlinkEnabled")) var smartlinkEnabled = false
+    @Shared(.appStorage("smartlinkLoginRequired")) var smartlinkLoginRequired = false
+    @Shared(.appStorage("smartlinkUser")) var smartlinkUser = ""
+    @Shared(.appStorage("station")) var station = "SDRApi"
+    @Shared(.appStorage("useDefaultEnabled")) var useDefaultEnabled = false
     
     // non-persistent
     var initialized = false
@@ -218,8 +216,12 @@ public struct SDRApi {
         }
         
       case .binding(\.remoteTxAudioEnabled):
-        return remoteTxAudioStartStop(state)
-        
+        if state.remoteTxAudioEnabled {
+          return remoteTxAudioStart(&state)
+        } else {
+          return remoteTxAudioStop(&state)
+        }
+
       case .binding(\.showPings):
         MessagesModel.shared.showPings = state.showPings
         return .none
@@ -516,39 +518,39 @@ public struct SDRApi {
   private func initState(_ state: inout State) -> Effect<SDRApi.Action> {
     if state.initialized == false {
             
-      state.alertOnError = UserDefaults.standard.bool(forKey: "alertOnError")
-      state.clearOnSend = UserDefaults.standard.bool(forKey: "clearOnSend")
-      state.clearOnStart = UserDefaults.standard.bool(forKey: "clearOnStart")
-      state.clearOnStop = UserDefaults.standard.bool(forKey: "clearOnStop")
-      state.commandToSend = UserDefaults.standard.string(forKey: "commandToSend") ?? ""
-      state.commandsArray = UserDefaults.standard.object(forKey: "commandsArray") as? [String] ?? [String]()
-      state.commandsIndex = UserDefaults.standard.integer(forKey: "commandsIndex")
-      state.fontSize = UserDefaults.standard.integer(forKey: "fontSize")
-      state.gotoTop = UserDefaults.standard.bool(forKey: "gotoTop")
-      state.guiDefault = UserDefaults.standard.string(forKey: "guiDefault") ?? nil
-      state.isGui = UserDefaults.standard.bool(forKey: "isGui")
-      state.directEnabled = UserDefaults.standard.bool(forKey: "directEnabled")
-      state.directGuiIp = UserDefaults.standard.string(forKey: "directGuiIp") ?? ""
-      state.directNonGuiIp = UserDefaults.standard.string(forKey: "directNonGuiIp") ?? ""
-      state.localEnabled = UserDefaults.standard.bool(forKey: "localEnabled")
-      state.lowBandwidthDax = UserDefaults.standard.bool(forKey: "lowBandwidthDax")
-      state.messageFilter = MessageFilter(rawValue: UserDefaults.standard.string(forKey: "messageFilter") ?? "all") ?? .all
-      state.messageFilterText = UserDefaults.standard.string(forKey: "messageFilterText") ?? ""
-      state.mtuValue = UserDefaults.standard.integer(forKey: "mtuValue")
-      state.nonGuiDefault = UserDefaults.standard.string(forKey: "nonGuiDefault") ?? nil
-      state.objectFilter = ObjectFilter(rawValue: UserDefaults.standard.string(forKey: "objectFilter") ?? "coreNoMeters") ?? .coreNoMeters
-      state.previousCommand = UserDefaults.standard.string(forKey: "previousCommand") ?? ""
-      state.previousIdToken = UserDefaults.standard.string(forKey: "previousIdToken")
-      state.refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
-      state.remoteRxAudioCompressed = UserDefaults.standard.bool(forKey: "remoteRxAudioCompressed")
-      state.remoteRxAudioEnabled = UserDefaults.standard.bool(forKey: "remoteRxAudioEnabled")
-      state.remoteTxAudioEnabled = UserDefaults.standard.bool(forKey: "remoteTxAudioEnabled")
-      state.showPings = UserDefaults.standard.bool(forKey: "showPings")
-      state.showTimes = UserDefaults.standard.bool(forKey: "showTimes")
-      state.smartlinkEnabled = UserDefaults.standard.bool(forKey: "smartlinkEnabled")
-      state.smartlinkLoginRequired = UserDefaults.standard.bool(forKey: "smartlinkLoginRequired")
-      state.smartlinkUser = UserDefaults.standard.string(forKey: "smartlinkUser") ?? ""
-      state.useDefaultEnabled = UserDefaults.standard.bool(forKey: "useDefaultEnabled")
+//      state.alertOnError = UserDefaults.standard.bool(forKey: "alertOnError")
+//      state.clearOnSend = UserDefaults.standard.bool(forKey: "clearOnSend")
+//      state.clearOnStart = UserDefaults.standard.bool(forKey: "clearOnStart")
+//      state.clearOnStop = UserDefaults.standard.bool(forKey: "clearOnStop")
+//      state.commandToSend = UserDefaults.standard.string(forKey: "commandToSend") ?? ""
+//      state.commandsArray = UserDefaults.standard.object(forKey: "commandsArray") as? [String] ?? [String]()
+//      state.commandsIndex = UserDefaults.standard.integer(forKey: "commandsIndex")
+//      state.fontSize = UserDefaults.standard.integer(forKey: "fontSize")
+//      state.gotoTop = UserDefaults.standard.bool(forKey: "gotoTop")
+//      state.guiDefault = UserDefaults.standard.string(forKey: "guiDefault") ?? nil
+//      state.isGui = UserDefaults.standard.bool(forKey: "isGui")
+//      state.directEnabled = UserDefaults.standard.bool(forKey: "directEnabled")
+//      state.directGuiIp = UserDefaults.standard.string(forKey: "directGuiIp") ?? ""
+//      state.directNonGuiIp = UserDefaults.standard.string(forKey: "directNonGuiIp") ?? ""
+//      state.localEnabled = UserDefaults.standard.bool(forKey: "localEnabled")
+//      state.lowBandwidthDax = UserDefaults.standard.bool(forKey: "lowBandwidthDax")
+//      state.messageFilter = MessageFilter(rawValue: UserDefaults.standard.string(forKey: "messageFilter") ?? "all") ?? .all
+//      state.messageFilterText = UserDefaults.standard.string(forKey: "messageFilterText") ?? ""
+//      state.mtuValue = UserDefaults.standard.integer(forKey: "mtuValue")
+//      state.nonGuiDefault = UserDefaults.standard.string(forKey: "nonGuiDefault") ?? nil
+//      state.objectFilter = ObjectFilter(rawValue: UserDefaults.standard.string(forKey: "objectFilter") ?? "coreNoMeters") ?? .coreNoMeters
+//      state.previousCommand = UserDefaults.standard.string(forKey: "previousCommand") ?? ""
+//      state.previousIdToken = UserDefaults.standard.string(forKey: "previousIdToken")
+//      state.refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
+//      state.remoteRxAudioCompressed = UserDefaults.standard.bool(forKey: "remoteRxAudioCompressed")
+//      state.remoteRxAudioEnabled = UserDefaults.standard.bool(forKey: "remoteRxAudioEnabled")
+//      state.remoteTxAudioEnabled = UserDefaults.standard.bool(forKey: "remoteTxAudioEnabled")
+//      state.showPings = UserDefaults.standard.bool(forKey: "showPings")
+//      state.showTimes = UserDefaults.standard.bool(forKey: "showTimes")
+//      state.smartlinkEnabled = UserDefaults.standard.bool(forKey: "smartlinkEnabled")
+//      state.smartlinkLoginRequired = UserDefaults.standard.bool(forKey: "smartlinkLoginRequired")
+//      state.smartlinkUser = UserDefaults.standard.string(forKey: "smartlinkUser") ?? ""
+//      state.useDefaultEnabled = UserDefaults.standard.bool(forKey: "useDefaultEnabled")
       
       // instantiate the Logger, use the group defaults (not the Standard)
       _ = XCGWrapper(logLevel: .debug, group: "group.net.k3tzr.flexapps")
@@ -640,11 +642,16 @@ public struct SDRApi {
     return .none
   }
   
-  private func remoteTxAudioStartStop(_ state: State)  -> Effect<SDRApi.Action> {
+  private func remoteTxAudioStart(_ state: inout State)  -> Effect<SDRApi.Action> {
     // TODO
     return .none
   }
-  
+ 
+  private func remoteTxAudioStop(_ state: inout State)  -> Effect<SDRApi.Action> {
+    // TODO
+    return .none
+  }
+
   private func saveMessages() -> Effect<SDRApi.Action> {
     let savePanel = NSSavePanel()
     savePanel.nameFieldStringValue = "SDRApi.messages"
