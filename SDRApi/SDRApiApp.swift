@@ -39,7 +39,7 @@ struct SDRApiViewerApp: App {
   @State var listenerModel = ListenerModel.shared
 
   var body: some Scene {
-    WindowGroup("SDRApiViewer  (v" + Version().string + ")") {
+    WindowGroup("SDRApi  (v" + Version().string + ")") {
       SDRApiView(store: Store(initialState: SDRApi.State()) {
         SDRApi()
       })
