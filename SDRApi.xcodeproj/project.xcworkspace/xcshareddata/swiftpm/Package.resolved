@@ -29,12 +29,21 @@
       }
     },
     {
+      "identity" : "logfeatures",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/K3TZR/LogFeatures.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c5361c21b6aa03e9d1d99305ac9bdee46f599116"
+      }
+    },
+    {
       "identity" : "sdrapifeatures",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/K3TZR/SDRApiFeatures.git",
       "state" : {
         "branch" : "main",
-        "revision" : "3def6db6f1d28bd1e09ca4e822e153aad9115cdd"
+        "revision" : "3981951c32e3cafdf90b3ff245b5b18ecb4aa9f1"
       }
     },
     {

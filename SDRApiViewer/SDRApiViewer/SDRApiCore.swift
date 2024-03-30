@@ -518,40 +518,6 @@ public struct SDRApi {
   private func initState(_ state: inout State) -> Effect<SDRApi.Action> {
     if state.initialized == false {
             
-//      state.alertOnError = UserDefaults.standard.bool(forKey: "alertOnError")
-//      state.clearOnSend = UserDefaults.standard.bool(forKey: "clearOnSend")
-//      state.clearOnStart = UserDefaults.standard.bool(forKey: "clearOnStart")
-//      state.clearOnStop = UserDefaults.standard.bool(forKey: "clearOnStop")
-//      state.commandToSend = UserDefaults.standard.string(forKey: "commandToSend") ?? ""
-//      state.commandsArray = UserDefaults.standard.object(forKey: "commandsArray") as? [String] ?? [String]()
-//      state.commandsIndex = UserDefaults.standard.integer(forKey: "commandsIndex")
-//      state.fontSize = UserDefaults.standard.integer(forKey: "fontSize")
-//      state.gotoTop = UserDefaults.standard.bool(forKey: "gotoTop")
-//      state.guiDefault = UserDefaults.standard.string(forKey: "guiDefault") ?? nil
-//      state.isGui = UserDefaults.standard.bool(forKey: "isGui")
-//      state.directEnabled = UserDefaults.standard.bool(forKey: "directEnabled")
-//      state.directGuiIp = UserDefaults.standard.string(forKey: "directGuiIp") ?? ""
-//      state.directNonGuiIp = UserDefaults.standard.string(forKey: "directNonGuiIp") ?? ""
-//      state.localEnabled = UserDefaults.standard.bool(forKey: "localEnabled")
-//      state.lowBandwidthDax = UserDefaults.standard.bool(forKey: "lowBandwidthDax")
-//      state.messageFilter = MessageFilter(rawValue: UserDefaults.standard.string(forKey: "messageFilter") ?? "all") ?? .all
-//      state.messageFilterText = UserDefaults.standard.string(forKey: "messageFilterText") ?? ""
-//      state.mtuValue = UserDefaults.standard.integer(forKey: "mtuValue")
-//      state.nonGuiDefault = UserDefaults.standard.string(forKey: "nonGuiDefault") ?? nil
-//      state.objectFilter = ObjectFilter(rawValue: UserDefaults.standard.string(forKey: "objectFilter") ?? "coreNoMeters") ?? .coreNoMeters
-//      state.previousCommand = UserDefaults.standard.string(forKey: "previousCommand") ?? ""
-//      state.previousIdToken = UserDefaults.standard.string(forKey: "previousIdToken")
-//      state.refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
-//      state.remoteRxAudioCompressed = UserDefaults.standard.bool(forKey: "remoteRxAudioCompressed")
-//      state.remoteRxAudioEnabled = UserDefaults.standard.bool(forKey: "remoteRxAudioEnabled")
-//      state.remoteTxAudioEnabled = UserDefaults.standard.bool(forKey: "remoteTxAudioEnabled")
-//      state.showPings = UserDefaults.standard.bool(forKey: "showPings")
-//      state.showTimes = UserDefaults.standard.bool(forKey: "showTimes")
-//      state.smartlinkEnabled = UserDefaults.standard.bool(forKey: "smartlinkEnabled")
-//      state.smartlinkLoginRequired = UserDefaults.standard.bool(forKey: "smartlinkLoginRequired")
-//      state.smartlinkUser = UserDefaults.standard.string(forKey: "smartlinkUser") ?? ""
-//      state.useDefaultEnabled = UserDefaults.standard.bool(forKey: "useDefaultEnabled")
-      
       // instantiate the Logger, use the group defaults (not the Standard)
       _ = XCGWrapper(logLevel: .debug, group: "group.net.k3tzr.flexapps")
       

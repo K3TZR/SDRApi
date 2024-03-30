@@ -11,6 +11,7 @@ import SwiftUI
 
 import SharedFeature
 import TcpFeature
+import XCGLogFeature
 
 @Observable
 public final class MessagesModel {
@@ -67,9 +68,8 @@ public final class MessagesModel {
     Task { await MainActor.run { reFilterMessages() }}
   }
 
-
   // ----------------------------------------------------------------------------
-  // MARK: - Private methods
+  // MARK: - Private filter methods
   
   /// Rebuild the entire filteredMessages array
   private func reFilterMessages() {
@@ -87,23 +87,15 @@ public final class MessagesModel {
     case (MessageFilter.status, _):     filteredMessages = _messages.filter { $0.text.prefix(1) == "S" && $0.text.prefix(3) != "S0|"}
     case (MessageFilter.reply, _):      filteredMessages = _messages.filter { $0.text.prefix(1) == "R" }
     }
-//    switch SettingsModel.shared.messageFilter {
-//
-//    case MessageFilter.all:        filteredMessages = _messages
-//    case MessageFilter.prefix:     filteredMessages = _messages.filter { $0.text.localizedCaseInsensitiveContains("|" + SettingsModel.shared.messageFilterText) }
-//    case MessageFilter.includes:   filteredMessages = _messages.filter { $0.text.localizedCaseInsensitiveContains(SettingsModel.shared.messageFilterText) }
-//    case MessageFilter.excludes:   filteredMessages = _messages.filter { !$0.text.localizedCaseInsensitiveContains(SettingsModel.shared.messageFilterText) }
-//    case MessageFilter.command:    filteredMessages = _messages.filter { $0.text.prefix(1) == "C" }
-//    case MessageFilter.S0:         filteredMessages = _messages.filter { $0.text.prefix(3) == "S0|" }
-//    case MessageFilter.status:     filteredMessages = _messages.filter { $0.text.prefix(1) == "S" && $0.text.prefix(3) != "S0|"}
-//    case MessageFilter.reply:      filteredMessages = _messages.filter { $0.text.prefix(1) == "R" }
-//    }
   }
   
   private func removeAllFilteredMessages() {
     self.filteredMessages.removeAll()
   }
 
+  // ----------------------------------------------------------------------------
+  // MARK: - Private message processing methods
+  
   private func subscribeToTcpMessages()  {
     _task = Task(priority: .high) {
       log("MessagesModel: TcpMessage subscription STARTED", .debug, #function, #file, #line)
@@ -151,17 +143,6 @@ public final class MessagesModel {
         case (MessageFilter.status, _):     if msg.text.prefix(1) == "S" && msg.text.prefix(3) != "S0|" { filteredMessages.append(msg) }
         case (MessageFilter.reply, _):      if msg.text.prefix(1) == "R" { filteredMessages.append(msg) }
         }
-//        switch SettingsModel.shared.messageFilter {
-//
-//        case MessageFilter.all:        filteredMessages.append(msg)
-//        case MessageFilter.prefix:     if msg.text.localizedCaseInsensitiveContains("|" + SettingsModel.shared.messageFilterText) { filteredMessages.append(msg) }
-//        case MessageFilter.includes:   if msg.text.localizedCaseInsensitiveContains(SettingsModel.shared.messageFilterText) { filteredMessages.append(msg) }
-//        case MessageFilter.excludes:   if !msg.text.localizedCaseInsensitiveContains(SettingsModel.shared.messageFilterText) { filteredMessages.append(msg) }
-//        case MessageFilter.command:    if msg.text.prefix(1) == "C" { filteredMessages.append(msg) }
-//        case MessageFilter.S0:         if msg.text.prefix(3) == "S0|" { filteredMessages.append(msg) }
-//        case MessageFilter.status:     if msg.text.prefix(1) == "S" && msg.text.prefix(3) != "S0|" { filteredMessages.append(msg) }
-//        case MessageFilter.reply:      if msg.text.prefix(1) == "R" { filteredMessages.append(msg) }
-//        }
       }
     }
   }

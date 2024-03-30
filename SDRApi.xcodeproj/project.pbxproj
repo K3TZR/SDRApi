@@ -196,15 +196,15 @@
 		9FDCEE982B5ED1720055FF11 /* SDRApiViewer */ = {
 			isa = PBXGroup;
 			children = (
-				9FD26D392B684CFF00397CBE /* ObjectsSubViews */,
-				9FDCEE992B5ED1720055FF11 /* SDRApiViewer.entitlements */,
-				9FDCEE9A2B5ED1720055FF11 /* SDRApiCore.swift */,
 				9FDCEE9B2B5ED1720055FF11 /* Assets.xcassets */,
-				9FDCEE9C2B5ED1720055FF11 /* Preview Content */,
-				9FDCEE9E2B5ED1720055FF11 /* SDRApiSubViews */,
-				9FDCEEA12B5ED1720055FF11 /* SDRApiViewerApp.swift */,
-				9FDCEEA22B5ED1720055FF11 /* SDRApiView.swift */,
 				9FA5CF3D2B66BA1C001BA737 /* MessagesModel.swift */,
+				9FD26D392B684CFF00397CBE /* ObjectsSubViews */,
+				9FDCEE9C2B5ED1720055FF11 /* Preview Content */,
+				9FDCEE9A2B5ED1720055FF11 /* SDRApiCore.swift */,
+				9FDCEE9E2B5ED1720055FF11 /* SubViews */,
+				9FDCEEA22B5ED1720055FF11 /* SDRApiView.swift */,
+				9FDCEE992B5ED1720055FF11 /* SDRApiViewer.entitlements */,
+				9FDCEEA12B5ED1720055FF11 /* SDRApiViewerApp.swift */,
 			);
 			path = SDRApiViewer;
 			sourceTree = "<group>";
@@ -217,7 +217,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		9FDCEE9E2B5ED1720055FF11 /* SDRApiSubViews */ = {
+		9FDCEE9E2B5ED1720055FF11 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
 				9FDCEE9F2B5ED1720055FF11 /* SendView.swift */,
@@ -225,7 +225,7 @@
 				9FA5CF3B2B66B7F5001BA737 /* MessagesView.swift */,
 				9FD26CD62B6847FD00397CBE /* ObjectsView.swift */,
 			);
-			path = SDRApiSubViews;
+			path = SubViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,7 +278,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9FDCEE802B5ED1300055FF11 /* Build configuration list for PBXProject "SDRApiViewer" */;
+			buildConfigurationList = 9FDCEE802B5ED1300055FF11 /* Build configuration list for PBXProject "SDRApi" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -537,7 +537,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9FDCEE802B5ED1300055FF11 /* Build configuration list for PBXProject "SDRApiViewer" */ = {
+		9FDCEE802B5ED1300055FF11 /* Build configuration list for PBXProject "SDRApi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FDCEE922B5ED1310055FF11 /* Debug */,
