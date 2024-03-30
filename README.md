@@ -1,4 +1,4 @@
-### SDRApiViewer  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://en.wikipedia.org/wiki/MIT_License)
+### SDRApi  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://en.wikipedia.org/wiki/MIT_License)
 
 #### API Explorer for Flex (TM) 6000 series radios (SwiftUI version)
 
@@ -7,20 +7,21 @@ That branch is still under development and may have breaking changes in the futu
 Release builds should not be impacted.
 
 ##### Built on:
-*  macOS 14.3
-*  Xcode 15.2 (15C500b)
+*  macOS 14.3.1
+*  Xcode 15.3 (15E204a)
 
 ##### Runs on:  
 * macOS 14.0 and higher
 
 ##### Builds
-Compiled [RELEASE builds](https://github.com/K3TZR/SDRApiViewer/releases) will be created at relatively stable points, please use them.  If you require a DEBUG build you will have to build from sources.  
+Compiled [RELEASE builds](https://github.com/K3TZR/SDRApi/releases) will be created at relatively stable points, please use them.  If you require a DEBUG build you will have to build from sources.  
 
 ##### Comments / Questions
 Please send any bugs / comments / questions to support@k3tzr.net  
 
 ##### Components
 [SDRApiFeatures](https://github.com/K3TZR/SDRApiFeatures.git)
+[LogFeatures](https://github.com/K3TZR/LogFeatures.git)
 
 ##### Credits
 [CocoaAsyncSocket](https://github.com/robbiehanson/CocoaAsyncSocket)
