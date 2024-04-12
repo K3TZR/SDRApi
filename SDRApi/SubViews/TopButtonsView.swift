@@ -38,6 +38,7 @@ public struct TopButtonsView: View {
       .background(Color(.green).opacity(0.2))
       .frame(width: 100)
       .disabled(buttonDisable)
+      .help("At least one connection type must be selected")
       
       Toggle("Gui", isOn: $store.isGui)
         .toggleStyle(.button)
@@ -53,25 +54,31 @@ public struct TopButtonsView: View {
       }
       .frame(width: 180)
       .disabled(store.connectionState != .disconnected)
+      .help("At least one connection type must be selected")
       
       Group {
         Toggle("Smartlink Login", isOn: $store.smartlinkLoginRequired)
           .disabled( store.connectionState != .disconnected)
+          .help("User must enter Login credentials")
         
         Spacer()
         
         ControlGroup {
           Toggle(isOn: $store.remoteRxAudioEnabled) {
-            Text("Rx Audio") }
+            Text("Rx Audio") }.disabled(store.isGui == false)
+            .help("Enable audio from the Radio to this Mac")
           Toggle(isOn: $store.remoteTxAudioEnabled) {
             Text("Tx Audio") }.disabled(true)
+            .help("Enable audio from this Mac to the Radio")
         }
         .frame(width: 130)
         
         Toggle("Use Default", isOn: $store.useDefaultEnabled)
           .disabled( store.connectionState != .disconnected )
+          .help("Skip the Radio Picker")
 
         Toggle("Alert on Error", isOn: $store.alertOnError)
+          .help("Display a sheet when an Error / Warning occurs")
         
         HStack(spacing: 5) {
           Stepper("Font Size", value: $store.fontSize, in: 8...14)

@@ -74,7 +74,7 @@ public struct MessagesView: View {
               ForEach(MessagesModel.shared.filteredMessages.reversed(), id: \.id) { message in
                 GridRow(alignment: .top) {
                   if store.showTimes { Text(intervalFormat(message.interval) ) }
-                  Text(attributedText(message.text))
+                  Text(attributedText(message.text + "\(store.newLineBetweenMessages ? "\n" : "")"))
                 }
               }
               .textSelection(.enabled)
@@ -128,6 +128,9 @@ private struct BottomButtonsView: View {
       Toggle(isOn: $store.gotoTop) {
         Image(systemName: store.gotoTop ? "arrow.up.square" : "arrow.down.square").font(.title)
       }
+
+      Spacer()
+      Toggle("Spacing", isOn: $store.newLineBetweenMessages)
 
       Spacer()
       HStack {

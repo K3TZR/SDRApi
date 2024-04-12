@@ -11,24 +11,8 @@ import FlexApiFeature
 import ListenerFeature
 import XCGLogFeature
 
-final class AppDelegate: NSObject, NSApplicationDelegate {
-
-  func applicationDidFinishLaunching(_ notification: Notification) {
-    // disable tab view
-    NSWindow.allowsAutomaticWindowTabbing = false
-    // disable restoring windows
-    UserDefaults.standard.register(defaults: ["NSQuitAlwaysKeepsWindows" : false])
-  }
-    
-  func applicationWillTerminate(_ notification: Notification) {
-    ApiModel.shared.disconnect()
-    log("SDRApiViewer: application terminated", .debug, #function, #file, #line)
-  }
-  
-  func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-    true
-  }
-}
+// ----------------------------------------------------------------------------
+// MARK: - Main
 
 @main
 struct SDRApiViewerApp: App {
@@ -46,6 +30,28 @@ struct SDRApiViewerApp: App {
       .environment(apiModel)
       .environment(listenerModel)
     }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// MARK: - App Delegate
+
+final class AppDelegate: NSObject, NSApplicationDelegate {
+
+  func applicationDidFinishLaunching(_ notification: Notification) {
+    // disable tab view
+    NSWindow.allowsAutomaticWindowTabbing = false
+    // disable restoring windows
+    UserDefaults.standard.register(defaults: ["NSQuitAlwaysKeepsWindows" : false])
+  }
+    
+  func applicationWillTerminate(_ notification: Notification) {
+    ApiModel.shared.disconnect()
+    log("SDRApiViewer: application terminated", .debug, #function, #file, #line)
+  }
+  
+  func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+    true
   }
 }
 

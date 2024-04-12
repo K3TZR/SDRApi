@@ -24,18 +24,21 @@ public struct SendView: View {
       HStack(spacing: 0) {
         Image(systemName: "x.circle").font(.title2)
           .onTapGesture { store.send(.clearSendTextButtonTapped) }
+          .help("Clear the command field")
         
         Stepper("", onIncrement: {
           store.send(.commandPreviousTapped)
         }, onDecrement: {
           store.send(.commandNextTapped)
         })
+        .help("Load previously sent commands")
         TextField("Command to send", text: $store.commandToSend)
       }
       .disabled(store.connectionState != .connected)
       
       Toggle("Clear on Send", isOn: $store.clearOnSend)
         .toggleStyle(.button)
+        .help("Clear the field after sending a command")
     }
   }
 }

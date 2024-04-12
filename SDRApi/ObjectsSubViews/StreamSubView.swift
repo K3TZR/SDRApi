@@ -77,7 +77,7 @@ private struct MeterStreamView: View {
     GridRow {
       Group {
         Text("METER")
-        Text(apiModel.meterStream == nil ? "0x--------" : apiModel.meterStream!.id.hex ).foregroundColor(.green)
+        Text(apiModel.meterStream?.id.hex ?? "0x0").foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
           Text(apiModel.meterStream == nil ? "N" : "Y").foregroundColor(apiModel.meterStream == nil ? .red : .green)
@@ -95,7 +95,7 @@ private struct PanadapterStreamView: View {
     GridRow {
       Group {
         Text("PANADAPTER")
-        Text(panadapter.isStreaming ? panadapter.id.hex : "0x--------").foregroundColor(.green)
+        Text(panadapter.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
           Text(panadapter.isStreaming ? "Y" : "N").foregroundColor(panadapter.isStreaming ? .green : .red)
@@ -113,7 +113,7 @@ private struct WaterfallStreamView: View {
     GridRow {
       Group {
         Text("WATERFALL")
-        Text(waterfall.isStreaming ? waterfall.id.hex : "0x--------").foregroundColor(.green)
+        Text(waterfall.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
           Text(waterfall.isStreaming ? "Y" : "N").foregroundColor(waterfall.isStreaming ? .green : .red)
@@ -131,7 +131,7 @@ private struct RemoteRxStreamView: View {
     GridRow {
       Group {
         Text("REMOTE Rx")
-        Text(stream.isStreaming ? stream.id.hex : "0x--------").foregroundColor(.green)
+        Text(stream.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
           Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
@@ -163,7 +163,7 @@ private struct RemoteTxStreamView: View {
     GridRow {
       Group {
         Text("REMOTE Tx")
-        Text(stream.isStreaming ? stream.id.hex : "0x--------").foregroundColor(.green)
+        Text(stream.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
           Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
@@ -191,7 +191,7 @@ private struct DaxMicStreamView: View {
     GridRow {
       Group {
         Text("DAX Mic").frame(width: 80, alignment: .leading)
-        Text(stream.isStreaming ? stream.id.hex : "0x--------").foregroundColor(.green)
+        Text(stream.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
           Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
@@ -219,7 +219,7 @@ private struct DaxRxStreamView: View {
     GridRow {
       Group {
         Text("DAX Rx").frame(width: 80, alignment: .leading)
-        Text(stream.isStreaming ? stream.id.hex : "0x--------").foregroundColor(.green)
+        Text(stream.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
           Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
@@ -251,7 +251,7 @@ private struct DaxTxStreamView: View {
     GridRow {
       Group {
         Text("DAX Tx").frame(width: 80, alignment: .leading)
-        Text(stream.isStreaming ? stream.id.hex : "0x--------").foregroundColor(.green)
+        Text(stream.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
           Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
@@ -283,7 +283,7 @@ private struct DaxIqStreamView: View {
     GridRow {
       Group {
         Text("DAX IQ").frame(width: 80, alignment: .leading)
-        Text(stream.isStreaming ? stream.id.hex : "0x--------").foregroundColor(.green)
+        Text(stream.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
           Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)

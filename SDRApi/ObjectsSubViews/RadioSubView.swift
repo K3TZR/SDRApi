@@ -21,25 +21,25 @@ struct RadioSubView: View {
   
   var body: some View {
     VStack(alignment: .leading) {
-      VStack(alignment: .leading) {
-        HStack(spacing: 20) {
-          Image(systemName: showSubView ? "chevron.down" : "chevron.right")
-            .help("          Tap to toggle details")
-            .onTapGesture(perform: { showSubView.toggle() })
-          Text(" RADIO   ").foregroundColor(apiModel.radio?.packet.source == .local ? .blue : .red)
-            .font(.title)
-            .help("          Tap to toggle details")
-            .onTapGesture(perform: { showSubView.toggle() })
-          Text(apiModel.radio?.packet.nickname ?? "" )
-            .foregroundColor(apiModel.radio?.packet.source == .local ? .blue : .red)
-          
-          Line1View()
-        }
-        Line2View()
-        if showSubView {
-          Divider().background(apiModel.radio?.packet.source == .local ? .blue : .red)
-          DetailView()
-        }
+      HStack(spacing: 0) {
+        Label("Radio", systemImage: showSubView ? "chevron.down" : "chevron.right")
+          .foregroundColor(apiModel.radio?.packet.source == .local ? .blue : .red)
+          .font(.title)
+          .frame(width: 120, alignment: .leading)
+          .onTapGesture{ showSubView.toggle() }
+          .help("          Tap to toggle details")
+
+        Text(apiModel.radio?.packet.nickname ?? "" )
+          .foregroundColor(apiModel.radio?.packet.source == .local ? .blue : .red)
+          .frame(width: 120, alignment: .leading)
+        
+        Line1View()
+      }
+      
+      Line2View()
+      if showSubView {
+        Divider().background(apiModel.radio?.packet.source == .local ? .blue : .red)
+        DetailView()
       }
     }
   }
@@ -51,28 +51,30 @@ private struct Line1View: View {
   var body: some View {
     
     if let radio = apiModel.radio {
-      HStack(spacing: 5) {
-        Text("Connection")
-        Text(radio.packet.source.rawValue)
-          .foregroundColor(radio.packet.source == .local ? .green : .red)
-      }
-      HStack(spacing: 5) {
-        Text("Ip")
-        Text(radio.packet.publicIp).foregroundColor(.green)
-      }
-      HStack(spacing: 5) {
-        Text("FW")
-        Text(radio.packet.version + "\(radio.alpha ? "(alpha)" : "")").foregroundColor(radio.alpha ? .red : .green)
-      }
-      HStack(spacing: 5) {
-        Text("Model")
-        Text(radio.packet.model).foregroundColor(.green)
-      }
-      HStack(spacing: 5) {
-        Text("Serial")
-        Text(radio.packet.serial).foregroundColor(.green)
-      }
-      .frame(alignment: .leading)
+      HStack(spacing: 20) {
+        HStack(spacing: 5) {
+          Text("Connection")
+          Text(radio.packet.source.rawValue)
+            .foregroundColor(radio.packet.source == .local ? .green : .red)
+        }
+        HStack(spacing: 5) {
+          Text("Ip")
+          Text(radio.packet.publicIp).foregroundColor(.green)
+        }
+        HStack(spacing: 5) {
+          Text("FW")
+          Text(radio.packet.version + "\(radio.alpha ? "(alpha)" : "")").foregroundColor(radio.alpha ? .red : .green)
+        }
+        HStack(spacing: 5) {
+          Text("Model")
+          Text(radio.packet.model).foregroundColor(.green)
+        }
+        HStack(spacing: 5) {
+          Text("Serial")
+          Text(radio.packet.serial).foregroundColor(.green)
+        }
+        .frame(alignment: .leading)
+      }.padding(.leading, 20)
     }
   }
 }
@@ -95,8 +97,6 @@ private struct Line2View: View {
    
     if let radio = apiModel.radio {
       HStack(spacing: 20) {
-        Text("").frame(width: 120)
-        
         HStack(spacing: 5) {
           Text("Ant List")
           Text(stringArrayToString(apiModel.antList)).foregroundColor(.green)
@@ -122,7 +122,7 @@ private struct Line2View: View {
           Text("\(apiModel.uptime)").foregroundColor(.green)
           Text("(seconds)")
         }
-      }
+      }.padding(.leading, 130)
     }
   }
 }

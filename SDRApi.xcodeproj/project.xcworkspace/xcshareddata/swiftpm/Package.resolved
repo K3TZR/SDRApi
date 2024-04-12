@@ -1,5 +1,5 @@
 {
-  "originHash" : "1ff884afa90e94ff34e69e87f0a660148645fa44265996305359d5ae1a89f81c",
+  "originHash" : "058f5a6dbf492d9ee7233776f29b3ed3beeea8b5e35bc9aa3b69ac98c7b91055",
   "pins" : [
     {
       "identity" : "cocoaasyncsocket",
@@ -38,15 +38,6 @@
       }
     },
     {
-      "identity" : "sdrapifeatures",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/K3TZR/SDRApiFeatures.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "3981951c32e3cafdf90b3ff245b5b18ecb4aa9f1"
-      }
-    },
-    {
       "identity" : "swift-async-algorithms",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-async-algorithms.git",
@@ -60,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-case-paths",
       "state" : {
-        "revision" : "e593aba2c6222daad7c4f2732a431eed2c09bb07",
-        "version" : "1.3.0"
+        "revision" : "79623dbe2c7672f5e450d8325613d231454390b3",
+        "version" : "1.3.2"
       }
     },
     {
@@ -88,7 +79,7 @@
       "location" : "https://github.com/pointfreeco/swift-composable-architecture",
       "state" : {
         "branch" : "shared-state-beta",
-        "revision" : "172e3028205f2878032940de31beb8db9451ce1d"
+        "revision" : "8b841181012a43ce6048f9c14e6925c4a39f44f7"
       }
     },
     {
@@ -132,8 +123,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-perception",
       "state" : {
-        "revision" : "83fc3d89676b33f1c3d49e9268e76ef62430339f",
-        "version" : "1.1.3"
+        "revision" : "520c458a832d1287e6b698c5f657ae848fd696ff",
+        "version" : "1.1.4"
       }
     },
     {
@@ -150,8 +141,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swiftui-navigation",
       "state" : {
-        "revision" : "d9e72f3083c08375794afa216fb2f89c0114f303",
-        "version" : "1.2.1"
+        "revision" : "2ec6c3a15293efff6083966b38439a4004f25565",
+        "version" : "1.3.0"
       }
     },
     {
@@ -168,8 +159,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
       "state" : {
-        "revision" : "b13b1d1a8e787a5ffc71ac19dcaf52183ab27ba2",
-        "version" : "1.1.1"
+        "revision" : "6f30bdba373bbd7fbfe241dddd732651f2fbd1e2",
+        "version" : "1.1.2"
       }
     }
   ],

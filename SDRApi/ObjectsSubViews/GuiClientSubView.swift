@@ -44,16 +44,17 @@ private struct DetailView: View {
     HStack(spacing: 20) {
       
       HStack(spacing: 0) {
-        Image(systemName: showSubView ? "chevron.down" : "chevron.right")
-          .help("          Tap to toggle details")
-          .onTapGesture(perform: { showSubView.toggle() })
-        Text(" Gui   ").foregroundColor(.yellow)
+        Label("Gui", systemImage: showSubView ? "chevron.down" : "chevron.right")
+          .foregroundColor(.yellow)
           .font(.title)
+          .frame(width: 120, alignment: .leading)
+          .onTapGesture{ showSubView.toggle() }
           .help("          Tap to toggle details")
-          .onTapGesture(perform: { showSubView.toggle() })
-        
+
         Text("\(guiClient.station)").foregroundColor(.yellow)
+          .frame(width: 120, alignment: .leading)
       }
+
       
       HStack(spacing: 5) {
         Text("Program")

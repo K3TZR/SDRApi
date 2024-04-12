@@ -70,7 +70,8 @@ private struct PanadapterDetailView: View {
         
         HStack(spacing: 5) {
           Text("Id")
-          Text(panadapter.isStreaming ? panadapter.id.hex : "0x--------").padding(.leading, 5).foregroundColor(.secondary)
+          Text(panadapter.id.hex).padding(.leading, 5).foregroundColor(.secondary)
+//          Text(panadapter.isStreaming ? panadapter.id.hex : "0x--------").padding(.leading, 5).foregroundColor(.secondary)
         }
         
         HStack(spacing: 5) {
@@ -102,7 +103,8 @@ private struct WaterfallDetailView: View {
         
         HStack(spacing: 5) {
           Text("Id")
-          Text(waterfall.isStreaming ? waterfall.id.hex : "0x--------").padding(.leading, 5).foregroundColor(.secondary)
+          Text(waterfall.id.hex).padding(.leading, 5).foregroundColor(.secondary)
+//          Text(waterfall.isStreaming ? waterfall.id.hex : "0x--------").padding(.leading, 5).foregroundColor(.secondary)
         }
 
         HStack(spacing: 5) {

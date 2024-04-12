@@ -70,6 +70,7 @@ public struct SDRApi {
     var initialized = false
     var connectionState: ConnectionState = .disconnected
     var audioOutput: RxAudioPlayer?
+    var newLineBetweenMessages = false
 
     @Presents var showAlert: AlertState<Action.Alert>?
     @Presents var showClient: ClientFeature.State?
