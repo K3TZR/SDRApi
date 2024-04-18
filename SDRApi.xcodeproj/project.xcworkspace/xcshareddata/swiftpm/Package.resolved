@@ -1,5 +1,5 @@
 {
-  "originHash" : "058f5a6dbf492d9ee7233776f29b3ed3beeea8b5e35bc9aa3b69ac98c7b91055",
+  "originHash" : "1ff884afa90e94ff34e69e87f0a660148645fa44265996305359d5ae1a89f81c",
   "pins" : [
     {
       "identity" : "cocoaasyncsocket",
@@ -35,6 +35,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "c5361c21b6aa03e9d1d99305ac9bdee46f599116"
+      }
+    },
+    {
+      "identity" : "sdrapifeatures",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/K3TZR/SDRApiFeatures.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "48e1f1a54c5c8191b7a24416767cba1eace42aab"
       }
     },
     {
@@ -79,7 +88,7 @@
       "location" : "https://github.com/pointfreeco/swift-composable-architecture",
       "state" : {
         "branch" : "shared-state-beta",
-        "revision" : "8b841181012a43ce6048f9c14e6925c4a39f44f7"
+        "revision" : "1a1992d3ed79453fa08e0183228a836dc86f464d"
       }
     },
     {
@@ -123,8 +132,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-perception",
       "state" : {
-        "revision" : "520c458a832d1287e6b698c5f657ae848fd696ff",
-        "version" : "1.1.4"
+        "revision" : "052bd30a2079d9eb2400f0bc66707cc93c015152",
+        "version" : "1.1.5"
       }
     },
     {
