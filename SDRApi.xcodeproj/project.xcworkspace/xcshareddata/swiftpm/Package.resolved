@@ -1,5 +1,5 @@
 {
-  "originHash" : "1ff884afa90e94ff34e69e87f0a660148645fa44265996305359d5ae1a89f81c",
+  "originHash" : "ff8c7eae78ffe68e7fda917a8b4bd5a2d7fb54eb310e4ed52d91ae17fa114022",
   "pins" : [
     {
       "identity" : "cocoaasyncsocket",
@@ -35,24 +35,6 @@
       "state" : {
         "branch" : "main",
         "revision" : "c5361c21b6aa03e9d1d99305ac9bdee46f599116"
-      }
-    },
-    {
-      "identity" : "sdrapifeatures",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/K3TZR/SDRApiFeatures.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "48e1f1a54c5c8191b7a24416767cba1eace42aab"
-      }
-    },
-    {
-      "identity" : "swift-async-algorithms",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-async-algorithms.git",
-      "state" : {
-        "revision" : "da4e36f86544cdf733a40d59b3a2267e3a7bbf36",
-        "version" : "1.0.0"
       }
     },
     {

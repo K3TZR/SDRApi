@@ -602,7 +602,7 @@ public struct SDRApi {
       state.audioOutput = nil
       return .run { [streamId] _ in
         // remove stream(s)
-        await ApiModel.shared.sendRemoveStreams([streamId])
+        await StreamModel.shared.sendRemoveStreams([streamId])
         log("SdrApiCore: remote rx audiostream STOPPED", .debug, #function, #file, #line)
       }
     }

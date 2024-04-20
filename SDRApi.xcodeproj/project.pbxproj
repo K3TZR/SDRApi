@@ -39,6 +39,7 @@
 		9F1D15F02BB8946C0062A4CD /* ObjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1D15EB2BB8946C0062A4CD /* ObjectsView.swift */; };
 		9F1D15F12BB8946C0062A4CD /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1D15EC2BB8946C0062A4CD /* SendView.swift */; };
 		9F1D15F22BB8946C0062A4CD /* TopButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1D15ED2BB8946C0062A4CD /* TopButtonsView.swift */; };
+		9F8399582BD44A41001FF105 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 9F8399572BD44A41001FF105 /* ComposableArchitecture */; };
 		9FDCEEA32B5ED1720055FF11 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9FDCEE972B5ED1720055FF11 /* README.md */; };
 		9FDCEEAD2B5ED1CE0055FF11 /* ClientFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEAC2B5ED1CE0055FF11 /* ClientFeature */; };
 		9FDCEEAF2B5ED1CE0055FF11 /* DirectFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEAE2B5ED1CE0055FF11 /* DirectFeature */; };
@@ -89,6 +90,7 @@
 		9F1D15EB2BB8946C0062A4CD /* ObjectsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsView.swift; sourceTree = "<group>"; };
 		9F1D15EC2BB8946C0062A4CD /* SendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
 		9F1D15ED2BB8946C0062A4CD /* TopButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopButtonsView.swift; sourceTree = "<group>"; };
+		9F8399552BD301F6001FF105 /* SDRApiFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SDRApiFeatures; path = ../Packages/SDRApiFeatures; sourceTree = "<group>"; };
 		9FDCEE852B5ED1300055FF11 /* SDRApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDRApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FDCEE912B5ED1310055FF11 /* SDRApiViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDRApiViewer.entitlements; sourceTree = "<group>"; };
 		9FDCEE972B5ED1720055FF11 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			files = (
 				9FDCEEB12B5ED1CE0055FF11 /* FlexApiFeature in Frameworks */,
 				9FDCEEC92B5ED1CE0055FF11 /* VitaFeature in Frameworks */,
+				9F8399582BD44A41001FF105 /* ComposableArchitecture in Frameworks */,
 				9FDCEEB32B5ED1CE0055FF11 /* ListenerFeature in Frameworks */,
 				9FDCEEB52B5ED1CE0055FF11 /* LoginFeature in Frameworks */,
 				9FDCEEC32B5ED1CE0055FF11 /* SharedFeature in Frameworks */,
@@ -170,6 +173,7 @@
 		9FDCEE7C2B5ED1300055FF11 = {
 			isa = PBXGroup;
 			children = (
+				9F8399552BD301F6001FF105 /* SDRApiFeatures */,
 				9FDCEE972B5ED1720055FF11 /* README.md */,
 				9FDCEE872B5ED1300055FF11 /* SDRApi */,
 				9FDCEE862B5ED1300055FF11 /* Products */,
@@ -230,6 +234,7 @@
 				9FDCEEC62B5ED1CE0055FF11 /* UdpFeature */,
 				9FDCEEC82B5ED1CE0055FF11 /* VitaFeature */,
 				9FDCEECA2B5ED1CE0055FF11 /* XCGLogFeature */,
+				9F8399572BD44A41001FF105 /* ComposableArchitecture */,
 			);
 			productName = SDRTestViewer;
 			productReference = 9FDCEE852B5ED1300055FF11 /* SDRApi.app */;
@@ -262,7 +267,7 @@
 			mainGroup = 9FDCEE7C2B5ED1300055FF11;
 			packageReferences = (
 				9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */,
-				9F84483E2BB399B70000C95D /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
+				9F8399562BD44A41001FF105 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = 9FDCEE862B5ED1300055FF11 /* Products */;
 			projectDirPath = "";
@@ -530,12 +535,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9F84483E2BB399B70000C95D /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
+		9F8399562BD44A41001FF105 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-async-algorithms.git";
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = "shared-state-beta";
+				kind = branch;
 			};
 		};
 		9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */ = {
@@ -549,6 +554,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9F8399572BD44A41001FF105 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9F8399562BD44A41001FF105 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
 		9FDCEEAC2B5ED1CE0055FF11 /* ClientFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;

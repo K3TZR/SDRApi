@@ -35,32 +35,32 @@ struct StreamSubView: View {
       }
       
       // RemoteRxAudioStream
-      ForEach(apiModel.remoteRxAudioStreams) { stream in
+      ForEach(StreamModel.shared.remoteRxAudioStreams) { stream in
         if handle == stream.clientHandle { RemoteRxStreamView(stream: stream) }
       }
       
       // RemoteTxAudioStream
-      ForEach(apiModel.remoteTxAudioStreams) { stream in
+      ForEach(StreamModel.shared.remoteTxAudioStreams) { stream in
         if handle == stream.clientHandle { RemoteTxStreamView(stream: stream) }
       }
       
       // DaxMicAudioStream
-      ForEach(apiModel.daxMicAudioStreams) { stream in
+      ForEach(StreamModel.shared.daxMicAudioStreams) { stream in
         if handle == stream.clientHandle { DaxMicStreamView(stream: stream) }
       }
       
       // DaxRxAudioStream
-      ForEach(apiModel.daxRxAudioStreams) { stream in
+      ForEach(StreamModel.shared.daxRxAudioStreams) { stream in
         if handle == stream.clientHandle { DaxRxStreamView(stream: stream) }
       }
       
       // DaxTxAudioStream
-      ForEach(apiModel.daxTxAudioStreams) { stream in
+      ForEach(StreamModel.shared.daxTxAudioStreams) { stream in
         if handle == stream.clientHandle { DaxTxStreamView(stream: stream) }
       }
       
       // DaxIqStream
-      ForEach(apiModel.daxIqStreams) { stream in
+      ForEach(StreamModel.shared.daxIqStreams) { stream in
         if handle == stream.clientHandle { DaxIqStreamView(stream: stream) }
       }
     }
@@ -77,10 +77,10 @@ private struct MeterStreamView: View {
     GridRow {
       Group {
         Text("METER")
-        Text(apiModel.meterStream?.id.hex ?? "0x0").foregroundColor(.green)
+        Text(StreamModel.shared.meterStream?.id.hex ?? "0x0").foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(apiModel.meterStream == nil ? "N" : "Y").foregroundColor(apiModel.meterStream == nil ? .red : .green)
+          Text(StreamModel.shared.meterStream == nil ? "N" : "Y").foregroundColor(StreamModel.shared.meterStream == nil ? .red : .green)
         }
       }.frame(width: 100, alignment: .leading)
     }
