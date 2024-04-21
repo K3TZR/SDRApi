@@ -55,7 +55,7 @@ public struct SDRApi {
     @Shared(.appStorage("previousCommand")) var previousCommand = ""
     @Shared(.appStorage("previousIdToken")) var previousIdToken: String? = nil
     @Shared(.appStorage("refreshToken")) var refreshToken: String? = nil
-    @Shared(.appStorage("remoteRxAudioCompressed")) var remoteRxAudioCompressed = false
+    @Shared(.appStorage("remoteRxAudioCompressed")) var remoteRxAudioCompressed = true
     @Shared(.appStorage("remoteRxAudioEnabled")) var remoteRxAudioEnabled = false
     @Shared(.appStorage("remoteTxAudioEnabled")) var remoteTxAudioEnabled = false
     @Shared(.appStorage("showPings")) var showPings = false
@@ -591,7 +591,7 @@ public struct SDRApi {
     state.audioOutput = RxAudioPlayer()
     return .run { [state] _ in
       // request a stream, reply to handler
-      await ApiModel.shared.requestRemoteRxAudioStream(isCompressed: state.remoteRxAudioCompressed, replyTo: state.audioOutput!.streamReplyHandler)
+      await ApiModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed, replyTo: state.audioOutput!.streamReplyHandler)
       log("SdrApiCore: remote rx audio stream REQUESTED", .debug, #function, #file, #line)
     }
   }

@@ -18,6 +18,7 @@ struct StreamSubView: View {
   let handle: UInt32
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(StreamModel.self) private var streamModel
 
   var body: some View {
     Grid(alignment: .leading, horizontalSpacing: 10) {
@@ -35,32 +36,32 @@ struct StreamSubView: View {
       }
       
       // RemoteRxAudioStream
-      ForEach(StreamModel.shared.remoteRxAudioStreams) { stream in
+      ForEach(streamModel.remoteRxAudioStreams) { stream in
         if handle == stream.clientHandle { RemoteRxStreamView(stream: stream) }
       }
       
       // RemoteTxAudioStream
-      ForEach(StreamModel.shared.remoteTxAudioStreams) { stream in
+      ForEach(streamModel.remoteTxAudioStreams) { stream in
         if handle == stream.clientHandle { RemoteTxStreamView(stream: stream) }
       }
       
       // DaxMicAudioStream
-      ForEach(StreamModel.shared.daxMicAudioStreams) { stream in
+      ForEach(streamModel.daxMicAudioStreams) { stream in
         if handle == stream.clientHandle { DaxMicStreamView(stream: stream) }
       }
       
       // DaxRxAudioStream
-      ForEach(StreamModel.shared.daxRxAudioStreams) { stream in
+      ForEach(streamModel.daxRxAudioStreams) { stream in
         if handle == stream.clientHandle { DaxRxStreamView(stream: stream) }
       }
       
       // DaxTxAudioStream
-      ForEach(StreamModel.shared.daxTxAudioStreams) { stream in
+      ForEach(streamModel.daxTxAudioStreams) { stream in
         if handle == stream.clientHandle { DaxTxStreamView(stream: stream) }
       }
       
       // DaxIqStream
-      ForEach(StreamModel.shared.daxIqStreams) { stream in
+      ForEach(streamModel.daxIqStreams) { stream in
         if handle == stream.clientHandle { DaxIqStreamView(stream: stream) }
       }
     }
@@ -71,16 +72,17 @@ struct StreamSubView: View {
 private struct MeterStreamView: View {
   
   @Environment(ApiModel.self) private var apiModel
+  @Environment(StreamModel.self) private var streamModel
 
   var body: some View {
     
     GridRow {
       Group {
         Text("METER")
-        Text(StreamModel.shared.meterStream?.id.hex ?? "0x0").foregroundColor(.green)
+        Text(streamModel.meterStream?.id.hex ?? "0x0").foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(StreamModel.shared.meterStream == nil ? "N" : "Y").foregroundColor(StreamModel.shared.meterStream == nil ? .red : .green)
+          Text(streamModel.meterStream == nil ? "N" : "Y").foregroundColor(StreamModel.shared.meterStream == nil ? .red : .green)
         }
       }.frame(width: 100, alignment: .leading)
     }
@@ -98,7 +100,7 @@ private struct PanadapterStreamView: View {
         Text(panadapter.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(panadapter.isStreaming ? "Y" : "N").foregroundColor(panadapter.isStreaming ? .green : .red)
+//          Text(panadapter.isStreaming ? "Y" : "N").foregroundColor(panadapter.isStreaming ? .green : .red)
         }
       }.frame(width: 100, alignment: .leading)
     }
@@ -116,7 +118,7 @@ private struct WaterfallStreamView: View {
         Text(waterfall.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(waterfall.isStreaming ? "Y" : "N").foregroundColor(waterfall.isStreaming ? .green : .red)
+//          Text(waterfall.isStreaming ? "Y" : "N").foregroundColor(waterfall.isStreaming ? .green : .red)
         }
       }.frame(width: 100, alignment: .leading)
     }
@@ -317,4 +319,5 @@ private struct DaxIqStreamView: View {
 #Preview {
   StreamSubView(handle: 1)
     .environment(ApiModel.shared)
+    .environment(StreamModel.shared)
 }

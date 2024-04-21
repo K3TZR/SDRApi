@@ -65,7 +65,7 @@ private struct PanadapterDetailView: View {
       Group {
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(panadapter.isStreaming ? "Y" : "N").foregroundColor(panadapter.isStreaming ? .green : .red)
+//          Text(panadapter.isStreaming ? "Y" : "N").foregroundColor(panadapter.isStreaming ? .green : .red)
         }
         
         HStack(spacing: 5) {
