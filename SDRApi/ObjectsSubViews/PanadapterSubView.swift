@@ -57,6 +57,10 @@ struct PanadapterSubView: View {
 private struct PanadapterDetailView: View {
   var panadapter: Panadapter
   
+  @Environment(StreamModel.self) private var streamModel
+
+  @MainActor private var isStreaming: Bool { streamModel.panadapterStreams[id: panadapter.id]!.isStreaming }
+  
   var body: some View {
     HStack(spacing: 20) {
       
@@ -65,13 +69,13 @@ private struct PanadapterDetailView: View {
       Group {
         HStack(spacing: 5) {
           Text("Streaming")
-//          Text(panadapter.isStreaming ? "Y" : "N").foregroundColor(panadapter.isStreaming ? .green : .red)
+          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
         }
         
         HStack(spacing: 5) {
           Text("Id")
           Text(panadapter.id.hex).padding(.leading, 5).foregroundColor(.secondary)
-//          Text(panadapter.isStreaming ? panadapter.id.hex : "0x--------").padding(.leading, 5).foregroundColor(.secondary)
+          Text(isStreaming ? panadapter.id.hex : "0x--------").padding(.leading, 5).foregroundColor(.secondary)
         }
         
         HStack(spacing: 5) {
@@ -91,6 +95,10 @@ private struct PanadapterDetailView: View {
 private struct WaterfallDetailView: View {
   var waterfall: Waterfall
   
+  @Environment(StreamModel.self) private var streamModel
+
+  @MainActor private var isStreaming: Bool { streamModel.waterfallStreams[id: waterfall.id]!.isStreaming }
+  
   var body: some View {
     HStack(spacing: 20) {
       Text("WATERFALL").frame(width: 80, alignment: .leading)
@@ -98,13 +106,13 @@ private struct WaterfallDetailView: View {
       Group {
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(waterfall.isStreaming ? "Y" : "N").foregroundColor(waterfall.isStreaming ? .green : .red)
+          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
         }
         
         HStack(spacing: 5) {
           Text("Id")
           Text(waterfall.id.hex).padding(.leading, 5).foregroundColor(.secondary)
-//          Text(waterfall.isStreaming ? waterfall.id.hex : "0x--------").padding(.leading, 5).foregroundColor(.secondary)
+          Text(isStreaming ? waterfall.id.hex : "0x--------").padding(.leading, 5).foregroundColor(.secondary)
         }
 
         HStack(spacing: 5) {

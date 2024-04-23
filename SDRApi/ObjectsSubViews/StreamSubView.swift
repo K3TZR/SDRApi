@@ -71,7 +71,6 @@ struct StreamSubView: View {
 
 private struct MeterStreamView: View {
   
-  @Environment(ApiModel.self) private var apiModel
   @Environment(StreamModel.self) private var streamModel
 
   var body: some View {
@@ -91,6 +90,10 @@ private struct MeterStreamView: View {
 
 private struct PanadapterStreamView: View {
   var panadapter: Panadapter
+
+  @Environment(StreamModel.self) private var streamModel
+
+  @MainActor private var isStreaming: Bool { streamModel.panadapterStreams[id: panadapter.id]!.isStreaming }
   
   var body: some View {
     
@@ -100,7 +103,7 @@ private struct PanadapterStreamView: View {
         Text(panadapter.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-//          Text(panadapter.isStreaming ? "Y" : "N").foregroundColor(panadapter.isStreaming ? .green : .red)
+          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
         }
       }.frame(width: 100, alignment: .leading)
     }
@@ -110,6 +113,10 @@ private struct PanadapterStreamView: View {
 private struct WaterfallStreamView: View {
   var waterfall: Waterfall
   
+  @Environment(StreamModel.self) private var streamModel
+
+  @MainActor private var isStreaming: Bool { streamModel.waterfallStreams[id: waterfall.id]!.isStreaming }
+  
   var body: some View {
     
     GridRow {
@@ -118,7 +125,7 @@ private struct WaterfallStreamView: View {
         Text(waterfall.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-//          Text(waterfall.isStreaming ? "Y" : "N").foregroundColor(waterfall.isStreaming ? .green : .red)
+          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
         }
       }.frame(width: 100, alignment: .leading)
     }
