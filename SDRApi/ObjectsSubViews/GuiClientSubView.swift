@@ -102,7 +102,7 @@ struct GuiClientDetailView: View {
     case ObjectFilter.memories:          MemorySubView()
     case ObjectFilter.meters:            MeterSubView(sliceId: nil, sliceClientHandle: nil, handle: handle)
     case ObjectFilter.misc:              MiscSubView()
-    case ObjectFilter.network:           NetworkSubView(streamStatistics: StreamStatistics.shared)
+    case ObjectFilter.network:           NetworkSubView()
     case ObjectFilter.profiles:          ProfileSubView()
     case ObjectFilter.streams:           StreamSubView(handle: handle)
     case ObjectFilter.usbCable:          UsbCableSubView()
