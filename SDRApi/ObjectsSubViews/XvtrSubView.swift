@@ -16,10 +16,11 @@ import FlexApiFeature
 struct XvtrSubView: View {
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
     
-    if apiModel.xvtrs.count == 0 {
+    if objectModel.xvtrs.count == 0 {
       HStack(spacing: 20) {
         Text("XVTRs").frame(width: 80, alignment: .leading)
         Text("None present").foregroundColor(.red)
@@ -42,4 +43,5 @@ struct XvtrSubView: View {
 #Preview {
   XvtrSubView()
     .environment(ApiModel.shared)
+    .environment(ObjectModel.shared)
 }

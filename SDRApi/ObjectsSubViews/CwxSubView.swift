@@ -16,6 +16,7 @@ import FlexApiFeature
 struct CwxSubView: View {
   
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
     
@@ -25,15 +26,15 @@ struct CwxSubView: View {
           Text("CWX")
           HStack(spacing: 5) {
             Text("Bkin_Delay")
-            Text("\(apiModel.cwx.breakInDelay)").foregroundColor(.green)
+            Text("\(objectModel.cwx.breakInDelay)").foregroundColor(.green)
           }
           HStack(spacing: 5) {
             Text("QSK")
-            Text(apiModel.cwx.qskEnabled ? "Y" : "N").foregroundColor(apiModel.cwx.qskEnabled ? .green : .red)
+            Text(objectModel.cwx.qskEnabled ? "Y" : "N").foregroundColor(objectModel.cwx.qskEnabled ? .green : .red)
           }
           HStack(spacing: 5) {
             Text("WPM")
-            Text("\(apiModel.cwx.wpm)").foregroundColor(.green)
+            Text("\(objectModel.cwx.wpm)").foregroundColor(.green)
           }
         }
       }
@@ -49,4 +50,5 @@ struct CwxSubView: View {
 #Preview {
   CwxSubView()
     .environment(ApiModel.shared)
+    .environment(ObjectModel.shared)
 }

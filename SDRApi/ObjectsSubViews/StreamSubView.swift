@@ -18,6 +18,7 @@ struct StreamSubView: View {
   let handle: UInt32
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) private var objectModel
   @Environment(StreamModel.self) private var streamModel
 
   var body: some View {
@@ -26,12 +27,12 @@ struct StreamSubView: View {
       MeterStreamView()
       
       // Panadapter
-      ForEach(apiModel.panadapters) { panadapter in
+      ForEach(objectModel.panadapters) { panadapter in
         if handle == panadapter.clientHandle { PanadapterStreamView(panadapter: panadapter) }
       }
       
       // Waterfall
-      ForEach(apiModel.waterfalls) { waterfall in
+      ForEach(objectModel.waterfalls) { waterfall in
         if handle == waterfall.clientHandle { WaterfallStreamView(waterfall: waterfall) }
       }
       

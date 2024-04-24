@@ -17,6 +17,7 @@ import SharedFeature
 struct GpsSubView: View {
 
   @Environment(ApiModel.self) var apiModel
+  @Environment(ObjectModel.self) var objectModel
 
   let post = String(repeating: " ", count: 8)
   
@@ -26,7 +27,7 @@ struct GpsSubView: View {
       GridRow {
         Group {
           Text("GPS")
-          if let radio = apiModel.radio {
+          if let radio = objectModel.radio {
             if radio.gpsPresent {
               Text("Not implemented").foregroundColor(.red)
             } else {

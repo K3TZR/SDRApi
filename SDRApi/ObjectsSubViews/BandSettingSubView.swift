@@ -16,11 +16,12 @@ import FlexApiFeature
 struct BandSettingSubView: View {
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
     
     Grid(alignment: .leading, horizontalSpacing: 10) {
-      if apiModel.bandSettings.count == 0 {
+      if objectModel.bandSettings.count == 0 {
       GridRow {
         Text("BANDSETTINGs")
         Text("None present").foregroundColor(.red)
@@ -28,7 +29,7 @@ struct BandSettingSubView: View {
       
     } else {
         HeadingView()
-        ForEach(apiModel.bandSettings.sorted(by: {$0.name < $1.name})) { setting in
+        ForEach(objectModel.bandSettings.sorted(by: {$0.name < $1.name})) { setting in
           DetailView(setting: setting)
         }.frame(width: 80, alignment: .center)
       }

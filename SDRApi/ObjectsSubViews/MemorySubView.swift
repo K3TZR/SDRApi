@@ -16,18 +16,19 @@ import FlexApiFeature
 struct MemorySubView: View {
   
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
     
     Grid(alignment: .leading, horizontalSpacing: 10) {
-      if apiModel.memories.count == 0 {
+      if objectModel.memories.count == 0 {
         GridRow {
           Text("MEMORYs")
           Text("None present").foregroundColor(.red)
         }.frame(width: 100, alignment: .leading)
         
       } else {
-        ForEach(apiModel.memories) { memory in
+        ForEach(objectModel.memories) { memory in
           Group {
             Row1View(memory: memory)
             Row2View(memory: memory)

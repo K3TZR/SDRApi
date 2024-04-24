@@ -31,6 +31,7 @@ struct TransmitSubView: View {
 private struct Row1View: View {
 
   @Environment(ApiModel.self) var apiModel
+  @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
     
@@ -39,31 +40,31 @@ private struct Row1View: View {
       Group {
         HStack(spacing: 5) {
           Text("RF_Power")
-          Text("\(apiModel.transmit.rfPower)").foregroundColor(.green)
+          Text("\(objectModel.transmit.rfPower)").foregroundColor(.green)
         }
         HStack(spacing: 5) {
           Text("Tune_Power")
-          Text("\(apiModel.transmit.tunePower)").foregroundColor(.green)
+          Text("\(objectModel.transmit.tunePower)").foregroundColor(.green)
         }
         HStack(spacing: 5) {
           Text("Frequency")
-          Text("\(apiModel.transmit.frequency)").foregroundColor(.secondary)
+          Text("\(objectModel.transmit.frequency)").foregroundColor(.secondary)
         }
         HStack(spacing: 5) {
           Text("Mon_Level")
-          Text("\(apiModel.transmit.ssbMonitorGain)").foregroundColor(.green)
+          Text("\(objectModel.transmit.ssbMonitorGain)").foregroundColor(.green)
         }
         HStack(spacing: 5) {
           Text("Comp_Level")
-          Text("\(apiModel.transmit.companderLevel)").foregroundColor(.green)
+          Text("\(objectModel.transmit.companderLevel)").foregroundColor(.green)
         }
         HStack(spacing: 5) {
           Text("Mic")
-          Text("\(apiModel.transmit.micSelection)").foregroundColor(.green)
+          Text("\(objectModel.transmit.micSelection)").foregroundColor(.green)
         }
         HStack(spacing: 5) {
           Text("Mic_Level")
-          Text("\(apiModel.transmit.micLevel)").foregroundColor(.green)
+          Text("\(objectModel.transmit.micLevel)").foregroundColor(.green)
         }
       }
     }
@@ -73,47 +74,48 @@ private struct Row1View: View {
 private struct Row2View: View {
 
   @Environment(ApiModel.self) var apiModel
+  @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
     GridRow {
       Text("")
       HStack(spacing: 5) {
         Text("Proc")
-        Text(apiModel.transmit.speechProcessorEnabled ? "Y" : "N")
-          .foregroundColor(apiModel.transmit.speechProcessorEnabled ? .green : .red)
+        Text(objectModel.transmit.speechProcessorEnabled ? "Y" : "N")
+          .foregroundColor(objectModel.transmit.speechProcessorEnabled ? .green : .red)
       }
       HStack(spacing: 5) {
         Text("Comp")
-        Text(apiModel.transmit.companderEnabled ? "Y" : "N")
-          .foregroundColor(apiModel.transmit.companderEnabled ? .green : .red)
+        Text(objectModel.transmit.companderEnabled ? "Y" : "N")
+          .foregroundColor(objectModel.transmit.companderEnabled ? .green : .red)
       }
       HStack(spacing: 5) {
         Text("Mon")
-        Text(apiModel.transmit.txMonitorEnabled ? "Y" : "N")
-          .foregroundColor(apiModel.transmit.txMonitorEnabled ? .green : .red)
+        Text(objectModel.transmit.txMonitorEnabled ? "Y" : "N")
+          .foregroundColor(objectModel.transmit.txMonitorEnabled ? .green : .red)
       }
       HStack(spacing: 5) {
         Text("Acc")
-        Text(apiModel.transmit.micAccEnabled ? "Y" : "N")
-          .foregroundColor(apiModel.transmit.micAccEnabled ? .green : .red)
+        Text(objectModel.transmit.micAccEnabled ? "Y" : "N")
+          .foregroundColor(objectModel.transmit.micAccEnabled ? .green : .red)
       }
       HStack(spacing: 5) {
         Text("Dax")
-        Text(apiModel.transmit.daxEnabled ? "Y" : "N")
-          .foregroundColor(apiModel.transmit.daxEnabled ? .green : .red)
+        Text(objectModel.transmit.daxEnabled ? "Y" : "N")
+          .foregroundColor(objectModel.transmit.daxEnabled ? .green : .red)
       }
       HStack(spacing: 5) {
         Text("Vox")
-        Text(apiModel.transmit.voxEnabled ? "Y" : "N")
-          .foregroundColor(apiModel.transmit.voxEnabled ? .green : .red)
+        Text(objectModel.transmit.voxEnabled ? "Y" : "N")
+          .foregroundColor(objectModel.transmit.voxEnabled ? .green : .red)
       }
       HStack(spacing: 5) {
         Text("Vox_Delay")
-        Text("\(apiModel.transmit.voxDelay)").foregroundColor(.green)
+        Text("\(objectModel.transmit.voxDelay)").foregroundColor(.green)
       }
       HStack(spacing: 5) {
         Text("Vox_Level")
-        Text("\(apiModel.transmit.voxLevel)").foregroundColor(.green)
+        Text("\(objectModel.transmit.voxLevel)").foregroundColor(.green)
       }
     }
   }
@@ -122,29 +124,30 @@ private struct Row2View: View {
 private struct Row3View: View {
 
   @Environment(ApiModel.self) var apiModel
+  @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
     GridRow {
       Text("")
       HStack(spacing: 5) {
         Text("Sidetone")
-        Text(apiModel.transmit.cwSidetoneEnabled ? "Y" : "N").foregroundColor(apiModel.transmit.cwSidetoneEnabled ? .green : .red)
+        Text(objectModel.transmit.cwSidetoneEnabled ? "Y" : "N").foregroundColor(objectModel.transmit.cwSidetoneEnabled ? .green : .red)
       }
       HStack(spacing: 5) {
         Text("Level")
-        Text("\(apiModel.transmit.cwMonitorGain)").foregroundColor(.green)
+        Text("\(objectModel.transmit.cwMonitorGain)").foregroundColor(.green)
       }
       HStack(spacing: 5) {
         Text("Pan")
-        Text("\(apiModel.transmit.cwMonitorPan)").foregroundColor(.green)
+        Text("\(objectModel.transmit.cwMonitorPan)").foregroundColor(.green)
       }
       HStack(spacing: 5) {
         Text("Pitch")
-        Text("\(apiModel.transmit.cwPitch)").foregroundColor(.green)
+        Text("\(objectModel.transmit.cwPitch)").foregroundColor(.green)
       }
       HStack(spacing: 5) {
         Text("Speed")
-        Text("\(apiModel.transmit.cwSpeed)").foregroundColor(.green)
+        Text("\(objectModel.transmit.cwSpeed)").foregroundColor(.green)
       }
     }
   }

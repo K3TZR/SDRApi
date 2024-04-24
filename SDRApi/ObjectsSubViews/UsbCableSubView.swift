@@ -16,6 +16,7 @@ import FlexApiFeature
 struct UsbCableSubView: View {
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) var objectModel
 
   let post = String(repeating: " ", count: 1)
   
@@ -23,7 +24,7 @@ struct UsbCableSubView: View {
     
     Grid(alignment: .leading, horizontalSpacing: 10) {
       Group {
-        if apiModel.usbCables.count == 0 {
+        if objectModel.usbCables.count == 0 {
           GridRow {
             Group {
               Text("USBCABLEs")
@@ -32,7 +33,7 @@ struct UsbCableSubView: View {
           }
           
         } else {
-          ForEach(apiModel.usbCables) { cable in
+          ForEach(objectModel.usbCables) { cable in
             Group {
               Row1View(cable: cable)
               Row2View(cable: cable)

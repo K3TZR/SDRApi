@@ -13,11 +13,12 @@ import FlexApiFeature
 struct WaveformSubView: View {
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
     
     Grid(alignment: .leading, horizontalSpacing: 10) {
-      if apiModel.waveform.list.isEmpty {
+      if objectModel.waveform.list.isEmpty {
         GridRow {
           Group {
             Text("WAVEFORMs")
@@ -29,7 +30,7 @@ struct WaveformSubView: View {
         GridRow {
           Group {
             Text("WAVEFORMS").frame(width: 100, alignment: .leading)
-            Text(apiModel.waveform.list)
+            Text(objectModel.waveform.list)
           }
         }
       }
@@ -43,4 +44,5 @@ struct WaveformSubView: View {
 #Preview {
   WaveformSubView()
     .environment(ApiModel.shared)
+    .environment(ObjectModel.shared)
 }

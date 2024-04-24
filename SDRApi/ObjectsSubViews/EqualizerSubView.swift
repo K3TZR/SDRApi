@@ -16,11 +16,12 @@ import FlexApiFeature
 struct EqualizerSubView: View {
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
     Grid(alignment: .leading, horizontalSpacing: 10) {
       HeadingView()
-      ForEach(apiModel.equalizers) { eq in
+      ForEach(objectModel.equalizers) { eq in
         DetailView(eq: eq)
       }
     }

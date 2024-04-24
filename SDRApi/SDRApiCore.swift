@@ -402,7 +402,7 @@ public struct SDRApi {
     state.commandsArray.append(state.commandToSend)
     return .run { [state] in 
       // send command to the radio
-      await ApiModel.shared.sendCommand(state.commandToSend)
+      ApiModel.shared.sendCommand(state.commandToSend)
       if state.clearOnSend { await $0(.clearSendTextButtonTapped)}
     }
   }
@@ -473,7 +473,7 @@ public struct SDRApi {
   private func connectionStop(_ state: State)  -> Effect<SDRApi.Action> {
     MessagesModel.shared.stop(state.clearOnStop)
     return .run {
-      await ApiModel.shared.disconnect()
+      ApiModel.shared.disconnect()
       await $0(.connectionStatus(.disconnected))
     }
   }
@@ -591,7 +591,7 @@ public struct SDRApi {
     state.audioOutput = RxAudioPlayer()
     return .run { [state] _ in
       // request a stream, reply to handler
-      await ApiModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed, replyTo: state.audioOutput!.streamReplyHandler)
+      ApiModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed, replyTo: state.audioOutput!.streamReplyHandler)
       log("SdrApiCore: remote rx audio stream REQUESTED", .debug, #function, #file, #line)
     }
   }

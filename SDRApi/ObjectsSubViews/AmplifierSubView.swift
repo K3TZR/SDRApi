@@ -16,9 +16,10 @@ import FlexApiFeature
 struct AmplifierSubView: View {
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
-    if apiModel.amplifiers.count == 0 {
+    if objectModel.amplifiers.count == 0 {
       Grid(alignment: .leading, horizontalSpacing: 10) {
         GridRow {
           Group {
@@ -31,7 +32,7 @@ struct AmplifierSubView: View {
       .padding(.leading, 20)
       
     } else {
-      ForEach(apiModel.amplifiers) { amplifier in
+      ForEach(objectModel.amplifiers) { amplifier in
         DetailView(amplifier: amplifier)
       }
     }

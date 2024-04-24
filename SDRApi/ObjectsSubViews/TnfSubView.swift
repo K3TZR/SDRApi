@@ -15,10 +15,11 @@ import FlexApiFeature
 
 struct TnfSubView: View {
   
-  @Environment(ApiModel.self) var api
+  @Environment(ApiModel.self) var apiModel
+  @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
-    if api.tnfs.count == 0 {
+    if objectModel.tnfs.count == 0 {
       Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 0) {
         GridRow {
           Group {
@@ -31,7 +32,7 @@ struct TnfSubView: View {
       .padding(.leading, 20)
       
     } else {
-      ForEach(api.tnfs) { tnf in
+      ForEach(objectModel.tnfs) { tnf in
         DetailView(tnf: tnf)
       }
       .padding(.leading, 20)

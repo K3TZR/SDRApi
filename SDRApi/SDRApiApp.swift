@@ -21,6 +21,7 @@ struct SDRApiViewerApp: App {
   
   @State var apiModel = ApiModel.shared
   @State var listenerModel = ListenerModel.shared
+  @State var objectModel = ObjectModel.shared
   @State var streamModel = StreamModel.shared
 
   var body: some Scene {
@@ -30,6 +31,7 @@ struct SDRApiViewerApp: App {
       })
       .environment(apiModel)
       .environment(listenerModel)
+      .environment(objectModel)
       .environment(streamModel)
     }
   }

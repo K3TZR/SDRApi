@@ -15,22 +15,24 @@ import SharedFeature
 // MARK: - View
 
 struct RadioSubView: View {
+
   @Environment(ApiModel.self) var apiModel
-  
+  @Environment(ObjectModel.self) var objectModel
+
   @State var showSubView = true
   
   var body: some View {
     VStack(alignment: .leading) {
       HStack(spacing: 0) {
         Label("Radio", systemImage: showSubView ? "chevron.down" : "chevron.right")
-          .foregroundColor(apiModel.radio?.packet.source == .local ? .blue : .red)
+          .foregroundColor(objectModel.radio?.packet.source == .local ? .blue : .red)
           .font(.title)
           .frame(width: 120, alignment: .leading)
           .onTapGesture{ showSubView.toggle() }
           .help("          Tap to toggle details")
 
-        Text(apiModel.radio?.packet.nickname ?? "" )
-          .foregroundColor(apiModel.radio?.packet.source == .local ? .blue : .red)
+        Text(objectModel.radio?.packet.nickname ?? "" )
+          .foregroundColor(objectModel.radio?.packet.source == .local ? .blue : .red)
           .frame(width: 120, alignment: .leading)
         
         Line1View()
@@ -38,7 +40,7 @@ struct RadioSubView: View {
       
       Line2View()
       if showSubView {
-        Divider().background(apiModel.radio?.packet.source == .local ? .blue : .red)
+        Divider().background(objectModel.radio?.packet.source == .local ? .blue : .red)
         DetailView()
       }
     }
@@ -46,11 +48,13 @@ struct RadioSubView: View {
 }
 
 private struct Line1View: View {
+
   @Environment(ApiModel.self) var apiModel
+  @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
     
-    if let radio = apiModel.radio {
+    if let radio = objectModel.radio {
       HStack(spacing: 20) {
         HStack(spacing: 5) {
           Text("Connection")
@@ -80,7 +84,9 @@ private struct Line1View: View {
 }
 
 private struct Line2View: View {
+
   @Environment(ApiModel.self) var apiModel
+  @Environment(ObjectModel.self) var objectModel
 
   func stringArrayToString( _ list: [String]?) -> String {
     guard list != nil else { return "Unknown"}
@@ -95,7 +101,7 @@ private struct Line2View: View {
   
   var body: some View {
    
-    if let radio = apiModel.radio {
+    if let radio = objectModel.radio {
       HStack(spacing: 20) {
         HStack(spacing: 5) {
           Text("Ant List")

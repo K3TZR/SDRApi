@@ -20,6 +20,7 @@ struct MeterSubView: View {
   let handle: UInt32
   
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) private var objectModel
 
   func showMeter(_ id: UInt32?, _ clientHandle: UInt32?, _ source: String, _ group: String) -> Bool {
     if id == nil { return true }
@@ -33,7 +34,7 @@ struct MeterSubView: View {
     
     Grid(alignment: .leading, horizontalSpacing: 10) {
       HeadingView(sliceId: sliceId)
-      ForEach(apiModel.meters ) { meter in
+      ForEach(objectModel.meters ) { meter in
         if showMeter(sliceId, sliceClientHandle, meter.source, meter.group) {
           DetailView(meter: meter, sliceId: sliceId)
         }

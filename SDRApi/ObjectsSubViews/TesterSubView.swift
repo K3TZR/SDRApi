@@ -18,9 +18,10 @@ struct TesterSubView: View {
   
   @Environment(ApiModel.self) private var apiModel
   @Environment(ListenerModel.self) private var listenerModel
+  @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
-    if apiModel.radio != nil {
+    if objectModel.radio != nil {
       VStack(alignment: .leading) {
         Divider().background(Color(.green))
         HStack(spacing: 10) {
@@ -42,6 +43,7 @@ struct TesterSubView: View {
 struct TesterRadioView: View {
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
       HStack(spacing: 5) {

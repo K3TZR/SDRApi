@@ -18,6 +18,7 @@ public struct NetworkSubView: View {
   @ObservedObject var streamStatistics: StreamStatistics
   
   @Environment(ApiModel.self) private var apiModel
+  @Environment(StreamModel.self) private var streamModel
 
   public var body: some View {
     

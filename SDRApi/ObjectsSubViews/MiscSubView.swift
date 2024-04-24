@@ -17,6 +17,7 @@ import FlexApiFeature
 struct MiscSubView: View {
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) private var objectModel
 
   func stringArrayToString( _ list: [String]) -> String {
     let str = list.reduce("") {$0 + $1 + ", "}
@@ -29,7 +30,7 @@ struct MiscSubView: View {
   }
   
   var body: some View {
-    if let radio = apiModel.radio {
+    if let radio = objectModel.radio {
       HStack {
         VStack(alignment: .leading) {
           Text("Software Version")
@@ -58,4 +59,5 @@ struct MiscSubView: View {
 #Preview {
   MiscSubView()
     .environment(ApiModel.shared)
+    .environment(ObjectModel.shared)
 }

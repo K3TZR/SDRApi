@@ -43,10 +43,11 @@ private struct HeadingView: View {
 private struct DetailView: View {
   
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
     
-    let interlock = apiModel.interlock!
+    let interlock = objectModel.interlock
     
     GridRow {
       Group {
@@ -95,6 +96,7 @@ private struct DetailView: View {
 #Preview {
   InterlockSubView()
     .environment(ApiModel.shared)
+    .environment(ObjectModel.shared)
 }
 
 // amplifier = ""

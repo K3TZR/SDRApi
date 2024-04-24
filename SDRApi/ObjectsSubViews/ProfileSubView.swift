@@ -16,10 +16,11 @@ import FlexApiFeature
 struct ProfileSubView: View {
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
     
-    if apiModel.profiles.count == 0 {
+    if objectModel.profiles.count == 0 {
       Grid(alignment: .leading, horizontalSpacing: 10) {
         GridRow {
           Group {
@@ -32,7 +33,7 @@ struct ProfileSubView: View {
     } else {
       Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 10) {
         HeadingView()
-        ForEach(apiModel.profiles) { profile in
+        ForEach(objectModel.profiles) { profile in
           DetailView(profile: profile)
         }
       }

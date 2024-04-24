@@ -16,6 +16,7 @@ import FlexApiFeature
 struct WanSubView: View {
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
     
@@ -25,11 +26,11 @@ struct WanSubView: View {
         Group {
           HStack(spacing: 5) {
             Text("Radio Authenticated")
-            Text(apiModel.wan.radioAuthenticated ? "Y" : "N").foregroundColor(apiModel.wan.radioAuthenticated ? .green : .red)
+            Text(objectModel.wan.radioAuthenticated ? "Y" : "N").foregroundColor(objectModel.wan.radioAuthenticated ? .green : .red)
           }
           HStack(spacing: 5) {
             Text("Server Connected")
-            Text(apiModel.wan.serverConnected ? "Y" : "N").foregroundColor(apiModel.wan.serverConnected ? .green : .red)
+            Text(objectModel.wan.serverConnected ? "Y" : "N").foregroundColor(objectModel.wan.serverConnected ? .green : .red)
           }
         }.frame(width: 210, alignment: .leading)
       }

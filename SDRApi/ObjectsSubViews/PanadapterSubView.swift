@@ -19,10 +19,11 @@ struct PanadapterSubView: View {
   let showMeters: Bool
 
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
     
-    if apiModel.panadapters.count == 0 {
+    if objectModel.panadapters.count == 0 {
       HStack(spacing: 20) {
         Text("PANADAPTER").frame(width: 80, alignment: .leading)
         Text("None present").foregroundColor(.red)
@@ -30,18 +31,18 @@ struct PanadapterSubView: View {
       .padding(.leading, 40)
       
     } else {
-      ForEach(apiModel.panadapters.filter { $0.clientHandle == handle }) { panadapter in
+      ForEach(objectModel.panadapters.filter { $0.clientHandle == handle }) { panadapter in
         VStack(alignment: .leading) {
           // Panadapter
           PanadapterDetailView(panadapter: panadapter)
           
           // corresponding Waterfall
-          ForEach(apiModel.waterfalls.filter { $0.panadapterId == panadapter.id} ) { waterfall in
+          ForEach(objectModel.waterfalls.filter { $0.panadapterId == panadapter.id} ) { waterfall in
             WaterfallDetailView(waterfall: waterfall)
           }
           
           // corresponding Slice(s)
-          ForEach(apiModel.slices.filter { $0.panadapterId == panadapter.id}) { slice in
+          ForEach(objectModel.slices.filter { $0.panadapterId == panadapter.id}) { slice in
             SliceDetailView(slice: slice)
             
             // slice meter(s)
