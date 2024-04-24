@@ -53,7 +53,7 @@ struct TesterRadioView: View {
       
       HStack(spacing: 5) {
         Text("Client Id")
-        Text("\(apiModel.boundClientId ?? "none")").foregroundColor(.secondary)
+        Text("\(objectModel.boundClientId ?? "none")").foregroundColor(.secondary)
       }
   }
 }

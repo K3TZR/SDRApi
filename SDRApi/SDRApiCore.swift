@@ -46,6 +46,7 @@ public struct SDRApi {
     @Shared(.appStorage("guiDefault")) var guiDefault: String? = nil
     @Shared(.appStorage("isGui")) var isGui = true
     @Shared(.appStorage("localEnabled")) var localEnabled = true
+    @Shared(.appStorage("lowBandwidthConnect")) var lowBandwidthConnect = false
     @Shared(.appStorage("lowBandwidthDax")) var lowBandwidthDax = false
     @Shared(.appStorage("messageFilter")) var messageFilter: MessageFilter = .all
     @Shared(.appStorage("messageFilterText")) var messageFilterText = ""
@@ -418,7 +419,8 @@ public struct SDRApi {
                                           disconnectHandle: disconnectHandle,
                                           programName: "SDRApiViewer",
                                           mtuValue: state.mtuValue,
-                                          lowBandwidthDax: state.lowBandwidthDax)
+                                          lowBandwidthDax: state.lowBandwidthDax,
+                                          lowBandwidthConnect: state.lowBandwidthConnect)
         await $0(.connectionStatus(.connected))
         
       } catch {

@@ -16,7 +16,6 @@ import SharedFeature
 
 struct GpsSubView: View {
 
-  @Environment(ApiModel.self) var apiModel
   @Environment(ObjectModel.self) var objectModel
 
   let post = String(repeating: " ", count: 8)
@@ -47,5 +46,5 @@ struct GpsSubView: View {
 
 #Preview {
   GpsSubView()
-    .environment(ApiModel.shared)
+    .environment(ObjectModel.shared)
 }
