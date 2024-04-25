@@ -24,14 +24,17 @@ struct SDRApiViewerApp: App {
   @State var objectModel = ObjectModel.shared
   @State var streamModel = StreamModel.shared
 
+ private var testObjectModel: ObjectModel { objectModel.testMode = true; return objectModel }
+  
   var body: some Scene {
+    
     WindowGroup("SDRApi  (v" + Version().string + ")") {
       SDRApiView(store: Store(initialState: SDRApi.State()) {
         SDRApi()
       })
       .environment(apiModel)
       .environment(listenerModel)
-      .environment(objectModel)
+      .environment(testObjectModel)
       .environment(streamModel)
     }
   }

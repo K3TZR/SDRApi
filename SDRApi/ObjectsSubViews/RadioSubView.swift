@@ -105,12 +105,12 @@ private struct Line2View: View {
       HStack(spacing: 20) {
         HStack(spacing: 5) {
           Text("Ant List")
-          Text(stringArrayToString(apiModel.antList)).foregroundColor(.green)
+          Text(stringArrayToString(radio.antList)).foregroundColor(.green)
         }
         
         HStack(spacing: 5) {
           Text("Mic List")
-          Text(stringArrayToString(apiModel.micList)).foregroundColor(.green)
+          Text(stringArrayToString(radio.micList)).foregroundColor(.green)
         }
         
         HStack(spacing: 5) {
@@ -125,7 +125,7 @@ private struct Line2View: View {
         
         HStack(spacing: 5) {
           Text("Uptime")
-          Text("\(apiModel.uptime)").foregroundColor(.green)
+          Text("\(radio.uptime)").foregroundColor(.green)
           Text("(seconds)")
         }
       }.padding(.leading, 130)

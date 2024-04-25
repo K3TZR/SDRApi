@@ -23,6 +23,9 @@ struct StreamSubView: View {
 
   var body: some View {
     Grid(alignment: .leading, horizontalSpacing: 10) {
+      
+      Text("ObjectModel.testMode = \(objectModel.testMode)")
+      
       // Meter
       MeterStreamView()
       
