@@ -120,7 +120,7 @@ private struct Line2View: View {
         
         HStack(spacing: 5) {
           Text("HW")
-          Text(radio.hardwareVersion ?? "").foregroundColor(.green)
+          Text(apiModel.hardwareVersion ?? "").foregroundColor(.green)
         }
         
         HStack(spacing: 5) {

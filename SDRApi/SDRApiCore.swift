@@ -475,6 +475,7 @@ public struct SDRApi {
   private func connectionStop(_ state: State)  -> Effect<SDRApi.Action> {
     MessagesModel.shared.stop(state.clearOnStop)
     return .run {
+      await ObjectModel.shared.clientInitialized(false)
       ApiModel.shared.disconnect()
       await $0(.connectionStatus(.disconnected))
     }
