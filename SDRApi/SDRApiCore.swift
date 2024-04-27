@@ -600,15 +600,11 @@ public struct SDRApi {
   }
 
   private func remoteRxAudioStop(_ state: inout State) -> Effect<SDRApi.Action> {
-    if state.audioOutput != nil, let streamId = state.audioOutput!.streamId {
-      state.audioOutput!.stop()
-      state.audioOutput = nil
-      return .run { [streamId] _ in
-        // remove stream(s)
-        await StreamModel.shared.sendRemoveStreams([streamId])
-        log("SdrApiCore: remote rx audiostream STOPPED", .debug, #function, #file, #line)
-      }
-    }
+    let streamId = state.audioOutput?.streamId
+    state.audioOutput?.stop()
+    state.audioOutput = nil
+    ApiModel.shared.removeStream(streamId)
+    log("SdrApiCore: remote rx audiostream STOPPED", .debug, #function, #file, #line)
     return .none
   }
   

@@ -17,14 +17,11 @@ import SharedFeature
 struct StreamSubView: View {
   let handle: UInt32
 
-  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) private var objectModel
   @Environment(StreamModel.self) private var streamModel
 
   var body: some View {
     Grid(alignment: .leading, horizontalSpacing: 10) {
-      
-      Text("ObjectModel.testMode = \(objectModel.testMode)")
       
       // Meter
       MeterStreamView()
@@ -85,7 +82,7 @@ private struct MeterStreamView: View {
         Text(streamModel.meterStream?.id.hex ?? "0x0").foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(streamModel.meterStream == nil ? "N" : "Y").foregroundColor(StreamModel.shared.meterStream == nil ? .red : .green)
+//          Text(streamModel.meterStream == nil ? "N" : "Y").foregroundColor(StreamModel.shared.meterStream == nil ? .red : .green)
         }
       }.frame(width: 100, alignment: .leading)
     }
@@ -97,7 +94,7 @@ private struct PanadapterStreamView: View {
 
   @Environment(StreamModel.self) private var streamModel
 
-  @MainActor private var isStreaming: Bool { streamModel.panadapterStreams[id: panadapter.id]!.isStreaming }
+//  @MainActor private var isStreaming: Bool { streamModel.streamStatistics[id: panadapter.id]!.packets > 0}
   
   var body: some View {
     
@@ -107,7 +104,7 @@ private struct PanadapterStreamView: View {
         Text(panadapter.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
+//          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
         }
       }.frame(width: 100, alignment: .leading)
     }
@@ -119,7 +116,7 @@ private struct WaterfallStreamView: View {
   
   @Environment(StreamModel.self) private var streamModel
 
-  @MainActor private var isStreaming: Bool { streamModel.waterfallStreams[id: waterfall.id]!.isStreaming }
+//  @MainActor private var isStreaming: Bool { streamModel.waterfallStreams[id: waterfall.id]!.isStreaming }
   
   var body: some View {
     
@@ -129,7 +126,7 @@ private struct WaterfallStreamView: View {
         Text(waterfall.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
+//          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
         }
       }.frame(width: 100, alignment: .leading)
     }
@@ -147,7 +144,7 @@ private struct RemoteRxStreamView: View {
         Text(stream.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
+//          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
         }
       }.frame(width: 100, alignment: .leading)
       Group {
@@ -179,7 +176,7 @@ private struct RemoteTxStreamView: View {
         Text(stream.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
+//          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
         }
       }.frame(width: 100, alignment: .leading)
       Group {
@@ -207,7 +204,7 @@ private struct DaxMicStreamView: View {
         Text(stream.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
+//          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
         }
       }.frame(width: 100, alignment: .leading)
       Group {
@@ -235,7 +232,7 @@ private struct DaxRxStreamView: View {
         Text(stream.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
+//          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
         }
       }.frame(width: 100, alignment: .leading)
       Group {
@@ -267,7 +264,7 @@ private struct DaxTxStreamView: View {
         Text(stream.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
+//          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
         }
       }.frame(width: 100, alignment: .leading)
       Group {
@@ -299,7 +296,7 @@ private struct DaxIqStreamView: View {
         Text(stream.id.hex).foregroundColor(.green)
         HStack(spacing: 5) {
           Text("Streaming")
-          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
+//          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
         }
       }.frame(width: 100, alignment: .leading)
       Group {
@@ -329,6 +326,5 @@ private struct DaxIqStreamView: View {
 
 #Preview {
   StreamSubView(handle: 1)
-    .environment(ApiModel.shared)
     .environment(StreamModel.shared)
 }
