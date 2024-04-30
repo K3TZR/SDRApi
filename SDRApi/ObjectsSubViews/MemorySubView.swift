@@ -25,127 +25,118 @@ struct MemorySubView: View {
         GridRow {
           Text("MEMORYs")
           Text("None present").foregroundColor(.red)
-        }.frame(width: 100, alignment: .leading)
+        }
         
       } else {
+        HeadingView()
         ForEach(objectModel.memories) { memory in
           Group {
-            Row1View(memory: memory)
-            Row2View(memory: memory)
-            GridRow {
-              Text("")
-            }
-          }.frame(width: 100, alignment: .leading)
+            DetailView(memory: memory)
+//            Row2View(memory: memory)
+          }
         }
       }
     }
-    .padding(.leading, 20)
   }
 }
 
-private struct Row1View: View {
+private struct HeadingView: View {
+  var body: some View {
+    GridRow {
+      Text("MEMORY").border(.red)
+      Text("Name")
+      Text("Group")
+      Text("Owner")
+      Text("Frequency")
+      Text("Mode")
+      Text("Step")
+      Text("Power")
+      Text("Low")
+      Text("High")
+    }
+    Divider()
+  }
+}
+
+private struct DetailView: View {
   var memory: Memory
   
   var body: some View {
     
     GridRow {
-      HStack(spacing: 5) {
-        Text("MEMORY")
-        Text("\(memory.id)").foregroundColor(.green)
-      }
-      Text("\(memory.frequency)").foregroundColor(.green)
-      HStack(spacing: 5) {
-        Text("Name")
-        Text(memory.name).foregroundColor(.green)
-      }
-      HStack(spacing: 5) {
-        Text("Group")
-        Text(memory.group.isEmpty ? "none" : memory.group).foregroundColor(.green)
-      }
-      HStack(spacing: 5) {
-        Text("Owner")
-        Text(memory.owner).foregroundColor(.green)
-      }
-      HStack(spacing: 5) {
-        Text("Mode")
-        Text(memory.mode).foregroundColor(.green)
-      }
-      HStack(spacing: 5) {
-        Text("Step")
-        Text("\(memory.step)").foregroundColor(.green)
-      }
-      HStack(spacing: 5) {
-        Text("Power")
-        Text("\(memory.rfPower)").foregroundColor(.green)
-      }
-      HStack(spacing: 5) {
-        Text("Low")
-        Text("\(memory.filterLow)").foregroundColor(.green)
-      }
-      HStack(spacing: 5) {
-        Text("High")
-        Text("\(memory.filterHigh)").foregroundColor(.green)
-      }
+      Text("\(memory.id)").gridColumnAlignment(.trailing)
+      Text(memory.name).help(memory.name)
+      Text(memory.group.isEmpty ? "none" : memory.group).help(memory.group)
+      Text(memory.owner).help(memory.owner)
+      Text("\(memory.frequency)").gridColumnAlignment(.trailing)
+      Text(memory.mode)
+      Text("\(memory.step)").gridColumnAlignment(.trailing)
+      Text("\(memory.rfPower)").gridColumnAlignment(.trailing)
+      Text("\(memory.filterLow)").gridColumnAlignment(.trailing)
+      Text("\(memory.filterHigh)").gridColumnAlignment(.trailing)
     }
+    .lineLimit(1)
+    .truncationMode(.middle)
+    .foregroundColor(.secondary)
   }
 }
 
-private struct Row2View: View {
-  var memory: Memory
-  
-  var body: some View {
-    GridRow {
-      Group {
-        HStack(spacing: 5) {
-          Text("")
-          Text("")
-        }
-        HStack(spacing: 5) {
-          Text("Squelch")
-          Text(memory.squelchEnabled ? "Y" : "N").foregroundColor(memory.squelchEnabled ? .green : .red)
-        }
-        HStack(spacing: 5) {
-          Text("Sq Level")
-          Text("\(memory.squelchLevel)").foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text("Rep")
-          Text(memory.offsetDirection).foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text("Rep Off")
-          Text("\(memory.offset)").foregroundColor(.green)
-        }
-      }
-      Group {
-        HStack(spacing: 5) {
-          Text("Tone")
-          Text(memory.toneMode).foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text("T Value")
-          Text("\(String(format: "%3.0f", memory.toneValue))").foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text("Mark")
-          Text("\(memory.rttyMark)").foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text("Shift")
-          Text("\(memory.rttyShift)").foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text("DIGL")
-          Text("\(memory.digitalLowerOffset)").foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text("DIGU")
-          Text("\(memory.digitalUpperOffset)").foregroundColor(.green)
-        }
-      }
-    }
-  }
-}
+//private struct Row2View: View {
+//  var memory: Memory
+//  
+//  var body: some View {
+//    GridRow {
+//      Group {
+//        HStack(spacing: 5) {
+//          Text("")
+//          Text("")
+//        }
+//        HStack(spacing: 5) {
+//          Text("Squelch")
+//          Text(memory.squelchEnabled ? "Y" : "N").foregroundColor(memory.squelchEnabled ? .green : .red)
+//        }
+//        HStack(spacing: 5) {
+//          Text("Sq Level")
+//          Text("\(memory.squelchLevel)").foregroundColor(.green)
+//        }
+//        HStack(spacing: 5) {
+//          Text("Rep")
+//          Text(memory.offsetDirection).foregroundColor(.green)
+//        }
+//        HStack(spacing: 5) {
+//          Text("Rep Off")
+//          Text("\(memory.offset)").foregroundColor(.green)
+//        }
+//      }
+//      Group {
+//        HStack(spacing: 5) {
+//          Text("Tone")
+//          Text(memory.toneMode).foregroundColor(.green)
+//        }
+//        HStack(spacing: 5) {
+//          Text("T Value")
+//          Text("\(String(format: "%3.0f", memory.toneValue))").foregroundColor(.green)
+//        }
+//        HStack(spacing: 5) {
+//          Text("Mark")
+//          Text("\(memory.rttyMark)").foregroundColor(.green)
+//        }
+//        HStack(spacing: 5) {
+//          Text("Shift")
+//          Text("\(memory.rttyShift)").foregroundColor(.green)
+//        }
+//        HStack(spacing: 5) {
+//          Text("DIGL")
+//          Text("\(memory.digitalLowerOffset)").foregroundColor(.green)
+//        }
+//        HStack(spacing: 5) {
+//          Text("DIGU")
+//          Text("\(memory.digitalUpperOffset)").foregroundColor(.green)
+//        }
+//      }
+//    }
+//  }
+//}
 
 // ----------------------------------------------------------------------------
 // MARK: - Preview

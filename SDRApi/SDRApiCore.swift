@@ -30,7 +30,11 @@ public struct SDRApi {
   
   @ObservableState
   public struct State {
+    
     // persistent
+//    @Shared(.appStorage("testNil")) var testNil: String?
+
+
     @Shared(.appStorage("alertOnError")) var alertOnError = false
     @Shared(.appStorage("clearOnSend")) var clearOnSend = false
     @Shared(.appStorage("clearOnStart")) var clearOnStart = true
@@ -43,7 +47,7 @@ public struct SDRApi {
     @Shared(.appStorage("directNonGuiIp")) var directNonGuiIp = ""
     @Shared(.appStorage("fontSize")) var fontSize = 12
     @Shared(.appStorage("gotoTop")) var gotoTop = false
-    @Shared(.appStorage("guiDefault")) var guiDefault: String? = nil
+    @Shared(.appStorage("guiDefault")) var guiDefault: String = ""
     @Shared(.appStorage("isGui")) var isGui = true
     @Shared(.appStorage("localEnabled")) var localEnabled = true
     @Shared(.appStorage("lowBandwidthConnect")) var lowBandwidthConnect = false
@@ -51,11 +55,11 @@ public struct SDRApi {
     @Shared(.appStorage("messageFilter")) var messageFilter: MessageFilter = .all
     @Shared(.appStorage("messageFilterText")) var messageFilterText = ""
     @Shared(.appStorage("mtuValue")) var mtuValue = 1_300
-    @Shared(.appStorage("nonGuiDefault")) var nonGuiDefault: String? = nil
+    @Shared(.appStorage("nonGuiDefault")) var nonGuiDefault: String = ""
     @Shared(.appStorage("objectFilter")) var objectFilter: ObjectFilter = .coreNoMeters
     @Shared(.appStorage("previousCommand")) var previousCommand = ""
-    @Shared(.appStorage("previousIdToken")) var previousIdToken: String? = nil
-    @Shared(.appStorage("refreshToken")) var refreshToken: String? = nil
+    @Shared(.appStorage("previousIdToken")) var previousIdToken: String = ""
+    @Shared(.appStorage("refreshToken")) var refreshToken: String = ""
     @Shared(.appStorage("remoteRxAudioCompressed")) var remoteRxAudioCompressed = true
     @Shared(.appStorage("remoteRxAudioEnabled")) var remoteRxAudioEnabled = false
     @Shared(.appStorage("remoteTxAudioEnabled")) var remoteTxAudioEnabled = false
@@ -251,14 +255,14 @@ public struct SDRApi {
         return multiflexStatus(state, selection)
         
       case let .saveTokens(tokens):
-        if tokens.idToken != nil {
+        if !tokens.idToken.isEmpty {
           // success
           state.previousIdToken = tokens.idToken
           state.refreshToken = tokens.refreshToken
         } else {
           // failure
-          state.previousIdToken = nil
-          state.refreshToken = nil
+          state.previousIdToken = ""
+          state.refreshToken = ""
         }
         return .none
         
@@ -357,9 +361,9 @@ public struct SDRApi {
         
       case let .picker(.presented(.defaultButtonTapped(selection))):
         if state.isGui {
-          state.guiDefault = state.guiDefault == selection ? nil : selection
+          state.guiDefault = state.guiDefault == selection ? "" : selection
         } else {
-          state.nonGuiDefault = state.nonGuiDefault == selection ? nil : selection
+          state.nonGuiDefault = state.nonGuiDefault == selection ? "" : selection
         }
         return .none
 
@@ -456,9 +460,9 @@ public struct SDRApi {
           if ListenerModel.shared.isValidDefault(for: state.guiDefault, state.nonGuiDefault, state.isGui) {
             // YES, valid default
             if state.isGui {
-              await $0(.multiflexStatus(state.guiDefault!))
+              await $0(.multiflexStatus(state.guiDefault))
             } else {
-              await $0(.multiflexStatus(state.nonGuiDefault!))
+              await $0(.multiflexStatus(state.nonGuiDefault))
             }
           } else {
             // NO, invalid default
@@ -543,8 +547,8 @@ public struct SDRApi {
       
       if state.smartlinkLoginRequired || state.smartlinkUser.isEmpty {
         // YES but login required or no user
-        state.previousIdToken = nil
-        state.refreshToken = nil
+        state.previousIdToken = ""
+        state.refreshToken = ""
         return .run {
           await $0(.showLoginSheet)
         }

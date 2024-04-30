@@ -57,6 +57,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F0029D82BE098C800E2A401 /* SDRApiFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SDRApiFeatures; path = ../Packages/SDRApiFeatures; sourceTree = "<group>"; };
 		9F1D15AB2BB894340062A4CD /* SDRApiApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDRApiApp.swift; sourceTree = "<group>"; };
 		9F1D15AC2BB894340062A4CD /* SDRApi.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = SDRApi.entitlements; sourceTree = "<group>"; };
 		9F1D15AD2BB894340062A4CD /* SDRApiCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDRApiCore.swift; sourceTree = "<group>"; };
@@ -90,7 +91,6 @@
 		9F1D15EB2BB8946C0062A4CD /* ObjectsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsView.swift; sourceTree = "<group>"; };
 		9F1D15EC2BB8946C0062A4CD /* SendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
 		9F1D15ED2BB8946C0062A4CD /* TopButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopButtonsView.swift; sourceTree = "<group>"; };
-		9F8399592BD6A625001FF105 /* SDRApiFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SDRApiFeatures; path = ../Packages/SDRApiFeatures; sourceTree = "<group>"; };
 		9FDCEE852B5ED1300055FF11 /* SDRApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDRApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FDCEE912B5ED1310055FF11 /* SDRApiViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDRApiViewer.entitlements; sourceTree = "<group>"; };
 		9FDCEE972B5ED1720055FF11 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 		9FDCEE7C2B5ED1300055FF11 = {
 			isa = PBXGroup;
 			children = (
-				9F8399592BD6A625001FF105 /* SDRApiFeatures */,
+				9F0029D82BE098C800E2A401 /* SDRApiFeatures */,
 				9FDCEE972B5ED1720055FF11 /* README.md */,
 				9FDCEE872B5ED1300055FF11 /* SDRApi */,
 				9FDCEE862B5ED1300055FF11 /* Products */,
@@ -539,8 +539,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
 			requirement = {
-				branch = "shared-state-beta";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.10.0;
 			};
 		};
 		9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */ = {

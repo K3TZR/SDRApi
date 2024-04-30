@@ -11,7 +11,7 @@ import SwiftUI
 public struct TopButtonsView: View {
   @Bindable var store: StoreOf<SDRApi>
     
-  var buttonText: String {
+  @MainActor var buttonText: String {
     switch store.connectionState {
     case .disconnected: "Connect"
     case .connected: "Disconnect"
@@ -19,7 +19,7 @@ public struct TopButtonsView: View {
     }
   }
 
-  var buttonDisable: Bool {
+  @MainActor var buttonDisable: Bool {
     guard store.directEnabled || store.localEnabled || store.smartlinkEnabled else { return true }
     switch store.connectionState {
     case .disconnected: return false
