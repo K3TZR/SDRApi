@@ -34,7 +34,7 @@ public struct ObjectsView: View {
         }
         
       } else {
-        ScrollView([.vertical]) {
+        ScrollView([.vertical, .horizontal]) {
           VStack(alignment: .leading) {
             RadioSubView()
             
