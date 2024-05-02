@@ -19,11 +19,11 @@ struct UsbCableSubView: View {
   
   var body: some View {
     
-    Grid(alignment: .leading, horizontalSpacing: 10) {
+    Grid(alignment: .leading, horizontalSpacing: 30, verticalSpacing: 5) {
       HeadingView()
       if objectModel.usbCables.count == 0 {
         GridRow {
-          Text("None present").foregroundColor(.red)
+          Text("----- NONE -----").foregroundColor(.red)
         }
       } else {
         ForEach(objectModel.usbCables) { cable in
@@ -37,7 +37,10 @@ struct UsbCableSubView: View {
 private struct HeadingView: View {
   var body: some View {
     GridRow {
-      Text("USBCABLE")
+      Text("USB CABLE    ")
+        .monospaced()
+        .foregroundColor(.yellow)
+      
       Text("Type")
       Text("Name")
       Text("Source")
@@ -69,20 +72,20 @@ private struct DetailView: View {
       Text(cable.cableType)
       Text(cable.name).help(cable.name)
       Text(cable.source).help(cable.source)
-      Text(cable.enable ? "Y" : "N").foregroundColor(cable.enable ? .green : nil)
+      Text(cable.enable ? "Y" : "N").foregroundColor(cable.enable ? .green : nil).gridColumnAlignment(.trailing)
       Text(cable.band)
       Text(cable.polarity)
       Text(cable.flowControl)
-      Text(String(format: "%2d", cable.dataBits)).gridColumnAlignment(.trailing)
-      Text(String(format: "%2d", cable.stopBits)).gridColumnAlignment(.trailing)
+      Text(cable.dataBits.formatted(.number)).gridColumnAlignment(.trailing)
+      Text(cable.stopBits.formatted(.number)).gridColumnAlignment(.trailing)
       Text(cable.parity)
       Text("\(cable.speed)").gridColumnAlignment(.trailing)
       Text(cable.sourceRxAnt)
       Text(cable.sourceTxAnt)
-      Text(String(format: "%2d", cable.sourceSlice)).gridColumnAlignment(.trailing)
+      Text(cable.sourceSlice.formatted(.number)).gridColumnAlignment(.trailing)
       Text(cable.preamp).gridColumnAlignment(.trailing)
-      Text(cable.usbLog ? "Y" : "N").foregroundColor(cable.usbLog ? .green : nil)
-      Text(cable.autoReport ? "Y" : "N").foregroundColor(cable.autoReport ? .green : nil)
+      Text(cable.usbLog ? "Y" : "N").foregroundColor(cable.usbLog ? .green : nil).gridColumnAlignment(.trailing)
+      Text(cable.autoReport ? "Y" : "N").foregroundColor(cable.autoReport ? .green : nil).gridColumnAlignment(.trailing)
     }
     .lineLimit(1)
     .truncationMode(.middle)

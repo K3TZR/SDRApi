@@ -97,7 +97,6 @@ struct GuiClientDetailView: View {
     case ObjectFilter.amplifiers:        AmplifierSubView()
     case ObjectFilter.bandSettings:      BandSettingSubView()
     case ObjectFilter.cwx:               CwxSubView()
-    case ObjectFilter.equalizers:        EqualizerSubView()
     case ObjectFilter.interlock:         InterlockSubView()
     case ObjectFilter.memories:          MemorySubView()
     case ObjectFilter.meters:            MeterSubView(sliceId: nil, sliceClientHandle: nil, handle: handle)

@@ -15,31 +15,48 @@ import FlexApiFeature
 
 struct TnfSubView: View {
   
-  @Environment(ApiModel.self) var apiModel
   @Environment(ObjectModel.self) private var objectModel
-
+  
   var body: some View {
-    if objectModel.tnfs.count == 0 {
-      Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 0) {
+    Grid(alignment: .trailing, horizontalSpacing: 30, verticalSpacing: 5) {
+      if objectModel.tnfs.count > 0 {
+        HeaderView()
+        ForEach(objectModel.tnfs.sorted(by: <)) { tnf in
+          DetailView(tnf: tnf)
+        }
+        
+      } else {
         GridRow {
-          Group {
-            Text("TNF")
-            Text("None present").foregroundColor(.red)
-          }
-          .frame(width: 100, alignment: .leading)
+          Text("TNF          ")
+            .monospaced()
+            .gridColumnAlignment(.leading)
+            .foregroundColor(.yellow)
+
+          Text("----- NONE -----").foregroundColor(.red)
         }
       }
-      .padding(.leading, 20)
-      
-    } else {
-      ForEach(objectModel.tnfs) { tnf in
-        DetailView(tnf: tnf)
-      }
-      .padding(.leading, 20)
     }
   }
 }
+
+private struct HeaderView: View {
   
+  var body: some View {
+    GridRow {
+      Text("TNF          ")
+        .monospaced()
+        .gridColumnAlignment(.leading)
+        .foregroundColor(.yellow)
+
+      Text("ID")
+      Text("Frequency")
+      Text("Width")
+      Text("Depth")
+      Text("Permanent")
+    }
+  }
+}
+
 private struct DetailView: View {
   var tnf: Tnf
   
@@ -51,32 +68,20 @@ private struct DetailView: View {
     default:  return "Invalid"
     }
   }
-
+  
   var body: some View {
-
-    Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 0) {
-      GridRow {
-        Group {
-          HStack(spacing: 5) {
-            Text("TNF")
-            Text(String(format: "%02d", tnf.id)).foregroundColor(.green)
-          }
-          Text("\(tnf.frequency)").foregroundColor(.green)
-          HStack(spacing: 5) {
-            Text("Width")
-            Text("\(tnf.width)").foregroundColor(.green)
-          }
-          HStack(spacing: 5) {
-            Text("Depth")
-            Text(depthName(tnf.depth)).foregroundColor(.green)
-          }
-          HStack(spacing: 5) {
-            Text("Permanent")
-            Text(tnf.permanent ? "Y" : "N").foregroundColor(tnf.permanent ? .green : .red)
-          }
-        }.frame(width: 100, alignment: .leading)
-      }
+    
+    GridRow {
+      Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
+      Text(tnf.id.formatted(.number))
+      Text(tnf.frequency.formatted(.number))
+      Text(tnf.width.formatted(.number))
+      Text(depthName(tnf.depth))
+      Text(tnf.permanent ? "Y" : "N").foregroundColor(tnf.permanent ? .green : nil)
     }
+    .lineLimit(1)
+    .truncationMode(.middle)
+    .foregroundColor(.secondary)    
   }
 }
 

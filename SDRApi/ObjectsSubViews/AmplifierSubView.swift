@@ -14,27 +14,39 @@ import FlexApiFeature
 // MARK: - View
 
 struct AmplifierSubView: View {
-
-  @Environment(ApiModel.self) private var apiModel
+  
   @Environment(ObjectModel.self) private var objectModel
-
+  
   var body: some View {
-    if objectModel.amplifiers.count == 0 {
-      Grid(alignment: .leading, horizontalSpacing: 10) {
+    Grid(alignment: .leading, horizontalSpacing: 30, verticalSpacing: 5) {
+      if objectModel.amplifiers.count > 0 {
+        HeadingView()
+        ForEach(objectModel.amplifiers) { amplifier in
+          DetailView(amplifier: amplifier)
+        }
+        
+      } else {
         GridRow {
-          Group {
-            Text("AMPLIFIERs")
-            Text("None present").foregroundColor(.red)
-          }
-          .frame(width: 100, alignment: .leading)
+          Text("AMPLIFIER    ").monospaced()
+            .foregroundColor(.yellow)
+          Text("----- NONE PRESENT -----").foregroundColor(.red)
         }
       }
-      .padding(.leading, 20)
-      
-    } else {
-      ForEach(objectModel.amplifiers) { amplifier in
-        DetailView(amplifier: amplifier)
-      }
+    }
+  }
+}
+
+private struct HeadingView: View {
+  
+  var body: some View {
+    GridRow {
+      Text("AMPLIFIER    ").monospaced()
+        .foregroundColor(.yellow)
+      Text("ID")
+      Text("Model")
+      Text("Address")
+      Text("Port")
+      Text("State")
     }
   }
 }
@@ -43,20 +55,14 @@ private struct DetailView: View {
   var amplifier: Amplifier
   
   var body: some View {
-    Grid(alignment: .leading, horizontalSpacing: 10) {
-      GridRow {
-        Group {
-          Text("AMPLIFIER")
-          Text(amplifier.id.hex)
-          Text(amplifier.model)
-          Text(amplifier.ip)
-          Text("Port \(amplifier.port)")
-          Text(amplifier.state)
-        }
-        .frame(width: 100, alignment: .leading)
-      }
+    GridRow {
+      Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
+      Text(amplifier.id.hex)
+      Text(amplifier.model)
+      Text(amplifier.ip)
+      Text("\(amplifier.port)")
+      Text(amplifier.state)
     }
-    .padding(.leading, 20)
   }
 }
 
@@ -65,5 +71,5 @@ private struct DetailView: View {
 
 #Preview {
   AmplifierSubView()
-    .environment(ApiModel.shared)
+    .environment(ObjectModel.shared)
 }

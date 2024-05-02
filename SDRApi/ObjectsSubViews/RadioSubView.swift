@@ -141,6 +141,7 @@ private struct DetailView: View {
       AtuSubView()
       GpsSubView()
 //    MeterStreamSubView(streamModel: streamModel)
+      EqualizerSubView()
       TransmitSubView()
       TnfSubView()
     }

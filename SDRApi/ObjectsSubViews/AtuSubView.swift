@@ -17,44 +17,54 @@ import SharedFeature
 struct AtuSubView: View {
   
   @Environment(ObjectModel.self) private var objectModel
-
+  
   var body: some View {
     
-    Grid(alignment: .leading, horizontalSpacing: 10) {
-      GridRow {
-        if let radio = objectModel.radio {
-          if radio.atuPresent {
-            Group {
-              Text("ATU")
-              HStack(spacing: 5) {
-                Text("Enabled")
-                Text(objectModel.atu.enabled ? "Y" : "N").foregroundColor(objectModel.atu.enabled ? .green : .red)
-              }
-              HStack(spacing: 5) {
-                Text("Mem enabled")
-                Text(objectModel.atu.memoriesEnabled ? "Y" : "N").foregroundColor(objectModel.atu.memoriesEnabled ? .green : .red)
-              }
-              HStack(spacing: 5) {
-                Text("Using Mem")
-                Text(objectModel.atu.usingMemory ? "Y" : "N").foregroundColor(objectModel.atu.usingMemory ? .green : .red)
-              }
-            }
-            .frame(width: 100, alignment: .leading)
-            HStack(spacing: 5) {
-              Text("Status")
-              Text(objectModel.atu.status.rawValue).foregroundColor(.green)
-            }
-          } else {
-            Group {
-              Text("ATU")
-              Text("Not installed").foregroundColor(.red)
-            }
-            .frame(width: 100, alignment: .leading)
+    Grid(alignment: .leading, horizontalSpacing: 30, verticalSpacing: 5) {
+      if let radio = objectModel.radio {
+        if radio.atuPresent {
+          DetailView(atu: objectModel.atu)
+          
+        } else {
+          GridRow {
+            Text("ATU          ")
+              .monospaced()
+              .foregroundColor(.yellow)
+
+            Text("----- NONE -----").foregroundColor(.red)
           }
         }
       }
     }
-    .padding(.leading, 20)
+  }
+}
+
+private struct DetailView: View {
+  var atu: Atu
+  
+  var body: some View {
+    GridRow {
+      Text("ATU          ")
+        .monospaced()
+        .foregroundColor(.yellow)
+
+      HStack(spacing: 5){
+        Text("Atu Enabled")
+        Text(atu.enabled ? "Y" : "N").foregroundColor(atu.enabled ? .green : nil)
+      }
+      HStack(spacing: 5){
+        Text("Memory enabled")
+        Text(atu.memoriesEnabled ? "Y" : "N").foregroundColor(atu.memoriesEnabled ? .green : nil)
+      }
+      HStack(spacing: 5){
+        Text("Using Memories")
+        Text(atu.usingMemory ? "Y" : "N").foregroundColor(atu.usingMemory ? .green : nil)
+      }
+      HStack(spacing: 5){
+        Text("Tune Status")
+        Text(atu.status.rawValue).foregroundColor(.secondary)
+      }
+    }
   }
 }
 
