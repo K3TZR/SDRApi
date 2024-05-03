@@ -76,38 +76,37 @@ private struct DetailView: View {
         Text(guiClient.isLocalPtt ? "Y" : "N").foregroundColor(guiClient.isLocalPtt ? .green : .red)
       }
     }
-    if showSubView { GuiClientDetailView(store: store, handle: guiClient.handle) }
+    if showSubView { GuiClientDetailView(stationObjectFilter: store.stationObjectFilter, handle: guiClient.handle) }
   }
 }
 
 struct GuiClientDetailView: View {
-  let store: StoreOf<SDRApi>
+  var stationObjectFilter: StationObjectFilter
   let handle: UInt32
 
   var body: some View {
     
-    switch store.objectFilter {
+    switch stationObjectFilter {
       
-    case ObjectFilter.core:
+    case .all:
       PanadapterSubView(handle: handle, showMeters: true)
       
-    case ObjectFilter.coreNoMeters:
+    case .noMeters:
       PanadapterSubView(handle: handle, showMeters: false)
       
-    case ObjectFilter.amplifiers:        AmplifierSubView()
-    case ObjectFilter.bandSettings:      BandSettingSubView()
-    case ObjectFilter.cwx:               CwxSubView()
-    case ObjectFilter.interlock:         InterlockSubView()
-    case ObjectFilter.memories:          MemorySubView()
-    case ObjectFilter.meters:            MeterSubView(sliceId: nil, sliceClientHandle: nil, handle: handle)
-    case ObjectFilter.misc:              MiscSubView()
-    case ObjectFilter.network:           NetworkSubView()
-    case ObjectFilter.profiles:          ProfileSubView()
-    case ObjectFilter.streams:           StreamSubView(handle: handle)
-    case ObjectFilter.usbCable:          UsbCableSubView()
-    case ObjectFilter.wan:               WanSubView()
-    case ObjectFilter.waveforms:         WaveformSubView()
-    case ObjectFilter.xvtrs:             XvtrSubView()
+    case .amplifiers:        AmplifierSubView()
+    case .cwx:               CwxSubView()
+    case .interlock:         InterlockSubView()
+    case .memories:          MemorySubView()
+    case .meters:            MeterSubView(sliceId: nil, sliceClientHandle: nil, handle: handle)
+    case .misc:              MiscSubView()
+    case .network:           NetworkSubView()
+    case .profiles:          ProfileSubView()
+    case .streams:           StreamSubView(handle: handle)
+    case .usbCable:          UsbCableSubView()
+    case .wan:               WanSubView()
+    case .waveforms:         WaveformSubView()
+    case .xvtrs:             XvtrSubView()
     }
   }
 }

@@ -14,28 +14,29 @@ import FlexApiFeature
 // MARK: - View
 
 struct TransmitSubView: View {
+  var sourceColor: Color
 
   @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
     
-    Grid(alignment: .trailing, horizontalSpacing: 30, verticalSpacing: 5) {
-      TransmitView(transmit: objectModel.transmit)
-      CwView(transmit: objectModel.transmit)
+    Grid(alignment: .leading, horizontalSpacing: 30, verticalSpacing: 5) {
+      TransmitView(transmit: objectModel.transmit, sourceColor: sourceColor)
+      CwView(transmit: objectModel.transmit, sourceColor: sourceColor)
     }
   }
 }
 
 private struct TransmitView: View {
   var transmit: Transmit
-  
+  var sourceColor: Color
+
   var body: some View {
     
     GridRow {
-      Text("TRANSMIT     ")
+      Text("TRANSMIT".padRight(13))
         .monospaced()
-        .gridColumnAlignment(.leading)
-        .foregroundColor(.yellow)
+        .foregroundColor(sourceColor)
 
       HStack(spacing: 5) {
         Text("Processor")
@@ -81,14 +82,14 @@ private struct TransmitView: View {
 
 private struct CwView: View {
   var transmit: Transmit
-  
+  var sourceColor: Color
+
   var body: some View {
     
     GridRow {
-      Text("CW           ")
+      Text("".padRight(13))
         .monospaced()
-        .gridColumnAlignment(.leading)
-        .foregroundColor(.yellow)
+        .foregroundColor(sourceColor)
       
       HStack(spacing: 5) {
         Text("Sidetone")
@@ -118,6 +119,6 @@ private struct CwView: View {
   // MARK: - Preview
   
 #Preview {
-  TransmitSubView()
+  TransmitSubView(sourceColor: .blue)
     .environment(ObjectModel.shared)
 }

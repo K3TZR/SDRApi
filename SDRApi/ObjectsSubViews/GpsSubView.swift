@@ -15,7 +15,8 @@ import SharedFeature
 // MARK: - View
 
 struct GpsSubView: View {
-  
+  var sourceColor: Color
+
   @Environment(ObjectModel.self) var objectModel
   
   var body: some View {
@@ -23,14 +24,14 @@ struct GpsSubView: View {
     Grid(alignment: .leading, horizontalSpacing: 30, verticalSpacing: 5) {
       if let radio = objectModel.radio {
         if radio.gpsPresent {
-          HeadingView()
+          HeadingView(sourceColor: sourceColor)
           DetailView(gps: objectModel.gps)
           
         } else {
           GridRow {
-            Text("GPS          ")
+            Text("GPS".padRight(13))
               .monospaced()
-              .foregroundColor(.yellow)
+              .foregroundColor(sourceColor)
 
             Text("----- NONE -----").foregroundColor(.red)
           }
@@ -41,12 +42,13 @@ struct GpsSubView: View {
 }
 
 private struct HeadingView: View {
-  
+  var sourceColor: Color
+
   var body: some View {
     GridRow {
-      Text("GPS          ")
+      Text("GPS".padRight(13))
         .monospaced()
-        .foregroundColor(.yellow)
+        .foregroundColor(sourceColor)
 
       Text("Altitude")
       Text("Frequency Error")
@@ -100,6 +102,6 @@ private struct DetailView: View {
 // MARK: - Preview
 
 #Preview {
-  GpsSubView()
+  GpsSubView(sourceColor: .blue)
     .environment(ObjectModel.shared)
 }

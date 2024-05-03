@@ -37,7 +37,7 @@ struct UsbCableSubView: View {
 private struct HeadingView: View {
   var body: some View {
     GridRow {
-      Text("USB CABLE    ")
+      Text("USB CABLE".padRight(13))
         .monospaced()
         .foregroundColor(.yellow)
       

@@ -15,7 +15,8 @@ import SharedFeature
 // MARK: - View
 
 struct AtuSubView: View {
-  
+  var sourceColor: Color
+
   @Environment(ObjectModel.self) private var objectModel
   
   var body: some View {
@@ -23,13 +24,13 @@ struct AtuSubView: View {
     Grid(alignment: .leading, horizontalSpacing: 30, verticalSpacing: 5) {
       if let radio = objectModel.radio {
         if radio.atuPresent {
-          DetailView(atu: objectModel.atu)
+          DetailView(atu: objectModel.atu, sourceColor: sourceColor)
           
         } else {
           GridRow {
-            Text("ATU          ")
+            Text("ATU".padRight(13))
               .monospaced()
-              .foregroundColor(.yellow)
+              .foregroundColor(sourceColor)
 
             Text("----- NONE -----").foregroundColor(.red)
           }
@@ -41,12 +42,13 @@ struct AtuSubView: View {
 
 private struct DetailView: View {
   var atu: Atu
-  
+  var sourceColor: Color
+
   var body: some View {
     GridRow {
-      Text("ATU          ")
+      Text("ATU".padRight(13))
         .monospaced()
-        .foregroundColor(.yellow)
+        .foregroundColor(sourceColor)
 
       HStack(spacing: 5){
         Text("Atu Enabled")
@@ -72,6 +74,6 @@ private struct DetailView: View {
 // MARK: - Preview
 
 #Preview {
-  AtuSubView()
+  AtuSubView(sourceColor: .blue)
     .environment(ObjectModel.shared)
 }

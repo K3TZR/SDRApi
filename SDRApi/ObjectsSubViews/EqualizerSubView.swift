@@ -14,12 +14,13 @@ import FlexApiFeature
 // MARK: - View
 
 struct EqualizerSubView: View {
+  var sourceColor: Color
 
   @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
     Grid(alignment: .trailing, horizontalSpacing: 30, verticalSpacing: 5) {
-      HeadingView()
+      HeadingView(sourceColor: sourceColor)
       ForEach(objectModel.equalizers) { eq in
         DetailView(eq: eq)
       }
@@ -28,13 +29,15 @@ struct EqualizerSubView: View {
 }
 
 private struct HeadingView: View {
-  
+  var sourceColor: Color
+
   var body: some View {
     GridRow {
-      Text("EQUALIZER    ")
+      Text("EQUALIZER".padRight(13))
         .monospaced()
         .gridColumnAlignment(.leading)
-        .foregroundColor(.yellow)
+        .foregroundColor(sourceColor)
+      
       Text("ID").gridColumnAlignment(.leading)
       Text("Enabled")
       Text("63 Hz")
@@ -77,6 +80,6 @@ private struct DetailView: View {
 // MARK: - Preview
 
 #Preview {
-  EqualizerSubView()
+  EqualizerSubView(sourceColor: .blue)
     .environment(ObjectModel.shared)
 }

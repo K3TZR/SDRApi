@@ -36,7 +36,7 @@ public struct ObjectsView: View {
       } else {
         ScrollView([.vertical, .horizontal]) {
           VStack(alignment: .leading) {
-            RadioSubView()
+            RadioSubView(store: store)
             
             GuiClientSubView(store: store)
 
@@ -58,9 +58,17 @@ private struct FilterObjectsView: View {
   
   var body: some View {
 
-    HStack {
-      Picker("Show Objects of type", selection: $store.objectFilter) {
-        ForEach(ObjectFilter.allCases, id: \.self) {
+    HStack (spacing: 40){
+      Picker("Show RADIO Objects of type", selection: $store.radioObjectFilter) {
+        ForEach(RadioObjectFilter.allCases, id: \.self) {
+          Text($0.rawValue).tag($0.rawValue)
+        }
+      }
+      .pickerStyle(MenuPickerStyle())
+      .frame(width: 300)
+
+      Picker("Show STATION Objects of type", selection: $store.stationObjectFilter) {
+        ForEach(StationObjectFilter.allCases, id: \.self) {
           Text($0.rawValue).tag($0.rawValue)
         }
       }

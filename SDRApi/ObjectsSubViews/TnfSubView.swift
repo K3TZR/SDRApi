@@ -14,23 +14,24 @@ import FlexApiFeature
 // MARK: - View
 
 struct TnfSubView: View {
-  
+  var sourceColor: Color
+
   @Environment(ObjectModel.self) private var objectModel
   
   var body: some View {
     Grid(alignment: .trailing, horizontalSpacing: 30, verticalSpacing: 5) {
       if objectModel.tnfs.count > 0 {
-        HeaderView()
+        HeaderView(sourceColor: sourceColor)
         ForEach(objectModel.tnfs.sorted(by: <)) { tnf in
           DetailView(tnf: tnf)
         }
         
       } else {
         GridRow {
-          Text("TNF          ")
+          Text("TNF".padRight(13))
             .monospaced()
             .gridColumnAlignment(.leading)
-            .foregroundColor(.yellow)
+            .foregroundColor(sourceColor)
 
           Text("----- NONE -----").foregroundColor(.red)
         }
@@ -40,13 +41,14 @@ struct TnfSubView: View {
 }
 
 private struct HeaderView: View {
-  
+  var sourceColor: Color
+
   var body: some View {
     GridRow {
-      Text("TNF          ")
+      Text("TNF".padRight(13))
         .monospaced()
         .gridColumnAlignment(.leading)
-        .foregroundColor(.yellow)
+        .foregroundColor(sourceColor)
 
       Text("ID")
       Text("Frequency")
@@ -89,6 +91,6 @@ private struct DetailView: View {
 // MARK: - Preview
 
 #Preview {
-  TnfSubView()
+  TnfSubView(sourceColor: .blue)
     .environment(ApiModel.shared)
 }

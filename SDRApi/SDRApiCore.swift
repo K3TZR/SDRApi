@@ -56,7 +56,8 @@ public struct SDRApi {
     @Shared(.appStorage("messageFilterText")) var messageFilterText = ""
     @Shared(.appStorage("mtuValue")) var mtuValue = 1_300
     @Shared(.appStorage("nonGuiDefault")) var nonGuiDefault: String = ""
-    @Shared(.appStorage("objectFilter")) var objectFilter: ObjectFilter = .coreNoMeters
+    @Shared(.appStorage("radioObjectFilter")) var radioObjectFilter: RadioObjectFilter = .all
+    @Shared(.appStorage("stationObjectFilter")) var stationObjectFilter: StationObjectFilter = .noMeters
     @Shared(.appStorage("previousCommand")) var previousCommand = ""
     @Shared(.appStorage("previousIdToken")) var previousIdToken: String = ""
     @Shared(.appStorage("refreshToken")) var refreshToken: String = ""

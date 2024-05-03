@@ -12,7 +12,6 @@ import FlexApiFeature
 
 struct WaveformSubView: View {
 
-  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
@@ -43,6 +42,5 @@ struct WaveformSubView: View {
 
 #Preview {
   WaveformSubView()
-    .environment(ApiModel.shared)
     .environment(ObjectModel.shared)
 }

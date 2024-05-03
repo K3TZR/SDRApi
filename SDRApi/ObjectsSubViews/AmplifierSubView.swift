@@ -27,8 +27,10 @@ struct AmplifierSubView: View {
         
       } else {
         GridRow {
-          Text("AMPLIFIER    ").monospaced()
+          Text("AMPLIFIER".padRight(13))
+            .monospaced()
             .foregroundColor(.yellow)
+          
           Text("----- NONE PRESENT -----").foregroundColor(.red)
         }
       }
@@ -40,8 +42,10 @@ private struct HeadingView: View {
   
   var body: some View {
     GridRow {
-      Text("AMPLIFIER    ").monospaced()
+      Text("AMPLIFIER".padRight(13))
+        .monospaced()
         .foregroundColor(.yellow)
+      
       Text("ID")
       Text("Model")
       Text("Address")
