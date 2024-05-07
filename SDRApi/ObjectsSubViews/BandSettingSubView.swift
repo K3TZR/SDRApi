@@ -8,12 +8,14 @@
 import ComposableArchitecture
 import SwiftUI
 
+import CustomControlFeature
 import FlexApiFeature
 
 // ----------------------------------------------------------------------------
 // MARK: - View
 
 struct BandSettingSubView: View {
+  var store: StoreOf<SDRApi>
   var sourceColor: Color
 
   @Environment(ObjectModel.self) private var objectModel
@@ -69,16 +71,18 @@ private struct DetailView: View {
     GridRow {
       Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
       Text(setting.name == 999 ? " GEN" : String(format: "%#4d", setting.name))
-      TextField("", value: $setting.rfPower, formatter: NumberFormatter()).frame(width: 50).multilineTextAlignment(.trailing)
-      TextField("", value: $setting.tunePower, formatter: NumberFormatter()).frame(width: 50).multilineTextAlignment(.trailing)
-      Toggle("", isOn: $setting.inhibit)
-      Toggle("", isOn: $setting.accTxEnabled)
-      Toggle("", isOn: $setting.rcaTxReqEnabled)
-      Toggle("", isOn: $setting.accTxReqEnabled)
-      Toggle("", isOn: $setting.tx1Enabled)
-      Toggle("", isOn: $setting.tx2Enabled)
-      Toggle("", isOn: $setting.tx3Enabled)
-      Toggle("", isOn: $setting.hwAlcEnabled)
+      TextField("", value: Binding(get: {setting.rfPower}, set: { setting.setProperty(.rfPower, String($0))}), formatter: NumberFormatter())
+        .frame(width: 50).multilineTextAlignment(.trailing)
+      TextField("", value: Binding(get: {setting.tunePower}, set: { setting.setProperty(.tunePower, String($0))}), formatter: NumberFormatter())
+        .frame(width: 50).multilineTextAlignment(.trailing)
+      Toggle("", isOn: Binding(get: {setting.inhibit}, set: { setting.setProperty(.inhibit, $0.as1or0)}))
+      Toggle("", isOn: Binding(get: {setting.accTxEnabled}, set: { setting.setProperty(.accTxEnabled, $0.as1or0)}))
+      Toggle("", isOn: Binding(get: {setting.rcaTxReqEnabled}, set: { setting.setProperty(.rcaTxReqEnabled, $0.as1or0)}))
+      Toggle("", isOn: Binding(get: {setting.accTxReqEnabled}, set: { setting.setProperty(.accTxReqEnabled, $0.as1or0)}))
+      Toggle("", isOn: Binding(get: {setting.tx1Enabled}, set: { setting.setProperty(.tx1Enabled, $0.as1or0)}))
+      Toggle("", isOn: Binding(get: {setting.tx2Enabled}, set: { setting.setProperty(.tx2Enabled, $0.as1or0)}))
+      Toggle("", isOn: Binding(get: {setting.tx3Enabled}, set: { setting.setProperty(.tx3Enabled, $0.as1or0)}))
+      Toggle("", isOn: Binding(get: {setting.hwAlcEnabled}, set: { setting.setProperty(.hwAlcEnabled, $0.as1or0)}))
     }
     .controlSize(.small)
     .foregroundColor(.secondary)
@@ -89,6 +93,9 @@ private struct DetailView: View {
 // MARK: - Preview
 
 #Preview {
-  BandSettingSubView(sourceColor: .blue)
-    .environment(ApiModel.shared)
+  BandSettingSubView(store: Store(initialState: SDRApi.State()) {
+    SDRApi()
+  }, sourceColor: .blue)
+
+  .environment(ObjectModel.shared)
 }

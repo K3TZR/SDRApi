@@ -9,6 +9,7 @@ import SwiftUI
 
 import FlexApiFeature
 import ListenerFeature
+
 import XCGLogFeature
 
 // ----------------------------------------------------------------------------
@@ -21,10 +22,11 @@ struct SDRApiViewerApp: App {
   
   @State var apiModel = ApiModel.shared
   @State var listenerModel = ListenerModel.shared
+  @State var messagesModel = MessagesModel.shared
   @State var objectModel = ObjectModel.shared
   @State var streamModel = StreamModel.shared
-
- private var testObjectModel: ObjectModel { objectModel.testMode = true; return objectModel }
+  
+  private var testObjectModel: ObjectModel { objectModel.testMode = true; return objectModel }
   
   var body: some Scene {
     
@@ -34,6 +36,7 @@ struct SDRApiViewerApp: App {
       })
       .environment(apiModel)
       .environment(listenerModel)
+      .environment(messagesModel)
       .environment(testObjectModel)
       .environment(streamModel)
     }
@@ -44,14 +47,14 @@ struct SDRApiViewerApp: App {
 // MARK: - App Delegate
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
-
+  
   func applicationDidFinishLaunching(_ notification: Notification) {
     // disable tab view
     NSWindow.allowsAutomaticWindowTabbing = false
     // disable restoring windows
     UserDefaults.standard.register(defaults: ["NSQuitAlwaysKeepsWindows" : false])
   }
-    
+  
   func applicationWillTerminate(_ notification: Notification) {
     ApiModel.shared.disconnect()
     log("SDRApiViewer: application terminated", .debug, #function, #file, #line)
@@ -74,9 +77,9 @@ public struct Version {
   // can be used directly in packages
   public init(_ versionString: String = "1.0.0") {
     let components = versionString.components(separatedBy: ".")
-      major = Int(components[0]) ?? 1
-      minor = Int(components[1]) ?? 0
-      build = Int(components[2]) ?? 0
+    major = Int(components[0]) ?? 1
+    minor = Int(components[1]) ?? 0
+    build = Int(components[2]) ?? 0
   }
   
   // only useful for Apps & Frameworks (which have a Bundle), not Packages

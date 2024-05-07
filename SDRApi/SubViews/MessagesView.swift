@@ -14,17 +14,15 @@ import TcpFeature
 // ----------------------------------------------------------------------------
 // MARK: - View
 
-public struct MessagesView: View {
-  @State var store: StoreOf<SDRApi>
+struct MessagesView: View {
+  var store: StoreOf<SDRApi>
   
-  public init(store: StoreOf<SDRApi>) {
-    self.store = store
-  }
+  @Environment(MessagesModel.self) var messagesModel
   
   @Namespace var topID
   @Namespace var bottomID
   
-  func attributedText( _ text: String) -> AttributedString {
+  @MainActor func attributedText( _ text: String) -> AttributedString {
     var attString = AttributedString(text)
     // color it appropriately
     if text.prefix(1) == "C" { attString.foregroundColor = .systemGreen }                         // Commands
@@ -42,19 +40,19 @@ public struct MessagesView: View {
     return attString
   }
   
-  func intervalFormat(_ interval: Double) -> String {
+  @MainActor func intervalFormat(_ interval: Double) -> String {
     let formatter = NumberFormatter()
     formatter.minimumFractionDigits = 6
     formatter.positiveFormat = " * ##0.000000"
     return formatter.string(from: NSNumber(value: interval))!
   }
   
-  public var body: some View {
+  var body: some View {
     
     VStack(alignment: .leading) {
       FilterMessagesView(store: store)
       
-      if MessagesModel.shared.filteredMessages.count == 0 {
+      if messagesModel.filteredMessages.count == 0 {
         VStack(alignment: .leading) {
           Spacer()
           HStack {
@@ -65,13 +63,14 @@ public struct MessagesView: View {
           Spacer()
         }
         
-      } else {
+      }
+      else {
         ScrollViewReader { proxy in
           ScrollView([.vertical]) {
             Text("Top").hidden()
               .id(topID)
             Grid (alignment: .leading) {
-              ForEach(MessagesModel.shared.filteredMessages.reversed(), id: \.id) { message in
+              ForEach(messagesModel.filteredMessages.reversed(), id: \.id) { message in
                 GridRow(alignment: .top) {
                   if store.showTimes { Text(intervalFormat(message.interval) ) }
                   Text(attributedText(message.text + "\(store.newLineBetweenMessages ? "\n" : "")"))
@@ -93,11 +92,15 @@ public struct MessagesView: View {
       Divider().background(Color(.gray))
       BottomButtonsView(store: store)
     }
+    
+    .onAppear{
+      store.send(.onAppear)
+    }
   }
 }
 
 private struct FilterMessagesView: View {
-  @State var store: StoreOf<SDRApi>
+  @Bindable var store: StoreOf<SDRApi>
 
   var body: some View {
 
@@ -120,7 +123,7 @@ private struct FilterMessagesView: View {
 }
 
 private struct BottomButtonsView: View {
-  @State var store: StoreOf<SDRApi>
+  @Bindable var store: StoreOf<SDRApi>
   
   var body: some View {
     

@@ -45,7 +45,7 @@ struct RadioSubView: View {
 //      Line2View()
       if showSubView {
 //        Divider().background(objectModel.radio?.packet.source == .local ? .blue : .red)
-        DetailView(radioObjectFilter: store.radioObjectFilter, sourceColor: sourceColor)
+        DetailView(store: store, sourceColor: sourceColor)
       }
     }
   }
@@ -104,15 +104,15 @@ private struct Line1View: View {
 }
 
 private struct DetailView: View {
-  var radioObjectFilter: RadioObjectFilter
+  var store: StoreOf<SDRApi>
   var sourceColor: Color
   var body: some View {
     
     VStack(alignment: .leading) {
-      switch radioObjectFilter {
+      switch store.radioObjectFilter {
       case .all:
         AtuSubView(sourceColor: sourceColor)
-        BandSettingSubView(sourceColor: sourceColor)
+        BandSettingSubView(store: store, sourceColor: sourceColor)
         EqualizerSubView(sourceColor: sourceColor)
         GpsSubView(sourceColor: sourceColor)
         //    MeterStreamSubView(streamModel: streamModel)
@@ -120,7 +120,7 @@ private struct DetailView: View {
         TnfSubView(sourceColor: sourceColor)
         TransmitSubView(sourceColor: sourceColor)
       case .atu:          AtuSubView(sourceColor: sourceColor)
-      case .bandSettings: BandSettingSubView(sourceColor: sourceColor)
+      case .bandSettings: BandSettingSubView(store: store, sourceColor: sourceColor)
       case .equalizers:   EqualizerSubView(sourceColor: sourceColor)
       case .gps:          GpsSubView(sourceColor: sourceColor)
       case .lists:        ListsView(sourceColor: sourceColor)

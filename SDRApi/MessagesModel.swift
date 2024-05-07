@@ -25,7 +25,6 @@ public final class MessagesModel {
   // MARK: - Public properties
   
   public var filteredMessages = IdentifiedArrayOf<TcpMessage>()
-  public var showPings = false
 
   // ----------------------------------------------------------------------------
   // MARK: - Private properties
@@ -33,7 +32,8 @@ public final class MessagesModel {
   private var _filter: MessageFilter = .all
   private var _filterText = ""
   private var _messages = IdentifiedArrayOf<TcpMessage>()
-  private var _task: Task<(), Never>?
+  private var _showPings = false
+  private var _tcpMessageSubscription: Task<(), Never>?
   
   // ----------------------------------------------------------------------------
   // MARK: - Public methods
@@ -44,7 +44,7 @@ public final class MessagesModel {
   }
 
   public func stop(_ clearOnStop: Bool) {
-    _task = nil
+    _tcpMessageSubscription = nil
     if clearOnStop { clearAll() }
   }
 
@@ -52,52 +52,61 @@ public final class MessagesModel {
   public func clearAll(_ enabled: Bool = true) {
     if enabled {
       self._messages.removeAll()
-      Task { await MainActor.run { removeAllFilteredMessages() }}
+      removeAllFilteredMessages()
     }
   }
 
   /// Set the messages filter parameters and re-filter
-  public func reFilter(filter: MessageFilter) {
+  public func reFilter(_ filter: MessageFilter, _ filterText: String) {
     _filter = filter
-    Task { await MainActor.run { reFilterMessages() }}
+    _filterText = filterText
+    reFilterMessages()
   }
 
   /// Set the messages filter parameters and re-filter
-  public func reFilter(filterText: String) {
-    _filterText = filterText
-    Task { await MainActor.run { reFilterMessages() }}
-  }
+//  public func reFilter(filterText: String) {
+//    _filterText = filterText
+//    reFilterMessages()
+//  }
 
   // ----------------------------------------------------------------------------
   // MARK: - Private filter methods
   
   /// Rebuild the entire filteredMessages array
   private func reFilterMessages() {
+    var _filteredMessages = IdentifiedArrayOf<TcpMessage>()
+    
     // re-filter the entire messages array
     switch (_filter, _filterText) {
 
-    case (MessageFilter.all, _):        filteredMessages = _messages
-    case (MessageFilter.prefix, ""):    filteredMessages = _messages
-    case (MessageFilter.prefix, _):     filteredMessages = _messages.filter { $0.text.localizedCaseInsensitiveContains("|" + _filterText) }
-    case (MessageFilter.includes, _):   filteredMessages = _messages.filter { $0.text.localizedCaseInsensitiveContains(_filterText) }
-    case (MessageFilter.excludes, ""):  filteredMessages = _messages
-    case (MessageFilter.excludes, _):   filteredMessages = _messages.filter { !$0.text.localizedCaseInsensitiveContains(_filterText) }
-    case (MessageFilter.command, _):    filteredMessages = _messages.filter { $0.text.prefix(1) == "C" }
-    case (MessageFilter.S0, _):         filteredMessages = _messages.filter { $0.text.prefix(3) == "S0|" }
-    case (MessageFilter.status, _):     filteredMessages = _messages.filter { $0.text.prefix(1) == "S" && $0.text.prefix(3) != "S0|"}
-    case (MessageFilter.reply, _):      filteredMessages = _messages.filter { $0.text.prefix(1) == "R" }
+    case (MessageFilter.all, _):        _filteredMessages = _messages
+    case (MessageFilter.prefix, ""):    _filteredMessages = _messages
+    case (MessageFilter.prefix, _):     _filteredMessages = _messages.filter { $0.text.localizedCaseInsensitiveContains("|" + _filterText) }
+    case (MessageFilter.includes, _):   _filteredMessages = _messages.filter { $0.text.localizedCaseInsensitiveContains(_filterText) }
+    case (MessageFilter.excludes, ""):  _filteredMessages = _messages
+    case (MessageFilter.excludes, _):   _filteredMessages = _messages.filter { !$0.text.localizedCaseInsensitiveContains(_filterText) }
+    case (MessageFilter.command, _):    _filteredMessages = _messages.filter { $0.text.prefix(1) == "C" }
+    case (MessageFilter.S0, _):         _filteredMessages = _messages.filter { $0.text.prefix(3) == "S0|" }
+    case (MessageFilter.status, _):     _filteredMessages = _messages.filter { $0.text.prefix(1) == "S" && $0.text.prefix(3) != "S0|"}
+    case (MessageFilter.reply, _):      _filteredMessages = _messages.filter { $0.text.prefix(1) == "R" }
+    }
+    
+    Task { [_filteredMessages] in
+      await MainActor.run { filteredMessages = _filteredMessages }
     }
   }
   
   private func removeAllFilteredMessages() {
-    self.filteredMessages.removeAll()
+    Task { 
+      await MainActor.run { filteredMessages = IdentifiedArrayOf<TcpMessage>() }
+    }
   }
 
   // ----------------------------------------------------------------------------
   // MARK: - Private message processing methods
   
   private func subscribeToTcpMessages()  {
-    _task = Task(priority: .high) {
+    _tcpMessageSubscription = Task(priority: .high) {
       log("MessagesModel: TcpMessage subscription STARTED", .debug, #function, #file, #line)
       for await msg in Tcp.shared.testerStream {
         process(msg)
@@ -123,7 +132,7 @@ public final class MessagesModel {
     // ignore received replies unless they are non-zero or contain additional data
     if msg.direction == .received && ignoreReply(msg.text) { return }
     // ignore sent "ping" messages unless showPings is true
-    if msg.text.contains("ping") && showPings == false { return }
+    if msg.text.contains("ping") && _showPings == false { return }
     // add it to the backing collection
     _messages.append(msg)
     
