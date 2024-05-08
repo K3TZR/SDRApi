@@ -14,17 +14,20 @@ import TcpFeature
 import XCGLogFeature
 
 @Observable
-public final class MessagesModel {
+public final class MessagesModel: MessageProcessor {
   // ----------------------------------------------------------------------------
   // MARK: - Singleton
   
   public static var shared = MessagesModel()
-  private init() {}
+  private init() {
+    Tcp.shared.testerDelegate = self
+  }
   
   // ----------------------------------------------------------------------------
   // MARK: - Public properties
   
-  public var filteredMessages = IdentifiedArrayOf<TcpMessage>()
+  @MainActor public var filteredMessages = IdentifiedArrayOf<TcpMessage>()
+  public var showPings = false
 
   // ----------------------------------------------------------------------------
   // MARK: - Private properties
@@ -32,24 +35,12 @@ public final class MessagesModel {
   private var _filter: MessageFilter = .all
   private var _filterText = ""
   private var _messages = IdentifiedArrayOf<TcpMessage>()
-  private var _showPings = false
-  private var _tcpMessageSubscription: Task<(), Never>?
-  
+
   // ----------------------------------------------------------------------------
   // MARK: - Public methods
   
-  public func start(_ clearOnStart: Bool) {
-    if clearOnStart { clearAll() }
-    subscribeToTcpMessages()
-  }
-
-  public func stop(_ clearOnStop: Bool) {
-    _tcpMessageSubscription = nil
-    if clearOnStop { clearAll() }
-  }
-
-  /// Clear all messages
-  public func clearAll(_ enabled: Bool = true) {
+  /// Clear messages
+  public func clear(_ enabled: Bool = true) {
     if enabled {
       self._messages.removeAll()
       removeAllFilteredMessages()
@@ -62,12 +53,6 @@ public final class MessagesModel {
     _filterText = filterText
     reFilterMessages()
   }
-
-  /// Set the messages filter parameters and re-filter
-//  public func reFilter(filterText: String) {
-//    _filterText = filterText
-//    reFilterMessages()
-//  }
 
   // ----------------------------------------------------------------------------
   // MARK: - Private filter methods
@@ -105,19 +90,9 @@ public final class MessagesModel {
   // ----------------------------------------------------------------------------
   // MARK: - Private message processing methods
   
-  private func subscribeToTcpMessages()  {
-    _tcpMessageSubscription = Task(priority: .high) {
-      log("MessagesModel: TcpMessage subscription STARTED", .debug, #function, #file, #line)
-      for await msg in Tcp.shared.testerStream {
-        process(msg)
-      }
-      log("MessagesModel: : TcpMessage subscription STOPPED", .debug, #function, #file, #line)
-    }
-  }
-  
   /// Process a TcpMessage
   /// - Parameter msg: a TcpMessage struct
-  private func process(_ msg: TcpMessage) {
+  public func messageProcessor(_ msg: TcpMessage) {
 
     // ignore routine replies (i.e. replies with no error or no attached data)
     func ignoreReply(_ text: String) -> Bool {
@@ -132,13 +107,13 @@ public final class MessagesModel {
     // ignore received replies unless they are non-zero or contain additional data
     if msg.direction == .received && ignoreReply(msg.text) { return }
     // ignore sent "ping" messages unless showPings is true
-    if msg.text.contains("ping") && _showPings == false { return }
+    if msg.text.contains("ping") && showPings == false { return }
     // add it to the backing collection
     _messages.append(msg)
     
     Task {
       await MainActor.run {
-        // add it to the published collection (if appropriate)
+        // add it to the public collection (if appropriate)
         switch (_filter, _filterText) {
 
         case (MessageFilter.all, _):        filteredMessages.append(msg)

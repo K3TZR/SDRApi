@@ -149,10 +149,10 @@ public struct SDRApi {
         
       case .onAppear:
         // perform initialization
-        return .merge(
-          initState(&state)
+//        return .merge(
+          return initState(&state)
 //          subscribeToLogAlerts()
-        )
+//        )
         
       case .clearSendTextButtonTapped:
         // clear the command field
@@ -440,7 +440,7 @@ public struct SDRApi {
   }
   
   private func connectionStart(_ state: State)  -> Effect<SDRApi.Action> {
-    //    MessagesModel.shared.start(state.clearOnStart)
+    if state.clearOnStart { MessagesModel.shared.clear() }
     if state.directEnabled {
       // DIRECT Mode
       return .run {
@@ -482,7 +482,7 @@ public struct SDRApi {
   }
   
   private func connectionStop(_ state: State)  -> Effect<SDRApi.Action> {
-    //    MessagesModel.shared.stop(state.clearOnStop)
+    if state.clearOnStop { MessagesModel.shared.clear() }
     return .run {
       await ObjectModel.shared.clientInitialized(false)
       ApiModel.shared.disconnect()
@@ -532,7 +532,7 @@ public struct SDRApi {
     if state.initialized == false {
       
       // instantiate the Logger, use the group defaults (not the Standard)
-//      _ = XCGWrapper(logLevel: .debug, group: "group.net.k3tzr.flexapps")
+      _ = XCGWrapper(logLevel: .debug, group: "group.net.k3tzr.flexapps")
       
       // mark as initialized
       state.initialized = true
@@ -642,7 +642,7 @@ public struct SDRApi {
         formatter.minimumFractionDigits = 6
         formatter.positiveFormat = " * ##0.000000"
         
-        let textArray = MessagesModel.shared.filteredMessages.map { formatter.string(from: NSNumber(value: $0.interval))! + " " + $0.text }
+        let textArray = await MessagesModel.shared.filteredMessages.map { formatter.string(from: NSNumber(value: $0.interval))! + " " + $0.text }
         let fileTextArray = textArray.joined(separator: "\n")
         try? await fileTextArray.write(to: savePanel.url!, atomically: true, encoding: .utf8)
       }
