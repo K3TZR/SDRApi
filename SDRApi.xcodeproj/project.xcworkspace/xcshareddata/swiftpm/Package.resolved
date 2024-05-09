@@ -1,5 +1,5 @@
 {
-  "originHash" : "f62dbc724d1638803835f6142cdd3991aa50f069f681bc4c23103f93a5178a23",
+  "originHash" : "d37f29e97f4d09ea1daffcb492ecdbfa2c1af603b423724ca8178351aefbd3db",
   "pins" : [
     {
       "identity" : "cocoaasyncsocket",
@@ -26,15 +26,6 @@
       "state" : {
         "revision" : "3cd207fb9e943b6168a117baa3936c823204c2dc",
         "version" : "2.6.3"
-      }
-    },
-    {
-      "identity" : "logfeatures",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/K3TZR/LogFeatures.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "f36c07be56ab3c7fa80a6fa42fc813d66c35944c"
       }
     },
     {

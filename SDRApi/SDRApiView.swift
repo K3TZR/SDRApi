@@ -12,6 +12,7 @@ import ClientFeature
 import DirectFeature
 import LoginFeature
 import PickerFeature
+import XCGLogFeature
 
 struct SDRApiView: View {
   @Bindable var store: StoreOf<SDRApi>
@@ -28,6 +29,13 @@ struct SDRApiView: View {
           .padding(.vertical, 10)
         MessagesView(store: store)
       }
+    }
+    
+    // LogAlert
+    .onReceive(NotificationCenter.default.publisher(for: Notification.Name.logAlertNotification)
+      .receive(on: RunLoop.main)) { note in
+        print("----->>>>> LogAlert: \(note.object!)")
+        store.send(.showLogAlert(note.object! as! XCGLogFeature.LogEntry))
     }
     
     // Alert
@@ -52,15 +60,6 @@ struct SDRApiView: View {
     // initialize on first appearance
     .onAppear() {
       store.send(.onAppear)
-      // setup left mouse down tracking
-//      NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) {
-//        if $0.modifierFlags.contains(.option) {
-//          store.send(.optionPressed(true))
-//        } else {
-//          store.send(.optionPressed(false))
-//        }
-//        return $0
-//      }
     }
     .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 700, maxHeight: .infinity)
     .padding()

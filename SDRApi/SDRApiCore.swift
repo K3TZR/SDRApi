@@ -114,7 +114,7 @@ public struct SDRApi {
     case showAlert(Alert,String)
     case showClientSheet(String, IdentifiedArrayOf<GuiClient>)
     case showDirectSheet
-//    case showLogAlert(LogEntry)
+    case showLogAlert(LogEntry)
     case showLoginSheet
     case showPickerSheet
     
@@ -149,10 +149,7 @@ public struct SDRApi {
         
       case .onAppear:
         // perform initialization
-//        return .merge(
-          return initState(&state)
-//          subscribeToLogAlerts()
-//        )
+        return  initState(&state)
         
       case .clearSendTextButtonTapped:
         // clear the command field
@@ -294,9 +291,9 @@ public struct SDRApi {
         state.showDirect = DirectFeature.State(ip: state.isGui ? state.directGuiIp : state.directNonGuiIp)
         return .none
         
-//      case let .showLogAlert(logEntry):
-//        state.showAlert = AlertState(title: TextState("\(logEntry.level == .warning ? "A Warning" : "An Error") was logged:"), message: TextState(logEntry.msg))
-//        return .none
+      case let .showLogAlert(logEntry):
+        state.showAlert = AlertState(title: TextState("\(logEntry.level == .warning ? "A Warning" : "An Error") was logged:"), message: TextState(logEntry.msg))
+        return .none
         
       case .showLoginSheet:
         state.showLogin = LoginFeature.State(user: state.smartlinkUser)
@@ -530,18 +527,18 @@ public struct SDRApi {
   
   private func initState(_ state: inout State) -> Effect<SDRApi.Action> {
     if state.initialized == false {
-      
+            
       // instantiate the Logger, use the group defaults (not the Standard)
-      _ = XCGWrapper(logLevel: .debug, group: "group.net.k3tzr.flexapps")
-      
+      XCGWrapper.shared.setup(logLevel: .debug, group: "group.net.k3tzr.flexapps")
+
       // mark as initialized
       state.initialized = true
-      
+            
       return listenerStartStop(&state)
     }
     return .none
   }
-  
+
   // start/stop listener, as needed
   private func listenerStartStop(_ state: inout State) -> Effect<SDRApi.Action> {
     // start/stop local mode
@@ -658,6 +655,8 @@ public struct SDRApi {
       await $0(.saveTokens(tokens))
     }
   }
+  
+  
   
 //  private func subscribeToLogAlerts() ->  Effect<SDRApi.Action>  {
 //    return .run { send in

@@ -62,6 +62,7 @@
 		9F0029D82BE098C800E2A401 /* SDRApiFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SDRApiFeatures; path = ../Packages/SDRApiFeatures; sourceTree = "<group>"; };
 		9F0029D92BE3DCD000E2A401 /* ListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsView.swift; sourceTree = "<group>"; };
 		9F0029E42BE729BF00E2A401 /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		9F0029E82BEBFA0000E2A401 /* LogFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LogFeatures; path = ../Packages/LogFeatures; sourceTree = "<group>"; };
 		9F1D15AB2BB894340062A4CD /* SDRApiApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDRApiApp.swift; sourceTree = "<group>"; };
 		9F1D15AC2BB894340062A4CD /* SDRApi.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = SDRApi.entitlements; sourceTree = "<group>"; };
 		9F1D15AD2BB894340062A4CD /* SDRApiCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDRApiCore.swift; sourceTree = "<group>"; };
@@ -185,6 +186,7 @@
 		9FDCEE7C2B5ED1300055FF11 = {
 			isa = PBXGroup;
 			children = (
+				9F0029E82BEBFA0000E2A401 /* LogFeatures */,
 				9F0029D82BE098C800E2A401 /* SDRApiFeatures */,
 				9FDCEE972B5ED1720055FF11 /* README.md */,
 				9FDCEE872B5ED1300055FF11 /* SDRApi */,
