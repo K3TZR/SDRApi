@@ -655,19 +655,4 @@ public struct SDRApi {
       await $0(.saveTokens(tokens))
     }
   }
-  
-  
-  
-//  private func subscribeToLogAlerts() ->  Effect<SDRApi.Action>  {
-//    return .run { send in
-//      Task {
-//        for await logEntry in logAlerts {
-//          await MainActor.run {
-//            // a Warning or Error has been logged.
-//            send(.showLogAlert(logEntry))
-//          }
-//        }
-//      }
-//    }
-//  }
 }

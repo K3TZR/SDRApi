@@ -76,13 +76,15 @@ public final class MessagesModel: MessageProcessor {
     case (MessageFilter.reply, _):      _filteredMessages = _messages.filter { $0.text.prefix(1) == "R" }
     }
     
+    // NOTE: filteredMessages is observed by a View therefore this requires async updating on the MainActor
     Task { [_filteredMessages] in
       await MainActor.run { filteredMessages = _filteredMessages }
     }
   }
   
   private func removeAllFilteredMessages() {
-    Task { 
+    // NOTE: filteredMessages is observed by a View therefore this requires async updating on the MainActor
+    Task {
       await MainActor.run { filteredMessages = IdentifiedArrayOf<TcpMessage>() }
     }
   }
@@ -111,6 +113,7 @@ public final class MessagesModel: MessageProcessor {
     // add it to the backing collection
     _messages.append(msg)
     
+    // NOTE: filteredMessages is observed by a View therefore this requires async updating on the MainActor
     Task {
       await MainActor.run {
         // add it to the public collection (if appropriate)
