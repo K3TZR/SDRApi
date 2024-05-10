@@ -21,14 +21,17 @@ struct GuiClientSubView: View {
   @Environment(ListenerModel.self) private var listenerModel
 
   var body: some View {
-    VStack(alignment: .leading) {
-      if listenerModel.activePacket != nil {
-        ForEach(listenerModel.activePacket!.guiClients, id: \.id) { guiClient in
-          DetailView(store: store, guiClient: guiClient)
+
+    ScrollView([.vertical, .horizontal]) {
+      VStack(alignment: .leading) {
+        if listenerModel.activePacket != nil {
+          ForEach(listenerModel.activePacket!.guiClients, id: \.id) { guiClient in
+            DetailView(store: store, guiClient: guiClient)
+          }
+        } else {
+          Text("No active packet")
         }
-      } else {
-        Text("No active packet")
-      }
+      }.frame(maxWidth: .infinity, minHeight: 100)
     }
   }
 }
@@ -40,7 +43,7 @@ private struct DetailView: View {
   @State var showSubView = true
   
   var body: some View {
-    Divider().background(Color(.yellow))
+//    Divider().background(Color(.yellow))
     HStack(spacing: 20) {
       
       HStack(spacing: 0) {

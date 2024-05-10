@@ -26,27 +26,30 @@ struct RadioSubView: View {
   }
   
   var body: some View {
-    VStack(alignment: .leading) {
-      HStack(spacing: 0) {
-        Label("Radio", systemImage: showSubView ? "chevron.down" : "chevron.right")
-          .foregroundColor(sourceColor)
-          .font(.title)
-          .frame(width: 120, alignment: .leading)
-          .onTapGesture{ showSubView.toggle() }
-          .help("          Tap to toggle details")
-
-        Text(objectModel.radio?.packet.nickname ?? "" )
-          .foregroundColor(sourceColor)
-          .frame(width: 120, alignment: .leading)
+    
+    ScrollView([.vertical, .horizontal]) {
+      VStack(alignment: .leading) {
+        HStack(spacing: 0) {
+          Label("Radio", systemImage: showSubView ? "chevron.down" : "chevron.right")
+            .foregroundColor(sourceColor)
+            .font(.title)
+            .frame(width: 120, alignment: .leading)
+            .onTapGesture{ showSubView.toggle() }
+            .help("          Tap to toggle details")
+          
+          Text(objectModel.radio?.packet.nickname ?? "" )
+            .foregroundColor(sourceColor)
+            .frame(width: 120, alignment: .leading)
+          
+          Line1View()
+        }
         
-        Line1View()
-      }
-      
-//      Line2View()
-      if showSubView {
-//        Divider().background(objectModel.radio?.packet.source == .local ? .blue : .red)
-        DetailView(store: store, sourceColor: sourceColor)
-      }
+        //      Line2View()
+        if showSubView {
+          //        Divider().background(objectModel.radio?.packet.source == .local ? .blue : .red)
+          DetailView(store: store, sourceColor: sourceColor)
+        }
+      }.frame(maxWidth: .infinity, minHeight: 200)
     }
   }
 }

@@ -110,12 +110,13 @@ public final class MessagesModel: MessageProcessor {
     if msg.direction == .received && ignoreReply(msg.text) { return }
     // ignore sent "ping" messages unless showPings is true
     if msg.text.contains("ping") && showPings == false { return }
-    // add it to the backing collection
-    _messages.append(msg)
     
     // NOTE: filteredMessages is observed by a View therefore this requires async updating on the MainActor
     Task {
       await MainActor.run {
+        // add it to the backing collection
+        _messages.append(msg)
+
         // add it to the public collection (if appropriate)
         switch (_filter, _filterText) {
 

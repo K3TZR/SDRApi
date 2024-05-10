@@ -23,7 +23,7 @@ struct TesterSubView: View {
   var body: some View {
     if objectModel.radio != nil {
       VStack(alignment: .leading) {
-        Divider().background(Color(.green))
+//        Divider().background(Color(.green))
         HStack(spacing: 10) {
           
           Text("SDRApi").foregroundColor(.green)
@@ -33,28 +33,19 @@ struct TesterSubView: View {
             Text("Bound to Station")
             Text("\(listenerModel.activeStation ?? "none")").foregroundColor(.secondary)
           }
-          TesterRadioView()
+          
+          HStack(spacing: 5) {
+            Text("Handle")
+            Text(apiModel.connectionHandle?.hex ?? "").foregroundColor(.secondary)
+          }
+          
+          HStack(spacing: 5) {
+            Text("Client Id")
+            Text("\(objectModel.boundClientId ?? "none")").foregroundColor(.secondary)
+          }
         }
-      }
+      }.frame(maxWidth: .infinity, minHeight: 50)
     }
-  }
-}
-
-struct TesterRadioView: View {
-
-  @Environment(ApiModel.self) private var apiModel
-  @Environment(ObjectModel.self) private var objectModel
-
-  var body: some View {
-      HStack(spacing: 5) {
-        Text("Handle")
-        Text(apiModel.connectionHandle?.hex ?? "").foregroundColor(.secondary)
-      }
-      
-      HStack(spacing: 5) {
-        Text("Client Id")
-        Text("\(objectModel.boundClientId ?? "none")").foregroundColor(.secondary)
-      }
   }
 }
 
