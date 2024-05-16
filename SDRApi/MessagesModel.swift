@@ -28,6 +28,7 @@ public final class MessagesModel: MessageProcessor {
   
   @MainActor public var filteredMessages = IdentifiedArrayOf<TcpMessage>()
   public var showPings = false
+  public var showAllReplies = false
 
   // ----------------------------------------------------------------------------
   // MARK: - Private properties
@@ -98,12 +99,13 @@ public final class MessagesModel: MessageProcessor {
 
     // ignore routine replies (i.e. replies with no error or no attached data)
     func ignoreReply(_ text: String) -> Bool {
-      if text.first != "R" { return false }     // not a Reply
+      if text.first == "R" && showAllReplies { return false } // showing all Replies (including ping replies)
+      if text.first != "R" { return false }                   // not a Reply
       let parts = text.components(separatedBy: "|")
-      if parts.count < 3 { return false }       // incomplete
-      if parts[1] != kNoError { return false }  // error of some type
-      if parts[2] != "" { return false }        // additional data present
-      return true                               // otherwise, ignore it
+      if parts.count < 3 { return false }                     // incomplete
+      if parts[1] != kNoError { return false }                // error of some type
+      if parts[2] != "" { return false }                      // additional data present
+      return true                                             // otherwise, ignore it
     }
 
     // ignore received replies unless they are non-zero or contain additional data

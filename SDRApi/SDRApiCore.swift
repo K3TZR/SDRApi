@@ -459,7 +459,7 @@ public struct SDRApi {
       return .run {
         if state.useDefaultEnabled {
           // LOCAL/SMARTLINK mode connection using the Default, is there a valid? Default
-          if ListenerModel.shared.isValidDefault(for: state.guiDefault, state.nonGuiDefault, state.isGui) {
+          if await ListenerModel.shared.isValidDefault(for: state.guiDefault, state.nonGuiDefault, state.isGui) {
             // YES, valid default
             if state.isGui {
               await $0(.multiflexStatus(state.guiDefault))
@@ -566,7 +566,9 @@ public struct SDRApi {
         }
       }
     } else {
-      ListenerModel.shared.removePackets(condition: {$0.source == .smartlink})
+      Task {
+        await ListenerModel.shared.removePackets(condition: {$0.source == .smartlink})
+      }
       return .none
     }
   }
@@ -575,7 +577,7 @@ public struct SDRApi {
     return .run {
       if state.isGui {
         // GUI selection
-        if let selectedPacket = ListenerModel.shared.packets[id: selection] {
+        if let selectedPacket = await ListenerModel.shared.packets[id: selection] {
           
           // Gui connection with other stations?
           if selectedPacket.guiClients.count > 0 {
@@ -601,7 +603,7 @@ public struct SDRApi {
     return .run { [state] _ in
       // request a stream, reply to handler
       ApiModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed, replyTo: state.audioOutput!.streamReplyHandler)
-      log("SdrApiCore: remote rx audio stream REQUESTED", .debug, #function, #file, #line)
+//      log("SdrApiCore: remote rx audio stream REQUESTED", .debug, #function, #file, #line)
     }
   }
   
@@ -610,7 +612,7 @@ public struct SDRApi {
     state.audioOutput?.stop()
     state.audioOutput = nil
     ApiModel.shared.removeStream(streamId)
-    log("SdrApiCore: remote rx audiostream STOPPED", .debug, #function, #file, #line)
+//    log("SdrApiCore: remote rx audiostream STOPPED", .debug, #function, #file, #line)
     return .none
   }
   

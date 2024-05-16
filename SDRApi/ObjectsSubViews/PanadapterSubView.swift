@@ -68,10 +68,10 @@ private struct PanadapterDetailView: View {
       Text("PANADAPTER").frame(width: 80, alignment: .leading)
       
       Group {
-        HStack(spacing: 5) {
-          Text("Streaming")
-//          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
-        }
+//        HStack(spacing: 5) {
+//          Text("Streaming")
+////          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
+//        }
         
         HStack(spacing: 5) {
           Text("Id")
@@ -105,10 +105,10 @@ private struct WaterfallDetailView: View {
       Text("WATERFALL").frame(width: 80, alignment: .leading)
       
       Group {
-        HStack(spacing: 5) {
-          Text("Streaming")
-//          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
-        }
+//        HStack(spacing: 5) {
+//          Text("Streaming")
+////          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
+//        }
         
         HStack(spacing: 5) {
           Text("Id")
@@ -155,13 +155,11 @@ private struct SliceDetailView: View {
       HStack(spacing: 20) {
         HStack(spacing: 5) {
           Text("SLICE")
-          Text(String(format: "%02d", slice.id)).foregroundColor(.green)
         }.frame(width: 80, alignment: .leading)
         
-        HStack(spacing: 5) {
-          Text("Frequency").frame(width: 110, alignment: .leading)
-          Text("\(slice.frequency)").foregroundColor(.secondary).frame(width: 105, alignment: .trailing)
-        }
+        Text(String(format: "%02d", slice.id)).foregroundColor(.green)
+        
+        Text("\(slice.frequency)").foregroundColor(.secondary).frame(width: 105, alignment: .trailing)
         
         Group {
           HStack(spacing: 5) {

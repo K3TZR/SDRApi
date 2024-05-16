@@ -16,7 +16,7 @@ import VitaFeature
 
 public struct NetworkSubView: View {
 
-  @Environment(StreamModel.self) var streamModel
+//  @Environment(StreamModel.self) var streamModel
   
   public var body: some View {
     
@@ -31,7 +31,7 @@ public struct NetworkSubView: View {
       GridRow {
         Text(" ")
       }
-      ForEach(streamModel.streamStatistics) { stream in
+      ForEach(StreamStatistics.shared.stats) { stream in
         DetailView(stream: stream)
       }
     }.padding(.leading, 40)
@@ -70,6 +70,6 @@ private struct DetailView: View {
 
 #Preview {
   NetworkSubView()
-    .environment(StreamModel.shared)
+//    .environment(StreamModel.shared)
 
 }

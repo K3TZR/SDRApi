@@ -80,10 +80,6 @@ private struct MeterStreamView: View {
       Group {
         Text("METER")
         Text(streamModel.meterStream?.id.hex ?? "0x0").foregroundColor(.green)
-        HStack(spacing: 5) {
-          Text("Streaming")
-//          Text(streamModel.meterStream == nil ? "N" : "Y").foregroundColor(StreamModel.shared.meterStream == nil ? .red : .green)
-        }
       }.frame(width: 100, alignment: .leading)
     }
   }
@@ -102,10 +98,6 @@ private struct PanadapterStreamView: View {
       Group {
         Text("PANADAPTER")
         Text(panadapter.id.hex).foregroundColor(.green)
-        HStack(spacing: 5) {
-          Text("Streaming")
-//          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
-        }
       }.frame(width: 100, alignment: .leading)
     }
   }
@@ -124,10 +116,6 @@ private struct WaterfallStreamView: View {
       Group {
         Text("WATERFALL")
         Text(waterfall.id.hex).foregroundColor(.green)
-        HStack(spacing: 5) {
-          Text("Streaming")
-//          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
-        }
       }.frame(width: 100, alignment: .leading)
     }
   }
@@ -142,10 +130,6 @@ private struct RemoteRxStreamView: View {
       Group {
         Text("REMOTE Rx")
         Text(stream.id.hex).foregroundColor(.green)
-        HStack(spacing: 5) {
-          Text("Streaming")
-//          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
-        }
       }.frame(width: 100, alignment: .leading)
       Group {
         HStack(spacing: 5) {
@@ -174,10 +158,6 @@ private struct RemoteTxStreamView: View {
       Group {
         Text("REMOTE Tx")
         Text(stream.id.hex).foregroundColor(.green)
-        HStack(spacing: 5) {
-          Text("Streaming")
-//          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
-        }
       }.frame(width: 100, alignment: .leading)
       Group {
         HStack(spacing: 5) {
@@ -202,10 +182,6 @@ private struct DaxMicStreamView: View {
       Group {
         Text("DAX Mic").frame(width: 80, alignment: .leading)
         Text(stream.id.hex).foregroundColor(.green)
-        HStack(spacing: 5) {
-          Text("Streaming")
-//          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
-        }
       }.frame(width: 100, alignment: .leading)
       Group {
         HStack(spacing: 5) {
@@ -230,10 +206,6 @@ private struct DaxRxStreamView: View {
       Group {
         Text("DAX Rx").frame(width: 80, alignment: .leading)
         Text(stream.id.hex).foregroundColor(.green)
-        HStack(spacing: 5) {
-          Text("Streaming")
-//          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
-        }
       }.frame(width: 100, alignment: .leading)
       Group {
         HStack(spacing: 5) {
@@ -262,10 +234,6 @@ private struct DaxTxStreamView: View {
       Group {
         Text("DAX Tx").frame(width: 80, alignment: .leading)
         Text(stream.id.hex).foregroundColor(.green)
-        HStack(spacing: 5) {
-          Text("Streaming")
-//          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
-        }
       }.frame(width: 100, alignment: .leading)
       Group {
         HStack(spacing: 5) {
@@ -294,10 +262,6 @@ private struct DaxIqStreamView: View {
       Group {
         Text("DAX IQ").frame(width: 80, alignment: .leading)
         Text(stream.id.hex).foregroundColor(.green)
-        HStack(spacing: 5) {
-          Text("Streaming")
-//          Text(stream.isStreaming ? "Y" : "N").foregroundColor(stream.isStreaming ? .green : .red)
-        }
       }.frame(width: 100, alignment: .leading)
       Group {
         HStack(spacing: 5) {
@@ -326,5 +290,6 @@ private struct DaxIqStreamView: View {
 
 #Preview {
   StreamSubView(handle: 1)
+    .environment(ObjectModel.shared)
     .environment(StreamModel.shared)
 }
