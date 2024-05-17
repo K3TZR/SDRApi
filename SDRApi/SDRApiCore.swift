@@ -10,16 +10,52 @@ import Cocoa
 import ComposableArchitecture
 import Foundation
 
+import AudioFeature
 import ClientFeature
 import DirectFeature
 import FlexApiFeature
 import ListenerFeature
 import LoginFeature
 import PickerFeature
-import RxAudioFeature
 import SharedFeature
 import TcpFeature
 import XCGLogFeature
+
+//extension URL {
+//  static let appSettings = Self
+//    .applicationSupportDirectory
+//    .appending(path: "appSettings.json")
+//}
+//
+//extension PersistenceKey
+//where Self == FileStorageKey<AppSettings> {
+//  public static var appSettings: Self {
+//    fileStorage(.appSettings)
+//  }
+//}
+//
+//extension PersistenceKey
+//where Self == PersistenceKeyDefault<
+//  FileStorageKey<AppSettings>
+//> {
+//  public static var appSettings: Self {
+//    PersistenceKeyDefault(
+//      .fileStorage(.appSettings),
+//      AppSettings()
+//    )
+//  }
+//}
+//
+//public struct AppSettings: Codable, Equatable {
+//  public var clearOnStart = true
+//  public var clearOnStop = true
+//  public var gotoTop = false
+//  public var messageFilter: MessageFilter = .all
+//  public var messageFilterText = ""
+//  public var showPings = false
+//  public var showTimes = true
+//  public var newLineBetweenMessages = false
+//}
 
 @Reducer
 public struct SDRApi {
@@ -35,6 +71,8 @@ public struct SDRApi {
     // persistent
     //    @Shared(.appStorage("testNil")) var testNil: String?
     
+//    @Shared(.appSettings) var appSettings
+
     
     @Shared(.appStorage("clearOnStart")) var clearOnStart = true
     @Shared(.appStorage("clearOnStop")) var clearOnStop = true

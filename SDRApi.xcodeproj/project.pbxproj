@@ -42,6 +42,7 @@
 		9F1D15F12BB8946C0062A4CD /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1D15EC2BB8946C0062A4CD /* SendView.swift */; };
 		9F1D15F22BB8946C0062A4CD /* TopButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1D15ED2BB8946C0062A4CD /* TopButtonsView.swift */; };
 		9F8399582BD44A41001FF105 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 9F8399572BD44A41001FF105 /* ComposableArchitecture */; };
+		9FB712B32BF698DF0092A9C5 /* AudioFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FB712B22BF698DF0092A9C5 /* AudioFeature */; };
 		9FDCEEA32B5ED1720055FF11 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9FDCEE972B5ED1720055FF11 /* README.md */; };
 		9FDCEEAD2B5ED1CE0055FF11 /* ClientFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEAC2B5ED1CE0055FF11 /* ClientFeature */; };
 		9FDCEEAF2B5ED1CE0055FF11 /* DirectFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEAE2B5ED1CE0055FF11 /* DirectFeature */; };
@@ -50,7 +51,6 @@
 		9FDCEEB52B5ED1CE0055FF11 /* LoginFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEB42B5ED1CE0055FF11 /* LoginFeature */; };
 		9FDCEEBB2B5ED1CE0055FF11 /* PickerFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEBA2B5ED1CE0055FF11 /* PickerFeature */; };
 		9FDCEEBD2B5ED1CE0055FF11 /* RingBufferFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEBC2B5ED1CE0055FF11 /* RingBufferFeature */; };
-		9FDCEEBF2B5ED1CE0055FF11 /* RxAudioFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEBE2B5ED1CE0055FF11 /* RxAudioFeature */; };
 		9FDCEEC32B5ED1CE0055FF11 /* SharedFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEC22B5ED1CE0055FF11 /* SharedFeature */; };
 		9FDCEEC52B5ED1CE0055FF11 /* TcpFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEC42B5ED1CE0055FF11 /* TcpFeature */; };
 		9FDCEEC72B5ED1CE0055FF11 /* UdpFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FDCEEC62B5ED1CE0055FF11 /* UdpFeature */; };
@@ -110,6 +110,7 @@
 				9F8399582BD44A41001FF105 /* ComposableArchitecture in Frameworks */,
 				9FDCEEB32B5ED1CE0055FF11 /* ListenerFeature in Frameworks */,
 				9FDCEEB52B5ED1CE0055FF11 /* LoginFeature in Frameworks */,
+				9FB712B32BF698DF0092A9C5 /* AudioFeature in Frameworks */,
 				9FDCEEC32B5ED1CE0055FF11 /* SharedFeature in Frameworks */,
 				9FDCEEC52B5ED1CE0055FF11 /* TcpFeature in Frameworks */,
 				9FDCEEAF2B5ED1CE0055FF11 /* DirectFeature in Frameworks */,
@@ -118,7 +119,6 @@
 				9F0029DD2BE52A4D00E2A401 /* CustomControlFeature in Frameworks */,
 				9FDCEEBD2B5ED1CE0055FF11 /* RingBufferFeature in Frameworks */,
 				9FDCEECB2B5ED1CE0055FF11 /* XCGLogFeature in Frameworks */,
-				9FDCEEBF2B5ED1CE0055FF11 /* RxAudioFeature in Frameworks */,
 				9FDCEEBB2B5ED1CE0055FF11 /* PickerFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,7 +243,6 @@
 				9FDCEEB42B5ED1CE0055FF11 /* LoginFeature */,
 				9FDCEEBA2B5ED1CE0055FF11 /* PickerFeature */,
 				9FDCEEBC2B5ED1CE0055FF11 /* RingBufferFeature */,
-				9FDCEEBE2B5ED1CE0055FF11 /* RxAudioFeature */,
 				9FDCEEC22B5ED1CE0055FF11 /* SharedFeature */,
 				9FDCEEC42B5ED1CE0055FF11 /* TcpFeature */,
 				9FDCEEC62B5ED1CE0055FF11 /* UdpFeature */,
@@ -251,6 +250,7 @@
 				9FDCEECA2B5ED1CE0055FF11 /* XCGLogFeature */,
 				9F8399572BD44A41001FF105 /* ComposableArchitecture */,
 				9F0029DC2BE52A4D00E2A401 /* CustomControlFeature */,
+				9FB712B22BF698DF0092A9C5 /* AudioFeature */,
 			);
 			productName = SDRTestViewer;
 			productReference = 9FDCEE852B5ED1300055FF11 /* SDRApi.app */;
@@ -580,6 +580,10 @@
 			package = 9F8399562BD44A41001FF105 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
 		};
+		9FB712B22BF698DF0092A9C5 /* AudioFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AudioFeature;
+		};
 		9FDCEEAC2B5ED1CE0055FF11 /* ClientFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
@@ -614,11 +618,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
 			productName = RingBufferFeature;
-		};
-		9FDCEEBE2B5ED1CE0055FF11 /* RxAudioFeature */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */;
-			productName = RxAudioFeature;
 		};
 		9FDCEEC22B5ED1CE0055FF11 /* SharedFeature */ = {
 			isa = XCSwiftPackageProductDependency;
