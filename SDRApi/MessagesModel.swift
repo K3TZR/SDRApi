@@ -14,7 +14,7 @@ import TcpFeature
 import XCGLogFeature
 
 @Observable
-public final class MessagesModel: MessageProcessor {
+public final class MessagesModel: TcpProcessor {
   // ----------------------------------------------------------------------------
   // MARK: - Singleton
   
@@ -91,11 +91,11 @@ public final class MessagesModel: MessageProcessor {
   }
 
   // ----------------------------------------------------------------------------
-  // MARK: - Private message processing methods
+  // MARK: - Private TCP message processing methods
   
   /// Process a TcpMessage
   /// - Parameter msg: a TcpMessage struct
-  public func messageProcessor(_ msg: TcpMessage) {
+  public func tcpProcessor(_ msg: TcpMessage) {
 
     // ignore routine replies (i.e. replies with no error or no attached data)
     func ignoreReply(_ text: String) -> Bool {

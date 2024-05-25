@@ -24,7 +24,8 @@ struct SDRApiViewerApp: App {
   @State var listenerModel = ListenerModel.shared
   @State var messagesModel = MessagesModel.shared
   @State var objectModel = ObjectModel.shared
-  @State var streamModel = StreamModel.shared
+//  @State var streamModel = StreamModel.shared
+  @State var discovery = Discovery.shared
   
   private var testObjectModel: ObjectModel { objectModel.testMode = true; return objectModel }
   
@@ -37,8 +38,9 @@ struct SDRApiViewerApp: App {
       .environment(apiModel)
       .environment(listenerModel)
       .environment(messagesModel)
+      .environment(discovery)
       .environment(testObjectModel)
-      .environment(streamModel)
+//      .environment(streamModel)
     }
   }
 }

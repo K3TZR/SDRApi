@@ -31,7 +31,7 @@ struct TesterSubView: View {
           
           HStack(spacing: 5) {
             Text("Bound to Station")
-            Text("\(listenerModel.activeStation ?? "none")").foregroundColor(.secondary)
+            Text("\(apiModel.activeStation ?? "none")").foregroundColor(.secondary)
           }
           
           HStack(spacing: 5) {

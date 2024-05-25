@@ -18,14 +18,14 @@ import SharedFeature
 struct GuiClientSubView: View {
   let store: StoreOf<SDRApi>
     
-  @Environment(ListenerModel.self) private var listenerModel
+  @Environment(ApiModel.self) private var apiModel
 
   var body: some View {
 
     ScrollView([.vertical, .horizontal]) {
       VStack(alignment: .leading) {
-        if listenerModel.activePacket != nil {
-          ForEach(listenerModel.activePacket!.guiClients, id: \.id) { guiClient in
+        if apiModel.activePacket != nil {
+          ForEach(apiModel.activePacket!.guiClients, id: \.id) { guiClient in
             DetailView(store: store, guiClient: guiClient)
           }
         } else {

@@ -58,7 +58,7 @@ struct PanadapterSubView: View {
 private struct PanadapterDetailView: View {
   var panadapter: Panadapter
   
-  @Environment(StreamModel.self) private var streamModel
+//  @Environment(StreamModel.self) private var streamModel
 
 //  @MainActor private var isStreaming: Bool { streamModel.panadapterStreams[id: panadapter.id]!.isStreaming }
   
@@ -96,7 +96,7 @@ private struct PanadapterDetailView: View {
 private struct WaterfallDetailView: View {
   var waterfall: Waterfall
   
-  @Environment(StreamModel.self) private var streamModel
+//  @Environment(StreamModel.self) private var streamModel
 
 //  @MainActor private var isStreaming: Bool { streamModel.waterfallStreams[id: waterfall.id]!.isStreaming }
   

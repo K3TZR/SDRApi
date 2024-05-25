@@ -106,7 +106,7 @@ public struct SDRApi {
     @Shared(.appStorage("previousCommand")) var previousCommand = ""
     @Shared(.appStorage("previousIdToken")) var previousIdToken: String = ""
     @Shared(.appStorage("refreshToken")) var refreshToken: String = ""
-    @Shared(.appStorage("remoteRxAudioCompressed")) var remoteRxAudioCompressed = true
+    @Shared(.appStorage("remoteRxAudioCompressed")) var remoteRxAudioCompressed = false
     @Shared(.appStorage("remoteRxAudioEnabled")) var remoteRxAudioEnabled = false
     @Shared(.appStorage("remoteTxAudioEnabled")) var remoteTxAudioEnabled = false
     @Shared(.appStorage("smartlinkEnabled")) var smartlinkEnabled = false
@@ -252,6 +252,13 @@ public struct SDRApi {
         
       case .binding(\.messageFilterText):
         MessagesModel.shared.reFilter(state.messageFilter, state.messageFilterText)
+        return .none
+        
+      case .binding(\.remoteRxAudioCompressed):
+        if state.connectionState == .connected && state.remoteRxAudioEnabled {
+          state.remoteRxAudioEnabled = false
+          return remoteRxAudioStop(&state)
+        }
         return .none
         
       case .binding(\.remoteRxAudioEnabled):
@@ -447,18 +454,29 @@ public struct SDRApi {
     state.commandsArray.append(state.commandToSend)
     return .run { [state] in
       // send command to the radio
-      ApiModel.shared.sendCommand(state.commandToSend)
+      ApiModel.shared.sendTcp(state.commandToSend)
       if state.clearOnSend { await $0(.clearSendTextButtonTapped)}
     }
   }
   
   private func connect(_ state: State, _ selection: String, _ disconnectHandle: UInt32?) -> Effect<SDRApi.Action> {
-    ListenerModel.shared.setActive(state.isGui, selection, state.directEnabled)
+//    ListenerModel.shared.setActive(state.isGui, selection, state.directEnabled)
     return .run {
+      var activePacket: Packet?
+      var activeStation: String?
+      if state.isGui {
+        activePacket = await Discovery.shared.packets[id: selection]
+        activeStation = "SDRApi"
+      } else {
+        activePacket = await Discovery.shared.stations[id: selection]?.packet
+        activeStation = await Discovery.shared.stations[id: selection]?.station
+      }
+
       // attempt to connect to the selected Radio / Station
       do {
         // try to connect
-        try await ApiModel.shared.connect(selection: selection,
+        try await ApiModel.shared.connect(packet: activePacket,
+                                          station: activeStation,
                                           isGui: state.isGui,
                                           disconnectHandle: disconnectHandle,
                                           programName: "SDRApiViewer",
@@ -473,6 +491,40 @@ public struct SDRApi {
       }
     }
   }
+  
+  
+//  private func parseSelection(_ selection: String, state: State) -> (Packet, String) {
+//    if state.directEnabled {
+//      
+//      let components = selection.components(separatedBy: "|")
+//      let serial = components[0]
+//      let publicIp = components[1]
+//      
+//      if state.isGui {
+//       return ( Packet(nickname: "DIRECT", serial: serial, publicIp: publicIp, port: 4_992), "SDRApi")
+//      } else {
+//        fatalError()
+//      }
+//      
+//    } else {
+//      Task {
+//        if state.isGui {
+//          return ( await Discovery.shared.packets[id: selection]!, "SDRApi" )
+//        } else {
+//          return ( await Discovery.shared.stations[id: selection]!.packet, await Discovery.shared.stations[id: selection]!.station )
+//        }
+//      }
+//    }
+//
+//  }
+  
+  
+  
+  
+  
+  
+  
+  
   
   private func connectionStart(_ state: State)  -> Effect<SDRApi.Action> {
     if state.clearOnStart { MessagesModel.shared.clear() }
@@ -604,9 +656,7 @@ public struct SDRApi {
         }
       }
     } else {
-      Task {
-        await ListenerModel.shared.removePackets(condition: {$0.source == .smartlink})
-      }
+      Task { await Discovery.shared.removePackets(for: {$0.source == .smartlink}) }
       return .none
     }
   }
@@ -615,7 +665,7 @@ public struct SDRApi {
     return .run {
       if state.isGui {
         // GUI selection
-        if let selectedPacket = await ListenerModel.shared.packets[id: selection] {
+        if let selectedPacket = await Discovery.shared.packets[id: selection] {
           
           // Gui connection with other stations?
           if selectedPacket.guiClients.count > 0 {
@@ -640,17 +690,16 @@ public struct SDRApi {
     state.audioOutput = RxAudioPlayer()
     return .run { [state] _ in
       // request a stream, reply to handler
-      ApiModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed, replyTo: state.audioOutput!.streamReplyHandler)
-//      log("SdrApiCore: remote rx audio stream REQUESTED", .debug, #function, #file, #line)
+      StreamModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed)
     }
   }
   
   private func remoteRxAudioStop(_ state: inout State) -> Effect<SDRApi.Action> {
-    let streamId = state.audioOutput?.streamId
-    state.audioOutput?.stop()
-    state.audioOutput = nil
-    ApiModel.shared.removeStream(streamId)
-//    log("SdrApiCore: remote rx audiostream STOPPED", .debug, #function, #file, #line)
+    
+    StreamModel.shared.remoteRxAudioStream?.audioOutput?.stop()
+    if let streamId = StreamModel.shared.remoteRxAudioStream?.id {
+      StreamModel.shared.remove(streamId)
+    }
     return .none
   }
   

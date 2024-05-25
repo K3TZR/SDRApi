@@ -41,16 +41,12 @@ public struct TopButtonsView: View {
       .help("At least one connection type must be selected")
       
       Toggle("Gui", isOn: $store.isGui)
-        .toggleStyle(.button)
  
       // Connection types
       ControlGroup {
-        Toggle(isOn: $store.directEnabled) {
-          Text("Direct") }
-        Toggle(isOn: $store.localEnabled) {
-          Text("Local") }
-        Toggle(isOn: $store.smartlinkEnabled) {
-          Text("Smartlink") }
+        Toggle("Direct", isOn: $store.directEnabled)
+        Toggle("Local", isOn: $store.localEnabled)
+        Toggle("Smartlink", isOn: $store.smartlinkEnabled)
       }
       .frame(width: 180)
       .disabled(store.connectionState != .disconnected)
@@ -64,15 +60,18 @@ public struct TopButtonsView: View {
         Spacer()
         
         ControlGroup {
-          Toggle(isOn: $store.remoteRxAudioEnabled) {
-            Text("Rx Audio") }.disabled(store.isGui == false)
+          Toggle("Rx Audio", isOn: $store.remoteRxAudioEnabled)
+            .disabled(store.isGui == false)
             .help("Enable audio from the Radio to this Mac")
-          Toggle(isOn: $store.remoteTxAudioEnabled) {
-            Text("Tx Audio") }.disabled(true)
-            .help("Enable audio from this Mac to the Radio")
+          Toggle("Compression", isOn: $store.remoteRxAudioCompressed)
+            .disabled(store.isGui == false)
+            .help("Enable Rx Audio compression")
         }
-        .frame(width: 130)
-        
+
+        Toggle("Tx Audio", isOn: $store.remoteTxAudioEnabled)
+          .disabled(true)
+          .help("Enable audio from this Mac to the Radio")
+
         Toggle("Use Default", isOn: $store.useDefaultEnabled)
           .disabled( store.connectionState != .disconnected )
           .help("Skip the Radio Picker")
