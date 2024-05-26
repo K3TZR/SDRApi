@@ -19,13 +19,14 @@ struct GuiClientSubView: View {
   let store: StoreOf<SDRApi>
     
   @Environment(ApiModel.self) private var apiModel
+  @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
 
     ScrollView([.vertical, .horizontal]) {
       VStack(alignment: .leading) {
-        if apiModel.activePacket != nil {
-          ForEach(apiModel.activePacket!.guiClients, id: \.id) { guiClient in
+        if objectModel.activePacket != nil {
+          ForEach(objectModel.activePacket!.guiClients, id: \.id) { guiClient in
             DetailView(store: store, guiClient: guiClient)
           }
         } else {
