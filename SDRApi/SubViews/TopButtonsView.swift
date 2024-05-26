@@ -28,6 +28,9 @@ public struct TopButtonsView: View {
     }
   }
 
+  @State var daxSelection = "none"
+  @State var daxChoices = ["none", "Rx1", "Rx2", "Rx3", "Rx4", "Mic"]
+
   public var body: some View {
     
     HStack(spacing: 30) {
@@ -52,40 +55,44 @@ public struct TopButtonsView: View {
       .disabled(store.connectionState != .disconnected)
       .help("At least one connection type must be selected")
       
-      Group {
-        Toggle("Smartlink Login", isOn: $store.smartlinkLoginRequired)
+      Toggle("Use Default", isOn: $store.useDefaultEnabled)
+        .disabled( store.connectionState != .disconnected )
+        .help("Skip the Radio Picker")
+      
+      Toggle("Smartlink Login", isOn: $store.smartlinkLoginRequired)
+        .disabled( store.connectionState != .disconnected)
+        .help("User must enter Login credentials")
+      
+      Spacer()
+      
+      HStack(spacing: 0) {
+        Picker("Dax", selection: $store.daxSelection) {
+          ForEach(daxChoices, id: \.self) {
+            Text($0).tag($0)
+          }
+        }
+        Toggle("Low BW", isOn: $store.lowBandwidthDax)
           .disabled( store.connectionState != .disconnected)
-          .help("User must enter Login credentials")
-        
-        Spacer()
-        
-        ControlGroup {
-          Toggle("Rx Audio", isOn: $store.remoteRxAudioEnabled)
-            .disabled(store.isGui == false)
-            .help("Enable audio from the Radio to this Mac")
-          Toggle("Compression", isOn: $store.remoteRxAudioCompressed)
-            .disabled(store.isGui == false)
-            .help("Enable Rx Audio compression")
-        }
-
-        Toggle("Tx Audio", isOn: $store.remoteTxAudioEnabled)
-          .disabled(true)
-          .help("Enable audio from this Mac to the Radio")
-
-        Toggle("Use Default", isOn: $store.useDefaultEnabled)
-          .disabled( store.connectionState != .disconnected )
-          .help("Skip the Radio Picker")
-
-        Toggle("Alert on Error", isOn: $store.alertOnError)
-          .help("Display a sheet when an Error / Warning occurs")
-        
-        HStack(spacing: 5) {
-          Stepper("Font Size", value: $store.fontSize, in: 8...14)
-          Text(store.fontSize, format: .number).frame(alignment: .leading)
-        }
+          .help("Enable Low Bandwidth Dax")
       }
-      .toggleStyle(.button)
-    }
+      .frame(width: 180)
+      .disabled(store.isGui == false)
+
+
+      HStack(spacing: 0) {
+        Toggle("Rx Audio", isOn: $store.remoteRxAudioEnabled)
+          .disabled(store.isGui == false)
+          .help("Enable audio from the Radio to this Mac")
+        Toggle("Compress", isOn: $store.remoteRxAudioCompressed)
+          .help("Enable Rx Audio compression")
+      }
+      .disabled(store.isGui == false)
+      .frame(width: 180)
+      
+      Toggle("Tx Audio", isOn: $store.remoteTxAudioEnabled)
+        .disabled(true)
+        .help("Enable audio from this Mac to the Radio")
+    }.toggleStyle(.button)
   }
 }
 

@@ -133,12 +133,19 @@ private struct BottomButtonsView: View {
       }
 
       Spacer()
-      Toggle("Spacing", isOn: $store.newLineBetweenMessages)
+
+      HStack(spacing: 5) {
+        Stepper("Font Size", value: $store.fontSize, in: 8...14)
+        Text(store.fontSize, format: .number).frame(alignment: .leading)
+      }
+      Toggle("Line Spacing", isOn: $store.newLineBetweenMessages)
 
       Spacer()
       HStack {
         Toggle("Show Times", isOn: $store.showTimes)
         Toggle("Show Pings", isOn: $store.showPings)
+        Toggle("Show Alerts", isOn: $store.alertOnError)
+          .help("Display a sheet when an Error / Warning occurs")
       }
 
       Spacer()
@@ -163,5 +170,7 @@ private struct BottomButtonsView: View {
   MessagesView(store: Store(initialState: SDRApi.State()) {
     SDRApi()
   })
+  .environment(MessagesModel.shared)
+ 
   .frame(minWidth: 1250, maxWidth: .infinity)
 }

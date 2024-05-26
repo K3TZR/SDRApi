@@ -90,6 +90,7 @@ public struct SDRApi {
     @Shared(.appStorage("commandToSend")) var commandToSend = ""
     @Shared(.appStorage("commandsArray")) var commandsArray = [String]()
     @Shared(.appStorage("commandsIndex")) var commandsIndex = 0
+    @Shared(.appStorage("daxSelection")) var daxSelection = "none"
     @Shared(.appStorage("directEnabled")) var directEnabled = false
     @Shared(.appStorage("directGuiIp")) var directGuiIp = ""
     @Shared(.appStorage("directNonGuiIp")) var directNonGuiIp = ""
@@ -690,15 +691,20 @@ public struct SDRApi {
     state.audioOutput = RxAudioPlayer()
     return .run { [state] _ in
       // request a stream, reply to handler
-      StreamModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed)
+//      StreamModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed)
+      StreamModel.shared.requestStream(.daxRxAudioStream, daxChannel: 1, isCompressed: state.remoteRxAudioCompressed)
     }
   }
   
   private func remoteRxAudioStop(_ state: inout State) -> Effect<SDRApi.Action> {
     
-    StreamModel.shared.remoteRxAudioStream?.audioOutput?.stop()
-    if let streamId = StreamModel.shared.remoteRxAudioStream?.id {
-      StreamModel.shared.remove(streamId)
+//    StreamModel.shared.remoteRxAudioStream?.audioOutput?.stop()
+//    if let streamId = StreamModel.shared.remoteRxAudioStream?.id {
+//      StreamModel.shared.remove(streamId)
+//    }
+    for daxRxAudioStream in StreamModel.shared.daxRxAudioStreams where daxRxAudioStream.daxChannel == 1 {
+        StreamModel.shared.daxRxAudioStreams[id: daxRxAudioStream.id ]?.audioOutput?.stop()
+        StreamModel.shared.remove(daxRxAudioStream.id )
     }
     return .none
   }
