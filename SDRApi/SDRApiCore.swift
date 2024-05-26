@@ -90,7 +90,7 @@ public struct SDRApi {
     @Shared(.appStorage("commandToSend")) var commandToSend = ""
     @Shared(.appStorage("commandsArray")) var commandsArray = [String]()
     @Shared(.appStorage("commandsIndex")) var commandsIndex = 0
-    @Shared(.appStorage("daxSelection")) var daxSelection = "none"
+    @Shared(.appStorage("daxSelection")) var daxSelection = -1
     @Shared(.appStorage("directEnabled")) var directEnabled = false
     @Shared(.appStorage("directGuiIp")) var directGuiIp = ""
     @Shared(.appStorage("directNonGuiIp")) var directNonGuiIp = ""
@@ -119,8 +119,9 @@ public struct SDRApi {
     // non-persistent
     var initialized = false
     var connectionState: ConnectionState = .disconnected
-    var audioOutput: RxAudioPlayer?
-    
+//    var audioOutput: RxAudioPlayer?
+//    var daxAudioOutput: RxAudioPlayer?
+
     @Presents var showAlert: AlertState<Action.Alert>?
     @Presents var showClient: ClientFeature.State?
     @Presents var showDirect: DirectFeature.State?
@@ -142,6 +143,7 @@ public struct SDRApi {
     case clearSendTextButtonTapped
     case commandNextTapped
     case commandPreviousTapped
+    case daxSelectionChanged(Int,Int)
     case saveButtonTapped
     case sendButtonTapped
     
@@ -213,12 +215,28 @@ public struct SDRApi {
         commandPrevious(&state)
         return .none
         
+      case let .daxSelectionChanged(oldValue, newValue):
+        print("----->>>>> old = \(oldValue), new = \(newValue)")
+        guard newValue != oldValue else { return .none }
+        if newValue == -1 {
+          // stopping
+          return daxAudioStop(&state, oldValue)
+          
+        } else if oldValue == -1 {
+          // starting
+          return daxAudioStart(&state, newValue)
+          
+        } else {
+          // switching
+          return .concatenate(daxAudioStop(&state, oldValue), daxAudioStart(&state, newValue))
+        }
+        
       case .sendButtonTapped:
         // send a command to the radio
         return commandSend(&state)
         
       case .clearButtonTapped:
-//        state.messages.clearAll()
+        MessagesModel.shared.clear()
         return .none
         
       case .clearFilterTextTapped:
@@ -231,6 +249,13 @@ public struct SDRApi {
         
         // ----------------------------------------------------------------------------
         // MARK: - Root Binding Actions
+        
+//      case .binding(\.daxSelection):
+//        if state.daxSelection == none {
+//          return daxAudioStop(&state)
+//        } else {
+//          return daxAudioStart(&state)
+//        }
         
       case .binding(\.directEnabled):
         state.localEnabled = false
@@ -616,6 +641,28 @@ public struct SDRApi {
     return .none
   }
   
+  private func daxAudioStart(_ state: inout State, _ channel: Int) -> Effect<SDRApi.Action> {
+    if channel == 0 {
+      StreamModel.shared.requestStream(.daxMicAudioStream)
+    } else {
+      StreamModel.shared.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.remoteRxAudioCompressed)
+    }
+    return .none
+  }
+  
+  private func daxAudioStop(_ state: inout State, _ channel: Int) -> Effect<SDRApi.Action> {
+    if channel == 0 {
+//      StreamModel.shared.daxMicAudioStream.audioOutput?.stop()
+//      StreamModel.shared.remove(StreamModel.shared.daxMicAudioStream.id)
+    }
+    for daxRxAudioStream in StreamModel.shared.daxRxAudioStreams where daxRxAudioStream.daxChannel == channel {
+      let streamId = daxRxAudioStream.id
+      StreamModel.shared.daxRxAudioStreams[id: streamId]?.audioOutput?.stop()
+      StreamModel.shared.remove(streamId)
+    }
+    return .none
+  }
+
   private func initState(_ state: inout State) -> Effect<SDRApi.Action> {
     if state.initialized == false {
             
@@ -688,23 +735,17 @@ public struct SDRApi {
   }
   
   private func remoteRxAudioStart(_ state: inout State) -> Effect<SDRApi.Action> {
-    state.audioOutput = RxAudioPlayer()
+//    state.audioOutput = RxAudioPlayer()
     return .run { [state] _ in
       // request a stream, reply to handler
-//      StreamModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed)
-      StreamModel.shared.requestStream(.daxRxAudioStream, daxChannel: 1, isCompressed: state.remoteRxAudioCompressed)
+      StreamModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed)
     }
   }
   
   private func remoteRxAudioStop(_ state: inout State) -> Effect<SDRApi.Action> {
-    
-//    StreamModel.shared.remoteRxAudioStream?.audioOutput?.stop()
-//    if let streamId = StreamModel.shared.remoteRxAudioStream?.id {
-//      StreamModel.shared.remove(streamId)
-//    }
-    for daxRxAudioStream in StreamModel.shared.daxRxAudioStreams where daxRxAudioStream.daxChannel == 1 {
-        StreamModel.shared.daxRxAudioStreams[id: daxRxAudioStream.id ]?.audioOutput?.stop()
-        StreamModel.shared.remove(daxRxAudioStream.id )
+    StreamModel.shared.remoteRxAudioStream?.audioOutput?.stop()
+    if let streamId = StreamModel.shared.remoteRxAudioStream?.id {
+      StreamModel.shared.remove(streamId)
     }
     return .none
   }

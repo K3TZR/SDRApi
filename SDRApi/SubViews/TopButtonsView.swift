@@ -28,8 +28,7 @@ public struct TopButtonsView: View {
     }
   }
 
-  @State var daxSelection = "none"
-  @State var daxChoices = ["none", "Rx1", "Rx2", "Rx3", "Rx4", "Mic"]
+  @State var daxChoices = [-1, 1, 2, 3, 4, 0]
 
   public var body: some View {
     
@@ -68,8 +67,11 @@ public struct TopButtonsView: View {
       HStack(spacing: 0) {
         Picker("Dax", selection: $store.daxSelection) {
           ForEach(daxChoices, id: \.self) {
-            Text($0).tag($0)
+            Text($0 == -1 ? "none" : $0 == 0 ? "Mic" : "Rx\($0)").tag($0)
           }
+        }
+        .onChange(of: store.daxSelection) {
+          store.send(.daxSelectionChanged($0, $1))
         }
         Toggle("Low BW", isOn: $store.lowBandwidthDax)
           .disabled( store.connectionState != .disconnected)
