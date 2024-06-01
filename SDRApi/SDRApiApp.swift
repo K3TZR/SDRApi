@@ -20,6 +20,8 @@ struct SDRApiViewerApp: App {
   @NSApplicationDelegateAdaptor(AppDelegate.self)
   var appDelegate
   
+  private let testMode = true
+  
   @State var apiModel = ApiModel.shared
   @State var listenerModel = ListenerModel.shared
   @State var messagesModel = MessagesModel.shared
@@ -27,7 +29,8 @@ struct SDRApiViewerApp: App {
 //  @State var streamModel = StreamModel.shared
   @State var discovery = Discovery.shared
   
-  private var testObjectModel: ObjectModel { objectModel.testMode = true; return objectModel }
+  private var testerApiModel: ApiModel { apiModel.testMode = testMode; return apiModel }
+  private var testerObjectModel: ObjectModel { objectModel.testMode = testMode; objectModel.apiModel = apiModel ; return objectModel }
   
   var body: some Scene {
     
@@ -35,11 +38,11 @@ struct SDRApiViewerApp: App {
       SDRApiView(store: Store(initialState: SDRApi.State()) {
         SDRApi()
       })
-      .environment(apiModel)
+      .environment(testerApiModel)
       .environment(listenerModel)
       .environment(messagesModel)
       .environment(discovery)
-      .environment(testObjectModel)
+      .environment(testerObjectModel)
 //      .environment(streamModel)
     }
   }

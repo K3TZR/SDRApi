@@ -8,9 +8,13 @@
 import ComposableArchitecture
 import SwiftUI
 
+import FlexApiFeature
+
 public struct SendView: View {
-  @State var store: StoreOf<SDRApi>
-  
+  @Bindable var store: StoreOf<SDRApi>
+
+  @State var commandToSend = ""
+
   public var body: some View {
     
     HStack {
@@ -32,7 +36,10 @@ public struct SendView: View {
           store.send(.commandNextTapped)
         })
         .help("Load previously sent commands")
-        TextField("Command to send", text: $store.commandToSend)
+        TextField("Command to send", text: $commandToSend)
+          .onSubmit {
+              print("----->>>>> \(commandToSend)")
+          }
       }
       .disabled(store.connectionState != .connected)
       

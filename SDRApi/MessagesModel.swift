@@ -9,9 +9,10 @@ import ComposableArchitecture
 import Foundation
 import SwiftUI
 
+import FlexApiFeature
 import SharedFeature
-import TcpFeature
-import XCGLogFeature
+//import TcpFeature
+//import XCGLogFeature
 
 @Observable
 public final class MessagesModel: TcpProcessor {
@@ -20,7 +21,7 @@ public final class MessagesModel: TcpProcessor {
   
   public static var shared = MessagesModel()
   private init() {
-    Tcp.shared.testerDelegate = self
+//    Tcp.shared.testerDelegate = self
   }
   
   // ----------------------------------------------------------------------------
@@ -55,6 +56,50 @@ public final class MessagesModel: TcpProcessor {
     reFilterMessages()
   }
 
+  /// Process a TcpMessage
+  /// - Parameter msg: a TcpMessage struct
+  public func tcpProcessor(_ msg: TcpMessage) {
+
+    // ignore routine replies (i.e. replies with no error or no attached data)
+    func ignoreReply(_ text: String) -> Bool {
+      if text.first == "R" && showAllReplies { return false } // showing all Replies (including ping replies)
+      if text.first != "R" { return false }                   // not a Reply
+      let parts = text.components(separatedBy: "|")
+      if parts.count < 3 { return false }                     // incomplete
+      if parts[1] != kNoError { return false }                // error of some type
+      if parts[2] != "" { return false }                      // additional data present
+      return true                                             // otherwise, ignore it
+    }
+
+    // ignore received replies unless they are non-zero or contain additional data
+    if msg.direction == .received && ignoreReply(msg.text) { return }
+    // ignore sent "ping" messages unless showPings is true
+    if msg.text.contains("ping") && showPings == false { return }
+    
+    // filteredMessages is observed by a View therefore requires async updating on the MainActor
+    Task {
+      await MainActor.run {
+        // add it to the backing collection
+        _messages.append(msg)
+
+        // add it to the public collection (if appropriate)
+        switch (_filter, _filterText) {
+
+        case (MessageFilter.all, _):        filteredMessages.append(msg)
+        case (MessageFilter.prefix, ""):    filteredMessages.append(msg)
+        case (MessageFilter.prefix, _):     if msg.text.localizedCaseInsensitiveContains("|" + _filterText) { filteredMessages.append(msg) }
+        case (MessageFilter.includes, _):   if msg.text.localizedCaseInsensitiveContains(_filterText) { filteredMessages.append(msg) }
+        case (MessageFilter.excludes, ""):  filteredMessages.append(msg)
+        case (MessageFilter.excludes, _):   if !msg.text.localizedCaseInsensitiveContains(_filterText) { filteredMessages.append(msg) }
+        case (MessageFilter.command, _):    if msg.text.prefix(1) == "C" { filteredMessages.append(msg) }
+        case (MessageFilter.S0, _):         if msg.text.prefix(3) == "S0|" { filteredMessages.append(msg) }
+        case (MessageFilter.status, _):     if msg.text.prefix(1) == "S" && msg.text.prefix(3) != "S0|" { filteredMessages.append(msg) }
+        case (MessageFilter.reply, _):      if msg.text.prefix(1) == "R" { filteredMessages.append(msg) }
+        }
+      }
+    }
+  }
+
   // ----------------------------------------------------------------------------
   // MARK: - Private filter methods
   
@@ -77,63 +122,16 @@ public final class MessagesModel: TcpProcessor {
     case (MessageFilter.reply, _):      _filteredMessages = _messages.filter { $0.text.prefix(1) == "R" }
     }
     
-    // NOTE: filteredMessages is observed by a View therefore this requires async updating on the MainActor
+    // filteredMessages is observed by a View therefore requires async updating on the MainActor
     Task { [_filteredMessages] in
       await MainActor.run { filteredMessages = _filteredMessages }
     }
   }
   
   private func removeAllFilteredMessages() {
-    // NOTE: filteredMessages is observed by a View therefore this requires async updating on the MainActor
+    // filteredMessages is observed by a View therefore requires async updating on the MainActor
     Task {
       await MainActor.run { filteredMessages = IdentifiedArrayOf<TcpMessage>() }
-    }
-  }
-
-  // ----------------------------------------------------------------------------
-  // MARK: - Private TCP message processing methods
-  
-  /// Process a TcpMessage
-  /// - Parameter msg: a TcpMessage struct
-  public func tcpProcessor(_ msg: TcpMessage) {
-
-    // ignore routine replies (i.e. replies with no error or no attached data)
-    func ignoreReply(_ text: String) -> Bool {
-      if text.first == "R" && showAllReplies { return false } // showing all Replies (including ping replies)
-      if text.first != "R" { return false }                   // not a Reply
-      let parts = text.components(separatedBy: "|")
-      if parts.count < 3 { return false }                     // incomplete
-      if parts[1] != kNoError { return false }                // error of some type
-      if parts[2] != "" { return false }                      // additional data present
-      return true                                             // otherwise, ignore it
-    }
-
-    // ignore received replies unless they are non-zero or contain additional data
-    if msg.direction == .received && ignoreReply(msg.text) { return }
-    // ignore sent "ping" messages unless showPings is true
-    if msg.text.contains("ping") && showPings == false { return }
-    
-    // NOTE: filteredMessages is observed by a View therefore this requires async updating on the MainActor
-    Task {
-      await MainActor.run {
-        // add it to the backing collection
-        _messages.append(msg)
-
-        // add it to the public collection (if appropriate)
-        switch (_filter, _filterText) {
-
-        case (MessageFilter.all, _):        filteredMessages.append(msg)
-        case (MessageFilter.prefix, ""):    filteredMessages.append(msg)
-        case (MessageFilter.prefix, _):     if msg.text.localizedCaseInsensitiveContains("|" + _filterText) { filteredMessages.append(msg) }
-        case (MessageFilter.includes, _):   if msg.text.localizedCaseInsensitiveContains(_filterText) { filteredMessages.append(msg) }
-        case (MessageFilter.excludes, ""):  filteredMessages.append(msg)
-        case (MessageFilter.excludes, _):   if !msg.text.localizedCaseInsensitiveContains(_filterText) { filteredMessages.append(msg) }
-        case (MessageFilter.command, _):    if msg.text.prefix(1) == "C" { filteredMessages.append(msg) }
-        case (MessageFilter.S0, _):         if msg.text.prefix(3) == "S0|" { filteredMessages.append(msg) }
-        case (MessageFilter.status, _):     if msg.text.prefix(1) == "S" && msg.text.prefix(3) != "S0|" { filteredMessages.append(msg) }
-        case (MessageFilter.reply, _):      if msg.text.prefix(1) == "R" { filteredMessages.append(msg) }
-        }
-      }
     }
   }
 }

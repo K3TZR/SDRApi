@@ -79,7 +79,7 @@ private struct DetailView: View {
     return .green
   }
   
-  @State var throttledValue: CGFloat = 0.0      // FIXME: need throttling
+  @State var throttledValue: CGFloat = 0.0
   
   var body: some View {
     

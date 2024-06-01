@@ -8,8 +8,9 @@
 import ComposableArchitecture
 import SwiftUI
 
+import FlexApiFeature
 import SharedFeature
-import TcpFeature
+//import TcpFeature
 
 // ----------------------------------------------------------------------------
 // MARK: - View
@@ -102,6 +103,8 @@ struct MessagesView: View {
 private struct FilterMessagesView: View {
   @Bindable var store: StoreOf<SDRApi>
 
+  @State var messageFilterText = ""
+  
   var body: some View {
 
     HStack {
@@ -117,14 +120,15 @@ private struct FilterMessagesView: View {
         .onTapGesture {
           store.send(.clearFilterTextTapped)
         }
-      TextField("filter text", text: $store.messageFilterText)
+//      TextField("filter text", text: $messageFilterText)
+      Text("filter text")
     }
   }
 }
 
 private struct BottomButtonsView: View {
   @Bindable var store: StoreOf<SDRApi>
-  
+
   var body: some View {
     
     HStack {
@@ -170,7 +174,7 @@ private struct BottomButtonsView: View {
   MessagesView(store: Store(initialState: SDRApi.State()) {
     SDRApi()
   })
-  .environment(MessagesModel.shared)
+//  .environment(MessagesModel.shared)
  
   .frame(minWidth: 1250, maxWidth: .infinity)
 }

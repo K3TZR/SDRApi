@@ -10,6 +10,7 @@ import SwiftUI
 
 import ClientFeature
 import DirectFeature
+import FlexApiFeature
 import LoginFeature
 import PickerFeature
 import XCGLogFeature
@@ -26,7 +27,6 @@ struct SDRApiView: View {
       VSplitView {
         ObjectsView(store: store)
         Divider().background(Color(.cyan))
-          .padding(.vertical, 10)
         MessagesView(store: store)
       }
     }
@@ -62,4 +62,6 @@ struct SDRApiView: View {
   SDRApiView(store: Store(initialState: SDRApi.State()) {
     SDRApi()
   })
+  .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 700, maxHeight: .infinity)
+  .padding()
 }

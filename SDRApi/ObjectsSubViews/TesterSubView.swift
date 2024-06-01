@@ -17,35 +17,31 @@ import FlexApiFeature
 struct TesterSubView: View {
   
   @Environment(ApiModel.self) private var apiModel
-  @Environment(ListenerModel.self) private var listenerModel
   @Environment(ObjectModel.self) private var objectModel
-
+  
   var body: some View {
-    if objectModel.radio != nil {
-      VStack(alignment: .leading) {
-//        Divider().background(Color(.green))
-        HStack(spacing: 10) {
-          
-          Text("SDRApi").foregroundColor(.green)
-            .font(.title)
-          
-          HStack(spacing: 5) {
-            Text("Bound to Station")
-            Text("\(apiModel.activeStation ?? "none")").foregroundColor(.secondary)
-          }
-          
-          HStack(spacing: 5) {
-            Text("Handle")
-            Text(apiModel.connectionHandle?.hex ?? "").foregroundColor(.secondary)
-          }
-          
-          HStack(spacing: 5) {
-            Text("Client Id")
-            Text("\(objectModel.boundClientId ?? "none")").foregroundColor(.secondary)
-          }
+    VStack(alignment: .leading) {
+      HStack(spacing: 20) {
+        
+        Text("SDRApi").foregroundColor(.green)
+          .font(.title)
+        
+        HStack(spacing: 5) {
+          Text("Bound to Station")
+          Text("\(objectModel.activeStation ?? "???")").foregroundColor(.secondary)
         }
-      }.frame(maxWidth: .infinity, minHeight: 50)
-    }
+        
+        HStack(spacing: 5) {
+          Text("Handle")
+          Text(apiModel.connectionHandle?.hex ?? "???").foregroundColor(.secondary)
+        }
+        
+        HStack(spacing: 5) {
+          Text("Client Id")
+          Text("\(objectModel.boundClientId ?? "???")").foregroundColor(.secondary)
+        }
+      }
+    }.frame(maxWidth: .infinity, minHeight: 50)
   }
 }
 
@@ -55,5 +51,5 @@ struct TesterSubView: View {
 #Preview {
   TesterSubView()
     .environment(ApiModel.shared)
-    .environment(ListenerModel.shared)
+    .environment(ObjectModel.shared)
 }

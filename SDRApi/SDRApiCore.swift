@@ -18,7 +18,7 @@ import ListenerFeature
 import LoginFeature
 import PickerFeature
 import SharedFeature
-import TcpFeature
+//import TcpFeature
 import XCGLogFeature
 
 //extension URL {
@@ -119,9 +119,7 @@ public struct SDRApi {
     // non-persistent
     var initialized = false
     var connectionState: ConnectionState = .disconnected
-//    var audioOutput: RxAudioPlayer?
-//    var daxAudioOutput: RxAudioPlayer?
-
+    
     @Presents var showAlert: AlertState<Action.Alert>?
     @Presents var showClient: ClientFeature.State?
     @Presents var showDirect: DirectFeature.State?
@@ -480,7 +478,7 @@ public struct SDRApi {
     state.commandsArray.append(state.commandToSend)
     return .run { [state] in
       // send command to the radio
-      ApiModel.shared.sendTcp(state.commandToSend)
+      await ObjectModel.shared.sendTcp(state.commandToSend)
       if state.clearOnSend { await $0(.clearSendTextButtonTapped)}
     }
   }
@@ -643,23 +641,30 @@ public struct SDRApi {
   
   private func daxAudioStart(_ state: inout State, _ channel: Int) -> Effect<SDRApi.Action> {
     if channel == 0 {
+      // Mic stream
       StreamModel.shared.requestStream(.daxMicAudioStream)
+      
     } else {
+      // Rx stream
       StreamModel.shared.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.remoteRxAudioCompressed)
     }
     return .none
   }
   
   private func daxAudioStop(_ state: inout State, _ channel: Int) -> Effect<SDRApi.Action> {
-    if channel == 0 {
-//      StreamModel.shared.daxMicAudioStream.audioOutput?.stop()
-//      StreamModel.shared.remove(StreamModel.shared.daxMicAudioStream.id)
-    }
-    for daxRxAudioStream in StreamModel.shared.daxRxAudioStreams where daxRxAudioStream.daxChannel == channel {
-      let streamId = daxRxAudioStream.id
-      StreamModel.shared.daxRxAudioStreams[id: streamId]?.audioOutput?.stop()
-      StreamModel.shared.remove(streamId)
-    }
+//    if channel == 0 {
+//      // Mic stream
+//      StreamModel.shared.daxMicAudioStream?.audioOutput?.stop()
+//      StreamModel.shared.remove(StreamModel.shared.daxMicAudioStream?.id)
+//      
+//    } else {
+//      // Rx stream
+//      for daxRxAudioStream in StreamModel.shared.daxRxAudioStreams where daxRxAudioStream.daxChannel == channel {
+//        let streamId = daxRxAudioStream.id
+//        StreamModel.shared.daxRxAudioStreams[id: streamId]?.audioOutput?.stop()
+//        StreamModel.shared.remove(streamId)
+//      }
+//    }
     return .none
   }
 
@@ -743,10 +748,7 @@ public struct SDRApi {
   }
   
   private func remoteRxAudioStop(_ state: inout State) -> Effect<SDRApi.Action> {
-    StreamModel.shared.remoteRxAudioStream?.audioOutput?.stop()
-    if let streamId = StreamModel.shared.remoteRxAudioStream?.id {
-      StreamModel.shared.remove(streamId)
-    }
+    StreamModel.shared.remoteRxAudioStop()
     return .none
   }
   

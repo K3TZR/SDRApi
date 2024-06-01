@@ -8,6 +8,7 @@
 import ComposableArchitecture
 import SwiftUI
 
+import FlexApiFeature
 import SharedFeature
 
 public struct ObjectsView: View {
@@ -94,4 +95,7 @@ private struct FilterStationObjectsView: View {
   ObjectsView(store: Store(initialState: SDRApi.State()) {
     SDRApi()
   })
+  
+  .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 700, maxHeight: .infinity)
+  .padding()
 }

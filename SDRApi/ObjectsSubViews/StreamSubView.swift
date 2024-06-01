@@ -37,32 +37,32 @@ struct StreamSubView: View {
       }
       
       // RemoteRxAudioStream
-      if let stream = StreamModel.shared.remoteRxAudioStream {
+      if let stream = objectModel.remoteRxAudioStream {
         if handle == stream.clientHandle { RemoteRxStreamView(stream: stream) }
       }
       
       // RemoteTxAudioStream
-      ForEach(StreamModel.shared.remoteTxAudioStreams) { stream in
+      if let stream = objectModel.remoteTxAudioStream {
         if handle == stream.clientHandle { RemoteTxStreamView(stream: stream) }
       }
       
       // DaxMicAudioStream
-      ForEach(StreamModel.shared.daxMicAudioStreams) { stream in
+      if let stream = objectModel.daxMicAudioStream {
         if handle == stream.clientHandle { DaxMicStreamView(stream: stream) }
       }
       
       // DaxRxAudioStream
-      ForEach(StreamModel.shared.daxRxAudioStreams) { stream in
+      ForEach(objectModel.daxRxAudioStreams) { stream in
         if handle == stream.clientHandle { DaxRxStreamView(stream: stream) }
       }
       
       // DaxTxAudioStream
-      ForEach(StreamModel.shared.daxTxAudioStreams) { stream in
+      if let stream = objectModel.daxTxAudioStream {
         if handle == stream.clientHandle { DaxTxStreamView(stream: stream) }
       }
       
       // DaxIqStream
-      ForEach(StreamModel.shared.daxIqStreams) { stream in
+      ForEach(objectModel.daxIqStreams) { stream in
         if handle == stream.clientHandle { DaxIqStreamView(stream: stream) }
       }
     }
@@ -168,7 +168,8 @@ private struct RemoteTxStreamView: View {
           Text("Compression")
           Text("\(stream.compression)").foregroundColor(.green)
         }
-      }.frame(width: 120, alignment: .leading)
+      }
+//      .frame(width: 120, alignment: .leading)
     }
   }
 }
@@ -192,7 +193,8 @@ private struct DaxMicStreamView: View {
           Text("Ip")
           Text("\(stream.ip)").foregroundColor(.green)
         }
-      }.frame(width: 120, alignment: .leading)
+      }
+//      .frame(width: 120, alignment: .leading)
     }
   }
 }
@@ -220,7 +222,8 @@ private struct DaxRxStreamView: View {
           Text("Ip")
           Text("\(stream.ip)").foregroundColor(.green)
         }
-      }.frame(width: 120, alignment: .leading)
+      }
+//      .frame(width: 120, alignment: .leading)
     }
   }
 }
@@ -248,7 +251,8 @@ private struct DaxTxStreamView: View {
           Text("Transmit")
           Text("\(stream.isTransmitChannel ? "Y" : "N")").foregroundColor(stream.isTransmitChannel ? .green : .red)
         }
-      }.frame(width: 120, alignment: .leading)
+      }
+//      .frame(width: 120, alignment: .leading)
     }
   }
 }
@@ -280,7 +284,8 @@ private struct DaxIqStreamView: View {
           Text("Pan")
           Text(stream.pan.hex).foregroundColor(.green)
         }
-      }.frame(width: 120, alignment: .leading)
+      }
+//      .frame(width: 120, alignment: .leading)
     }
   }
 }
