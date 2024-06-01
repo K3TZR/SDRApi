@@ -642,11 +642,11 @@ public struct SDRApi {
   private func daxAudioStart(_ state: inout State, _ channel: Int) -> Effect<SDRApi.Action> {
     if channel == 0 {
       // Mic stream
-      StreamModel.shared.requestStream(.daxMicAudioStream)
+      ApiModel.shared.requestStream(.daxMicAudioStream)
       
     } else {
       // Rx stream
-      StreamModel.shared.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.remoteRxAudioCompressed)
+      ApiModel.shared.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.remoteRxAudioCompressed)
     }
     return .none
   }
@@ -742,13 +742,23 @@ public struct SDRApi {
   private func remoteRxAudioStart(_ state: inout State) -> Effect<SDRApi.Action> {
 //    state.audioOutput = RxAudioPlayer()
     return .run { [state] _ in
-      // request a stream, reply to handler
-      StreamModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed)
+      // request a stream
+      ApiModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed, replyTo: remoteRxReplyHandler)
     }
   }
   
+  private func remoteRxReplyHandler(_ command: String, _ seqNumber: Int, _ responseValue: String, _ reply: String) {
+    if let streamId = reply.streamId {
+      Task {
+        await StreamModel.shared.remoteRxAudioStart(streamId)
+      }
+    }
+  }
+
   private func remoteRxAudioStop(_ state: inout State) -> Effect<SDRApi.Action> {
-    StreamModel.shared.remoteRxAudioStop()
+    Task {
+      await StreamModel.shared.remoteRxAudioStop()
+    }
     return .none
   }
   

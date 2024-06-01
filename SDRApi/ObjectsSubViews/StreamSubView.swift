@@ -79,7 +79,7 @@ private struct MeterStreamView: View {
     GridRow {
       Group {
         Text("METER")
-        Text(StreamModel.shared.meterStream?.id.hex ?? "0x0").foregroundColor(.green)
+//        Text(StreamModel.shared.meterStream?.id.hex ?? "0x0").foregroundColor(.green)
       }.frame(width: 100, alignment: .leading)
     }
   }
