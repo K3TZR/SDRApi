@@ -62,6 +62,10 @@ struct SDRApiView: View {
   SDRApiView(store: Store(initialState: SDRApi.State()) {
     SDRApi()
   })
+  .environment(MessagesModel.shared)
+  
   .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 700, maxHeight: .infinity)
   .padding()
+  
+  
 }
