@@ -11,97 +11,55 @@ import SwiftUI
 import FlexApiFeature
 
 struct InterlockSubView: View {
-
+  
+  @Environment(ObjectModel.self) var objectModel
+  
   var body: some View {
-    Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 0) {
-      HeadingView()
-      DetailView()
+    
+    let interlock = objectModel.interlock
+    HStack(spacing: 30) {
+      Text("INTERLOCK")
+      
+      HStack(spacing: 5) {
+        Text("Tx Allowed")
+        Text(interlock.txAllowed ? "Y" : "N").foregroundColor(interlock.txAllowed ? .green : .red)
+        Text(interlock.txDelay, format: .number).frame(width: 30, alignment: .trailing)
+      }
+      HStack(spacing: 5) {
+        Toggle("Tx1", isOn: Binding(get: {interlock.tx1Enabled}, set: {interlock.setProperty(.tx1Enabled, $0.as1or0)} ))
+        Text(interlock.tx1Delay, format: .number).frame(width: 30, alignment: .trailing)
+      }
+      HStack(spacing: 5) {
+        Toggle("Tx2", isOn: Binding(get: {interlock.tx2Enabled}, set: {interlock.setProperty(.tx2Enabled, $0.as1or0)} ))
+        Text(interlock.tx2Delay, format: .number).frame(width: 30, alignment: .trailing)
+      }
+      HStack(spacing: 5) {
+        Toggle("Tx3", isOn: Binding(get: {interlock.tx3Enabled}, set: {interlock.setProperty(.tx3Enabled, $0.as1or0)} ))
+        Text(interlock.tx3Delay, format: .number).frame(width: 30, alignment: .trailing)
+      }
+      HStack(spacing: 5) {
+        Toggle("ACC Tx", isOn: Binding(get: {interlock.accTxEnabled}, set: {interlock.setProperty(.accTxEnabled, $0.as1or0)} ))
+        Text(interlock.accTxDelay, format: .number).frame(width: 30, alignment: .trailing)
+      }
+      HStack(spacing: 5) {
+        Toggle("ACC Req", isOn: Binding(get: {interlock.accTxReqEnabled}, set: {interlock.setProperty(.accTxReqEnabled, $0.as1or0)} ))
+        Toggle("", isOn: Binding(get: {interlock.accTxReqPolarity}, set: {interlock.setProperty(.accTxReqPolarity, $0.as1or0)} )).labelsHidden()
+        Text(interlock.accTxReqPolarity ? "+" : "-")
+      }
+      HStack(spacing: 5) {
+        Toggle("RCA Req", isOn: Binding(get: {interlock.rcaTxReqEnabled}, set: {interlock.setProperty(.rcaTxReqEnabled, $0.as1or0)} ))
+        Toggle("", isOn: Binding(get: {interlock.rcaTxReqPolarity}, set: {interlock.setProperty(.rcaTxReqPolarity, $0.as1or0)} )).labelsHidden()
+        Text(interlock.rcaTxReqPolarity ? "+" : "-")
+      }
     }
     .padding(.leading, 20)
   }
 }
 
-private struct HeadingView: View {
-  
-  var body: some View {
-    GridRow {
-      Group {
-        Text("INTERLOCK")
-        Text("Tx / Delay")
-        Text("Tx1 / Delay")
-        Text("Tx2 / Delay")
-        Text("Tx3 / Delay")
-        Text("Acc / Delay")
-        Text("Acc Req / Pol")
-        Text("Rca Req / Pol")
-      }
-      .frame(width: 100, alignment: .leading)
-    }
-  }
-}
-
-private struct DetailView: View {
-  
-  @Environment(ApiModel.self) private var apiModel
-  @Environment(ObjectModel.self) var objectModel
-
-  var body: some View {
-    
-    let interlock = objectModel.interlock
-    
-    GridRow {
-      Group {
-        Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
-        HStack(spacing: 5) {
-          Text(interlock.txAllowed ? "Y" : "N").foregroundColor(interlock.txAllowed ? .green : .red)
-          Text("/")
-          Text(String(format: "%#4d", interlock.txDelay)).foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text(interlock.tx1Enabled ? "Y" : "N").foregroundColor(interlock.tx1Enabled ? .green : .red)
-          Text("/")
-          Text(String(format: "%#4d", interlock.tx1Delay)).foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text(interlock.tx2Enabled ? "Y" : "N").foregroundColor(interlock.tx2Enabled ? .green : .red)
-          Text("/")
-          Text(String(format: "%#4d", interlock.tx2Delay)).foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text(interlock.tx3Enabled ? "Y" : "N").foregroundColor(interlock.tx3Enabled ? .green : .red)
-          Text("/")
-          Text(String(format: "%#4d", interlock.tx3Delay)).foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text(interlock.accTxEnabled ? "Y" : "N").foregroundColor(interlock.accTxEnabled ? .green : .red)
-          Text("/")
-          Text(String(format: "%#4d", interlock.accTxDelay)).foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text(interlock.accTxReqEnabled ? "Y" : "N").foregroundColor(interlock.accTxReqEnabled ? .green : .red)
-          Text("/")
-          Text(interlock.accTxReqPolarity ? " + " : " - ").foregroundColor(.green)
-        }
-        HStack(spacing: 5) {
-          Text(interlock.rcaTxReqEnabled ? "Y" : "N").foregroundColor(interlock.rcaTxReqEnabled ? .green : .red)
-          Text("/")
-          Text(interlock.rcaTxReqPolarity ? " + " : " - ").foregroundColor(.green)
-        }
-      }
-      .frame(width: 100, alignment: .leading)
-    }
-  }
-}
-
 #Preview {
   InterlockSubView()
-    .environment(ApiModel.shared)
     .environment(ObjectModel.shared)
+  
+    .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 50, maxHeight: .infinity)
+    .padding()
 }
-
-// amplifier = ""
-// reason = ""
-// source = ""
-// state = ""
-// timeout = 0
-// txClientHandle: Handle = 0

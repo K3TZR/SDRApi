@@ -144,6 +144,7 @@ public struct SDRApi {
     case daxSelectionChanged(Int,Int)
     case saveButtonTapped
     case sendButtonTapped
+    case tnfsEnabledClicked
     
     // secondary actions
     case multiflexStatus(String)
@@ -243,6 +244,9 @@ public struct SDRApi {
         
       case .saveButtonTapped:
         return saveMessages(state)
+        
+      case .tnfsEnabledClicked:
+        return .none
         
         // ----------------------------------------------------------------------------
         // MARK: - Root Binding Actions

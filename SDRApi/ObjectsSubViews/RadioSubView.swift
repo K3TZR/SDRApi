@@ -84,10 +84,12 @@ private struct Line1View: View {
           Text("Serial")
           Text(radio.packet.serial).foregroundColor(.green)
         }
-        HStack(spacing: 5) {
-          Text("Tnf Enabled")
-          Text(radio.tnfsEnabled ? "Y" : "N").foregroundColor(radio.tnfsEnabled ? .green : .red)
-        }
+//        HStack(spacing: 5) {
+//          Text("Tnf Enabled")
+//          Text(radio.tnfsEnabled ? "Y" : "N").foregroundColor(radio.tnfsEnabled ? .green : .red)
+//        }
+
+        Toggle("TNF's Enabled", isOn: Binding(get: {radio.tnfsEnabled}, set: {radio.setProperty(.tnfsEnabled, $0.as1or0)} ))
         
         HStack(spacing: 5) {
           Text("HW")

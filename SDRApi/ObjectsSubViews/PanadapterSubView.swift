@@ -58,25 +58,15 @@ struct PanadapterSubView: View {
 private struct PanadapterDetailView: View {
   var panadapter: Panadapter
   
-//  @Environment(StreamModel.self) private var streamModel
-
-//  @MainActor private var isStreaming: Bool { streamModel.panadapterStreams[id: panadapter.id]!.isStreaming }
-  
   var body: some View {
     HStack(spacing: 20) {
       
       Text("PANADAPTER").frame(width: 80, alignment: .leading)
       
       Group {
-//        HStack(spacing: 5) {
-//          Text("Streaming")
-////          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
-//        }
-        
         HStack(spacing: 5) {
           Text("Id")
           Text(panadapter.id.hex).padding(.leading, 5).foregroundColor(.secondary)
-//          Text(isStreaming ? panadapter.id.hex : "0x--------").padding(.leading, 5).foregroundColor(.secondary)
         }
         
         HStack(spacing: 5) {
@@ -96,31 +86,18 @@ private struct PanadapterDetailView: View {
 private struct WaterfallDetailView: View {
   var waterfall: Waterfall
   
-//  @Environment(StreamModel.self) private var streamModel
-
-//  @MainActor private var isStreaming: Bool { streamModel.waterfallStreams[id: waterfall.id]!.isStreaming }
-  
   var body: some View {
     HStack(spacing: 20) {
       Text("WATERFALL").frame(width: 80, alignment: .leading)
       
       Group {
-//        HStack(spacing: 5) {
-//          Text("Streaming")
-////          Text(isStreaming ? "Y" : "N").foregroundColor(isStreaming ? .green : .red)
-//        }
-        
         HStack(spacing: 5) {
           Text("Id")
           Text(waterfall.id.hex).padding(.leading, 5).foregroundColor(.secondary)
-//          Text(isStreaming ? waterfall.id.hex : "0x--------").padding(.leading, 5).foregroundColor(.secondary)
         }
 
-        HStack(spacing: 5) {
-          Text("Auto Black")
-          Text(waterfall.autoBlackEnabled ? "Y" : "N").foregroundColor(waterfall.autoBlackEnabled ? .green : .red)
-        }
-        
+        Toggle("Auto Black", isOn: Binding(get: {waterfall.autoBlackEnabled}, set: {waterfall.setProperty(.autoBlackEnabled, $0.as1or0)} ))
+
         HStack(spacing: 5) {
           Text("Color Gain")
           Text("\(waterfall.colorGain)").foregroundColor(.secondary)
@@ -189,15 +166,14 @@ private struct SliceDetailView: View {
             Text("\(slice.filterHigh)").foregroundColor(.secondary)
           }
           
-          HStack(spacing: 5) {
-            Text("Active")
-            Text(slice.active ? "Y" : "N").foregroundColor(slice.active ? .green : .red)
-          }
-          
-          HStack(spacing: 5) {
-            Text("Locked")
-            Text(slice.locked ? "Y" : "N").foregroundColor(slice.locked ? .green : .red)
-          }
+//          HStack(spacing: 5) {
+//            Text("Active")
+//            Text(slice.active ? "Y" : "N").foregroundColor(slice.active ? .green : .red)
+//          }
+          Toggle("Active", isOn: Binding(get: {slice.active}, set: {slice.setProperty(.active, $0.as1or0)} ))
+
+          Toggle("Locked", isOn: Binding(get: {slice.locked}, set: {slice.setProperty(.locked, $0.as1or0)} ))
+
         }.frame(width: 100, alignment: .leading)
       }
       HStack(spacing: 20) {

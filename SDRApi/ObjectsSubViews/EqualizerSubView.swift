@@ -60,7 +60,8 @@ private struct DetailView: View {
     GridRow {
       Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
       Text(eq.id).gridColumnAlignment(.leading)
-      Text(eq.eqEnabled ? "Y" : "N").foregroundColor(eq.eqEnabled ? .green : nil)
+      Toggle("", isOn: Binding(get: {eq.eqEnabled}, set: {eq.setProperty(.eqEnabled, $0.as1or0)} ))
+
       Text(eq.hz63.formatted(.number))
       Text(eq.hz125.formatted(.number))
       Text(eq.hz250.formatted(.number))

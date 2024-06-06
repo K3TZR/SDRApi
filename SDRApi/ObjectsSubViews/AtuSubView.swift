@@ -50,14 +50,10 @@ private struct DetailView: View {
         .monospaced()
         .foregroundColor(sourceColor)
 
-      HStack(spacing: 5){
-        Text("Atu Enabled")
-        Text(atu.enabled ? "Y" : "N").foregroundColor(atu.enabled ? .green : nil)
-      }
-      HStack(spacing: 5){
-        Text("Memory enabled")
-        Text(atu.memoriesEnabled ? "Y" : "N").foregroundColor(atu.memoriesEnabled ? .green : nil)
-      }
+      Toggle("Atu Enabled", isOn: Binding(get: {atu.enabled}, set: {atu.setProperty(.enabled, $0.as1or0)} ))
+
+      Toggle("Memories Enabled", isOn: Binding(get: {atu.memoriesEnabled}, set: {atu.setProperty(.memoriesEnabled, $0.as1or0)} ))
+
       HStack(spacing: 5){
         Text("Using Memories")
         Text(atu.usingMemory ? "Y" : "N").foregroundColor(atu.usingMemory ? .green : nil)

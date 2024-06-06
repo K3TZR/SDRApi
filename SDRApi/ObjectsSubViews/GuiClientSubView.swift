@@ -44,7 +44,6 @@ private struct DetailView: View {
   @State var showSubView = true
   
   var body: some View {
-//    Divider().background(Color(.yellow))
     HStack(spacing: 20) {
       
       HStack(spacing: 0) {
@@ -75,6 +74,8 @@ private struct DetailView: View {
         Text(guiClient.clientId ?? "Unknown").foregroundColor(.secondary)
       }
       
+//      Toggle("Local PTT", isOn: Binding(get: {guiClient.isLocalPtt}, set: {guiClient.setProperty(.isLocalPtt, $0.as1or0)} ))
+
       HStack(spacing: 5) {
         Text("LocalPtt")
         Text(guiClient.isLocalPtt ? "Y" : "N").foregroundColor(guiClient.isLocalPtt ? .green : .red)
