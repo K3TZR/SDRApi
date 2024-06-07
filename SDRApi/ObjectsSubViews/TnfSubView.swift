@@ -52,15 +52,16 @@ private struct HeaderView: View {
 
       Text("ID")
       Text("Frequency")
-      Text("Width")
-      Text("Depth")
-      Text("Permanent")
+      Text("Width").frame(width: 100)
+      Text("Depth").frame(width: 100)
+      Text("Permanent").frame(width: 100)
     }
   }
 }
 
 private struct DetailView: View {
   var tnf: Tnf
+  
   
   func depthName(_ depth: UInt) -> String {
     switch depth {
@@ -76,10 +77,24 @@ private struct DetailView: View {
     GridRow {
       Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
       Text(tnf.id.formatted(.number))
-      Text(tnf.frequency.formatted(.number))
-      Text(tnf.width.formatted(.number))
-      Text(depthName(tnf.depth))
-      Text(tnf.permanent ? "Y" : "N").foregroundColor(tnf.permanent ? .green : nil)
+      
+      HStack(spacing: 5) {
+        Text(tnf.frequency, format: .number)
+        Stepper("", value: Binding(get: {tnf.frequency}, set: {tnf.setProperty(.frequency, String(Double($0)/1_000_000))}), step: 100 )
+      }
+
+      HStack(spacing: 5) {
+        Text(tnf.width, format: .number)
+        Stepper("", value: Binding(get: {tnf.width}, set: {tnf.setProperty(.width, String(Double($0)/1_000_000))}), in: 5...6000, step: 100 )
+      }
+      
+      HStack(spacing: 5) {
+        Text(depthName(tnf.depth))
+        Stepper("", value: Binding(get: {tnf.depth}, set: {tnf.setProperty(.depth, String($0) )}), in: 1...3, step: 1 )
+      }
+      
+      Toggle("", isOn: Binding(get: {tnf.permanent}, set: {tnf.setProperty(.permanent, $0.as1or0)} ))
+        .gridColumnAlignment(.center)
     }
     .lineLimit(1)
     .truncationMode(.middle)

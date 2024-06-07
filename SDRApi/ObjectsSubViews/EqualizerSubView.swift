@@ -48,7 +48,7 @@ private struct HeadingView: View {
       Text("2000 Hz")
       Text("4000 Hz")
       Text("8000 Hz")
-    }
+    }.frame(width: 80)
   }
 }
 
@@ -62,17 +62,48 @@ private struct DetailView: View {
       Text(eq.id).gridColumnAlignment(.leading)
       Toggle("", isOn: Binding(get: {eq.eqEnabled}, set: {eq.setProperty(.eqEnabled, $0.as1or0)} ))
 
-      Text(eq.hz63.formatted(.number))
-      Text(eq.hz125.formatted(.number))
-      Text(eq.hz250.formatted(.number))
-      Text(eq.hz500.formatted(.number))
-      Text(eq.hz1000.formatted(.number))
-      Text(eq.hz2000.formatted(.number))
-      Text(eq.hz4000.formatted(.number))
-      Text(eq.hz8000.formatted(.number))
+      HStack(spacing: 5) {
+        Text(eq.hz63.formatted(.number))
+        Stepper("", value: Binding(get: {eq.hz63}, set: {eq.setProperty(.hz63, String($0))} ), in: -10...10)
+      }
+      HStack(spacing: 5) {
+        Text(eq.hz125.formatted(.number))
+        Stepper("", value: Binding(get: {eq.hz125}, set: {eq.setProperty(.hz125, String($0))} ), in: -10...10)
+      }
+      HStack(spacing: 5) {
+        Text(eq.hz250.formatted(.number))
+        Stepper("", value: Binding(get: {eq.hz250}, set: {eq.setProperty(.hz250, String($0))} ), in: -10...10)
+      }
+      HStack(spacing: 5) {
+        Text(eq.hz500.formatted(.number))
+        Stepper("", value: Binding(get: {eq.hz500}, set: {eq.setProperty(.hz500, String($0))} ), in: -10...10)
+      }
+      HStack(spacing: 5) {
+        Text(eq.hz1000.formatted(.number))
+        Stepper("", value: Binding(get: {eq.hz1000}, set: {eq.setProperty(.hz1000, String($0))} ), in: -10...10)
+      }
+      HStack(spacing: 5) {
+        Text(eq.hz2000.formatted(.number))
+        Stepper("", value: Binding(get: {eq.hz2000}, set: {eq.setProperty(.hz2000, String($0))} ), in: -10...10)
+      }
+      HStack(spacing: 5) {
+        Text(eq.hz4000.formatted(.number))
+        Stepper("", value: Binding(get: {eq.hz4000}, set: {eq.setProperty(.hz4000, String($0))} ), in: -10...10)
+      }
+      HStack(spacing: 5) {
+        Text(eq.hz8000.formatted(.number))
+        Stepper("", value: Binding(get: {eq.hz8000}, set: {eq.setProperty(.hz8000, String($0))} ), in: -10...10)
+      }
+//      Text(eq.hz125.formatted(.number))
+//      Text(eq.hz250.formatted(.number))
+//      Text(eq.hz500.formatted(.number))
+//      Text(eq.hz1000.formatted(.number))
+//      Text(eq.hz2000.formatted(.number))
+//      Text(eq.hz4000.formatted(.number))
+//      Text(eq.hz8000.formatted(.number))
     }
-    .lineLimit(1)
-    .truncationMode(.middle)
+//    .lineLimit(1)
+//    .truncationMode(.middle)
     .foregroundColor(.secondary)
   }
 }

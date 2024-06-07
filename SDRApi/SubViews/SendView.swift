@@ -13,7 +13,7 @@ import FlexApiFeature
 public struct SendView: View {
   @Bindable var store: StoreOf<SDRApi>
 
-  @State var commandToSend = ""
+//  @State var commandToSend = ""
 
   public var body: some View {
     
@@ -36,10 +36,7 @@ public struct SendView: View {
           store.send(.commandNextTapped)
         })
         .help("Load previously sent commands")
-        TextField("Command to send", text: $commandToSend)
-          .onSubmit {
-              print("----->>>>> \(commandToSend)")
-          }
+        TextField("Command to send", text: $store.commandToSend)
       }
       .disabled(store.connectionState != .connected)
       

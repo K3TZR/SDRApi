@@ -89,7 +89,6 @@ private struct Line1View: View {
 //          Text(radio.tnfsEnabled ? "Y" : "N").foregroundColor(radio.tnfsEnabled ? .green : .red)
 //        }
 
-        Toggle("TNF's Enabled", isOn: Binding(get: {radio.tnfsEnabled}, set: {radio.setProperty(.tnfsEnabled, $0.as1or0)} ))
         
         HStack(spacing: 5) {
           Text("HW")
@@ -101,6 +100,10 @@ private struct Line1View: View {
           Text("\(radio.uptime)").foregroundColor(.green)
           Text("(seconds)")
         }
+
+        Toggle("TNF's Enabled", isOn: Binding(get: {radio.tnfsEnabled}, set: {radio.setProperty(.tnfsEnabled, $0.as1or0)} ))
+
+        Toggle("MF Enabled", isOn: Binding(get: {radio.multiflexEnabled}, set: {radio.setProperty(.multiflexEnabled, $0.as1or0)} ))
 
         .frame(alignment: .leading)
       }.padding(.leading, 20)

@@ -23,23 +23,23 @@ struct InterlockSubView: View {
       HStack(spacing: 5) {
         Text("Tx Allowed")
         Text(interlock.txAllowed ? "Y" : "N").foregroundColor(interlock.txAllowed ? .green : .red)
-        Text(interlock.txDelay, format: .number).frame(width: 30, alignment: .trailing)
+        Text(interlock.txDelay, format: .number).frame(width: 30)
       }
       HStack(spacing: 5) {
         Toggle("Tx1", isOn: Binding(get: {interlock.tx1Enabled}, set: {interlock.setProperty(.tx1Enabled, $0.as1or0)} ))
-        Text(interlock.tx1Delay, format: .number).frame(width: 30, alignment: .trailing)
+        Text(interlock.tx1Delay, format: .number).frame(width: 30)
       }
       HStack(spacing: 5) {
         Toggle("Tx2", isOn: Binding(get: {interlock.tx2Enabled}, set: {interlock.setProperty(.tx2Enabled, $0.as1or0)} ))
-        Text(interlock.tx2Delay, format: .number).frame(width: 30, alignment: .trailing)
+        Text(interlock.tx2Delay, format: .number).frame(width: 30)
       }
       HStack(spacing: 5) {
         Toggle("Tx3", isOn: Binding(get: {interlock.tx3Enabled}, set: {interlock.setProperty(.tx3Enabled, $0.as1or0)} ))
-        Text(interlock.tx3Delay, format: .number).frame(width: 30, alignment: .trailing)
+        Text(interlock.tx3Delay, format: .number).frame(width: 30)
       }
       HStack(spacing: 5) {
         Toggle("ACC Tx", isOn: Binding(get: {interlock.accTxEnabled}, set: {interlock.setProperty(.accTxEnabled, $0.as1or0)} ))
-        Text(interlock.accTxDelay, format: .number).frame(width: 30, alignment: .trailing)
+        Text(interlock.accTxDelay, format: .number).frame(width: 30)
       }
       HStack(spacing: 5) {
         Toggle("ACC Req", isOn: Binding(get: {interlock.accTxReqEnabled}, set: {interlock.setProperty(.accTxReqEnabled, $0.as1or0)} ))
