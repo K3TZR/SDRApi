@@ -19,7 +19,6 @@ struct MeterSubView: View {
   let sliceClientHandle: UInt32?
   let handle: UInt32
   
-  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) private var objectModel
 
   func showMeter(_ id: UInt32?, _ clientHandle: UInt32?, _ source: String, _ group: String) -> Bool {
@@ -76,7 +75,7 @@ private struct DetailView: View {
   func valueColor(_ value: Float, _ low: Float, _ high: Float) -> Color {
     if value > high { return .red }
     if value < low { return .yellow }
-    return .green
+    return .secondary
   }
   
   @State var throttledValue: CGFloat = 0.0
@@ -101,7 +100,7 @@ private struct DetailView: View {
         Text(meter.units)
         Text(String(format: "% 2d", meter.fps))
       }.frame(width: 70, alignment: .trailing)
-      Text(meter.desc).foregroundColor(.primary)
+      Text(meter.desc).foregroundColor(.secondary)
     }
   }
 }
@@ -111,5 +110,5 @@ private struct DetailView: View {
 
 #Preview {
   MeterSubView(sliceId: 1, sliceClientHandle: nil, handle: 1)
-    .environment(ApiModel.shared)
+    .environment(ObjectModel.shared)
 }

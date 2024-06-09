@@ -94,16 +94,7 @@ private struct DetailView: View {
         Text(eq.hz8000.formatted(.number))
         Stepper("", value: Binding(get: {eq.hz8000}, set: {eq.setProperty(.hz8000, String($0))} ), in: -10...10)
       }
-//      Text(eq.hz125.formatted(.number))
-//      Text(eq.hz250.formatted(.number))
-//      Text(eq.hz500.formatted(.number))
-//      Text(eq.hz1000.formatted(.number))
-//      Text(eq.hz2000.formatted(.number))
-//      Text(eq.hz4000.formatted(.number))
-//      Text(eq.hz8000.formatted(.number))
     }
-//    .lineLimit(1)
-//    .truncationMode(.middle)
     .foregroundColor(.secondary)
   }
 }

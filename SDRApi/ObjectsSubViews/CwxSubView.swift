@@ -15,26 +15,29 @@ import FlexApiFeature
 
 struct CwxSubView: View {
   
-  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
+    
+    let cwx = objectModel.cwx
     
     Grid(alignment: .leading, horizontalSpacing: 10) {
       GridRow {
         Group {
           Text("CWX")
+
           HStack(spacing: 5) {
-            Text("Bkin_Delay")
-            Text("\(objectModel.cwx.breakInDelay)").foregroundColor(.green)
+            Text("Delay")
+            Text(cwx.breakInDelay, format: .number).foregroundColor(.secondary)
+            Stepper("", value: Binding(get: {cwx.breakInDelay}, set: {cwx.setProperty(.breakInDelay, String($0))} ), in: 40...2000, step: 10)
           }
+
+          Toggle("QSK", isOn: Binding(get: {cwx.qskEnabled }, set: {cwx.setProperty(.qskEnabled, $0.as1or0)} ))
+
           HStack(spacing: 5) {
-            Text("QSK")
-            Text(objectModel.cwx.qskEnabled ? "Y" : "N").foregroundColor(objectModel.cwx.qskEnabled ? .green : .red)
-          }
-          HStack(spacing: 5) {
-            Text("WPM")
-            Text("\(objectModel.cwx.wpm)").foregroundColor(.green)
+            Text("Speed")
+            Text(cwx.wpm, format: .number).foregroundColor(.secondary)
+            Stepper("", value: Binding(get: {cwx.wpm}, set: {cwx.setProperty(.wpm, String($0))} ), in: 5...60, step: 1)
           }
         }
       }
@@ -49,6 +52,5 @@ struct CwxSubView: View {
 
 #Preview {
   CwxSubView()
-    .environment(ApiModel.shared)
     .environment(ObjectModel.shared)
 }

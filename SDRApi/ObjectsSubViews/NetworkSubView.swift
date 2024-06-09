@@ -55,7 +55,9 @@ private struct DetailView: View {
         Text(throttledPackets.formatted(.number))
         Text(stream.errors.formatted(.number))
         Text(errorPerCent.formatted(.percent.precision(.fractionLength(4))))
-      }.gridColumnAlignment(.trailing)
+      }
+      .foregroundColor(.secondary)
+      .gridColumnAlignment(.trailing)
     }
     
     .onReceive(stream.$packets.throttle(for: 1, scheduler: RunLoop.main, latest: true) ) {

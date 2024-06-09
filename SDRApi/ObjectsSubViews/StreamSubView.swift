@@ -18,7 +18,6 @@ struct StreamSubView: View {
   let handle: UInt32
 
   @Environment(ObjectModel.self) private var objectModel
-//  @Environment(StreamModel.self) private var streamModel
 
   var body: some View {
     Grid(alignment: .leading, horizontalSpacing: 10) {
@@ -36,34 +35,34 @@ struct StreamSubView: View {
         if handle == waterfall.clientHandle { WaterfallStreamView(waterfall: waterfall) }
       }
       
-      // RemoteRxAudioStream
-      if let stream = objectModel.remoteRxAudioStream {
-        if handle == stream.clientHandle { RemoteRxStreamView(stream: stream) }
+      // RemoteRxAudio
+      if let rxAudio = objectModel.remoteRxAudio {
+        if handle == rxAudio.clientHandle { RemoteRxStreamView(remoteRxAudio: rxAudio) }
       }
       
-      // RemoteTxAudioStream
-      if let stream = objectModel.remoteTxAudioStream {
-        if handle == stream.clientHandle { RemoteTxStreamView(stream: stream) }
+      // RemoteTxAudio
+      if let remoteTxAudio = objectModel.remoteTxAudio {
+        if handle == remoteTxAudio.clientHandle { RemoteTxStreamView(remoteTxAudio: remoteTxAudio) }
       }
       
-      // DaxMicAudioStream
-      if let stream = objectModel.daxMicAudioStream {
-        if handle == stream.clientHandle { DaxMicStreamView(stream: stream) }
+      // DaxMicAudio
+      if let daxMicAudio = objectModel.daxMicAudio {
+        if handle == daxMicAudio.clientHandle { DaxMicStreamView(daxMicAudio: daxMicAudio) }
       }
       
-      // DaxRxAudioStream
-      ForEach(objectModel.daxRxAudioStreams) { stream in
-        if handle == stream.clientHandle { DaxRxStreamView(stream: stream) }
+      // DaxRxAudio
+      ForEach(objectModel.daxRxAudios) { daxRxAudio in
+        if handle == daxRxAudio.clientHandle { DaxRxStreamView(daxRxAudio: daxRxAudio) }
       }
       
-      // DaxTxAudioStream
-      if let stream = objectModel.daxTxAudioStream {
-        if handle == stream.clientHandle { DaxTxStreamView(stream: stream) }
+      // DaxTxAudio
+      if let daxTxAudio = objectModel.daxTxAudio {
+        if handle == daxTxAudio.clientHandle { DaxTxStreamView(daxTxAudio: daxTxAudio) }
       }
       
-      // DaxIqStream
-      ForEach(objectModel.daxIqStreams) { stream in
-        if handle == stream.clientHandle { DaxIqStreamView(stream: stream) }
+      // DaxIq
+      ForEach(objectModel.daxIqs) { daxIq in
+        if handle == daxIq.clientHandle { DaxIqStreamView(daxIq: daxIq) }
       }
     }
     .padding(.leading, 20)
@@ -72,14 +71,14 @@ struct StreamSubView: View {
 
 private struct MeterStreamView: View {
   
-//  @Environment(StreamModel.self) private var streamModel
+  @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
     
     GridRow {
       Group {
         Text("METER")
-//        Text(StreamModel.shared.meterStream?.id.hex ?? "0x0").foregroundColor(.green)
+        Text(ObjectModel.shared.meterStream?.id.hex ?? "0x0").foregroundColor(.green)
       }.frame(width: 100, alignment: .leading)
     }
   }
@@ -88,16 +87,12 @@ private struct MeterStreamView: View {
 private struct PanadapterStreamView: View {
   var panadapter: Panadapter
 
-//  @Environment(StreamModel.self) private var streamModel
-
-//  @MainActor private var isStreaming: Bool { streamModel.streamStatistics[id: panadapter.id]!.packets > 0}
-  
   var body: some View {
     
     GridRow {
       Group {
         Text("PANADAPTER")
-        Text(panadapter.id.hex).foregroundColor(.green)
+        Text(panadapter.id.hex).foregroundColor(.secondary)
       }.frame(width: 100, alignment: .leading)
     }
   }
@@ -106,186 +101,177 @@ private struct PanadapterStreamView: View {
 private struct WaterfallStreamView: View {
   var waterfall: Waterfall
   
-//  @Environment(StreamModel.self) private var streamModel
-
-//  @MainActor private var isStreaming: Bool { streamModel.waterfallStreams[id: waterfall.id]!.isStreaming }
-  
   var body: some View {
     
     GridRow {
       Group {
         Text("WATERFALL")
-        Text(waterfall.id.hex).foregroundColor(.green)
+        Text(waterfall.id.hex).foregroundColor(.secondary)
       }.frame(width: 100, alignment: .leading)
     }
   }
 }
 
 private struct RemoteRxStreamView: View {
-  var stream: RemoteRxAudioStream
+  var remoteRxAudio: RemoteRxAudio
   
   var body: some View {
     
     GridRow {
       Group {
         Text("REMOTE Rx")
-        Text(stream.id.hex).foregroundColor(.green)
+        Text(remoteRxAudio.id.hex).foregroundColor(.secondary)
       }.frame(width: 100, alignment: .leading)
       Group {
         HStack(spacing: 5) {
           Text("Handle")
-          Text("\(stream.clientHandle.hex)").foregroundColor(.green)
+          Text("\(remoteRxAudio.clientHandle.hex)").foregroundColor(.secondary)
         }
         HStack(spacing: 5) {
           Text("Compression")
-          Text("\(stream.compression)").foregroundColor(.green)
+          Text("\(remoteRxAudio.compression)").foregroundColor(.secondary)
         }
         HStack(spacing: 5) {
           Text("Ip")
-          Text("\(stream.ip)").foregroundColor(.green)
+          Text("\(remoteRxAudio.ip)").foregroundColor(.secondary)
         }
-      }.frame(width: 120, alignment: .leading)
+      }
     }
   }
 }
 
 private struct RemoteTxStreamView: View {
-  var stream: RemoteTxAudioStream
+  var remoteTxAudio: RemoteTxAudio
   
   var body: some View {
     
     GridRow {
       Group {
         Text("REMOTE Tx")
-        Text(stream.id.hex).foregroundColor(.green)
+        Text(remoteTxAudio.id.hex).foregroundColor(.secondary)
       }.frame(width: 100, alignment: .leading)
       Group {
         HStack(spacing: 5) {
           Text("Handle")
-          Text("\(stream.clientHandle.hex)").foregroundColor(.green)
+          Text("\(remoteTxAudio.clientHandle.hex)").foregroundColor(.secondary)
         }
         HStack(spacing: 5) {
           Text("Compression")
-          Text("\(stream.compression)").foregroundColor(.green)
+          Text("\(remoteTxAudio.compression)").foregroundColor(.secondary)
         }
       }
-//      .frame(width: 120, alignment: .leading)
     }
   }
 }
 
 private struct DaxMicStreamView: View {
-  var stream: DaxMicAudioStream
+  var daxMicAudio: DaxMicAudio
   
   var body: some View {
     
     GridRow {
       Group {
         Text("DAX Mic").frame(width: 80, alignment: .leading)
-        Text(stream.id.hex).foregroundColor(.green)
+        Text(daxMicAudio.id.hex).foregroundColor(.secondary)
       }.frame(width: 100, alignment: .leading)
       Group {
         HStack(spacing: 5) {
           Text("Handle")
-          Text("\(stream.clientHandle.hex)").foregroundColor(.green)
+          Text("\(daxMicAudio.clientHandle.hex)").foregroundColor(.secondary)
         }
         HStack(spacing: 5) {
           Text("Ip")
-          Text("\(stream.ip)").foregroundColor(.green)
+          Text("\(daxMicAudio.ip)").foregroundColor(.secondary)
         }
       }
-//      .frame(width: 120, alignment: .leading)
     }
   }
 }
 
 private struct DaxRxStreamView: View {
-  var stream: DaxRxAudioStream
+  var daxRxAudio: DaxRxAudio
   
   var body: some View {
     
     GridRow {
       Group {
         Text("DAX Rx").frame(width: 80, alignment: .leading)
-        Text(stream.id.hex).foregroundColor(.green)
+        Text(daxRxAudio.id.hex).foregroundColor(.secondary)
       }.frame(width: 100, alignment: .leading)
       Group {
         HStack(spacing: 5) {
           Text("Handle")
-          Text("\(stream.clientHandle.hex)").foregroundColor(.green)
+          Text("\(daxRxAudio.clientHandle.hex)").foregroundColor(.secondary)
         }
         HStack(spacing: 5) {
           Text("Channel")
-          Text("\(stream.daxChannel)").foregroundColor(.green)
+          Text("\(daxRxAudio.daxChannel)").foregroundColor(.secondary)
         }
         HStack(spacing: 5) {
           Text("Ip")
-          Text("\(stream.ip)").foregroundColor(.green)
+          Text("\(daxRxAudio.ip)").foregroundColor(.secondary)
         }
       }
-//      .frame(width: 120, alignment: .leading)
     }
   }
 }
 
 private struct DaxTxStreamView: View {
-  var stream: DaxTxAudioStream
+  var daxTxAudio: DaxTxAudio
   
   var body: some View {
     
     GridRow {
       Group {
         Text("DAX Tx").frame(width: 80, alignment: .leading)
-        Text(stream.id.hex).foregroundColor(.green)
+        Text(daxTxAudio.id.hex).foregroundColor(.secondary)
       }.frame(width: 100, alignment: .leading)
       Group {
         HStack(spacing: 5) {
           Text("Handle")
-          Text("\(stream.clientHandle.hex)").foregroundColor(.green)
+          Text("\(daxTxAudio.clientHandle.hex)").foregroundColor(.secondary)
         }
         HStack(spacing: 5) {
           Text("Ip")
-          Text("\(stream.ip)").foregroundColor(.green)
+          Text("\(daxTxAudio.ip)").foregroundColor(.secondary)
         }
         HStack(spacing: 5) {
           Text("Transmit")
-          Text("\(stream.isTransmitChannel ? "Y" : "N")").foregroundColor(stream.isTransmitChannel ? .green : .red)
+          Text("\(daxTxAudio.isTransmitChannel ? "Y" : "N")").foregroundColor(daxTxAudio.isTransmitChannel ? .green : .red)
         }
       }
-//      .frame(width: 120, alignment: .leading)
     }
   }
 }
 
 private struct DaxIqStreamView: View {
-  var stream: DaxIqStream
+  var daxIq: DaxIq
   
   var body: some View {
     
     GridRow {
       Group {
         Text("DAX IQ").frame(width: 80, alignment: .leading)
-        Text(stream.id.hex).foregroundColor(.green)
+        Text(daxIq.id.hex).foregroundColor(.secondary)
       }.frame(width: 100, alignment: .leading)
       Group {
         HStack(spacing: 5) {
           Text("Handle")
-          Text("\(stream.clientHandle.hex)").foregroundColor(.green)
+          Text("\(daxIq.clientHandle.hex)").foregroundColor(.secondary)
         }
         HStack(spacing: 5) {
           Text("Ip")
-          Text("\(stream.ip)").foregroundColor(.green)
+          Text("\(daxIq.ip)").foregroundColor(.secondary)
         }
         HStack(spacing: 5) {
           Text("Channel")
-          Text("\(stream.channel)").foregroundColor(.green)
+          Text("\(daxIq.channel)").foregroundColor(.secondary)
         }
         HStack(spacing: 5) {
           Text("Pan")
-          Text(stream.pan.hex).foregroundColor(.green)
+          Text(daxIq.pan.hex).foregroundColor(.secondary)
         }
       }
-//      .frame(width: 120, alignment: .leading)
     }
   }
 }

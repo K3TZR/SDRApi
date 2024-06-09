@@ -63,7 +63,7 @@ private struct DetailView: View {
       
       let list = profile.list.reduce("", { $0 + $1 + ","})
       Text(list).frame(width: 850, alignment: .leading)
-    }
+    }.foregroundColor(.secondary)
   }
 }
 

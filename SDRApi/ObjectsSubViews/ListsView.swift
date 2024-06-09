@@ -36,12 +36,12 @@ struct ListsView: View {
           
           HStack(spacing: 5) {
             Text("Ant List")
-            Text(stringArrayToString(radio.antList)).foregroundColor(.green)
+            Text(stringArrayToString(radio.antList)).foregroundColor(.secondary)
           }
           
           HStack(spacing: 5) {
             Text("Mic List")
-            Text(stringArrayToString(radio.micList)).foregroundColor(.green)
+            Text(stringArrayToString(radio.micList)).foregroundColor(.secondary)
           }
         }
       }

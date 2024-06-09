@@ -71,11 +71,14 @@ private struct DetailView: View {
     GridRow {
       Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
       Text(setting.name == 999 ? " GEN" : String(format: "%#4d", setting.name))
-      Text(setting.rfPower, format: .number)
-        .frame(width: 50).multilineTextAlignment(.trailing)
-      Text(setting.tunePower, format: .number)
-        .frame(width: 50).multilineTextAlignment(.trailing)
-
+      HStack(spacing: 5) {
+        Text(setting.rfPower, format: .number)
+        Stepper("", value: Binding(get: {setting.rfPower}, set: {setting.setProperty(.rfPower, String($0))} ), in: 0...100, step: 1)
+      }
+      HStack(spacing: 5) {
+        Text(setting.tunePower, format: .number)
+        Stepper("", value: Binding(get: {setting.tunePower}, set: {setting.setProperty(.tunePower, String($0))} ), in: 0...100, step: 1)
+      }
       Toggle("", isOn: Binding(get: {setting.inhibit}, set: {setting.setProperty(.inhibit, $0.as1or0)} ))
       Toggle("", isOn: Binding(get: {setting.accTxEnabled}, set: {setting.setProperty(.accTxEnabled, $0.as1or0)} ))
       Toggle("", isOn: Binding(get: {setting.rcaTxReqEnabled}, set: {setting.setProperty(.rcaTxReqEnabled, $0.as1or0)} ))

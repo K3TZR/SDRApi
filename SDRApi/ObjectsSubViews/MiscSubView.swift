@@ -46,7 +46,7 @@ struct MiscSubView: View {
           Text(stringArrayToString(radio.antList))
           Text(stringArrayToString(radio.micList))
           Text("\(radio.uptime) (value at time of this connection)")
-        }
+        }.foregroundColor(.secondary)
       }
       .padding(.leading, 40)
     }

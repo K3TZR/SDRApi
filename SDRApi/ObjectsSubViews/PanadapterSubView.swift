@@ -18,7 +18,7 @@ struct PanadapterSubView: View {
   let handle: UInt32
   let showMeters: Bool
 
-  @Environment(ApiModel.self) private var apiModel
+//  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
@@ -63,21 +63,21 @@ private struct PanadapterDetailView: View {
       
       Text("PANADAPTER").frame(width: 80, alignment: .leading)
       
-      Group {
-        HStack(spacing: 5) {
-          Text("Id")
-          Text(panadapter.id.hex).padding(.leading, 5).foregroundColor(.secondary)
-        }
-        
-        HStack(spacing: 5) {
-          Text("Width")
-          Text("\(panadapter.bandwidth)").foregroundColor(.secondary)
-        }
-      }.frame(width: 100, alignment: .leading)
+      HStack(spacing: 5) {
+        Text("Id")
+        Text(panadapter.id.hex).padding(.leading, 5).foregroundColor(.secondary)
+      }
+      
+      HStack(spacing: 5) {
+        Text("Bandwidth")
+        Text(panadapter.bandwidth, format: .number).foregroundColor(.secondary)
+        Stepper("", value: Binding(get: {panadapter.bandwidth}, set: {panadapter.setProperty(.bandwidth, String(Double($0)/1_000_000))} ), step: 100)
+      }
       
       HStack(spacing: 5) {
         Text("Center")
-        Text("\(panadapter.center)").foregroundColor(.secondary)
+        Text(panadapter.center, format: .number).foregroundColor(.secondary)
+        Stepper("", value: Binding(get: {panadapter.center}, set: {panadapter.setProperty(.center, String(Double($0)/1_000_000))} ), step: 100)
       }
     }
   }
@@ -90,29 +90,30 @@ private struct WaterfallDetailView: View {
     HStack(spacing: 20) {
       Text("WATERFALL").frame(width: 80, alignment: .leading)
       
-      Group {
-        HStack(spacing: 5) {
-          Text("Id")
-          Text(waterfall.id.hex).padding(.leading, 5).foregroundColor(.secondary)
-        }
-
-        Toggle("Auto Black", isOn: Binding(get: {waterfall.autoBlackEnabled}, set: {waterfall.setProperty(.autoBlackEnabled, $0.as1or0)} ))
-
-        HStack(spacing: 5) {
-          Text("Color Gain")
-          Text("\(waterfall.colorGain)").foregroundColor(.secondary)
-        }
-        
-        HStack(spacing: 5) {
-          Text("Black Level")
-          Text("\(waterfall.blackLevel)").foregroundColor(.secondary)
-        }
-        
-        HStack(spacing: 5) {
-          Text("Duration")
-          Text("\(waterfall.lineDuration)").foregroundColor(.secondary)
-        }
-      }.frame(width: 100, alignment: .leading)
+      HStack(spacing: 5) {
+        Text("Id")
+        Text(waterfall.id.hex).padding(.leading, 5).foregroundColor(.secondary)
+      }
+      
+      Toggle("Auto Black", isOn: Binding(get: {waterfall.autoBlackEnabled}, set: {waterfall.setProperty(.autoBlackEnabled, $0.as1or0)} ))
+      
+      HStack(spacing: 5) {
+        Text("Color Gain")
+        Text(waterfall.colorGain, format: .number).foregroundColor(.secondary)
+        Stepper("", value: Binding(get: {waterfall.colorGain}, set: {waterfall.setProperty(.colorGain, String($0))} ), in: 0...100, step: 1)
+      }
+      
+      HStack(spacing: 5) {
+        Text("Black Level")
+        Text(waterfall.blackLevel, format: .number).foregroundColor(.secondary)
+        Stepper("", value: Binding(get: {waterfall.blackLevel}, set: {waterfall.setProperty(.blackLevel, String($0))} ), in: 0...100, step: 1)
+      }
+      
+      HStack(spacing: 5) {
+        Text("Duration")
+        Text(waterfall.lineDuration, format: .number).foregroundColor(.secondary)
+        Stepper("", value: Binding(get: {waterfall.lineDuration}, set: {waterfall.setProperty(.lineDuration, String($0))} ), in: 0...100, step: 1)
+      }
     }
   }
 }
@@ -134,7 +135,7 @@ private struct SliceDetailView: View {
           Text("SLICE")
         }.frame(width: 80, alignment: .leading)
         
-        Text(String(format: "%02d", slice.id)).foregroundColor(.green)
+        Text(String(format: "%02d", slice.id)).foregroundColor(.secondary)
         
         Text("\(slice.frequency)").foregroundColor(.secondary).frame(width: 105, alignment: .trailing)
         
@@ -166,10 +167,6 @@ private struct SliceDetailView: View {
             Text("\(slice.filterHigh)").foregroundColor(.secondary)
           }
           
-//          HStack(spacing: 5) {
-//            Text("Active")
-//            Text(slice.active ? "Y" : "N").foregroundColor(slice.active ? .green : .red)
-//          }
           Toggle("Active", isOn: Binding(get: {slice.active}, set: {slice.setProperty(.active, $0.as1or0)} ))
 
           Toggle("Locked", isOn: Binding(get: {slice.locked}, set: {slice.setProperty(.locked, $0.as1or0)} ))
@@ -182,12 +179,12 @@ private struct SliceDetailView: View {
         Group {
           HStack(spacing: 5) {
             Text("DAX_channel")
-            Text("\(slice.daxChannel)").foregroundColor(.green)
+            Text("\(slice.daxChannel)").foregroundColor(.secondary)
           }
           
           HStack(spacing: 5) {
             Text("DAX_clients")
-            Text("\(slice.daxClients)").foregroundColor(.green)
+            Text("\(slice.daxClients)").foregroundColor(.secondary)
           }
         }.frame(width: 100, alignment: .leading)
         
@@ -212,5 +209,8 @@ private struct SliceDetailView: View {
 
 #Preview {
   PanadapterSubView(handle: 1, showMeters: true)
-    .environment(ApiModel.shared)
+    .environment(ObjectModel.shared)
+  
+    .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 50, maxHeight: .infinity)
+    .padding()
 }

@@ -38,12 +38,6 @@ private struct TransmitView: View {
         .monospaced()
         .foregroundColor(sourceColor)
 
-//      HStack(spacing: 5) {
-//        Text("Processor")
-//        Text(transmit.speechProcessorEnabled ? "Y" : "N")
-//          .foregroundColor(transmit.speechProcessorEnabled ? .green : .red)
-//      }
-
       Toggle("Processor", isOn: Binding(get: {transmit.speechProcessorEnabled}, set: {transmit.setProperty(.speechProcessorEnabled, $0.as1or0)} ))
       Toggle("Compander", isOn: Binding(get: {transmit.companderEnabled}, set: {transmit.setProperty(.companderEnabled, $0.as1or0)} ))
       Toggle("Monitor", isOn: Binding(get: {transmit.txMonitorEnabled}, set: {transmit.setProperty(.txMonitorEnabled, $0.as1or0)} ))
@@ -51,38 +45,16 @@ private struct TransmitView: View {
       Toggle("Dax", isOn: Binding(get: {transmit.daxEnabled}, set: {transmit.setProperty(.daxEnabled, $0.as1or0)} ))
       Toggle("Vox", isOn: Binding(get: {transmit.voxEnabled}, set: {transmit.setProperty(.voxEnabled, $0.as1or0)} ))
 
-//      HStack(spacing: 5) {
-//        Text("Compander")
-//        Text(transmit.companderEnabled ? "Y" : "N")
-//          .foregroundColor(transmit.companderEnabled ? .green : .red)
-//      }
-//      HStack(spacing: 5) {
-//        Text("Monitor")
-//        Text(transmit.txMonitorEnabled ? "Y" : "N")
-//          .foregroundColor(transmit.txMonitorEnabled ? .green : .red)
-//      }
-//      HStack(spacing: 5) {
-//        Text("Mic Acc")
-//        Text(transmit.micAccEnabled ? "Y" : "N")
-//          .foregroundColor(transmit.micAccEnabled ? .green : .red)
-//      }
-//      HStack(spacing: 5) {
-//        Text("Dax")
-//        Text(transmit.daxEnabled ? "Y" : "N")
-//          .foregroundColor(transmit.daxEnabled ? .green : .red)
-//      }
-//      HStack(spacing: 5) {
-//        Text("Vox")
-//        Text(transmit.voxEnabled ? "Y" : "N")
-//          .foregroundColor(transmit.voxEnabled ? .green : .red)
-//      }
       HStack(spacing: 5) {
         Text("Vox Delay")
-        Text("\(transmit.voxDelay)").foregroundColor(.green)
+        Text(transmit.voxDelay, format: .number).foregroundColor(.secondary)
+        Stepper("", value: Binding(get: {transmit.voxDelay}, set: {transmit.setProperty(.voxDelay, String($0))} ), in: 0...100, step: 1)
       }
+
       HStack(spacing: 5) {
         Text("Vox Level")
-        Text("\(transmit.voxLevel)").foregroundColor(.green)
+        Text(transmit.voxLevel, format: .number).foregroundColor(.secondary)
+        Stepper("", value: Binding(get: {transmit.voxLevel}, set: {transmit.setProperty(.voxLevel, String($0))} ), in: 0...100, step: 1)
       }
     }
   }
@@ -99,28 +71,30 @@ private struct CwView: View {
         .monospaced()
         .foregroundColor(sourceColor)
       
-//      HStack(spacing: 5) {
-//        Text("Sidetone")
-//        Text(transmit.cwSidetoneEnabled ? "Y" : "N").foregroundColor(transmit.cwSidetoneEnabled ? .green : .red)
-//      }
-
       Toggle("Sidetone", isOn: Binding(get: {transmit.cwSidetoneEnabled}, set: {transmit.setProperty(.cwSidetoneEnabled, $0.as1or0)} ))
 
       HStack(spacing: 5) {
         Text("Level")
-        Text("\(transmit.cwMonitorGain)").foregroundColor(.green)
+        Text(transmit.cwMonitorGain, format: .number).foregroundColor(.secondary)
+        Stepper("", value: Binding(get: {transmit.cwMonitorGain}, set: {transmit.setProperty(.cwMonitorGain, String($0))} ), in: 0...100, step: 1)
       }
+
       HStack(spacing: 5) {
         Text("Pan")
-        Text("\(transmit.cwMonitorPan)").foregroundColor(.green)
+        Text(transmit.cwMonitorPan, format: .number).foregroundColor(.secondary)
+        Stepper("", value: Binding(get: {transmit.cwMonitorPan}, set: {transmit.setProperty(.cwMonitorPan, String($0))} ), in: 0...100, step: 1)
       }
+
       HStack(spacing: 5) {
         Text("Pitch")
-        Text("\(transmit.cwPitch)").foregroundColor(.green)
+        Text(transmit.cwPitch, format: .number).foregroundColor(.secondary)
+        Stepper("", value: Binding(get: {transmit.cwPitch}, set: {transmit.setProperty(.cwPitch, String($0))} ), in: 100...6000, step: 10)
       }
+
       HStack(spacing: 5) {
         Text("Speed")
-        Text("\(transmit.cwSpeed)").foregroundColor(.green)
+        Text(transmit.cwSpeed, format: .number).foregroundColor(.secondary)
+        Stepper("", value: Binding(get: {transmit.cwSpeed}, set: {transmit.setProperty(.cwSpeed, String($0))} ), in: 5...100, step: 1)
       }
     }
   }
