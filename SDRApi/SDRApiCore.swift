@@ -76,7 +76,7 @@ public struct SDRApi {
     
     @Shared(.appStorage("clearOnStart")) var clearOnStart = true
     @Shared(.appStorage("clearOnStop")) var clearOnStop = true
-    @Shared(.appStorage("gotoTop")) var gotoTop = false
+    @Shared(.appStorage("gotoBottom")) var gotoBottom = false
     @Shared(.appStorage("messageFilter")) var messageFilter: MessageFilter = .all
     @Shared(.appStorage("messageFilterText")) var messageFilterText = ""
     @Shared(.appStorage("showPings")) var showPings = false
@@ -234,13 +234,11 @@ public struct SDRApi {
         return commandSend(&state)
         
       case .clearButtonTapped:
-        MessagesModel.shared.clear()
-        return .none
+        return .run { _ in await MessagesModel.shared.clear() }
         
       case .clearFilterTextTapped:
         state.messageFilterText = ""
-        MessagesModel.shared.reFilter(state.messageFilter, state.messageFilterText)
-        return .none
+        return .run {[filter = state.messageFilter] _ in await MessagesModel.shared.reFilter(filter, "") }
         
       case .saveButtonTapped:
         return saveMessages(state)
@@ -274,12 +272,10 @@ public struct SDRApi {
         return listenerStartStop(&state)
         
       case .binding(\.messageFilter):
-        MessagesModel.shared.reFilter(state.messageFilter, state.messageFilterText)
-        return .none
+        return .run { [filter = state.messageFilter, text = state.messageFilterText] _ in await MessagesModel.shared.reFilter(filter, text) }
         
       case .binding(\.messageFilterText):
-        MessagesModel.shared.reFilter(state.messageFilter, state.messageFilterText)
-        return .none
+        return .run { [filter = state.messageFilter, text = state.messageFilterText] _ in await MessagesModel.shared.reFilter(filter, text) }
         
       case .binding(\.remoteRxAudioCompressed):
         if state.connectionState == .connected && state.remoteRxAudioEnabled {
@@ -554,7 +550,7 @@ public struct SDRApi {
   
   
   private func connectionStart(_ state: State)  -> Effect<SDRApi.Action> {
-    if state.clearOnStart { MessagesModel.shared.clear() }
+    if state.clearOnStart { Task { await MessagesModel.shared.clear() } }
     if state.directEnabled {
       // DIRECT Mode
       return .run {
@@ -596,7 +592,7 @@ public struct SDRApi {
   }
   
   private func connectionStop(_ state: State)  -> Effect<SDRApi.Action> {
-    if state.clearOnStop { MessagesModel.shared.clear() }
+    if state.clearOnStop { Task { await MessagesModel.shared.clear() } }
     return .run {
       await ObjectModel.shared.clientInitialized(false)
       ApiModel.shared.disconnect()

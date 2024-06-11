@@ -38,7 +38,7 @@ public struct SendView: View {
         .help("Load previously sent commands")
         TextField("Command to send", text: $store.commandToSend)
       }
-      .disabled(store.connectionState != .connected)
+//      .disabled(store.connectionState != .connected)
       
       Toggle("Clear on Send", isOn: $store.clearOnSend)
         .toggleStyle(.button)

@@ -23,14 +23,14 @@ struct MessagesView: View {
   @Namespace var topID
   @Namespace var bottomID
   
-  @MainActor func attributedText( _ text: String) -> AttributedString {
+  @MainActor func textLine( _ text: String) -> AttributedString {
     var attString = AttributedString(text)
     // color it appropriately
-    if text.prefix(1) == "C" { attString.foregroundColor = .systemGreen }                         // Commands
-    if text.prefix(1) == "R" && text.contains("|0|") { attString.foregroundColor = .systemGray }  // Replies no error
-    if text.prefix(1) == "R" && !text.contains("|0|") { attString.foregroundColor = .systemRed }  // Replies w/error
-    if text.prefix(2) == "S0" { attString.foregroundColor = .systemOrange }                       // S0
-
+    if text.prefix(1) == "C" { attString.foregroundColor = .systemGreen }                        // Commands
+    if text.prefix(1) == "R" && text.contains("|0|") { attString.foregroundColor = .systemGray } // Replies no error
+    if text.prefix(1) == "R" && !text.contains("|0|") { attString.foregroundColor = .systemRed } // Replies w/error
+    if text.prefix(2) == "S0" { attString.foregroundColor = .systemOrange }                      // S0
+    
     // highlight any filterText value
     if !store.messageFilterText.isEmpty {
       if let range = attString.range(of: store.messageFilterText) {
@@ -41,19 +41,12 @@ struct MessagesView: View {
     return attString
   }
   
-  @MainActor func intervalFormat(_ interval: Double) -> String {
-    let formatter = NumberFormatter()
-    formatter.minimumFractionDigits = 6
-    formatter.positiveFormat = " * ##0.000000"
-    return formatter.string(from: NSNumber(value: interval))!
-  }
-  
   var body: some View {
     
     VStack(alignment: .leading) {
       FilterMessagesView(store: store)
       
-      if messagesModel.filteredMessages.count == 0 {
+      if store.connectionState != .connected {
         VStack(alignment: .leading) {
           Spacer()
           HStack {
@@ -63,50 +56,41 @@ struct MessagesView: View {
           }
           Spacer()
         }
-        
-      }
-      else {
-        ScrollViewReader { proxy in
+      } else {
+        VStack {
           ScrollView([.vertical]) {
-            Text("Top").hidden()
-              .id(topID)
-            Grid (alignment: .leading) {
-              ForEach(messagesModel.filteredMessages.reversed(), id: \.id) { message in
-                GridRow(alignment: .top) {
-                  if store.showTimes { Text(intervalFormat(message.interval) ) }
-                  Text(attributedText(message.text + "\(store.newLineBetweenMessages ? "\n" : "")"))
+            LazyVStack(alignment: .leading) {
+              ForEach(messagesModel.filteredMessages.reversed(), id: \.id) { tcpMessage in
+                HStack(alignment: .top) {
+                  if store.showTimes { Text(tcpMessage.interval, format: .number.precision(.fractionLength(6))) }
+                  Text(textLine(tcpMessage.text + "\(store.newLineBetweenMessages ? "\n" : "")"))
                 }
+                .textSelection(.enabled)
+                .font(.system(size: CGFloat(store.fontSize), weight: .regular, design: .monospaced))
               }
-              .textSelection(.enabled)
-              .font(.system(size: CGFloat(store.fontSize), weight: .regular, design: .monospaced))
             }
-            Text("Bottom").hidden()
-              .id(bottomID)
           }
-          .onChange(of: store.gotoTop) {
-            let id = $1 ? bottomID : topID
-            proxy.scrollTo(id, anchor: $1 ? .bottomLeading : .topLeading)
-          }
+          
+          Spacer()
+          Divider().background(Color(.gray))
+          BottomButtonsView(store: store)
         }
       }
-      Spacer()
-      Divider().background(Color(.gray))
-      BottomButtonsView(store: store)
     }
-    
     .onAppear{
       store.send(.onAppear)
     }
+    .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
   }
 }
 
 private struct FilterMessagesView: View {
   @Bindable var store: StoreOf<SDRApi>
-
+  
   @State var messageFilterText = ""
   
   var body: some View {
-
+    
     HStack {
       Picker("Show Tcp Messages of type", selection: $store.messageFilter) {
         ForEach(MessageFilter.allCases, id: \.self) {
@@ -120,30 +104,29 @@ private struct FilterMessagesView: View {
         .onTapGesture {
           store.send(.clearFilterTextTapped)
         }
-//      TextField("filter text", text: $messageFilterText)
-      Text("filter text")
+      TextField("filter text", text: $messageFilterText)
     }
   }
 }
 
 private struct BottomButtonsView: View {
   @Bindable var store: StoreOf<SDRApi>
-
+  
   var body: some View {
     
     HStack {
-      Toggle(isOn: $store.gotoTop) {
-        Image(systemName: store.gotoTop ? "arrow.up.square" : "arrow.down.square").font(.title)
+      Toggle(isOn: $store.gotoBottom) {
+        Image(systemName: "arrow.down.square").font(.title)
       }
-
+      
       Spacer()
-
+      
       HStack(spacing: 5) {
         Stepper("Font Size", value: $store.fontSize, in: 8...14)
         Text(store.fontSize, format: .number).frame(alignment: .leading)
       }
       Toggle("Line Spacing", isOn: $store.newLineBetweenMessages)
-
+      
       Spacer()
       HStack {
         Toggle("Show Times", isOn: $store.showTimes)
@@ -151,7 +134,7 @@ private struct BottomButtonsView: View {
         Toggle("Show Alerts", isOn: $store.alertOnError)
           .help("Display a sheet when an Error / Warning occurs")
       }
-
+      
       Spacer()
       Button("Save") { store.send(.saveButtonTapped) }
       
@@ -174,7 +157,7 @@ private struct BottomButtonsView: View {
   MessagesView(store: Store(initialState: SDRApi.State()) {
     SDRApi()
   })
-//  .environment(MessagesModel.shared)
- 
+  //  .environment(MessagesModel.shared)
+  
   .frame(minWidth: 1250, maxWidth: .infinity)
 }
