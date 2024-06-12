@@ -40,7 +40,7 @@ struct MeterSubView: View {
       }
       .foregroundColor(.secondary)
     }
-    .padding(.leading, 40)
+//    .padding(.leading, 40)
   }
 }
 

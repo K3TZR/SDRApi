@@ -18,7 +18,6 @@ struct PanadapterSubView: View {
   let handle: UInt32
   let showMeters: Bool
 
-//  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
@@ -28,7 +27,6 @@ struct PanadapterSubView: View {
         Text("PANADAPTER").frame(width: 80, alignment: .leading)
         Text("None present").foregroundColor(.red)
       }
-      .padding(.leading, 40)
       
     } else {
       ForEach(objectModel.panadapters.filter { $0.clientHandle == handle }) { panadapter in
@@ -50,7 +48,6 @@ struct PanadapterSubView: View {
           }
         }
       }
-      .padding(.leading, 40)
     }
   }
 }
@@ -79,6 +76,7 @@ private struct PanadapterDetailView: View {
         Text(panadapter.center, format: .number).foregroundColor(.secondary)
         Stepper("", value: Binding(get: {panadapter.center}, set: {panadapter.setProperty(.center, String(Double($0)/1_000_000))} ), step: 100)
       }
+      Spacer()
     }
   }
 }
@@ -114,6 +112,7 @@ private struct WaterfallDetailView: View {
         Text(waterfall.lineDuration, format: .number).foregroundColor(.secondary)
         Stepper("", value: Binding(get: {waterfall.lineDuration}, set: {waterfall.setProperty(.lineDuration, String($0))} ), in: 0...100, step: 1)
       }
+      Spacer()
     }
   }
 }

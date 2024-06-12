@@ -26,8 +26,12 @@ struct SDRApiView: View {
       
       VSplitView {
         ObjectsView(store: store)
+          .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
+
         Divider().background(Color(.cyan))
         MessagesView(store: store)
+          .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
+
       }
     }
     
@@ -39,7 +43,9 @@ struct SDRApiView: View {
     // LogAlert Notification
     .onReceive(NotificationCenter.default.publisher(for: Notification.Name.logAlertNotification)
       .receive(on: RunLoop.main)) { note in
-        store.send(.showLogAlert(note.object! as! XCGLogFeature.LogEntry))
+        if store.alertOnError {
+          store.send(.showLogAlert(note.object! as! XCGLogFeature.LogEntry))
+        }
     }
     
     // Sheets
@@ -66,6 +72,4 @@ struct SDRApiView: View {
   
   .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 700, maxHeight: .infinity)
   .padding()
-  
-  
 }

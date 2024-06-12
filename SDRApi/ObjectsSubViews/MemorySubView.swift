@@ -19,7 +19,7 @@ struct MemorySubView: View {
   
   var body: some View {
     
-    Grid(alignment: .trailing, horizontalSpacing: 10) {
+    Grid(alignment: .leading, horizontalSpacing: 10) {
       HeadingView()
       if objectModel.memories.count == 0 {
         GridRow {
@@ -30,14 +30,15 @@ struct MemorySubView: View {
           DetailView(memory: memory)
         }
       }
-    }
+    } 
+    .frame(minWidth: 1250, maxWidth: .infinity)
   }
 }
 
 private struct HeadingView: View {
   var body: some View {
     GridRow {
-      Text("MEMORY").border(.red)
+      Text("MEMORY")
       Text("Name")
       Text("Group")
       Text("Owner")
@@ -57,6 +58,7 @@ private struct HeadingView: View {
       Text("Shift")
       Text("DIGL Upper")
       Text("DIGU Lower")
+      Spacer()
     }
     Divider()
   }

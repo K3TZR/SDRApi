@@ -44,12 +44,8 @@ struct RadioSubView: View {
           Line1View()
         }
         
-        //      Line2View()
-        if showSubView {
-          //        Divider().background(objectModel.radio?.packet.source == .local ? .blue : .red)
-          DetailView(store: store, sourceColor: sourceColor)
-        }
-      }.frame(maxWidth: .infinity, minHeight: 200)
+        if showSubView {  DetailView(store: store, sourceColor: sourceColor) }
+      }
     }
   }
 }

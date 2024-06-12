@@ -298,9 +298,11 @@ public struct SDRApi {
           return remoteTxAudioStop(&state)
         }
         
-        //      case .binding(\.showPings):
-        //        state.showPings = state.showPings
-        //        return .none
+      case .binding(\.showPings):
+        state.showPings = state.showPings
+        return .run {[showPings = state.showPings] _ in
+          await MessagesModel.shared.showPings(showPings)
+        }
         
       case .binding(\.smartlinkEnabled):
         state.directEnabled = false

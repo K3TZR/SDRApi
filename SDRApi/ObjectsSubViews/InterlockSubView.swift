@@ -17,7 +17,7 @@ struct InterlockSubView: View {
   var body: some View {
     
     let interlock = objectModel.interlock
-    HStack(spacing: 30) {
+    HStack(spacing: 40) {
       Text("INTERLOCK")
       
       HStack(spacing: 5) {
@@ -51,8 +51,9 @@ struct InterlockSubView: View {
         Toggle("", isOn: Binding(get: {interlock.rcaTxReqPolarity}, set: {interlock.setProperty(.rcaTxReqPolarity, $0.as1or0)} )).labelsHidden()
         Text(interlock.rcaTxReqPolarity ? "+" : "-").foregroundColor(.secondary)
       }
+      Spacer()
     }
-    .padding(.leading, 20)
+    .frame(minWidth: 1250, maxWidth: .infinity)
   }
 }
 
@@ -60,6 +61,6 @@ struct InterlockSubView: View {
   InterlockSubView()
     .environment(ObjectModel.shared)
   
-    .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 50, maxHeight: .infinity)
+    .frame(width: 1250)
     .padding()
 }

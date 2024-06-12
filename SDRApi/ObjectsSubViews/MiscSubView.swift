@@ -19,18 +19,13 @@ struct MiscSubView: View {
   @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) private var objectModel
 
-  func stringArrayToString( _ list: [String]) -> String {
-    let str = list.reduce("") {$0 + $1 + ", "}
-    return String(str.dropLast(2))
-  }
-  
-  func uint32ArrayToString( _ list: [UInt32]) -> String {
-    let str = list.reduce("") {String($0) + String($1) + ", "}
+  func stringArrayToString( _ list: [String]?) -> String? {
+    guard list != nil else {return nil}
+    let str = list!.reduce("") {$0 + $1 + ", "}
     return String(str.dropLast(2))
   }
   
   var body: some View {
-    if let radio = objectModel.radio {
       HStack {
         VStack(alignment: .leading) {
           Text("Software Version")
@@ -41,14 +36,12 @@ struct MiscSubView: View {
         }.frame(width: 150)
         
         VStack(alignment: .leading) {
-          Text(radio.softwareVersion)
-          Text(apiModel.hardwareVersion ?? "Unknown")
-          Text(stringArrayToString(radio.antList))
-          Text(stringArrayToString(radio.micList))
-          Text("\(radio.uptime) (value at time of this connection)")
+          Text(objectModel.radio?.softwareVersion ?? "---")
+          Text(apiModel.hardwareVersion ?? "---")
+          Text(stringArrayToString(objectModel.radio?.antList) ?? "---")
+          Text(stringArrayToString(objectModel.radio?.micList) ?? "---")
+          Text("\(objectModel.radio?.uptime ?? 0)")
         }.foregroundColor(.secondary)
-      }
-      .padding(.leading, 40)
     }
   }
 }
@@ -60,4 +53,6 @@ struct MiscSubView: View {
   MiscSubView()
     .environment(ApiModel.shared)
     .environment(ObjectModel.shared)
+  
+    .frame(width: 1250)
 }

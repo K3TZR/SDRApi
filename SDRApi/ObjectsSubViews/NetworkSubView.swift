@@ -19,22 +19,24 @@ public struct NetworkSubView: View {
 //  @Environment(StreamModel.self) var streamModel
   
   public var body: some View {
-    
-    Grid (alignment: .leading) {
-      GridRow {
-        Text("NETWORK")
-        Text("Stream")
-        Text("Packets")
-        Text("Errors")
-        Text("Error PerCent")
+      Grid (alignment: .leading) {
+        GridRow {
+          Text("NETWORK")
+          Text("Stream")
+          Text("Packets")
+          Text("Errors")
+          Text("Error PerCent")
+          Spacer()
+        }
+        GridRow {
+          Text(" ")
+        }
+        ForEach(StreamStatistics.shared.stats) { stream in
+          DetailView(stream: stream)
+        }
       }
-      GridRow {
-        Text(" ")
-      }
-      ForEach(StreamStatistics.shared.stats) { stream in
-        DetailView(stream: stream)
-      }
-    }.padding(.leading, 40)
+//    .frame(minWidth: 1250, maxWidth: .infinity)
+//    .padding(.leading, 40)
   }
 }
 

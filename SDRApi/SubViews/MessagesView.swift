@@ -35,11 +35,14 @@ struct MessagesView: View {
     if !store.messageFilterText.isEmpty {
       if let range = attString.range(of: store.messageFilterText) {
         attString[range].underlineStyle = .single
-        attString[range].font = .boldSystemFont(ofSize: 18)
+        attString[range].foregroundColor = .yellow
+        attString[range].font = .boldSystemFont(ofSize: CGFloat(store.fontSize + 4))
       }
     }
     return attString
   }
+  
+  @State var id: UUID?
   
   var body: some View {
     
@@ -70,7 +73,15 @@ struct MessagesView: View {
               }
             }
           }
+          .scrollPosition(id: $id)
           
+          .onChange(of: store.gotoBottom) {
+            if $1 {
+              self.id = messagesModel.filteredMessages.first?.id
+            } else {
+              self.id = messagesModel.filteredMessages.last?.id
+           }
+          }
           Spacer()
           Divider().background(Color(.gray))
           BottomButtonsView(store: store)
@@ -80,7 +91,7 @@ struct MessagesView: View {
     .onAppear{
       store.send(.onAppear)
     }
-    .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+    .frame(minWidth: 1250, maxWidth: .infinity)
   }
 }
 
@@ -104,7 +115,7 @@ private struct FilterMessagesView: View {
         .onTapGesture {
           store.send(.clearFilterTextTapped)
         }
-      TextField("filter text", text: $messageFilterText)
+      TextField("filter text", text: $store.messageFilterText)
     }
   }
 }

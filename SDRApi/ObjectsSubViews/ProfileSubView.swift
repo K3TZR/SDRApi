@@ -15,7 +15,7 @@ import FlexApiFeature
 
 struct ProfileSubView: View {
 
-  @Environment(ApiModel.self) private var apiModel
+//  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
@@ -37,7 +37,7 @@ struct ProfileSubView: View {
           DetailView(profile: profile)
         }
       }
-      .padding(.leading, 40)
+//      .padding(.leading, 40)
     }
   }
 }
@@ -49,6 +49,7 @@ private struct HeadingView: View {
       Text("PROFILE").frame(width: 60, alignment: .leading)
       Text("Current").frame(width: 150, alignment: .leading)
       Text("List")
+      Spacer()
     }
   }
 }
@@ -72,5 +73,7 @@ private struct DetailView: View {
 
 #Preview {
   ProfileSubView()
-    .environment(ApiModel.shared)
+    .environment(ObjectModel.shared)
+  
+    .frame(width: 1250)
 }
