@@ -39,6 +39,8 @@ private struct HeadingView: View {
   var body: some View {
     GridRow {
       Text("MEMORY")
+        .frame(width: 100, alignment: .leading)
+        .foregroundColor(.yellow)
       Text("Name")
       Text("Group")
       Text("Owner")
@@ -71,6 +73,8 @@ private struct DetailView: View {
     
     GridRow {
       Text("\(memory.id)")
+        .frame(width: 100, alignment: .leading)
+        .foregroundColor(.yellow)
       Text(memory.name).help(memory.name).gridColumnAlignment(.leading)
       Text(memory.group.isEmpty ? "none" : memory.group).gridColumnAlignment(.leading).help(memory.group)
       Text(memory.owner).help(memory.owner).gridColumnAlignment(.leading)

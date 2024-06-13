@@ -29,8 +29,8 @@ struct GpsSubView: View {
           
         } else {
           GridRow {
-            Text("GPS".padRight(13))
-              .monospaced()
+            Text("GPS")
+              .frame(width: 100, alignment: .leading)
               .foregroundColor(sourceColor)
 
             Text("----- NONE -----").foregroundColor(.red)
@@ -46,8 +46,8 @@ private struct HeadingView: View {
 
   var body: some View {
     GridRow {
-      Text("GPS".padRight(13))
-        .monospaced()
+      Text("GPS")
+        .frame(width: 100)
         .foregroundColor(sourceColor)
 
       Text("Altitude")

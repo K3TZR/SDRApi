@@ -31,9 +31,9 @@ struct RadioSubView: View {
       VStack(alignment: .leading) {
         HStack(spacing: 0) {
           Label("Radio", systemImage: showSubView ? "chevron.down" : "chevron.right")
-            .foregroundColor(sourceColor)
+            .frame(width: 125, alignment: .leading)
             .font(.title)
-            .frame(width: 120, alignment: .leading)
+            .foregroundColor(sourceColor)
             .onTapGesture{ showSubView.toggle() }
             .help("          Tap to toggle details")
           
@@ -59,33 +59,33 @@ private struct Line1View: View {
     
     if let radio = objectModel.radio {
       HStack(spacing: 20) {
+
         HStack(spacing: 5) {
           Text("Connection")
           Text(radio.packet.source.rawValue)
             .foregroundColor(radio.packet.source == .local ? .green : .red)
         }
+
         HStack(spacing: 5) {
           Text("Ip")
           Text(radio.packet.publicIp).foregroundColor(.green)
         }
+
         HStack(spacing: 5) {
           Text("FW")
           Text(radio.packet.version + "\(radio.alpha ? "(alpha)" : "")").foregroundColor(radio.alpha ? .red : .green)
         }
+
         HStack(spacing: 5) {
           Text("Model")
           Text(radio.packet.model).foregroundColor(.green)
         }
+
         HStack(spacing: 5) {
           Text("Serial")
           Text(radio.packet.serial).foregroundColor(.green)
         }
-//        HStack(spacing: 5) {
-//          Text("Tnf Enabled")
-//          Text(radio.tnfsEnabled ? "Y" : "N").foregroundColor(radio.tnfsEnabled ? .green : .red)
-//        }
 
-        
         HStack(spacing: 5) {
           Text("HW")
           Text(apiModel.hardwareVersion ?? "").foregroundColor(.green)

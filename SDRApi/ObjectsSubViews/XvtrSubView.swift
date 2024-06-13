@@ -22,15 +22,21 @@ struct XvtrSubView: View {
     
     if objectModel.xvtrs.count == 0 {
       HStack(spacing: 20) {
-        Text("XVTRs").frame(width: 80, alignment: .leading)
-        Text("None present").foregroundColor(.red)
+        Text("XVTR")
+          .frame(width: 100, alignment: .leading)
+          .foregroundColor(.yellow)
+        
+        Text("----- NONE -----t").foregroundColor(.red)
       }
       .padding(.leading, 40)
       
     } else {
       HStack(spacing: 20) {
-        Text("XVTR").frame(width: 80, alignment: .leading)
-        Text("NOT IMPLEMENTED").foregroundColor(.red)
+        Text("XVTR")
+          .frame(width: 100, alignment: .leading)
+          .foregroundColor(.yellow)
+
+        Text("----- NOT IMPLEMENTED -----").foregroundColor(.red)
       }
       .padding(.leading, 40)
     }

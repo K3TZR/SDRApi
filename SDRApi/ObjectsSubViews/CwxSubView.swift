@@ -25,6 +25,8 @@ struct CwxSubView: View {
       GridRow {
         Group {
           Text("CWX")
+            .frame(width: 100, alignment: .leading)
+            .foregroundColor(.yellow)
 
           HStack(spacing: 5) {
             Text("Delay")

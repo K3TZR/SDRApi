@@ -34,8 +34,8 @@ private struct TransmitView: View {
   var body: some View {
     
     GridRow {
-      Text("TRANSMIT".padRight(13))
-        .monospaced()
+      Text("TRANSMIT")
+        .frame(width: 100, alignment: .leading)
         .foregroundColor(sourceColor)
 
       Toggle("Processor", isOn: Binding(get: {transmit.speechProcessorEnabled}, set: {transmit.setProperty(.speechProcessorEnabled, $0.as1or0)} ))
@@ -67,8 +67,8 @@ private struct CwView: View {
   var body: some View {
     
     GridRow {
-      Text("".padRight(13))
-        .monospaced()
+      Text("CW")
+        .frame(width: 100, alignment: .leading)
         .foregroundColor(sourceColor)
       
       Toggle("Sidetone", isOn: Binding(get: {transmit.cwSidetoneEnabled}, set: {transmit.setProperty(.cwSidetoneEnabled, $0.as1or0)} ))

@@ -22,21 +22,20 @@ public struct NetworkSubView: View {
       Grid (alignment: .leading) {
         GridRow {
           Text("NETWORK")
+            .frame(width: 100, alignment: .leading)
+            .foregroundColor(.yellow)
+          
           Text("Stream")
           Text("Packets")
           Text("Errors")
           Text("Error PerCent")
           Spacer()
         }
-        GridRow {
-          Text(" ")
-        }
+
         ForEach(StreamStatistics.shared.stats) { stream in
           DetailView(stream: stream)
         }
       }
-//    .frame(minWidth: 1250, maxWidth: .infinity)
-//    .padding(.leading, 40)
   }
 }
 

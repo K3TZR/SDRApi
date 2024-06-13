@@ -19,18 +19,20 @@ struct WaveformSubView: View {
     Grid(alignment: .leading, horizontalSpacing: 10) {
       if objectModel.waveform.list.isEmpty {
         GridRow {
-          Group {
-            Text("WAVEFORMs")
-            Text("None present").foregroundColor(.red)
-          }.frame(width: 100, alignment: .leading)
+          Text("WAVEFORM")
+            .frame(width: 100, alignment: .leading)
+            .foregroundColor(.yellow)
+          
+          Text("----- NONE -----").foregroundColor(.red)
         }
         
       } else {
         GridRow {
-          Group {
-            Text("WAVEFORMS").frame(width: 100, alignment: .leading)
-            Text(objectModel.waveform.list)
-          }
+          Text("WAVEFORM")
+            .frame(width: 100, alignment: .leading)
+            .foregroundColor(.yellow)
+          
+          Text(objectModel.waveform.list)
         }
       }
     }.padding(.leading, 20)

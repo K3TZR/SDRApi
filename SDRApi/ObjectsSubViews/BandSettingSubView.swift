@@ -43,8 +43,8 @@ private struct HeadingView: View {
   var body: some View {
     
     GridRow {
-      Text("BAND SETTINGS".padRight(13))
-        .monospaced()
+      Text("BAND SETTINGS")
+        .frame(width: 100)
         .gridColumnAlignment(.leading)
         .foregroundColor(sourceColor)
 

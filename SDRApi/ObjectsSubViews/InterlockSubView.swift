@@ -19,7 +19,9 @@ struct InterlockSubView: View {
     let interlock = objectModel.interlock
     HStack(spacing: 40) {
       Text("INTERLOCK")
-      
+        .frame(width: 100, alignment: .leading)
+        .foregroundColor(.yellow)
+
       HStack(spacing: 5) {
         Text("Tx Allowed")
         Text(interlock.txAllowed ? "Y" : "N").foregroundColor(interlock.txAllowed ? .green : .red)

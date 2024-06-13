@@ -19,7 +19,7 @@ struct EqualizerSubView: View {
   @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
-    Grid(alignment: .trailing, horizontalSpacing: 30, verticalSpacing: 5) {
+    Grid(alignment: .trailing, horizontalSpacing: 20, verticalSpacing: 5) {
       HeadingView(sourceColor: sourceColor)
       ForEach(objectModel.equalizers) { eq in
         DetailView(eq: eq)
@@ -33,12 +33,12 @@ private struct HeadingView: View {
 
   var body: some View {
     GridRow {
-      Text("EQUALIZER".padRight(13))
-        .monospaced()
+      Text("EQUALIZER")
+        .frame(width: 100, alignment: .leading)
         .gridColumnAlignment(.leading)
         .foregroundColor(sourceColor)
       
-      Text("ID").gridColumnAlignment(.leading)
+      Text("ID")
       Text("Enabled")
       Text("63 Hz")
       Text("125 Hz")
@@ -48,7 +48,8 @@ private struct HeadingView: View {
       Text("2000 Hz")
       Text("4000 Hz")
       Text("8000 Hz")
-    }.frame(width: 80)
+    }
+    .frame(width: 80)
   }
 }
 
@@ -59,7 +60,9 @@ private struct DetailView: View {
     
     GridRow {
       Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
-      Text(eq.id).gridColumnAlignment(.leading)
+
+      Text(eq.id)
+      
       Toggle("", isOn: Binding(get: {eq.eqEnabled}, set: {eq.setProperty(.eqEnabled, $0.as1or0)} ))
 
       HStack(spacing: 5) {

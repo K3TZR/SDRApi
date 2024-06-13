@@ -23,10 +23,10 @@ struct ProfileSubView: View {
     if objectModel.profiles.count == 0 {
       Grid(alignment: .leading, horizontalSpacing: 10) {
         GridRow {
-          Group {
-            Text("PROFILEs")
-            Text("None present").foregroundColor(.red)
-          }.frame(width: 100, alignment: .leading)
+          Text("PROFILE")
+            .frame(width: 100, alignment: .leading)
+            .foregroundColor(.yellow)
+          Text("----- NONE -----").foregroundColor(.red)
         }
       }
       
@@ -37,7 +37,6 @@ struct ProfileSubView: View {
           DetailView(profile: profile)
         }
       }
-//      .padding(.leading, 40)
     }
   }
 }
@@ -46,8 +45,11 @@ private struct HeadingView: View {
   
   var body: some View {
     GridRow {
-      Text("PROFILE").frame(width: 60, alignment: .leading)
-      Text("Current").frame(width: 150, alignment: .leading)
+      Text("PROFILE")
+        .frame(width: 100, alignment: .leading)
+        .foregroundColor(.yellow)
+      
+      Text("Current")
       Text("List")
       Spacer()
     }
@@ -57,13 +59,19 @@ private struct HeadingView: View {
 private struct DetailView: View {
   var profile: Profile
   
+  @MainActor var list: String {
+    profile.list.formatted(.list(type: .and)).replacingOccurrences(of: ", and ", with: ", ")
+  }
+  
   var body: some View {
     GridRow {
-      Text(profile.id.uppercased()).frame(width: 60, alignment: .leading)
-      Text(profile.current).frame(width: 150, alignment: .leading)
+      Text(profile.id.uppercased())
+        .frame(width: 100, alignment: .leading)
+        .foregroundColor(.yellow)
+
+      Text(profile.current)
       
-      let list = profile.list.reduce("", { $0 + $1 + ","})
-      Text(list).frame(width: 850, alignment: .leading)
+      Text(list)
     }.foregroundColor(.secondary)
   }
 }

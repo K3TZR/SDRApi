@@ -22,7 +22,10 @@ struct WanSubView: View {
     
     Grid(alignment: .leading, horizontalSpacing: 10) {
       GridRow {
-        Text("WAN").frame(width: 100, alignment: .leading)
+        Text("WAN")
+          .frame(width: 100, alignment: .leading)
+          .foregroundColor(.yellow)
+        
         Group {
           HStack(spacing: 5) {
             Text("Radio Authenticated")

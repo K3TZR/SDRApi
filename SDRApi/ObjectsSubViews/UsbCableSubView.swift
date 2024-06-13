@@ -37,8 +37,8 @@ struct UsbCableSubView: View {
 private struct HeadingView: View {
   var body: some View {
     GridRow {
-      Text("USB CABLE".padRight(13))
-        .monospaced()
+      Text("USB CABLE")
+        .frame(width: 100, alignment: .leading)
         .foregroundColor(.yellow)
       
       Text("Type")
@@ -69,6 +69,9 @@ private struct DetailView: View {
   var body: some View {
     GridRow {
       Text(cable.id)
+        .frame(width: 100, alignment: .leading)
+        .foregroundColor(.yellow)
+
       Text(cable.cableType)
       Text(cable.name).help(cable.name)
       Text(cable.source).help(cable.source)
@@ -76,13 +79,13 @@ private struct DetailView: View {
       Text(cable.band)
       Text(cable.polarity)
       Text(cable.flowControl)
-      Text(cable.dataBits.formatted(.number)).gridColumnAlignment(.trailing)
-      Text(cable.stopBits.formatted(.number)).gridColumnAlignment(.trailing)
+      Text(cable.dataBits, format: .number).gridColumnAlignment(.trailing)
+      Text(cable.stopBits, format: .number).gridColumnAlignment(.trailing)
       Text(cable.parity)
-      Text("\(cable.speed)").gridColumnAlignment(.trailing)
+      Text(cable.speed, format: .number).gridColumnAlignment(.trailing)
       Text(cable.sourceRxAnt)
       Text(cable.sourceTxAnt)
-      Text(cable.sourceSlice.formatted(.number)).gridColumnAlignment(.trailing)
+      Text(cable.sourceSlice, format: .number).gridColumnAlignment(.trailing)
       Text(cable.preamp).gridColumnAlignment(.trailing)
       Text(cable.usbLog ? "Y" : "N").foregroundColor(cable.usbLog ? .green : nil).gridColumnAlignment(.trailing)
       Text(cable.autoReport ? "Y" : "N").foregroundColor(cable.autoReport ? .green : nil).gridColumnAlignment(.trailing)

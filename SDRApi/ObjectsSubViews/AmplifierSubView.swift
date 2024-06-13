@@ -14,9 +14,9 @@ import FlexApiFeature
 // MARK: - View
 
 struct AmplifierSubView: View {
-  
+
   @Environment(ObjectModel.self) private var objectModel
-  
+
   var body: some View {
     Grid(alignment: .leading, horizontalSpacing: 30, verticalSpacing: 5) {
       if objectModel.amplifiers.count > 0 {
@@ -27,8 +27,8 @@ struct AmplifierSubView: View {
         
       } else {
         GridRow {
-          Text("AMPLIFIER".padRight(13))
-            .monospaced()
+          Text("AMPLIFIER")
+            .frame(width: 100, alignment: .leading)
             .foregroundColor(.yellow)
           
           Text("----- NONE PRESENT -----").foregroundColor(.red)
@@ -39,13 +39,13 @@ struct AmplifierSubView: View {
 }
 
 private struct HeadingView: View {
-  
+
   var body: some View {
     GridRow {
-      Text("AMPLIFIER".padRight(13))
-        .monospaced()
+      Text("AMPLIFIER")
+        .frame(width: 100, alignment: .leading)
         .foregroundColor(.yellow)
-      
+
       Text("ID")
       Text("Model")
       Text("Address")
@@ -64,9 +64,9 @@ private struct DetailView: View {
       Text(amplifier.id.hex)
       Text(amplifier.model)
       Text(amplifier.ip)
-      Text("\(amplifier.port)")
+      Text(amplifier.port, format: .number)
       Text(amplifier.state)
-    }
+    }.foregroundColor(.secondary)
   }
 }
 
@@ -76,4 +76,6 @@ private struct DetailView: View {
 #Preview {
   AmplifierSubView()
     .environment(ObjectModel.shared)
+  
+    .frame(width: 1250)
 }

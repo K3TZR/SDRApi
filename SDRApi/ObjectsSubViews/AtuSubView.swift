@@ -22,18 +22,16 @@ struct AtuSubView: View {
   var body: some View {
     
     Grid(alignment: .leading, horizontalSpacing: 30, verticalSpacing: 5) {
-      if let radio = objectModel.radio {
-        if radio.atuPresent {
-          DetailView(atu: objectModel.atu, sourceColor: sourceColor)
+      if objectModel.radio?.atuPresent != nil {
+        DetailView(atu: objectModel.atu, sourceColor: sourceColor)
+        
+      } else {
+        GridRow {
+          Text("ATU")
+            .frame(width: 100, alignment: .leading)
+            .foregroundColor(sourceColor)
           
-        } else {
-          GridRow {
-            Text("ATU".padRight(13))
-              .monospaced()
-              .foregroundColor(sourceColor)
-
-            Text("----- NONE -----").foregroundColor(.red)
-          }
+          Text("----- NONE -----").foregroundColor(.red)
         }
       }
     }
@@ -46,8 +44,8 @@ private struct DetailView: View {
 
   var body: some View {
     GridRow {
-      Text("ATU".padRight(13))
-        .monospaced()
+      Text("ATU")
+        .frame(width: 100, alignment: .leading)
         .foregroundColor(sourceColor)
 
       Toggle("Atu Enabled", isOn: Binding(get: {atu.enabled}, set: {atu.setProperty(.enabled, $0.as1or0)} ))
@@ -72,4 +70,6 @@ private struct DetailView: View {
 #Preview {
   AtuSubView(sourceColor: .blue)
     .environment(ObjectModel.shared)
+  
+    .frame(width: 1250)
 }

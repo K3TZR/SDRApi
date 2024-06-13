@@ -31,7 +31,7 @@ struct MeterSubView: View {
   
   var body: some View {
     
-    Grid(alignment: .leading, horizontalSpacing: 10) {
+    Grid(alignment: .leading, horizontalSpacing: 20) {
       HeadingView(sliceId: sliceId)
       ForEach(objectModel.meters ) { meter in
         if showMeter(sliceId, sliceClientHandle, meter.source, meter.group) {
@@ -40,7 +40,6 @@ struct MeterSubView: View {
       }
       .foregroundColor(.secondary)
     }
-//    .padding(.leading, 40)
   }
 }
 
@@ -49,20 +48,21 @@ private struct HeadingView: View {
   
   var body: some View {
     GridRow {
-      Group {
-        Text("METER #")
-        if sliceId == nil {
-          Text("Group")
-          Text("Source")
-        }
-      }.frame(width: 60, alignment: .leading)
+      Text("METER")
+        .frame(width: 100)
+        .foregroundColor(.yellow)
       
-      Text("Name").frame(width: 110)
-      Group {
-        Text("Value")
-        Text("Units")
-        Text("Fps")
-      }.frame(width: 70)
+      Text("Group")
+        .gridColumnAlignment(.trailing)
+
+      Text("Source")
+      Text("Name")
+      Text("Value")
+        .gridColumnAlignment(.trailing)
+
+      Text("Units")
+      Text("Fps")
+        .gridColumnAlignment(.trailing)
       Text("Description")
     }
   }
@@ -83,23 +83,20 @@ private struct DetailView: View {
   var body: some View {
     
     GridRow {
-      Group {
-        Text(String(format: "% 3d", meter.id))
-        if sliceId == nil {
-          Text(meter.group)
-          Text(meter.source)
-        }
-      }.frame(width: 60, alignment: .center)
-      Text(meter.name).frame(width: 110, alignment: .leading)
-      Group {
-        Text(String(format: "%-4.2f", throttledValue))
-          .help("        range: \(String(format: "%-4.2f", meter.low)) to \(String(format: "%-4.2f", meter.high))")
-          .foregroundColor(valueColor(meter.value, meter.low, meter.high))
-          .onReceive(meter.$value.throttle(for: 1, scheduler: RunLoop.main, latest: true)) { throttledValue = CGFloat($0) }
-
-        Text(meter.units)
-        Text(String(format: "% 2d", meter.fps))
-      }.frame(width: 70, alignment: .trailing)
+      Text(meter.id, format: .number)
+        .frame(width: 100)
+        .foregroundColor(.yellow)
+      
+      Text(meter.group)
+      Text(meter.source)
+      Text(meter.name)
+      Text(String(format: "%-4.2f", throttledValue))
+        .help("        range: \(String(format: "%-4.2f", meter.low)) to \(String(format: "%-4.2f", meter.high))")
+        .foregroundColor(valueColor(meter.value, meter.low, meter.high))
+        .onReceive(meter.$value.throttle(for: 1, scheduler: RunLoop.main, latest: true)) { throttledValue = CGFloat($0) }
+      
+      Text(meter.units)
+      Text(String(format: "% 2d", meter.fps))
       Text(meter.desc).foregroundColor(.secondary)
     }
   }
@@ -111,4 +108,6 @@ private struct DetailView: View {
 #Preview {
   MeterSubView(sliceId: 1, sliceClientHandle: nil, handle: 1)
     .environment(ObjectModel.shared)
+  
+    .frame(width: 1250)
 }

@@ -28,10 +28,10 @@ struct ListsView: View {
   var body: some View {
    
     if let radio = objectModel.radio {
-      Grid(alignment: .leading, horizontalSpacing: 30, verticalSpacing: 5) {
+      Grid(alignment: .leading, horizontalSpacing: 30) {
         GridRow {
-          Text("LISTS".padRight(13))
-            .monospaced()
+          Text("LISTS")
+            .frame(width: 100, alignment: .leading)
             .foregroundColor(sourceColor)
           
           HStack(spacing: 5) {
