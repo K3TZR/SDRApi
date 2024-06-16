@@ -61,6 +61,18 @@ struct MessagesView: View {
         }
       } else {
         VStack {
+          // NOTE: can't make the gotoBottom function work using List
+          //
+          //          List(messagesModel.filteredMessages.reversed(), id: \.id) { tcpMessage in
+          //            HStack(alignment: .top) {
+          //              if store.showTimes { Text(tcpMessage.interval, format: .number.precision(.fractionLength(6))) }
+          //              Text(textLine(tcpMessage.text + "\(store.newLineBetweenMessages ? "\n" : "")"))
+          //            }
+          //            .listRowSeparator(.hidden)
+          //            .textSelection(.enabled)
+          //            .font(.system(size: CGFloat(store.fontSize), weight: .regular, design: .monospaced))
+          //          }
+          
           ScrollView([.vertical]) {
             LazyVStack(alignment: .leading) {
               ForEach(messagesModel.filteredMessages.reversed(), id: \.id) { tcpMessage in
@@ -80,18 +92,18 @@ struct MessagesView: View {
               self.id = messagesModel.filteredMessages.first?.id
             } else {
               self.id = messagesModel.filteredMessages.last?.id
-           }
+            }
           }
           Spacer()
           Divider().background(Color(.gray))
           BottomButtonsView(store: store)
         }
+        .onAppear{
+          store.send(.onAppear)
+        }
+        .frame(minWidth: 1250, maxWidth: .infinity)
       }
     }
-    .onAppear{
-      store.send(.onAppear)
-    }
-    .frame(minWidth: 1250, maxWidth: .infinity)
   }
 }
 

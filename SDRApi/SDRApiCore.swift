@@ -490,11 +490,11 @@ public struct SDRApi {
       var activePacket: Packet?
       var activeStation: String?
       if state.isGui {
-        activePacket = await Discovery.shared.packets[id: selection]
+        activePacket = await ListenerModel.shared.packets[id: selection]
         activeStation = "SDRApi"
       } else {
-        activePacket = await Discovery.shared.stations[id: selection]?.packet
-        activeStation = await Discovery.shared.stations[id: selection]?.station
+        activePacket = await ListenerModel.shared.stations[id: selection]?.packet
+        activeStation = await ListenerModel.shared.stations[id: selection]?.station
       }
 
       // attempt to connect to the selected Radio / Station
@@ -534,9 +534,9 @@ public struct SDRApi {
 //    } else {
 //      Task {
 //        if state.isGui {
-//          return ( await Discovery.shared.packets[id: selection]!, "SDRApi" )
+//          return ( await _listenerModel.packets[id: selection]!, "SDRApi" )
 //        } else {
-//          return ( await Discovery.shared.stations[id: selection]!.packet, await Discovery.shared.stations[id: selection]!.station )
+//          return ( await _listenerModel.stations[id: selection]!.packet, await _listenerModel.stations[id: selection]!.station )
 //        }
 //      }
 //    }
@@ -714,7 +714,7 @@ public struct SDRApi {
         }
       }
     } else {
-      Task { await Discovery.shared.removePackets(for: {$0.source == .smartlink}) }
+      Task { await ListenerModel.shared.removePackets(condition: {$0.source == .smartlink}) }
       return .none
     }
   }
@@ -723,7 +723,7 @@ public struct SDRApi {
     return .run {
       if state.isGui {
         // GUI selection
-        if let selectedPacket = await Discovery.shared.packets[id: selection] {
+        if let selectedPacket = await ListenerModel.shared.packets[id: selection] {
           
           // Gui connection with other stations?
           if selectedPacket.guiClients.count > 0 {
