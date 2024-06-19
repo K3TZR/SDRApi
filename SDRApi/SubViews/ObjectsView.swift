@@ -11,6 +11,9 @@ import SwiftUI
 import FlexApiFeature
 import SharedFeature
 
+// ----------------------------------------------------------------------------
+// MARK: - View
+
 public struct ObjectsView: View {
   @Bindable var store: StoreOf<SDRApi>
 
@@ -90,6 +93,9 @@ private struct FilterStationObjectsView: View {
     .frame(width: 300)
   }
 }
+
+// ----------------------------------------------------------------------------
+// MARK: - Preview
 
 #Preview {
   ObjectsView(store: Store(initialState: SDRApi.State()) {

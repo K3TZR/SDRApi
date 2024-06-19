@@ -1,6 +1,6 @@
 //
 //  SDRApi.swift
-//  SDRApiViewer
+//  SDRApi
 //
 //  Created by Douglas Adams on 12/27/23.
 //
@@ -69,11 +69,6 @@ public struct SDRApi {
   public struct State {
     
     // persistent
-    //    @Shared(.appStorage("testNil")) var testNil: String?
-    
-//    @Shared(.appSettings) var appSettings
-
-    
     @Shared(.appStorage("clearOnStart")) var clearOnStart = true
     @Shared(.appStorage("clearOnStop")) var clearOnStop = true
     @Shared(.appStorage("gotoBottom")) var gotoBottom = false

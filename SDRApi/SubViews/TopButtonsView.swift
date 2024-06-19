@@ -10,6 +10,9 @@ import SwiftUI
 
 import FlexApiFeature
 
+// ----------------------------------------------------------------------------
+// MARK: - View
+
 public struct TopButtonsView: View {
   @Bindable var store: StoreOf<SDRApi>
     
@@ -99,6 +102,9 @@ public struct TopButtonsView: View {
     }.toggleStyle(.button)
   }
 }
+
+// ----------------------------------------------------------------------------
+// MARK: - Preview
 
 #Preview {
   Grid(alignment: .leading, horizontalSpacing: 20) {

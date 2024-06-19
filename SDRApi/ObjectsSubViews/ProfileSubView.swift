@@ -15,7 +15,6 @@ import FlexApiFeature
 
 struct ProfileSubView: View {
 
-//  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {

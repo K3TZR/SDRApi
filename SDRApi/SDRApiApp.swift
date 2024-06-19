@@ -1,6 +1,6 @@
 //
-//  SDRApiViewerApp.swift
-//  SDRApiViewer
+//  SDRApiApp.swift
+//  SDRApi
 //
 //  Created by Douglas Adams on 12/27/23.
 //
@@ -9,42 +9,70 @@ import SwiftUI
 
 import FlexApiFeature
 import ListenerFeature
-
+import SettingsFeature
 import XCGLogFeature
 
 // ----------------------------------------------------------------------------
 // MARK: - Main
 
 @main
-struct SDRApiViewerApp: App {
+struct SDRApiApp: App {
   @NSApplicationDelegateAdaptor(AppDelegate.self)
   var appDelegate
-  
-  private let testMode = true
-  
+    
   @State var apiModel = ApiModel.shared
   @State var listenerModel = ListenerModel.shared
-  @State var messagesModel = MessagesModel.shared
   @State var objectModel = ObjectModel.shared
-//  @State var streamModel = StreamModel.shared
-//  @State var discovery = Discovery.shared
   
-  private var testerApiModel: ApiModel { apiModel.testMode = testMode; return apiModel }
-  private var testerObjectModel: ObjectModel { objectModel.testMode = testMode; objectModel.apiModel = apiModel ; return objectModel }
-  
+  private var testerApiModel: ApiModel { apiModel.testMode = true ; return apiModel }
+
+  /// Struct to hold a Semantic Version number
+  private struct Version {
+    var major: Int = 1
+    var minor: Int = 0
+    var build: Int = 0
+    
+    // can be used directly in packages
+    init(_ versionString: String = "1.0.0") {
+      let components = versionString.components(separatedBy: ".")
+      major = Int(components[0]) ?? 1
+      minor = Int(components[1]) ?? 0
+      build = Int(components[2]) ?? 0
+    }
+    
+    // only useful for Apps & Frameworks (which have a Bundle), not Packages
+    init() {
+      let versions = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? "?"
+      let build   = Bundle.main.infoDictionary![kCFBundleVersionKey as String] as? String ?? "?"
+      self.init(versions + ".\(build)")
+    }
+    
+    var string: String { "\(major).\(minor).\(build)" }
+  }
+
   var body: some Scene {
     
+    // Main window
     WindowGroup("SDRApi  (v" + Version().string + ")") {
       SDRApiView(store: Store(initialState: SDRApi.State()) {
         SDRApi()
       })
       .environment(testerApiModel)
       .environment(listenerModel)
-      .environment(messagesModel)
-//      .environment(discovery)
-      .environment(testerObjectModel)
-//      .environment(streamModel)
+      .environment(objectModel)
     }
+    
+    // Settings window
+    Settings {
+      SettingsView(store: Store(initialState: SettingsCore.State()) {
+        SettingsCore()
+      })
+        .environment(apiModel)
+        .environment(objectModel)
+    }
+    .windowStyle(.hiddenTitleBar)
+    .windowResizability(WindowResizability.contentSize)
+    .defaultPosition(.bottomLeading)
   }
 }
 
@@ -62,37 +90,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   
   func applicationWillTerminate(_ notification: Notification) {
     ApiModel.shared.disconnect()
-    log("SDRApiViewer: application terminated", .debug, #function, #file, #line)
+    log("SDRApi: application terminated", .debug, #function, #file, #line)
   }
   
   func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
     true
   }
-}
-
-// ----------------------------------------------------------------------------
-// MARK: - Global struct
-
-/// Struct to hold a Semantic Version number
-public struct Version {
-  public var major: Int = 1
-  public var minor: Int = 0
-  public var build: Int = 0
-  
-  // can be used directly in packages
-  public init(_ versionString: String = "1.0.0") {
-    let components = versionString.components(separatedBy: ".")
-    major = Int(components[0]) ?? 1
-    minor = Int(components[1]) ?? 0
-    build = Int(components[2]) ?? 0
-  }
-  
-  // only useful for Apps & Frameworks (which have a Bundle), not Packages
-  public init() {
-    let versions = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? "?"
-    let build   = Bundle.main.infoDictionary![kCFBundleVersionKey as String] as? String ?? "?"
-    self.init(versions + ".\(build)")
-  }
-  
-  public var string: String { "\(major).\(minor).\(build)" }
 }

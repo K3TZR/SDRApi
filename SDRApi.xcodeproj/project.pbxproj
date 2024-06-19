@@ -39,6 +39,8 @@
 		9F1D15F02BB8946C0062A4CD /* ObjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1D15EB2BB8946C0062A4CD /* ObjectsView.swift */; };
 		9F1D15F12BB8946C0062A4CD /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1D15EC2BB8946C0062A4CD /* SendView.swift */; };
 		9F1D15F22BB8946C0062A4CD /* TopButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1D15ED2BB8946C0062A4CD /* TopButtonsView.swift */; };
+		9F6DA4DE2C23176600CEC66F /* SettingsFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9F6DA4DD2C23176600CEC66F /* SettingsFeature */; };
+		9F6DA4FD2C236CF900CEC66F /* BottomButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DA4FC2C236CF900CEC66F /* BottomButtonsView.swift */; };
 		9F8399582BD44A41001FF105 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 9F8399572BD44A41001FF105 /* ComposableArchitecture */; };
 		9F8FB4752C0A19CB0081FFC3 /* XCGLogFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9F8FB4742C0A19CB0081FFC3 /* XCGLogFeature */; };
 		9FB712B92BF834A70092A9C5 /* AudioFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FB712B82BF834A70092A9C5 /* AudioFeature */; };
@@ -90,9 +92,9 @@
 		9F1D15EB2BB8946C0062A4CD /* ObjectsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsView.swift; sourceTree = "<group>"; };
 		9F1D15EC2BB8946C0062A4CD /* SendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
 		9F1D15ED2BB8946C0062A4CD /* TopButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopButtonsView.swift; sourceTree = "<group>"; };
+		9F6DA4FC2C236CF900CEC66F /* BottomButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButtonsView.swift; sourceTree = "<group>"; };
 		9FB712B72BF82F160092A9C5 /* SDRApiFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SDRApiFeatures; path = ../Packages/SDRApiFeatures; sourceTree = "<group>"; };
 		9FDCEE852B5ED1300055FF11 /* SDRApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDRApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9FDCEE912B5ED1310055FF11 /* SDRApiViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDRApiViewer.entitlements; sourceTree = "<group>"; };
 		9FDCEE972B5ED1720055FF11 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +115,7 @@
 				9FDCEEAD2B5ED1CE0055FF11 /* ClientFeature in Frameworks */,
 				9FB712BB2BF834E90092A9C5 /* CustomControlFeature in Frameworks */,
 				9FDCEEBD2B5ED1CE0055FF11 /* RingBufferFeature in Frameworks */,
+				9F6DA4DE2C23176600CEC66F /* SettingsFeature in Frameworks */,
 				9FDCEEBB2B5ED1CE0055FF11 /* PickerFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,6 +176,7 @@
 				9F1D15EB2BB8946C0062A4CD /* ObjectsView.swift */,
 				9F1D15EC2BB8946C0062A4CD /* SendView.swift */,
 				9F1D15ED2BB8946C0062A4CD /* TopButtonsView.swift */,
+				9F6DA4FC2C236CF900CEC66F /* BottomButtonsView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -207,7 +211,6 @@
 				9F1D15AB2BB894340062A4CD /* SDRApiApp.swift */,
 				9F1D15AD2BB894340062A4CD /* SDRApiCore.swift */,
 				9F1D15AE2BB894340062A4CD /* SDRApiView.swift */,
-				9FDCEE912B5ED1310055FF11 /* SDRApiViewer.entitlements */,
 			);
 			path = SDRApi;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				9FB712B82BF834A70092A9C5 /* AudioFeature */,
 				9FB712BA2BF834E90092A9C5 /* CustomControlFeature */,
 				9F8FB4742C0A19CB0081FFC3 /* XCGLogFeature */,
+				9F6DA4DD2C23176600CEC66F /* SettingsFeature */,
 			);
 			productName = SDRTestViewer;
 			productReference = 9FDCEE852B5ED1300055FF11 /* SDRApi.app */;
@@ -310,6 +314,7 @@
 				9F1D15F02BB8946C0062A4CD /* ObjectsView.swift in Sources */,
 				9F1D15E92BB8944F0062A4CD /* XvtrSubView.swift in Sources */,
 				9F1D15E82BB8944F0062A4CD /* WaveformSubView.swift in Sources */,
+				9F6DA4FD2C236CF900CEC66F /* BottomButtonsView.swift in Sources */,
 				9F1D15F12BB8946C0062A4CD /* SendView.swift in Sources */,
 				9F1D15AF2BB894340062A4CD /* SDRApiApp.swift in Sources */,
 				9F1D15E22BB8944F0062A4CD /* StreamSubView.swift in Sources */,
@@ -481,7 +486,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.k3tzr.SDRApi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -511,7 +516,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.k3tzr.SDRApi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -570,6 +575,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9F6DA4DD2C23176600CEC66F /* SettingsFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SettingsFeature;
+		};
 		9F8399572BD44A41001FF105 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9F8399562BD44A41001FF105 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;

@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  SDRApiViewer
+//  SDRApi
 //
 //  Created by Douglas Adams on 12/27/23.
 //
@@ -14,6 +14,9 @@ import FlexApiFeature
 import LoginFeature
 import PickerFeature
 import XCGLogFeature
+
+// ----------------------------------------------------------------------------
+// MARK: - View
 
 struct SDRApiView: View {
   @Bindable var store: StoreOf<SDRApi>
@@ -33,6 +36,9 @@ struct SDRApiView: View {
           .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
 
       }
+      Spacer()
+      Divider().background(Color(.gray))
+      BottomButtonsView(store: store)
     }
     
     // initialize on first appearance
@@ -63,6 +69,9 @@ struct SDRApiView: View {
     .padding()
   }
 }
+
+// ----------------------------------------------------------------------------
+// MARK: - Preview
 
 #Preview {
   SDRApiView(store: Store(initialState: SDRApi.State()) {

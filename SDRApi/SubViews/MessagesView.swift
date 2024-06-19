@@ -10,15 +10,12 @@ import SwiftUI
 
 import FlexApiFeature
 import SharedFeature
-//import TcpFeature
 
 // ----------------------------------------------------------------------------
 // MARK: - View
 
 struct MessagesView: View {
   var store: StoreOf<SDRApi>
-  
-  @Environment(MessagesModel.self) var messagesModel
   
   @Namespace var topID
   @Namespace var bottomID
@@ -63,7 +60,7 @@ struct MessagesView: View {
         VStack {
           // NOTE: can't make the gotoBottom function work using List
           //
-          //          List(messagesModel.filteredMessages.reversed(), id: \.id) { tcpMessage in
+          //          List(MessagesModel.shared.filteredMessages.reversed(), id: \.id) { tcpMessage in
           //            HStack(alignment: .top) {
           //              if store.showTimes { Text(tcpMessage.interval, format: .number.precision(.fractionLength(6))) }
           //              Text(textLine(tcpMessage.text + "\(store.newLineBetweenMessages ? "\n" : "")"))
@@ -75,7 +72,7 @@ struct MessagesView: View {
           
           ScrollView([.vertical]) {
             LazyVStack(alignment: .leading) {
-              ForEach(messagesModel.filteredMessages.reversed(), id: \.id) { tcpMessage in
+              ForEach(MessagesModel.shared.filteredMessages.reversed(), id: \.id) { tcpMessage in
                 HStack(alignment: .top) {
                   if store.showTimes { Text(tcpMessage.interval, format: .number.precision(.fractionLength(6))) }
                   Text(textLine(tcpMessage.text + "\(store.newLineBetweenMessages ? "\n" : "")"))
@@ -89,14 +86,11 @@ struct MessagesView: View {
           
           .onChange(of: store.gotoBottom) {
             if $1 {
-              self.id = messagesModel.filteredMessages.first?.id
+              self.id = MessagesModel.shared.filteredMessages.first?.id
             } else {
-              self.id = messagesModel.filteredMessages.last?.id
+              self.id = MessagesModel.shared.filteredMessages.last?.id
             }
           }
-          Spacer()
-          Divider().background(Color(.gray))
-          BottomButtonsView(store: store)
         }
         .onAppear{
           store.send(.onAppear)
@@ -132,47 +126,6 @@ private struct FilterMessagesView: View {
   }
 }
 
-private struct BottomButtonsView: View {
-  @Bindable var store: StoreOf<SDRApi>
-  
-  var body: some View {
-    
-    HStack {
-      Toggle(isOn: $store.gotoBottom) {
-        Image(systemName: "arrow.down.square").font(.title)
-      }
-      
-      Spacer()
-      
-      HStack(spacing: 5) {
-        Stepper("Font Size", value: $store.fontSize, in: 8...14)
-        Text(store.fontSize, format: .number).frame(alignment: .leading)
-      }
-      Toggle("Line Spacing", isOn: $store.newLineBetweenMessages)
-      
-      Spacer()
-      HStack {
-        Toggle("Show Times", isOn: $store.showTimes)
-        Toggle("Show Pings", isOn: $store.showPings)
-        Toggle("Show Alerts", isOn: $store.alertOnError)
-          .help("Display a sheet when an Error / Warning occurs")
-      }
-      
-      Spacer()
-      Button("Save") { store.send(.saveButtonTapped) }
-      
-      Spacer()
-      HStack {
-        Toggle("Clear on Start", isOn: $store.clearOnStart)
-        Toggle("Clear on Stop", isOn: $store.clearOnStop)
-      }
-      
-      Button("Clear") { store.send(.clearButtonTapped) }
-    }
-    .toggleStyle(.button)
-  }
-}
-
 // ----------------------------------------------------------------------------
 // MARK: - Preview
 
@@ -180,7 +133,6 @@ private struct BottomButtonsView: View {
   MessagesView(store: Store(initialState: SDRApi.State()) {
     SDRApi()
   })
-  //  .environment(MessagesModel.shared)
   
   .frame(minWidth: 1250, maxWidth: .infinity)
 }

@@ -10,6 +10,9 @@ import SwiftUI
 
 import FlexApiFeature
 
+// ----------------------------------------------------------------------------
+// MARK: - View
+
 public struct SendView: View {
   @Bindable var store: StoreOf<SDRApi>
 
@@ -46,6 +49,9 @@ public struct SendView: View {
     }
   }
 }
+
+// ----------------------------------------------------------------------------
+// MARK: - Preview
 
 #Preview {
   Grid(alignment: .leading, horizontalSpacing: 20) {
