@@ -49,7 +49,7 @@ struct SDRApiView: View {
     // LogAlert Notification
     .onReceive(NotificationCenter.default.publisher(for: Notification.Name.logAlertNotification)
       .receive(on: RunLoop.main)) { note in
-        if store.alertOnError {
+        if store.appSettings.alertOnError {
           store.send(.showLogAlert(note.object! as! XCGLogFeature.LogEntry))
         }
     }

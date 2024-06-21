@@ -29,11 +29,11 @@ struct MessagesView: View {
     if text.prefix(2) == "S0" { attString.foregroundColor = .systemOrange }                      // S0
     
     // highlight any filterText value
-    if !store.messageFilterText.isEmpty {
-      if let range = attString.range(of: store.messageFilterText) {
+    if !store.appSettings.messageFilterText.isEmpty {
+      if let range = attString.range(of: store.appSettings.messageFilterText) {
         attString[range].underlineStyle = .single
         attString[range].foregroundColor = .yellow
-        attString[range].font = .boldSystemFont(ofSize: CGFloat(store.fontSize + 4))
+        attString[range].font = .boldSystemFont(ofSize: CGFloat(store.appSettings.fontSize + 4))
       }
     }
     return attString
@@ -74,17 +74,17 @@ struct MessagesView: View {
             LazyVStack(alignment: .leading) {
               ForEach(MessagesModel.shared.filteredMessages.reversed(), id: \.id) { tcpMessage in
                 HStack(alignment: .top) {
-                  if store.showTimes { Text(tcpMessage.interval, format: .number.precision(.fractionLength(6))) }
-                  Text(textLine(tcpMessage.text + "\(store.newLineBetweenMessages ? "\n" : "")"))
+                  if store.appSettings.showTimes { Text(tcpMessage.interval, format: .number.precision(.fractionLength(6))) }
+                  Text(textLine(tcpMessage.text + "\(store.appSettings.newLineBetweenMessages ? "\n" : "")"))
                 }
                 .textSelection(.enabled)
-                .font(.system(size: CGFloat(store.fontSize), weight: .regular, design: .monospaced))
+                .font(.system(size: CGFloat(store.appSettings.fontSize), weight: .regular, design: .monospaced))
               }
             }
           }
           .scrollPosition(id: $id)
           
-          .onChange(of: store.gotoBottom) {
+          .onChange(of: store.appSettings.gotoBottom) {
             if $1 {
               self.id = MessagesModel.shared.filteredMessages.first?.id
             } else {
@@ -109,7 +109,7 @@ private struct FilterMessagesView: View {
   var body: some View {
     
     HStack {
-      Picker("Show Tcp Messages of type", selection: $store.messageFilter) {
+      Picker("Show Tcp Messages of type", selection: $store.appSettings.messageFilter) {
         ForEach(MessageFilter.allCases, id: \.self) {
           Text($0.rawValue).tag($0.rawValue)
         }
@@ -121,7 +121,7 @@ private struct FilterMessagesView: View {
         .onTapGesture {
           store.send(.clearFilterTextTapped)
         }
-      TextField("filter text", text: $store.messageFilterText)
+      TextField("filter text", text: $store.appSettings.messageFilterText)
     }
   }
 }

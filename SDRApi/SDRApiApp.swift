@@ -19,7 +19,9 @@ import XCGLogFeature
 struct SDRApiApp: App {
   @NSApplicationDelegateAdaptor(AppDelegate.self)
   var appDelegate
-    
+
+  @Shared(.appSettings) var appSettings
+
   @State var apiModel = ApiModel.shared
   @State var listenerModel = ListenerModel.shared
   @State var objectModel = ObjectModel.shared

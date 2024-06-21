@@ -39,11 +39,11 @@ public struct SendView: View {
           store.send(.commandNextTapped)
         })
         .help("Load previously sent commands")
-        TextField("Command to send", text: $store.commandToSend)
+        TextField("Command to send", text: $store.appSettings.commandToSend)
       }
 //      .disabled(store.connectionState != .connected)
       
-      Toggle("Clear on Send", isOn: $store.clearOnSend)
+      Toggle("Clear on Send", isOn: $store.appSettings.clearOnSend)
         .toggleStyle(.button)
         .help("Clear the field after sending a command")
     }

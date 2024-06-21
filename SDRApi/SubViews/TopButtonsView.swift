@@ -25,7 +25,7 @@ public struct TopButtonsView: View {
   }
 
   @MainActor var buttonDisable: Bool {
-    guard store.directEnabled || store.localEnabled || store.smartlinkEnabled else { return true }
+    guard store.appSettings.directEnabled || store.appSettings.localEnabled || store.appSettings.smartlinkEnabled else { return true }
     switch store.connectionState {
     case .disconnected: return false
     case .connected:  return false
@@ -47,56 +47,56 @@ public struct TopButtonsView: View {
       .disabled(buttonDisable)
       .help("At least one connection type must be selected")
       
-      Toggle("Gui", isOn: $store.isGui)
+      Toggle("Gui", isOn: $store.appSettings.isGui)
  
       // Connection types
       ControlGroup {
-        Toggle("Direct", isOn: $store.directEnabled)
-        Toggle("Local", isOn: $store.localEnabled)
-        Toggle("Smartlink", isOn: $store.smartlinkEnabled)
+        Toggle("Direct", isOn: $store.appSettings.directEnabled)
+        Toggle("Local", isOn: $store.appSettings.localEnabled)
+        Toggle("Smartlink", isOn: $store.appSettings.smartlinkEnabled)
       }
       .frame(width: 180)
       .disabled(store.connectionState != .disconnected)
       .help("At least one connection type must be selected")
       
-      Toggle("Use Default", isOn: $store.useDefaultEnabled)
+      Toggle("Use Default", isOn: $store.appSettings.useDefaultEnabled)
         .disabled( store.connectionState != .disconnected )
         .help("Skip the Radio Picker")
       
-      Toggle("Smartlink Login", isOn: $store.smartlinkLoginRequired)
+      Toggle("Smartlink Login", isOn: $store.appSettings.smartlinkLoginRequired)
         .disabled( store.connectionState != .disconnected)
         .help("User must enter Login credentials")
       
       Spacer()
       
       HStack(spacing: 0) {
-        Picker("Dax", selection: $store.daxSelection) {
+        Picker("Dax", selection: $store.appSettings.daxSelection) {
           ForEach(daxChoices, id: \.self) {
             Text($0 == -1 ? "none" : $0 == 0 ? "Mic" : "Rx\($0)").tag($0)
           }
         }
-        .onChange(of: store.daxSelection) {
+        .onChange(of: store.appSettings.daxSelection) {
           store.send(.daxSelectionChanged($0, $1))
         }
-        Toggle("Low BW", isOn: $store.lowBandwidthDax)
+        Toggle("Low BW", isOn: $store.appSettings.lowBandwidthDax)
           .disabled( store.connectionState != .disconnected)
           .help("Enable Low Bandwidth Dax")
       }
       .frame(width: 180)
-      .disabled(store.isGui == false)
+      .disabled(store.appSettings.isGui == false)
 
 
       HStack(spacing: 0) {
-        Toggle("Rx Audio", isOn: $store.remoteRxAudioEnabled)
-          .disabled(store.isGui == false)
+        Toggle("Rx Audio", isOn: $store.appSettings.remoteRxAudioEnabled)
+          .disabled(store.appSettings.isGui == false)
           .help("Enable audio from the Radio to this Mac")
-        Toggle("Compress", isOn: $store.remoteRxAudioCompressed)
+        Toggle("Compress", isOn: $store.appSettings.remoteRxAudioCompressed)
           .help("Enable Rx Audio compression")
       }
-      .disabled(store.isGui == false)
+      .disabled(store.appSettings.isGui == false)
       .frame(width: 180)
       
-      Toggle("Tx Audio", isOn: $store.remoteTxAudioEnabled)
+      Toggle("Tx Audio", isOn: $store.appSettings.remoteTxAudioEnabled)
         .disabled(true)
         .help("Enable audio from this Mac to the Radio")
     }.toggleStyle(.button)
