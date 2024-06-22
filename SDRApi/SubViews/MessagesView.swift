@@ -1,6 +1,6 @@
 //
 //  MessagesView.swift
-//  SDRApiViewer
+//  SDRApi/Subviews
 //
 //  Created by Douglas Adams on 1/28/24.
 //
@@ -11,14 +11,22 @@ import SwiftUI
 import FlexApiFeature
 import SharedFeature
 
+public enum MessageFilter: String, Codable, CaseIterable {
+  case all
+  case prefix
+  case includes
+  case excludes
+  case command
+  case status
+  case reply
+  case S0
+}
+
 // ----------------------------------------------------------------------------
 // MARK: - View
 
 struct MessagesView: View {
   var store: StoreOf<SDRApi>
-  
-  @Namespace var topID
-  @Namespace var bottomID
   
   @MainActor func textLine( _ text: String) -> AttributedString {
     var attString = AttributedString(text)
@@ -92,9 +100,11 @@ struct MessagesView: View {
             }
           }
         }
+        
         .onAppear{
           store.send(.onAppear)
         }
+       
         .frame(minWidth: 1250, maxWidth: .infinity)
       }
     }
@@ -103,8 +113,6 @@ struct MessagesView: View {
 
 private struct FilterMessagesView: View {
   @Bindable var store: StoreOf<SDRApi>
-  
-  @State var messageFilterText = ""
   
   var body: some View {
     
@@ -121,6 +129,7 @@ private struct FilterMessagesView: View {
         .onTapGesture {
           store.send(.clearFilterTextTapped)
         }
+      
       TextField("filter text", text: $store.appSettings.messageFilterText)
     }
   }

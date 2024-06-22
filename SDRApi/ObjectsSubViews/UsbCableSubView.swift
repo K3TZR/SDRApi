@@ -101,5 +101,8 @@ private struct DetailView: View {
 
 #Preview {
   UsbCableSubView()
-    .environment(ApiModel.shared)
+    
+    .environment(ObjectModel.shared)
+  
+    .frame(minWidth: 1250)
 }

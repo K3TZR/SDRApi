@@ -41,6 +41,7 @@
 		9F1D15F22BB8946C0062A4CD /* TopButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1D15ED2BB8946C0062A4CD /* TopButtonsView.swift */; };
 		9F6DA4DE2C23176600CEC66F /* SettingsFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9F6DA4DD2C23176600CEC66F /* SettingsFeature */; };
 		9F6DA4FD2C236CF900CEC66F /* BottomButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DA4FC2C236CF900CEC66F /* BottomButtonsView.swift */; };
+		9F6DA5012C25117500CEC66F /* MessagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DA5002C25117500CEC66F /* MessagesModel.swift */; };
 		9F8399582BD44A41001FF105 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 9F8399572BD44A41001FF105 /* ComposableArchitecture */; };
 		9F8FB4752C0A19CB0081FFC3 /* XCGLogFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9F8FB4742C0A19CB0081FFC3 /* XCGLogFeature */; };
 		9FB712B92BF834A70092A9C5 /* AudioFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FB712B82BF834A70092A9C5 /* AudioFeature */; };
@@ -93,6 +94,7 @@
 		9F1D15EC2BB8946C0062A4CD /* SendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
 		9F1D15ED2BB8946C0062A4CD /* TopButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopButtonsView.swift; sourceTree = "<group>"; };
 		9F6DA4FC2C236CF900CEC66F /* BottomButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButtonsView.swift; sourceTree = "<group>"; };
+		9F6DA5002C25117500CEC66F /* MessagesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesModel.swift; sourceTree = "<group>"; };
 		9FB712B72BF82F160092A9C5 /* SDRApiFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SDRApiFeatures; path = ../Packages/SDRApiFeatures; sourceTree = "<group>"; };
 		9FDCEE852B5ED1300055FF11 /* SDRApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDRApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FDCEE972B5ED1720055FF11 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 		9FDCEE872B5ED1300055FF11 /* SDRApi */ = {
 			isa = PBXGroup;
 			children = (
+				9F6DA5002C25117500CEC66F /* MessagesModel.swift */,
 				9F1D15EE2BB8946C0062A4CD /* SubViews */,
 				9F1D15CE2BB8944F0062A4CD /* ObjectsSubViews */,
 				9F1D15B52BB8944F0062A4CD /* Preview Content */,
@@ -335,6 +338,7 @@
 				9F1D15D72BB8944F0062A4CD /* GpsSubView.swift in Sources */,
 				9F1D15E72BB8944F0062A4CD /* WanSubView.swift in Sources */,
 				9F1D15E42BB8944F0062A4CD /* TnfSubView.swift in Sources */,
+				9F6DA5012C25117500CEC66F /* MessagesModel.swift in Sources */,
 				9F1D15DD2BB8944F0062A4CD /* MiscSubView.swift in Sources */,
 				9F0029E52BE729BF00E2A401 /* MessagesView.swift in Sources */,
 				9F1D15E62BB8944F0062A4CD /* UsbCableSubView.swift in Sources */,

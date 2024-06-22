@@ -24,9 +24,10 @@ struct SDRApiApp: App {
 
   @State var apiModel = ApiModel.shared
   @State var listenerModel = ListenerModel.shared
+  @State var messagesModel = MessagesModel.shared
   @State var objectModel = ObjectModel.shared
-  
-  private var testerApiModel: ApiModel { apiModel.testMode = true ; return apiModel }
+
+  private var testApiModel: ApiModel { apiModel.testDelegate = MessagesModel.shared ; return apiModel }
 
   /// Struct to hold a Semantic Version number
   private struct Version {
@@ -59,22 +60,23 @@ struct SDRApiApp: App {
       SDRApiView(store: Store(initialState: SDRApi.State()) {
         SDRApi()
       })
-      .environment(testerApiModel)
+      .environment(testApiModel)
       .environment(listenerModel)
+      .environment(messagesModel)
       .environment(objectModel)
     }
     
     // Settings window
-    Settings {
-      SettingsView(store: Store(initialState: SettingsCore.State()) {
-        SettingsCore()
-      })
-        .environment(apiModel)
-        .environment(objectModel)
-    }
-    .windowStyle(.hiddenTitleBar)
-    .windowResizability(WindowResizability.contentSize)
-    .defaultPosition(.bottomLeading)
+//    Settings {
+//      SettingsView(store: Store(initialState: SettingsCore.State()) {
+//        SettingsCore()
+//      })
+//        .environment(apiModel)
+//        .environment(objectModel)
+//    }
+//    .windowStyle(.hiddenTitleBar)
+//    .windowResizability(WindowResizability.contentSize)
+//    .defaultPosition(.bottomLeading)
   }
 }
 
@@ -98,4 +100,70 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
     true
   }
+}
+
+// ----------------------------------------------------------------------------
+// MARK: - Persistence URL Extension
+
+extension URL {
+  static let appSettings = Self
+    .applicationSupportDirectory
+    .appending(path: "appSettings.json")
+}
+
+// ----------------------------------------------------------------------------
+// MARK: - PersistenceKey Extension
+
+extension PersistenceKey
+where Self == PersistenceKeyDefault<FileStorageKey<AppSettings>> {
+  public static var appSettings: Self {
+    PersistenceKeyDefault(
+      .fileStorage(.appSettings),
+      AppSettings()
+    )
+  }
+}
+
+// ----------------------------------------------------------------------------
+// MARK: - Persistence properties
+
+public struct AppSettings: Codable, Equatable {
+  public var alertOnError = true
+  public var clearOnSend = false
+  public var clearOnStart = true
+  public var clearOnStop = true
+  public var commandsArray = [String]()
+  public var commandsIndex = 0
+  public var commandToSend = ""
+  public var daxSelection = -1
+  public var directEnabled = false
+  public var directGuiIp = ""
+  public var directNonGuiIp = ""
+  public var fontSize = 12
+  public var gotoBottom = false
+  public var guiDefault: String = ""
+  public var isGui = true
+  public var localEnabled = true
+  public var lowBandwidthConnect = false
+  public var lowBandwidthDax = false
+  public var messageFilter: MessageFilter = .all
+  public var messageFilterText = ""
+  public var mtuValue = 1_300
+  public var newLineBetweenMessages = false
+  public var nonGuiDefault: String = ""
+  public var previousCommand = ""
+  public var previousIdToken: String = ""
+  public var radioObjectFilter: RadioObjectFilter = .all
+  public var refreshToken: String = ""
+  public var remoteRxAudioCompressed = false
+  public var remoteRxAudioEnabled = false
+  public var remoteTxAudioEnabled = false
+  public var showPings = false
+  public var showTimes = true
+  public var smartlinkEnabled = false
+  public var smartlinkLoginRequired = false
+  public var smartlinkUser = ""
+  public var station = "SDRApi"
+  public var stationObjectFilter: StationObjectFilter = .noMeters  
+  public var useDefaultEnabled = false
 }

@@ -15,7 +15,6 @@ import FlexApiFeature
 
 struct XvtrSubView: View {
 
-  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
@@ -48,6 +47,8 @@ struct XvtrSubView: View {
 
 #Preview {
   XvtrSubView()
-    .environment(ApiModel.shared)
+
     .environment(ObjectModel.shared)
+  
+    .frame(minWidth: 1250)
 }

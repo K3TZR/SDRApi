@@ -1,6 +1,6 @@
 //
 //  CwxSubView.swift
-//  Api6000/SubViews
+//  SDRApi/ObjectsSubViews
 //
 //  Created by Douglas Adams on 8/10/22.
 //
@@ -54,5 +54,9 @@ struct CwxSubView: View {
 
 #Preview {
   CwxSubView()
+  
     .environment(ObjectModel.shared)
+  
+    .frame(width: 1250)
+  
 }

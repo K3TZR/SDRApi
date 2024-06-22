@@ -1,6 +1,6 @@
 //
 //  BandSettingsSubView.swift
-//  Api6000/SubViews
+//  SDRApi/ObjectsSubViews
 //
 //  Created by Douglas Adams on 1/23/22.
 //
@@ -100,6 +100,8 @@ private struct DetailView: View {
   BandSettingSubView(store: Store(initialState: SDRApi.State()) {
     SDRApi()
   }, sourceColor: .blue)
-
+  
   .environment(ObjectModel.shared)
+  
+  .frame(width: 1250)
 }

@@ -34,7 +34,6 @@ struct SDRApiView: View {
         Divider().background(Color(.cyan))
         MessagesView(store: store)
           .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
-
       }
       Spacer()
       Divider().background(Color(.gray))

@@ -1,6 +1,6 @@
 //
 //  SendView.swift
-//  SDRApiViewer
+//  SDRApi/Subviews
 //
 //  Created by Douglas Adams on 12/27/23.
 //
@@ -15,8 +15,6 @@ import FlexApiFeature
 
 public struct SendView: View {
   @Bindable var store: StoreOf<SDRApi>
-
-//  @State var commandToSend = ""
 
   public var body: some View {
     
@@ -39,9 +37,9 @@ public struct SendView: View {
           store.send(.commandNextTapped)
         })
         .help("Load previously sent commands")
+        
         TextField("Command to send", text: $store.appSettings.commandToSend)
       }
-//      .disabled(store.connectionState != .connected)
       
       Toggle("Clear on Send", isOn: $store.appSettings.clearOnSend)
         .toggleStyle(.button)

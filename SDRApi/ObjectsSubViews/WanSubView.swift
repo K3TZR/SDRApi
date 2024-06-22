@@ -15,7 +15,6 @@ import FlexApiFeature
 
 struct WanSubView: View {
 
-  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
@@ -47,5 +46,8 @@ struct WanSubView: View {
 
 #Preview {
   WanSubView()
-    .environment(ApiModel.shared)
+    
+    .environment(ObjectModel.shared)
+  
+    .frame(minWidth: 1250)
 }

@@ -31,50 +31,8 @@ public struct SDRApi {
   @ObservableState
   public struct State {
     
-    @Shared(.appSettings) var appSettings
-    
     // persistent
-    //    @Shared(.appStorage("alertOnError")) var alertOnError = false
-//    @Shared(.appStorage("clearOnStart")) var clearOnStart = true
-//    @Shared(.appStorage("clearOnStop")) var clearOnStop = true
-//    @Shared(.appStorage("gotoBottom")) var gotoBottom = false
-//    @Shared(.appStorage("messageFilter")) var messageFilter: MessageFilter = .all
-//    @Shared(.appStorage("messageFilterText")) var messageFilterText = ""
-//    @Shared(.appStorage("showPings")) var showPings = false
-//    @Shared(.appStorage("showTimes")) var showTimes = true
-//    @Shared(.appStorage("newLineBetweenMessages")) var newLineBetweenMessages = false
-    
-    
-    
-//    @Shared(.appStorage("clearOnSend")) var clearOnSend = false
-//    @Shared(.appStorage("commandToSend")) var commandToSend = ""
-//    @Shared(.appStorage("commandsArray")) var commandsArray = [String]()
-//    @Shared(.appStorage("commandsIndex")) var commandsIndex = 0
-//    @Shared(.appStorage("daxSelection")) var daxSelection = -1
-//    @Shared(.appStorage("directEnabled")) var directEnabled = false
-//    @Shared(.appStorage("directGuiIp")) var directGuiIp = ""
-//    @Shared(.appStorage("directNonGuiIp")) var directNonGuiIp = ""
-//    @Shared(.appStorage("fontSize")) var fontSize = 12
-//    @Shared(.appStorage("guiDefault")) var guiDefault: String = ""
-//    @Shared(.appStorage("isGui")) var isGui = true
-//    @Shared(.appStorage("localEnabled")) var localEnabled = true
-//    @Shared(.appStorage("lowBandwidthConnect")) var lowBandwidthConnect = false
-//    @Shared(.appStorage("lowBandwidthDax")) var lowBandwidthDax = false
-//    @Shared(.appStorage("mtuValue")) var mtuValue = 1_300
-//    @Shared(.appStorage("nonGuiDefault")) var nonGuiDefault: String = ""
-//    @Shared(.appStorage("radioObjectFilter")) var radioObjectFilter: RadioObjectFilter = .all
-//    @Shared(.appStorage("stationObjectFilter")) var stationObjectFilter: StationObjectFilter = .noMeters
-//    @Shared(.appStorage("previousCommand")) var previousCommand = ""
-//    @Shared(.appStorage("previousIdToken")) var previousIdToken: String = ""
-//    @Shared(.appStorage("refreshToken")) var refreshToken: String = ""
-//    @Shared(.appStorage("remoteRxAudioCompressed")) var remoteRxAudioCompressed = false
-//    @Shared(.appStorage("remoteRxAudioEnabled")) var remoteRxAudioEnabled = false
-//    @Shared(.appStorage("remoteTxAudioEnabled")) var remoteTxAudioEnabled = false
-//    @Shared(.appStorage("smartlinkEnabled")) var smartlinkEnabled = false
-//    @Shared(.appStorage("smartlinkLoginRequired")) var smartlinkLoginRequired = false
-//    @Shared(.appStorage("smartlinkUser")) var smartlinkUser = ""
-//    @Shared(.appStorage("station")) var station = "SDRApi"
-//    @Shared(.appStorage("useDefaultEnabled")) var useDefaultEnabled = false
+    @Shared(.appSettings) var appSettings
     
     // non-persistent
     var initialized = false
@@ -194,11 +152,13 @@ public struct SDRApi {
         return commandSend(&state)
         
       case .clearButtonTapped:
-        return .run { _ in await MessagesModel.shared.clear() }
-        
+        MessagesModel.shared.clear()
+        return .none
+
       case .clearFilterTextTapped:
         state.appSettings.messageFilterText = ""
-        return .run {[filter = state.appSettings.messageFilter] _ in await MessagesModel.shared.reFilter(filter, "") }
+        MessagesModel.shared.reFilter(state.appSettings.messageFilter, "")
+        return .none
         
       case .saveButtonTapped:
         return saveMessages(state)
@@ -208,13 +168,6 @@ public struct SDRApi {
         
         // ----------------------------------------------------------------------------
         // MARK: - Root Binding Actions
-        
-//      case .binding(\.daxSelection):
-//        if state.daxSelection == none {
-//          return daxAudioStop(&state)
-//        } else {
-//          return daxAudioStart(&state)
-//        }
         
       case .binding(\.appSettings.directEnabled):
         state.appSettings.localEnabled = false
@@ -232,10 +185,12 @@ public struct SDRApi {
         return listenerStartStop(&state)
         
       case .binding(\.appSettings.messageFilter):
-        return .run { [filter = state.appSettings.messageFilter, text = state.appSettings.messageFilterText] _ in await MessagesModel.shared.reFilter(filter, text) }
+        MessagesModel.shared.reFilter(state.appSettings.messageFilter, state.appSettings.messageFilterText)
+        return .none
         
       case .binding(\.appSettings.messageFilterText):
-        return .run { [filter = state.appSettings.messageFilter, text = state.appSettings.messageFilterText] _ in await MessagesModel.shared.reFilter(filter, text) }
+        MessagesModel.shared.reFilter(state.appSettings.messageFilter, state.appSettings.messageFilterText)
+        return .none
         
       case .binding(\.appSettings.remoteRxAudioCompressed):
         if state.connectionState == .connected && state.appSettings.remoteRxAudioEnabled {
@@ -259,9 +214,8 @@ public struct SDRApi {
         }
         
       case .binding(\.appSettings.showPings):
-        return .run {[showPings = state.appSettings.showPings] _ in
-          await MessagesModel.shared.showPings(showPings)
-        }
+        MessagesModel.shared.showPings(state.appSettings.showPings)
+        return .none
         
       case .binding(\.appSettings.smartlinkEnabled):
         state.appSettings.directEnabled = false
@@ -448,6 +402,7 @@ public struct SDRApi {
     return .run {
       var activePacket: Packet?
       var activeStation: String?
+      
       if state.appSettings.isGui {
         activePacket = await ListenerModel.shared.packets[id: selection]
         activeStation = "SDRApi"
@@ -455,6 +410,7 @@ public struct SDRApi {
         activePacket = await ListenerModel.shared.stations[id: selection]?.packet
         activeStation = await ListenerModel.shared.stations[id: selection]?.station
       }
+      MessagesModel.shared.resetStartTime()
 
       // attempt to connect to the selected Radio / Station
       do {
@@ -476,42 +432,8 @@ public struct SDRApi {
     }
   }
   
-  
-//  private func parseSelection(_ selection: String, state: State) -> (Packet, String) {
-//    if state.appSettings.directEnabled {
-//
-//      let components = selection.components(separatedBy: "|")
-//      let serial = components[0]
-//      let publicIp = components[1]
-//      
-//      if state.appSettings.isGui {
-//       return ( Packet(nickname: "DIRECT", serial: serial, publicIp: publicIp, port: 4_992), "SDRApi")
-//      } else {
-//        fatalError()
-//      }
-//      
-//    } else {
-//      Task {
-//        if state.appSettings.isGui {
-//          return ( await _listenerModel.packets[id: selection]!, "SDRApi" )
-//        } else {
-//          return ( await _listenerModel.stations[id: selection]!.packet, await _listenerModel.stations[id: selection]!.station )
-//        }
-//      }
-//    }
-//
-//  }
-  
-  
-  
-  
-  
-  
-  
-  
-  
   private func connectionStart(_ state: State)  -> Effect<SDRApi.Action> {
-    if state.appSettings.clearOnStart { Task { await MessagesModel.shared.clear() } }
+    if state.appSettings.clearOnStart { MessagesModel.shared.clear() }
     if state.appSettings.directEnabled {
       // DIRECT Mode
       return .run {
@@ -553,7 +475,7 @@ public struct SDRApi {
   }
   
   private func connectionStop(_ state: State)  -> Effect<SDRApi.Action> {
-    if state.appSettings.clearOnStop { Task { await MessagesModel.shared.clear() } }
+    if state.appSettings.clearOnStop { MessagesModel.shared.clear() }
     return .run {
       await ObjectModel.shared.clientInitialized(false)
       ApiModel.shared.disconnect()
@@ -562,7 +484,6 @@ public struct SDRApi {
   }
   
   private func connectionStatus(_ state: inout State, _ status: ConnectionState) -> Effect<SDRApi.Action> {
-    
     switch status {
     case .connected:
       state.connectionState = .connected
@@ -637,7 +558,7 @@ public struct SDRApi {
             
       // instantiate the Logger, use the group defaults (not the Standard)
       XCGWrapper.shared.setup(logLevel: .debug, group: "group.net.k3tzr.flexapps")
-
+      
       // mark as initialized
       state.initialized = true
             
@@ -704,7 +625,6 @@ public struct SDRApi {
   }
   
   private func remoteRxAudioStart(_ state: inout State) -> Effect<SDRApi.Action> {
-//    state.audioOutput = RxAudioPlayer()
     return .run { [state] _ in
       // request a stream
       ApiModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.appSettings.remoteRxAudioCompressed, replyTo: remoteRxReplyHandler)
@@ -727,12 +647,12 @@ public struct SDRApi {
   }
   
   private func remoteTxAudioStart(_ state: inout State)  -> Effect<SDRApi.Action> {
-    // TODO
+    print("TODO: remoteTxAudioStart") // TODO
     return .none
   }
   
   private func remoteTxAudioStop(_ state: inout State)  -> Effect<SDRApi.Action> {
-    // TODO
+    print("TODO: remoteTxAudioStop") // TODO
     return .none
   }
   

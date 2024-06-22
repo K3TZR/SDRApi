@@ -66,7 +66,6 @@ struct StreamSubView: View {
       }
     }
     .frame(minWidth: 1250, maxWidth: .infinity)
-//    .padding(.leading, 20)
   }
 }
 
@@ -280,6 +279,8 @@ private struct WaterfallStreamView: View {
 
 #Preview {
   StreamSubView(handle: 1)
+    
     .environment(ObjectModel.shared)
-//    .environment(StreamModel.shared)
+  
+    .frame(minWidth: 1250)
 }

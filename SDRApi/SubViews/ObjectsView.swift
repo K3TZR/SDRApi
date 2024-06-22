@@ -1,6 +1,6 @@
 //
 //  ObjectsView.swift
-//  SDRApiViewer
+//  SDRApi/Subviews
 //
 //  Created by Douglas Adams on 1/29/24.
 //
@@ -10,6 +10,35 @@ import SwiftUI
 
 import FlexApiFeature
 import SharedFeature
+
+public enum RadioObjectFilter: String, Codable, CaseIterable {
+  case all
+  case atu
+  case bandSettings = "band settings"
+  case equalizers
+  case gps
+  case lists
+  case tnf
+  case transmit
+}
+
+public enum StationObjectFilter: String, Codable, CaseIterable {
+  case all
+  case noMeters = "w/o meters"
+  case amplifiers
+  case cwx
+  case interlock
+  case memories
+  case meters
+  case misc
+  case network
+  case profiles
+  case streams
+  case usbCable
+  case wan
+  case waveforms
+  case xvtrs
+}
 
 // ----------------------------------------------------------------------------
 // MARK: - View
@@ -26,6 +55,7 @@ public struct ObjectsView: View {
     VStack(alignment: .leading) {
       HStack(spacing: 40) {
         FilterRadioObjectsView(store: store)
+        
         FilterStationObjectsView(store: store)
       }
       
@@ -36,12 +66,14 @@ public struct ObjectsView: View {
             Text("RADIO Objects will be displayed here").frame(maxWidth: .infinity)
             Spacer()
           }
+          
           VStack(alignment: .center) {
             Spacer()
             Text("STATION Objects will be displayed here").frame(maxWidth: .infinity)
             Spacer()
           }
-          if store.appSettings.isGui == false { 
+          
+          if store.appSettings.isGui == false {
             VStack(alignment: .center) {
               Spacer()
               Text("SDRApi Objects will be displayed here").frame(maxWidth: .infinity)
@@ -53,7 +85,9 @@ public struct ObjectsView: View {
       } else {
         VSplitView {
           RadioSubView(store: store)
+          
           GuiClientSubView(store: store)
+          
           if store.appSettings.isGui == false { TesterSubView() }
         }
         .textSelection(.enabled)

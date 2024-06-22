@@ -61,8 +61,8 @@ struct InterlockSubView: View {
 
 #Preview {
   InterlockSubView()
+
     .environment(ObjectModel.shared)
   
     .frame(width: 1250)
-    .padding()
 }

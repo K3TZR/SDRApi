@@ -1,6 +1,6 @@
 //
 //  GuiClientSubView.swift
-//  Api6000/SubViews
+//  SDRApi/ObjectsSubViews
 //
 //  Created by Douglas Adams on 1/23/22.
 //
@@ -18,7 +18,6 @@ import SharedFeature
 struct GuiClientSubView: View {
   let store: StoreOf<SDRApi>
     
-  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) private var objectModel
 
   var body: some View {
@@ -26,7 +25,6 @@ struct GuiClientSubView: View {
     if objectModel.activePacket != nil {
       ForEach(objectModel.activePacket!.guiClients, id: \.id) { guiClient in
         DetailView(store: store, guiClient: guiClient)
-//          .frame(minWidth: 1250, maxWidth: .infinity)
       }
     } else {
       Text("No active packet")
@@ -92,41 +90,7 @@ private struct DetailView: View {
   }
 }
 
-
-
-
-/*
- ScrollView([.vertical, .horizontal]) {
-   VStack(alignment: .leading) {
-     HStack(spacing: 0) {
-       Label("Radio", systemImage: showSubView ? "chevron.down" : "chevron.right")
-         .foregroundColor(sourceColor)
-         .font(.title)
-         .frame(width: 120, alignment: .leading)
-         .onTapGesture{ showSubView.toggle() }
-         .help("          Tap to toggle details")
-       
-       Text(objectModel.radio?.packet.nickname ?? "" )
-         .foregroundColor(sourceColor)
-         .frame(width: 120, alignment: .leading)
-       
-       Line1View()
-     }
-     
-     if showSubView {  DetailView(store: store, sourceColor: sourceColor) }
-   }.frame(maxWidth: .infinity, minHeight: 200)
- }
-
- */
-
-
-
-
-
-
-
-
-struct GuiClientDetailView: View {
+private struct GuiClientDetailView: View {
   var stationObjectFilter: StationObjectFilter
   let handle: UInt32
 
@@ -156,7 +120,6 @@ struct GuiClientDetailView: View {
       case .xvtrs:             XvtrSubView()
       }
     }      
-//    .frame(minWidth: 1250, maxWidth: .infinity)
   }
 }
 
@@ -167,7 +130,8 @@ struct GuiClientDetailView: View {
   GuiClientSubView(store: Store(initialState: SDRApi.State()) {
     SDRApi()
   })
-  .environment(ApiModel.shared)
-  .environment(ListenerModel.shared)
+  
   .environment(ObjectModel.shared)
+  
+  .frame(width: 1250)
 }

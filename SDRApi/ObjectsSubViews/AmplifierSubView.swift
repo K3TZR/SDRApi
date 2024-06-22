@@ -1,6 +1,6 @@
 //
 //  AmplifierSubView.swift
-//  Api6000/SubViews
+//  SDRApi/ObjectsSubViews
 //
 //  Created by Douglas Adams on 1/24/22.
 //
@@ -75,6 +75,7 @@ private struct DetailView: View {
 
 #Preview {
   AmplifierSubView()
+
     .environment(ObjectModel.shared)
   
     .frame(width: 1250)

@@ -50,6 +50,9 @@ struct TesterSubView: View {
 
 #Preview {
   TesterSubView()
+    
     .environment(ApiModel.shared)
     .environment(ObjectModel.shared)
+  
+    .frame(minWidth: 1250)
 }

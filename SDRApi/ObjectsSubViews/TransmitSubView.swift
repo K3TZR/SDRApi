@@ -105,5 +105,8 @@ private struct CwView: View {
   
 #Preview {
   TransmitSubView(sourceColor: .blue)
+    
     .environment(ObjectModel.shared)
+  
+    .frame(minWidth: 1250)
 }

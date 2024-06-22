@@ -51,4 +51,8 @@ struct ListsView: View {
 
 #Preview {
   ListsView(sourceColor: .blue)
+  
+    .environment(ObjectModel.shared)
+  
+    .frame(width: 1250)
 }

@@ -142,6 +142,9 @@ private struct DetailView: View {
   RadioSubView(store: Store(initialState: SDRApi.State()) {
     SDRApi()
   })
-    .environment(ObjectModel.shared)
-    .frame(minWidth: 1250)
+    
+  .environment(ApiModel.shared)
+  .environment(ObjectModel.shared)
+    
+  .frame(minWidth: 1250)
 }

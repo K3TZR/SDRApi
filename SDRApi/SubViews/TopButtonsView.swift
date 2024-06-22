@@ -1,6 +1,6 @@
 //
 //  TopButtonsView.swift
-//  SDRApiViewer
+//  SDRApi/Subviews
 //
 //  Created by Douglas Adams on 12/27/23.
 //
@@ -75,9 +75,11 @@ public struct TopButtonsView: View {
             Text($0 == -1 ? "none" : $0 == 0 ? "Mic" : "Rx\($0)").tag($0)
           }
         }
+        
         .onChange(of: store.appSettings.daxSelection) {
           store.send(.daxSelectionChanged($0, $1))
         }
+        
         Toggle("Low BW", isOn: $store.appSettings.lowBandwidthDax)
           .disabled( store.connectionState != .disconnected)
           .help("Enable Low Bandwidth Dax")
@@ -90,6 +92,7 @@ public struct TopButtonsView: View {
         Toggle("Rx Audio", isOn: $store.appSettings.remoteRxAudioEnabled)
           .disabled(store.appSettings.isGui == false)
           .help("Enable audio from the Radio to this Mac")
+        
         Toggle("Compress", isOn: $store.appSettings.remoteRxAudioCompressed)
           .help("Enable Rx Audio compression")
       }
