@@ -19,23 +19,23 @@ public struct BottomButtonsView: View {
   public var body: some View {
     
     HStack {
-      Toggle(isOn: $store.appSettings.gotoBottom) {
+      Toggle(isOn: $store.gotoBottom) {
         Image(systemName: "arrow.down.square").font(.title)
       }
       
       Spacer()
       
       HStack(spacing: 5) {
-        Stepper("Font Size", value: $store.appSettings.fontSize, in: 8...14)
-        Text(store.appSettings.fontSize, format: .number).frame(alignment: .leading)
+        Stepper("Font Size", value: $store.fontSize, in: 8...14)
+        Text(store.fontSize, format: .number).frame(alignment: .leading)
       }
-      Toggle("Line Spacing", isOn: $store.appSettings.newLineBetweenMessages)
+      Toggle("Line Spacing", isOn: $store.newLineBetweenMessages)
       
       Spacer()
       HStack {
-        Toggle("Show Times", isOn: $store.appSettings.showTimes)
-        Toggle("Show Pings", isOn: $store.appSettings.showPings)
-        Toggle("Show Alerts", isOn: $store.appSettings.alertOnError)
+        Toggle("Show Times", isOn: $store.showTimes)
+        Toggle("Show Pings", isOn: $store.showPings)
+        Toggle("Show Alerts", isOn: $store.alertOnError)
           .help("Display a sheet when an Error / Warning occurs")
       }
       
@@ -44,8 +44,8 @@ public struct BottomButtonsView: View {
       
       Spacer()
       HStack {
-        Toggle("Clear on Start", isOn: $store.appSettings.clearOnStart)
-        Toggle("Clear on Stop", isOn: $store.appSettings.clearOnStop)
+        Toggle("Clear on Start", isOn: $store.clearOnStart)
+        Toggle("Clear on Stop", isOn: $store.clearOnStop)
       }
       
       Button("Clear") { store.send(.clearButtonTapped) }

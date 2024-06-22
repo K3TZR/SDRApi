@@ -20,8 +20,6 @@ struct SDRApiApp: App {
   @NSApplicationDelegateAdaptor(AppDelegate.self)
   var appDelegate
 
-  @Shared(.appSettings) var appSettings
-
   @State var apiModel = ApiModel.shared
   @State var listenerModel = ListenerModel.shared
   @State var messagesModel = MessagesModel.shared
@@ -114,56 +112,56 @@ extension URL {
 // ----------------------------------------------------------------------------
 // MARK: - PersistenceKey Extension
 
-extension PersistenceKey
-where Self == PersistenceKeyDefault<FileStorageKey<AppSettings>> {
-  public static var appSettings: Self {
-    PersistenceKeyDefault(
-      .fileStorage(.appSettings),
-      AppSettings()
-    )
-  }
-}
+//extension PersistenceKey
+//where Self == PersistenceKeyDefault<FileStorageKey<AppSettings>> {
+//  public static var appSettings: Self {
+//    PersistenceKeyDefault(
+//      .fileStorage(),
+//      AppSettings()
+//    )
+//  }
+//}
 
 // ----------------------------------------------------------------------------
 // MARK: - Persistence properties
 
-public struct AppSettings: Codable, Equatable {
-  public var alertOnError = true
-  public var clearOnSend = false
-  public var clearOnStart = true
-  public var clearOnStop = true
-  public var commandsArray = [String]()
-  public var commandsIndex = 0
-  public var commandToSend = ""
-  public var daxSelection = -1
-  public var directEnabled = false
-  public var directGuiIp = ""
-  public var directNonGuiIp = ""
-  public var fontSize = 12
-  public var gotoBottom = false
-  public var guiDefault: String = ""
-  public var isGui = true
-  public var localEnabled = true
-  public var lowBandwidthConnect = false
-  public var lowBandwidthDax = false
-  public var messageFilter: MessageFilter = .all
-  public var messageFilterText = ""
-  public var mtuValue = 1_300
-  public var newLineBetweenMessages = false
-  public var nonGuiDefault: String = ""
-  public var previousCommand = ""
-  public var previousIdToken: String = ""
-  public var radioObjectFilter: RadioObjectFilter = .all
-  public var refreshToken: String = ""
-  public var remoteRxAudioCompressed = false
-  public var remoteRxAudioEnabled = false
-  public var remoteTxAudioEnabled = false
-  public var showPings = false
-  public var showTimes = true
-  public var smartlinkEnabled = false
-  public var smartlinkLoginRequired = false
-  public var smartlinkUser = ""
-  public var station = "SDRApi"
-  public var stationObjectFilter: StationObjectFilter = .noMeters  
-  public var useDefaultEnabled = false
-}
+//public struct AppSettings: Codable, Equatable {
+//  public var alertOnError = true
+//  public var clearOnSend = false
+//  public var clearOnStart = true
+//  public var clearOnStop = true
+//  public var commandsArray = [String]()
+//  public var commandsIndex = 0
+//  public var commandToSend = ""
+//  public var daxSelection = -1
+//  public var directEnabled = false
+//  public var directGuiIp = ""
+//  public var directNonGuiIp = ""
+//  public var fontSize = 12
+//  public var gotoBottom = false
+//  public var guiDefault: String = ""
+//  public var isGui = true
+//  public var localEnabled = true
+//  public var lowBandwidthConnect = false
+//  public var lowBandwidthDax = false
+//  public var messageFilter: MessageFilter = .all
+//  public var messageFilterText = ""
+//  public var mtuValue = 1_300
+//  public var newLineBetweenMessages = false
+//  public var nonGuiDefault: String = ""
+//  public var previousCommand = ""
+//  public var previousIdToken: String = ""
+//  public var radioObjectFilter: RadioObjectFilter = .all
+//  public var refreshToken: String = ""
+//  public var remoteRxAudioCompressed = false
+//  public var remoteRxAudioEnabled = false
+//  public var remoteTxAudioEnabled = false
+//  public var showPings = false
+//  public var showTimes = true
+//  public var smartlinkEnabled = false
+//  public var smartlinkLoginRequired = false
+//  public var smartlinkUser = ""
+//  public var station = "SDRApi"
+//  public var stationObjectFilter: StationObjectFilter = .noMeters  
+//  public var useDefaultEnabled = false
+//}

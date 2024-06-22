@@ -73,7 +73,7 @@ public struct ObjectsView: View {
             Spacer()
           }
           
-          if store.appSettings.isGui == false {
+          if store.isGui == false {
             VStack(alignment: .center) {
               Spacer()
               Text("SDRApi Objects will be displayed here").frame(maxWidth: .infinity)
@@ -88,10 +88,10 @@ public struct ObjectsView: View {
           
           GuiClientSubView(store: store)
           
-          if store.appSettings.isGui == false { TesterSubView() }
+          if store.isGui == false { TesterSubView() }
         }
         .textSelection(.enabled)
-        .font(.system(size: CGFloat(store.appSettings.fontSize), weight: .regular, design: .monospaced))
+        .font(.system(size: CGFloat(store.fontSize), weight: .regular, design: .monospaced))
         .padding(.horizontal, 10)
       }
     }
@@ -103,7 +103,7 @@ private struct FilterRadioObjectsView: View {
   
   var body: some View {
     
-    Picker("Show RADIO Objects of type", selection: $store.appSettings.radioObjectFilter) {
+    Picker("Show RADIO Objects of type", selection: $store.radioObjectFilter) {
       ForEach(RadioObjectFilter.allCases, id: \.self) {
         Text($0.rawValue).tag($0.rawValue)
       }
@@ -118,7 +118,7 @@ private struct FilterStationObjectsView: View {
   
   var body: some View {
     
-    Picker("Show STATION Objects of type", selection: $store.appSettings.stationObjectFilter) {
+    Picker("Show STATION Objects of type", selection: $store.stationObjectFilter) {
       ForEach(StationObjectFilter.allCases, id: \.self) {
         Text($0.rawValue).tag($0.rawValue)
       }

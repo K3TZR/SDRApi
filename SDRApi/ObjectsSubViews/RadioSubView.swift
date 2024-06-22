@@ -113,7 +113,7 @@ private struct DetailView: View {
   var body: some View {
     
     VStack(alignment: .leading) {
-      switch store.appSettings.radioObjectFilter {
+      switch store.radioObjectFilter {
       case .all:
         AtuSubView(sourceColor: sourceColor)
         BandSettingSubView(store: store, sourceColor: sourceColor)
