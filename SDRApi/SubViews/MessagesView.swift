@@ -124,6 +124,10 @@ private struct FilterMessagesView: View {
       }
       .pickerStyle(MenuPickerStyle())
       .frame(width: 300)
+      .onChange(of: store.messageFilter) { _, _ in
+        store.send(.messagesFilterChanged)
+      }
+
       
       Image(systemName: "x.circle").font(.title2)
         .onTapGesture {
@@ -131,6 +135,9 @@ private struct FilterMessagesView: View {
         }
       
       TextField("filter text", text: $store.messageFilterText)
+        .onChange(of: store.messageFilterText) { _, _ in
+          store.send(.messagesFilterChanged)
+        }
     }
   }
 }

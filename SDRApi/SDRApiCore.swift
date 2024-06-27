@@ -18,7 +18,7 @@ import ListenerFeature
 import LoginFeature
 import PickerFeature
 import SharedFeature
-import XCGLogFeature
+//import XCGLogFeature
 
 @Reducer
 public struct SDRApi {
@@ -32,7 +32,10 @@ public struct SDRApi {
   public struct State {
     
     // persistent
-    @Shared(.appStorage("alertOnError")) var alertOnError = true
+    
+    @Shared(.appSettings) var appSettings: AppSettings
+    
+//    @Shared(.appStorage("alertOnError")) var alertOnError = true
     @Shared(.appStorage("clearOnSend")) var clearOnSend = false
     @Shared(.appStorage("clearOnStart")) var clearOnStart = true
     @Shared(.appStorage("clearOnStop")) var clearOnStop = true
@@ -60,7 +63,7 @@ public struct SDRApi {
     @Shared(.appStorage("radioObjectFilter")) var radioObjectFilter: RadioObjectFilter = .all
     @Shared(.appStorage("refreshToken")) var refreshToken: String = ""
     @Shared(.appStorage("remoteRxAudioCompressed")) var remoteRxAudioCompressed = false
-    @Shared(.appStorage("remoteRxAudioEnabled")) var remoteRxAudioEnabled = false
+//    @Shared(.appStorage("remoteRxAudioEnabled")) var remoteRxAudioEnabled = false
     @Shared(.appStorage("remoteTxAudioEnabled")) var remoteTxAudioEnabled = false
     @Shared(.appStorage("showPings")) var showPings = false
     @Shared(.appStorage("showTimes")) var showTimes = true
@@ -97,8 +100,16 @@ public struct SDRApi {
     case commandNextTapped
     case commandPreviousTapped
     case daxSelectionChanged(Int,Int)
+    case directEnabledChanged
+    case localEnabledChanged
+    case messagesFilterChanged
+    case remoteRxAudioEnabledChanged
+    case remoteRxAudioCompressedChanged
+    case remoteTxAudioEnabledChanged
     case saveButtonTapped
     case sendButtonTapped
+    case showPingsChanged
+    case smartlinkEnabledChanged
     case tnfsEnabledClicked
     
     // secondary actions
@@ -109,7 +120,7 @@ public struct SDRApi {
     case showAlert(Alert,String)
     case showClientSheet(String, IdentifiedArrayOf<GuiClient>)
     case showDirectSheet
-    case showLogAlert(LogEntry)
+//    case showLogAlert(LogEntry)
     case showLoginSheet
     case showPickerSheet
     
@@ -145,6 +156,15 @@ public struct SDRApi {
       case .onAppear:
         // perform initialization
         return  initState(&state)
+        
+      case .clearButtonTapped:
+        MessagesModel.shared.clear(state.messageFilter, state.messageFilterText)
+        return .none
+
+      case .clearFilterTextTapped:
+        state.messageFilterText = ""
+        MessagesModel.shared.reFilter(state.messageFilter, "")
+        return .none
         
       case .clearSendTextButtonTapped:
         // clear the command field
@@ -184,81 +204,121 @@ public struct SDRApi {
           return .concatenate(daxRxAudioStop(&state, previousChannel), daxRxAudioStart(&state, newChannel))
         }
         
-      case .sendButtonTapped:
-        // send a command to the radio
-        return commandSend(&state)
-        
-      case .clearButtonTapped:
-        MessagesModel.shared.clear()
-        return .none
-
-      case .clearFilterTextTapped:
-        state.messageFilterText = ""
-        MessagesModel.shared.reFilter(state.messageFilter, "")
-        return .none
-        
-      case .saveButtonTapped:
-        return saveMessages(state)
-        
-      case .tnfsEnabledClicked:
-        return .none
-        
-        // ----------------------------------------------------------------------------
-        // MARK: - Root Binding Actions
-        
-      case .binding(\.directEnabled):
-        state.localEnabled = false
-        state.smartlinkEnabled = false
+      case .directEnabledChanged:
         if state.directEnabled {
+          state.localEnabled = false
+          state.smartlinkEnabled = false
           return .run {
             await $0(.showDirectSheet)
           }
         } else {
           return .none
         }
-        
-      case .binding(\.localEnabled):
+
+      case .localEnabledChanged:
         state.directEnabled = false
         return listenerStartStop(&state)
-        
-      case .binding(\.messageFilter):
+
+      case .messagesFilterChanged:
         MessagesModel.shared.reFilter(state.messageFilter, state.messageFilterText)
         return .none
         
-      case .binding(\.messageFilterText):
-        MessagesModel.shared.reFilter(state.messageFilter, state.messageFilterText)
-        return .none
-        
-      case .binding(\.remoteRxAudioCompressed):
-        if state.connectionState == .connected && state.remoteRxAudioEnabled {
-          state.remoteRxAudioEnabled = false
-          return remoteRxAudioStop(&state)
-        }
-        return .none
-        
-      case .binding(\.remoteRxAudioEnabled):
-        if state.remoteRxAudioEnabled {
+      case .remoteRxAudioEnabledChanged:
+        if state.appSettings.remoteRxAudioEnabled {
           return remoteRxAudioStart(&state)
         } else {
           return remoteRxAudioStop(&state)
         }
-        
-      case .binding(\.remoteTxAudioEnabled):
+
+      case .remoteRxAudioCompressedChanged:
+        if state.connectionState == .connected && state.appSettings.remoteRxAudioEnabled {
+          state.appSettings.remoteRxAudioEnabled = false
+          return remoteRxAudioStop(&state)
+        }
+        return .none
+
+      case .remoteTxAudioEnabledChanged:
         if state.remoteTxAudioEnabled {
           return remoteTxAudioStart(&state)
         } else {
           return remoteTxAudioStop(&state)
         }
+
+      case .saveButtonTapped:
+        return saveMessages(state)
         
-      case .binding(\.showPings):
+      case .sendButtonTapped:
+        // send a command to the radio
+        return commandSend(&state)
+        
+      case .showPingsChanged:
         MessagesModel.shared.showPings(state.showPings)
         return .none
         
-      case .binding(\.smartlinkEnabled):
+      case .smartlinkEnabledChanged:
         state.directEnabled = false
         return listenerStartStop(&state)
+
+      case .tnfsEnabledClicked:
+        return .none
+        
+        // ----------------------------------------------------------------------------
+        // MARK: - Root Binding Actions
+        
+//      case .binding(\.directEnabled):
+//        state.localEnabled = false
+//        state.smartlinkEnabled = false
+//        if state.directEnabled {
+//          return .run {
+//            await $0(.showDirectSheet)
+//          }
+//        } else {
+//          return .none
+//        }
+        
+//      case .binding(\.localEnabled):
+//        state.directEnabled = false
+//        return listenerStartStop(&state)
+        
+//      case .binding(\.messageFilter):
+//        MessagesModel.shared.reFilter(state.messageFilter, state.messageFilterText)
+//        return .none
+        
+//      case .binding(\.messageFilterText):
+//        MessagesModel.shared.reFilter(state.messageFilter, state.messageFilterText)
+//        return .none
+        
+//      case .binding(\.remoteRxAudioCompressed):
+//        if state.connectionState == .connected && state.remoteRxAudioEnabled {
+//          state.remoteRxAudioEnabled = false
+//          return remoteRxAudioStop(&state)
+//        }
+//        return .none
+        
+//      case .binding(\.remoteRxAudioEnabled):
+//        if state.remoteRxAudioEnabled {
+//          return remoteRxAudioStart(&state)
+//        } else {
+//          return remoteRxAudioStop(&state)
+//        }
+        
+//      case .binding(\.remoteTxAudioEnabled):
+//        if state.remoteTxAudioEnabled {
+//          return remoteTxAudioStart(&state)
+//        } else {
+//          return remoteTxAudioStop(&state)
+//        }
+        
+//      case .binding(\.showPings):
+//        MessagesModel.shared.showPings(state.showPings)
+//        return .none
+        
+//      case .binding(\.smartlinkEnabled):
+//        state.directEnabled = false
+//        return listenerStartStop(&state)
         
       case .binding(_):
+        print("----->>>>> Binding")
         return .none
         
         // ----------------------------------------------------------------------------
@@ -296,7 +356,7 @@ public struct SDRApi {
         case .connectFailed, .disconnectFailed, .unknownError:
           break
         case .remoteRxAudioFailed:
-          state.remoteRxAudioEnabled = false
+          state.appSettings.remoteRxAudioEnabled = false
         case .smartlinkLoginFailed:
           state.smartlinkEnabled = false
         }
@@ -311,9 +371,9 @@ public struct SDRApi {
         state.showDirect = DirectFeature.State(ip: state.isGui ? state.directGuiIp : state.directNonGuiIp)
         return .none
         
-      case let .showLogAlert(logEntry):
-        state.showAlert = AlertState(title: TextState("\(logEntry.level == .warning ? "A Warning" : "An Error") was logged:"), message: TextState(logEntry.msg))
-        return .none
+//      case let .showLogAlert(logEntry):
+//        state.showAlert = AlertState(title: TextState("\(logEntry.level == .warning ? "A Warning" : "An Error") was logged:"), message: TextState(logEntry.msg))
+//        return .none
         
       case .showLoginSheet:
         state.showLogin = LoginFeature.State(user: state.smartlinkUser)
@@ -470,7 +530,7 @@ public struct SDRApi {
   }
   
   private func connectionStart(_ state: State)  -> Effect<SDRApi.Action> {
-    if state.clearOnStart { MessagesModel.shared.clear() }
+    if state.clearOnStart { MessagesModel.shared.clear(state.messageFilter, state.messageFilterText)}
     if state.directEnabled {
       // DIRECT Mode
       return .run {
@@ -512,7 +572,7 @@ public struct SDRApi {
   }
   
   private func connectionStop(_ state: State)  -> Effect<SDRApi.Action> {
-    if state.clearOnStop { MessagesModel.shared.clear() }
+    if state.clearOnStop { MessagesModel.shared.clear(state.messageFilter, state.messageFilterText) }
     return .run {
       await ObjectModel.shared.clientInitialized(false)
       ApiModel.shared.disconnect()
@@ -547,11 +607,11 @@ public struct SDRApi {
       return .none
     }
     
-    if state.connectionState == .connected && state.remoteRxAudioEnabled {
+    if state.connectionState == .connected && state.appSettings.remoteRxAudioEnabled {
       return remoteRxAudioStart(&state)
     }
     
-    if state.connectionState != .connected && state.remoteRxAudioEnabled {
+    if state.connectionState != .connected && state.appSettings.remoteRxAudioEnabled {
       return remoteRxAudioStop(&state)
     }
     return .none
@@ -594,7 +654,7 @@ public struct SDRApi {
     if state.initialized == false {
             
       // instantiate the Logger, use the group defaults (not the Standard)
-      XCGWrapper.shared.setup(logLevel: .debug, group: "group.net.k3tzr.flexapps")
+//      XCGWrapper.shared.setup(logLevel: .debug, group: "group.net.k3tzr.flexapps")
       
       // mark as initialized
       state.initialized = true

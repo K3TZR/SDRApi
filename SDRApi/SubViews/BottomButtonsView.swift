@@ -35,7 +35,11 @@ public struct BottomButtonsView: View {
       HStack {
         Toggle("Show Times", isOn: $store.showTimes)
         Toggle("Show Pings", isOn: $store.showPings)
-        Toggle("Show Alerts", isOn: $store.alertOnError)
+          .onChange(of: store.showPings) { _, _ in
+            store.send(.showPingsChanged)
+          }
+
+        Toggle("Show Alerts", isOn: $store.appSettings.alertOnError)
           .help("Display a sheet when an Error / Warning occurs")
       }
       

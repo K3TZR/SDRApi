@@ -5,12 +5,15 @@
 //  Created by Douglas Adams on 12/27/23.
 //
 import ComposableArchitecture
+import os
 import SwiftUI
 
 import FlexApiFeature
 import ListenerFeature
 import SettingsFeature
 import XCGLogFeature
+
+public let appLog = Logger(subsystem: "net.k3tzr.sdrApi", category: "Application")
 
 // ----------------------------------------------------------------------------
 // MARK: - Main
@@ -92,7 +95,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   
   func applicationWillTerminate(_ notification: Notification) {
     ApiModel.shared.disconnect()
-    log("SDRApi: application terminated", .debug, #function, #file, #line)
+    appLog.debug("SDRApi: application terminated")
+//    apiLoginfo("SDRApi: application terminated")
   }
   
   func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -112,21 +116,21 @@ extension URL {
 // ----------------------------------------------------------------------------
 // MARK: - PersistenceKey Extension
 
-//extension PersistenceKey
-//where Self == PersistenceKeyDefault<FileStorageKey<AppSettings>> {
-//  public static var appSettings: Self {
-//    PersistenceKeyDefault(
-//      .fileStorage(),
-//      AppSettings()
-//    )
-//  }
-//}
+extension PersistenceKey
+where Self == PersistenceKeyDefault<FileStorageKey<AppSettings>> {
+  public static var appSettings: Self {
+    PersistenceKeyDefault(
+      .fileStorage(.appSettings),
+      AppSettings()
+    )
+  }
+}
 
 // ----------------------------------------------------------------------------
 // MARK: - Persistence properties
 
-//public struct AppSettings: Codable, Equatable {
-//  public var alertOnError = true
+public struct AppSettings: Codable, Equatable {
+  public var alertOnError = true
 //  public var clearOnSend = false
 //  public var clearOnStart = true
 //  public var clearOnStop = true
@@ -154,7 +158,7 @@ extension URL {
 //  public var radioObjectFilter: RadioObjectFilter = .all
 //  public var refreshToken: String = ""
 //  public var remoteRxAudioCompressed = false
-//  public var remoteRxAudioEnabled = false
+  public var remoteRxAudioEnabled = false
 //  public var remoteTxAudioEnabled = false
 //  public var showPings = false
 //  public var showTimes = true
@@ -164,4 +168,4 @@ extension URL {
 //  public var station = "SDRApi"
 //  public var stationObjectFilter: StationObjectFilter = .noMeters  
 //  public var useDefaultEnabled = false
-//}
+}

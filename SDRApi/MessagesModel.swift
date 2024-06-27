@@ -37,7 +37,9 @@ public final class MessagesModel: TcpProcessor {
   // ----------------------------------------------------------------------------
   // MARK: - Public methods
   
-  public func clear() {
+  public func clear(_ filter: MessageFilter, _ filterText: String ) {
+    _filter = filter
+    _filterText = filterText
     self._messages.removeAll()
     removeAllFilteredMessages()
   }

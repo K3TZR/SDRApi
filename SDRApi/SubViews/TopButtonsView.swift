@@ -52,8 +52,17 @@ public struct TopButtonsView: View {
       // Connection types
       ControlGroup {
         Toggle("Direct", isOn: $store.directEnabled)
+          .onChange(of: store.directEnabled) { _, _ in
+            store.send(.directEnabledChanged)
+          }
         Toggle("Local", isOn: $store.localEnabled)
+          .onChange(of: store.localEnabled) { _, _ in
+            store.send(.localEnabledChanged)
+          }
         Toggle("Smartlink", isOn: $store.smartlinkEnabled)
+          .onChange(of: store.smartlinkEnabled) { _, _ in
+            store.send(.smartlinkEnabledChanged)
+          }
       }
       .frame(width: 180)
       .disabled(store.connectionState != .disconnected)
@@ -89,12 +98,18 @@ public struct TopButtonsView: View {
 
 
       HStack(spacing: 0) {
-        Toggle("Rx Audio", isOn: $store.remoteRxAudioEnabled)
+        Toggle("Rx Audio", isOn: $store.appSettings.remoteRxAudioEnabled)
           .disabled(store.isGui == false)
           .help("Enable audio from the Radio to this Mac")
-        
+          .onChange(of: store.appSettings.remoteRxAudioEnabled) { _, _ in
+            store.send(.remoteRxAudioEnabledChanged)
+          }
+
         Toggle("Compress", isOn: $store.remoteRxAudioCompressed)
           .help("Enable Rx Audio compression")
+          .onChange(of: store.remoteRxAudioCompressed) { _, _ in
+            store.send(.remoteRxAudioCompressedChanged)
+          }
       }
       .disabled(store.isGui == false)
       .frame(width: 180)
@@ -102,6 +117,9 @@ public struct TopButtonsView: View {
       Toggle("Tx Audio", isOn: $store.remoteTxAudioEnabled)
         .disabled(true)
         .help("Enable audio from this Mac to the Radio")
+        .onChange(of: store.remoteTxAudioEnabled) { _, _ in
+          store.send(.remoteTxAudioEnabledChanged)
+        }
     }.toggleStyle(.button)
   }
 }
