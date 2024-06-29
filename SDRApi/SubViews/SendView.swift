@@ -38,10 +38,10 @@ public struct SendView: View {
         })
         .help("Load previously sent commands")
         
-        TextField("Command to send", text: $store.commandToSend)
+        TextField("Command to send", text: $store.appSettings.commandToSend)
       }
       
-      Toggle("Clear on Send", isOn: $store.clearOnSend)
+      Toggle("Clear on Send", isOn: $store.appSettings.clearOnSend)
         .toggleStyle(.button)
         .help("Clear the field after sending a command")
     }

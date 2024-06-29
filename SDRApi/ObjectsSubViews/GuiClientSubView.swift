@@ -82,7 +82,7 @@ private struct DetailView: View {
           .frame(minWidth: 1250, maxWidth: .infinity)
           
           if showSubView {
-            GuiClientDetailView(stationObjectFilter: store.stationObjectFilter, handle: guiClient.handle)
+            GuiClientDetailView(stationObjectFilter: store.appSettings.stationObjectFilter, handle: guiClient.handle)
           }
         }
       }

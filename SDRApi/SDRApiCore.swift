@@ -36,43 +36,43 @@ public struct SDRApi {
     @Shared(.appSettings) var appSettings: AppSettings
     
 //    @Shared(.appStorage("alertOnError")) var alertOnError = true
-    @Shared(.appStorage("clearOnSend")) var clearOnSend = false
-    @Shared(.appStorage("clearOnStart")) var clearOnStart = true
-    @Shared(.appStorage("clearOnStop")) var clearOnStop = true
-    @Shared(.appStorage("commandsArray")) var commandsArray = [String]()
-    @Shared(.appStorage("commandsIndex")) var commandsIndex = 0
-    @Shared(.appStorage("commandToSend")) var commandToSend = ""
-    @Shared(.appStorage("daxSelection")) var daxSelection = -1
-    @Shared(.appStorage("directEnabled")) var directEnabled = false
-    @Shared(.appStorage("directGuiIp")) var directGuiIp = ""
-    @Shared(.appStorage("directNonGuiIp")) var directNonGuiIp = ""
-    @Shared(.appStorage("fontSize")) var fontSize = 12
-    @Shared(.appStorage("gotoBottom")) var gotoBottom = false
-    @Shared(.appStorage("guiDefault")) var guiDefault: String = ""
-    @Shared(.appStorage("isGui")) var isGui = true
-    @Shared(.appStorage("localEnabled")) var localEnabled = true
-    @Shared(.appStorage("lowBandwidthConnect")) var lowBandwidthConnect = false
-    @Shared(.appStorage("lowBandwidthDax")) var lowBandwidthDax = false
-    @Shared(.appStorage("messageFilter")) var messageFilter: MessageFilter = .all
-    @Shared(.appStorage("messageFilterText")) var messageFilterText = ""
-    @Shared(.appStorage("mtuValue")) var mtuValue = 1_300
-    @Shared(.appStorage("newLineBetweenMessages")) var newLineBetweenMessages = false
-    @Shared(.appStorage("nonGuiDefault")) var nonGuiDefault: String = ""
-    @Shared(.appStorage("previousCommand")) var previousCommand = ""
-    @Shared(.appStorage("previousIdToken")) var previousIdToken: String = ""
-    @Shared(.appStorage("radioObjectFilter")) var radioObjectFilter: RadioObjectFilter = .all
-    @Shared(.appStorage("refreshToken")) var refreshToken: String = ""
-    @Shared(.appStorage("remoteRxAudioCompressed")) var remoteRxAudioCompressed = false
+//    @Shared(.appStorage("clearOnSend")) var clearOnSend = false
+//    @Shared(.appStorage("clearOnStart")) var clearOnStart = true
+//    @Shared(.appStorage("clearOnStop")) var clearOnStop = true
+//    @Shared(.appStorage("commandsArray")) var commandsArray = [String]()
+//    @Shared(.appStorage("commandsIndex")) var commandsIndex = 0
+//    @Shared(.appStorage("commandToSend")) var commandToSend = ""
+//    @Shared(.appStorage("daxSelection")) var daxSelection = -1
+//    @Shared(.appStorage("directEnabled")) var directEnabled = false
+//    @Shared(.appStorage("directGuiIp")) var directGuiIp = ""
+//    @Shared(.appStorage("directNonGuiIp")) var directNonGuiIp = ""
+//    @Shared(.appStorage("fontSize")) var fontSize = 12
+//    @Shared(.appStorage("gotoBottom")) var gotoBottom = false
+//    @Shared(.appStorage("guiDefault")) var guiDefault: String = ""
+//    @Shared(.appStorage("isGui")) var isGui = true
+//    @Shared(.appStorage("localEnabled")) var localEnabled = true
+//    @Shared(.appStorage("lowBandwidthConnect")) var lowBandwidthConnect = false
+//    @Shared(.appStorage("lowBandwidthDax")) var lowBandwidthDax = false
+//    @Shared(.appStorage("messageFilter")) var messageFilter: MessageFilter = .all
+//    @Shared(.appStorage("messageFilterText")) var messageFilterText = ""
+//    @Shared(.appStorage("mtuValue")) var mtuValue = 1_300
+//    @Shared(.appStorage("newLineBetweenMessages")) var newLineBetweenMessages = false
+//    @Shared(.appStorage("nonGuiDefault")) var nonGuiDefault: String = ""
+//    @Shared(.appStorage("previousCommand")) var previousCommand = ""
+//    @Shared(.appStorage("previousIdToken")) var previousIdToken: String = ""
+//    @Shared(.appStorage("radioObjectFilter")) var radioObjectFilter: RadioObjectFilter = .all
+//    @Shared(.appStorage("refreshToken")) var refreshToken: String = ""
+//    @Shared(.appStorage("remoteRxAudioCompressed")) var remoteRxAudioCompressed = false
 //    @Shared(.appStorage("remoteRxAudioEnabled")) var remoteRxAudioEnabled = false
-    @Shared(.appStorage("remoteTxAudioEnabled")) var remoteTxAudioEnabled = false
-    @Shared(.appStorage("showPings")) var showPings = false
-    @Shared(.appStorage("showTimes")) var showTimes = true
-    @Shared(.appStorage("smartlinkEnabled")) var smartlinkEnabled = false
-    @Shared(.appStorage("smartlinkLoginRequired")) var smartlinkLoginRequired = false
-    @Shared(.appStorage("smartlinkUser")) var smartlinkUser = ""
-    @Shared(.appStorage("station")) var station = "SDRApi"
-    @Shared(.appStorage("stationObjectFilter")) var stationObjectFilter: StationObjectFilter = .noMeters
-    @Shared(.appStorage("useDefaultEnabled")) var useDefaultEnabled = false
+//    @Shared(.appStorage("remoteTxAudioEnabled")) var remoteTxAudioEnabled = false
+//    @Shared(.appStorage("showPings")) var showPings = false
+//    @Shared(.appStorage("showTimes")) var showTimes = true
+//    @Shared(.appStorage("smartlinkEnabled")) var smartlinkEnabled = false
+//    @Shared(.appStorage("smartlinkLoginRequired")) var smartlinkLoginRequired = false
+//    @Shared(.appStorage("smartlinkUser")) var smartlinkUser = ""
+//    @Shared(.appStorage("station")) var station = "SDRApi"
+//    @Shared(.appStorage("stationObjectFilter")) var stationObjectFilter: StationObjectFilter = .noMeters
+//    @Shared(.appStorage("useDefaultEnabled")) var useDefaultEnabled = false
 
     // non-persistent
     var initialized = false
@@ -158,17 +158,17 @@ public struct SDRApi {
         return  initState(&state)
         
       case .clearButtonTapped:
-        MessagesModel.shared.clear(state.messageFilter, state.messageFilterText)
+        MessagesModel.shared.clear(state.appSettings.messageFilter, state.appSettings.messageFilterText)
         return .none
 
       case .clearFilterTextTapped:
-        state.messageFilterText = ""
-        MessagesModel.shared.reFilter(state.messageFilter, "")
+        state.appSettings.messageFilterText = ""
+        MessagesModel.shared.reFilter(state.appSettings.messageFilter, "")
         return .none
         
       case .clearSendTextButtonTapped:
         // clear the command field
-        state.commandToSend = ""
+        state.appSettings.commandToSend = ""
         return .none
         
       case .connectButtonTapped:
@@ -205,9 +205,9 @@ public struct SDRApi {
         }
         
       case .directEnabledChanged:
-        if state.directEnabled {
-          state.localEnabled = false
-          state.smartlinkEnabled = false
+        if state.appSettings.directEnabled {
+          state.appSettings.localEnabled = false
+          state.appSettings.smartlinkEnabled = false
           return .run {
             await $0(.showDirectSheet)
           }
@@ -216,11 +216,11 @@ public struct SDRApi {
         }
 
       case .localEnabledChanged:
-        state.directEnabled = false
+        state.appSettings.directEnabled = false
         return listenerStartStop(&state)
 
       case .messagesFilterChanged:
-        MessagesModel.shared.reFilter(state.messageFilter, state.messageFilterText)
+        MessagesModel.shared.reFilter(state.appSettings.messageFilter, state.appSettings.messageFilterText)
         return .none
         
       case .remoteRxAudioEnabledChanged:
@@ -238,7 +238,7 @@ public struct SDRApi {
         return .none
 
       case .remoteTxAudioEnabledChanged:
-        if state.remoteTxAudioEnabled {
+        if state.appSettings.remoteTxAudioEnabled {
           return remoteTxAudioStart(&state)
         } else {
           return remoteTxAudioStop(&state)
@@ -252,11 +252,11 @@ public struct SDRApi {
         return commandSend(&state)
         
       case .showPingsChanged:
-        MessagesModel.shared.showPings(state.showPings)
+        MessagesModel.shared.showPings(state.appSettings.showPings)
         return .none
         
       case .smartlinkEnabledChanged:
-        state.directEnabled = false
+        state.appSettings.directEnabled = false
         return listenerStartStop(&state)
 
       case .tnfsEnabledClicked:
@@ -339,12 +339,12 @@ public struct SDRApi {
       case let .saveTokens(tokens):
         if !tokens.idToken.isEmpty {
           // success
-          state.previousIdToken = tokens.idToken
-          state.refreshToken = tokens.refreshToken
+          state.appSettings.previousIdToken = tokens.idToken
+          state.appSettings.refreshToken = tokens.refreshToken
         } else {
           // failure
-          state.previousIdToken = ""
-          state.refreshToken = ""
+          state.appSettings.previousIdToken = ""
+          state.appSettings.refreshToken = ""
         }
         return .none
         
@@ -358,7 +358,7 @@ public struct SDRApi {
         case .remoteRxAudioFailed:
           state.appSettings.remoteRxAudioEnabled = false
         case .smartlinkLoginFailed:
-          state.smartlinkEnabled = false
+          state.appSettings.smartlinkEnabled = false
         }
         state.showAlert = AlertState(title: TextState(alertType.rawValue), message: TextState(message))
         return .none
@@ -368,7 +368,7 @@ public struct SDRApi {
         return .none
         
       case .showDirectSheet:
-        state.showDirect = DirectFeature.State(ip: state.isGui ? state.directGuiIp : state.directNonGuiIp)
+        state.showDirect = DirectFeature.State(ip: state.appSettings.isGui ? state.appSettings.directGuiIp : state.appSettings.directNonGuiIp)
         return .none
         
 //      case let .showLogAlert(logEntry):
@@ -376,11 +376,11 @@ public struct SDRApi {
 //        return .none
         
       case .showLoginSheet:
-        state.showLogin = LoginFeature.State(user: state.smartlinkUser)
+        state.showLogin = LoginFeature.State(user: state.appSettings.smartlinkUser)
         return .none
         
       case .showPickerSheet:
-        state.showPicker = PickerFeature.State(isGui: state.isGui, defaultValue: state.isGui ? state.guiDefault : state.nonGuiDefault)
+        state.showPicker = PickerFeature.State(isGui: state.appSettings.isGui, defaultValue: state.appSettings.isGui ? state.appSettings.guiDefault : state.appSettings.nonGuiDefault)
         return .none
         
         // ----------------------------------------------------------------------------
@@ -403,17 +403,17 @@ public struct SDRApi {
         // MARK: - Direct Actions
         
       case .direct(.presented(.cancelButtonTapped)):
-        state.directEnabled = false
+        state.appSettings.directEnabled = false
         return .none
         
       case let .direct(.presented(.saveButtonTapped(ip))):
         // Direct is mutually exclusive of the other modes
-        state.localEnabled = false
-        state.smartlinkEnabled = false
-        if state.isGui {
-          state.directGuiIp = ip
+        state.appSettings.localEnabled = false
+        state.appSettings.smartlinkEnabled = false
+        if state.appSettings.isGui {
+          state.appSettings.directGuiIp = ip
         } else {
-          state.directNonGuiIp = ip
+          state.appSettings.directNonGuiIp = ip
         }
         return .none
         
@@ -424,7 +424,7 @@ public struct SDRApi {
         // MARK: - Login Actions
         
       case .login(.presented(.cancelButtonTapped)):
-        state.smartlinkEnabled = false
+        state.appSettings.smartlinkEnabled = false
         return .none
         
       case let .login(.presented(.loginButtonTapped(user, password))):
@@ -442,10 +442,10 @@ public struct SDRApi {
         return .run {await $0(.multiflexStatus(selection)) }
         
       case let .picker(.presented(.defaultButtonTapped(selection))):
-        if state.isGui {
-          state.guiDefault = state.guiDefault == selection ? "" : selection
+        if state.appSettings.isGui {
+          state.appSettings.guiDefault = state.appSettings.guiDefault == selection ? "" : selection
         } else {
-          state.nonGuiDefault = state.nonGuiDefault == selection ? "" : selection
+          state.appSettings.nonGuiDefault = state.appSettings.nonGuiDefault == selection ? "" : selection
         }
         return .none
         
@@ -468,29 +468,29 @@ public struct SDRApi {
   // MARK: - Private effect methods
   
   private func commandNext(_ state: inout State) {
-    if state.commandsIndex == state.commandsArray.count - 1{
-      state.commandsIndex = 0
+    if state.appSettings.commandsIndex == state.appSettings.commandsArray.count - 1{
+      state.appSettings.commandsIndex = 0
     } else {
-      state.commandsIndex += 1
+      state.appSettings.commandsIndex += 1
     }
-    state.commandToSend = state.commandsArray[state.commandsIndex]
+    state.appSettings.commandToSend = state.appSettings.commandsArray[state.appSettings.commandsIndex]
   }
   
   private func commandPrevious(_ state: inout State) {
-    if state.commandsIndex == 0 {
-      state.commandsIndex = state.commandsArray.count - 1
+    if state.appSettings.commandsIndex == 0 {
+      state.appSettings.commandsIndex = state.appSettings.commandsArray.count - 1
     } else {
-      state.commandsIndex -= 1
+      state.appSettings.commandsIndex -= 1
     }
-    state.commandToSend = state.commandsArray[state.commandsIndex]
+    state.appSettings.commandToSend = state.appSettings.commandsArray[state.appSettings.commandsIndex]
   }
   
   private func commandSend(_ state: inout State) -> Effect<SDRApi.Action> {
-    state.commandsArray.append(state.commandToSend)
+    state.appSettings.commandsArray.append(state.appSettings.commandToSend)
     return .run { [state] in
       // send command to the radio
-      await ObjectModel.shared.sendTcp(state.commandToSend)
-      if state.clearOnSend { await $0(.clearSendTextButtonTapped)}
+      await ObjectModel.shared.sendTcp(state.appSettings.commandToSend)
+      if state.appSettings.clearOnSend { await $0(.clearSendTextButtonTapped)}
     }
   }
   
@@ -500,7 +500,7 @@ public struct SDRApi {
       var activePacket: Packet?
       var activeStation: String?
       
-      if state.isGui {
+      if state.appSettings.isGui {
         activePacket = await ListenerModel.shared.packets[id: selection]
         activeStation = "SDRApi"
       } else {
@@ -514,12 +514,12 @@ public struct SDRApi {
         // try to connect
         try await ApiModel.shared.connect(packet: activePacket,
                                           station: activeStation,
-                                          isGui: state.isGui,
+                                          isGui: state.appSettings.isGui,
                                           disconnectHandle: disconnectHandle,
                                           programName: "SDRApiViewer",
-                                          mtuValue: state.mtuValue,
-                                          lowBandwidthDax: state.lowBandwidthDax,
-                                          lowBandwidthConnect: state.lowBandwidthConnect)
+                                          mtuValue: state.appSettings.mtuValue,
+                                          lowBandwidthDax: state.appSettings.lowBandwidthDax,
+                                          lowBandwidthConnect: state.appSettings.lowBandwidthConnect)
         await $0(.connectionStatus(.connected))
         
       } catch {
@@ -530,16 +530,16 @@ public struct SDRApi {
   }
   
   private func connectionStart(_ state: State)  -> Effect<SDRApi.Action> {
-    if state.clearOnStart { MessagesModel.shared.clear(state.messageFilter, state.messageFilterText)}
-    if state.directEnabled {
+    if state.appSettings.clearOnStart { MessagesModel.shared.clear(state.appSettings.messageFilter, state.appSettings.messageFilterText)}
+    if state.appSettings.directEnabled {
       // DIRECT Mode
       return .run {
-        if state.isGui && !state.directGuiIp.isEmpty {
-          let selection = "9999-9999-9999-9999" + state.directGuiIp
+        if state.appSettings.isGui && !state.appSettings.directGuiIp.isEmpty {
+          let selection = "9999-9999-9999-9999" + state.appSettings.directGuiIp
           await $0(.connect(selection, nil))
           
-        } else if !state.directNonGuiIp.isEmpty {
-          let selection = "9999-9999-9999-9999" + state.directNonGuiIp
+        } else if !state.appSettings.directNonGuiIp.isEmpty {
+          let selection = "9999-9999-9999-9999" + state.appSettings.directNonGuiIp
           await $0(.connect(selection, nil))
           
         } else {
@@ -550,14 +550,14 @@ public struct SDRApi {
       
     } else {
       return .run {
-        if state.useDefaultEnabled {
+        if state.appSettings.useDefaultEnabled {
           // LOCAL/SMARTLINK mode connection using the Default, is there a valid? Default
-          if await ListenerModel.shared.isValidDefault(for: state.guiDefault, state.nonGuiDefault, state.isGui) {
+          if await ListenerModel.shared.isValidDefault(for: state.appSettings.guiDefault, state.appSettings.nonGuiDefault, state.appSettings.isGui) {
             // YES, valid default
-            if state.isGui {
-              await $0(.multiflexStatus(state.guiDefault))
+            if state.appSettings.isGui {
+              await $0(.multiflexStatus(state.appSettings.guiDefault))
             } else {
-              await $0(.multiflexStatus(state.nonGuiDefault))
+              await $0(.multiflexStatus(state.appSettings.nonGuiDefault))
             }
           } else {
             // NO, invalid default
@@ -572,7 +572,7 @@ public struct SDRApi {
   }
   
   private func connectionStop(_ state: State)  -> Effect<SDRApi.Action> {
-    if state.clearOnStop { MessagesModel.shared.clear(state.messageFilter, state.messageFilterText) }
+    if state.appSettings.clearOnStop { MessagesModel.shared.clear(state.appSettings.messageFilter, state.appSettings.messageFilterText) }
     return .run {
       await ObjectModel.shared.clientInitialized(false)
       ApiModel.shared.disconnect()
@@ -623,7 +623,7 @@ public struct SDRApi {
       if channel == 0 {
         ApiModel.shared.requestStream(.daxMicAudioStream, replyTo: daxRxReplyHandler)
       } else {
-        ApiModel.shared.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.lowBandwidthDax, replyTo: daxRxReplyHandler)
+        ApiModel.shared.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.appSettings.lowBandwidthDax, replyTo: daxRxReplyHandler)
       }
     }
   }
@@ -667,15 +667,15 @@ public struct SDRApi {
   // start/stop listener, as needed
   private func listenerStartStop(_ state: inout State) -> Effect<SDRApi.Action> {
     // start/stop local mode
-    ListenerModel.shared.localMode(state.localEnabled)
+    ListenerModel.shared.localMode(state.appSettings.localEnabled)
     
     // start smartlink mode?
-    if state.smartlinkEnabled {
+    if state.appSettings.smartlinkEnabled {
       
-      if state.smartlinkLoginRequired || state.smartlinkUser.isEmpty {
+      if state.appSettings.smartlinkLoginRequired || state.appSettings.smartlinkUser.isEmpty {
         // YES but login required or no user
-        state.previousIdToken = ""
-        state.refreshToken = ""
+        state.appSettings.previousIdToken = ""
+        state.appSettings.refreshToken = ""
         return .run {
           await $0(.showLoginSheet)
         }
@@ -683,10 +683,10 @@ public struct SDRApi {
       } else {
         // YES, try
         return .run { [state] in
-          let tokens = await ListenerModel.shared.smartlinkMode(state.smartlinkUser,
-                                                                state.smartlinkLoginRequired,
-                                                                state.previousIdToken,
-                                                                state.refreshToken)
+          let tokens = await ListenerModel.shared.smartlinkMode(state.appSettings.smartlinkUser,
+                                                                state.appSettings.smartlinkLoginRequired,
+                                                                state.appSettings.previousIdToken,
+                                                                state.appSettings.refreshToken)
           await $0(.saveTokens(tokens))
         }
       }
@@ -698,7 +698,7 @@ public struct SDRApi {
   
   private func multiflexStatus(_ state: State, _ selection: String) -> Effect<SDRApi.Action> {
     return .run {
-      if state.isGui {
+      if state.appSettings.isGui {
         // GUI selection
         if let selectedPacket = await ListenerModel.shared.packets[id: selection] {
           
@@ -724,7 +724,7 @@ public struct SDRApi {
   private func remoteRxAudioStart(_ state: inout State) -> Effect<SDRApi.Action> {
     return .run { [state] _ in
       // request a stream
-      ApiModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.remoteRxAudioCompressed, replyTo: remoteRxReplyHandler)
+      ApiModel.shared.requestStream(.remoteRxAudioStream, isCompressed: state.appSettings.remoteRxAudioCompressed, replyTo: remoteRxReplyHandler)
     }
   }
   
@@ -778,7 +778,7 @@ public struct SDRApi {
   }
   
   private func smartlinkUserLogin(_ state: inout State, _ user: String, _ password: String) -> Effect<SDRApi.Action> {
-    state.smartlinkUser = user
+    state.appSettings.smartlinkUser = user
     return .run {
       let tokens = await ListenerModel.shared.smartlinkStart(user, password)
       await $0(.saveTokens(tokens))

@@ -43,7 +43,6 @@
 		9F6DA4FD2C236CF900CEC66F /* BottomButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DA4FC2C236CF900CEC66F /* BottomButtonsView.swift */; };
 		9F6DA5012C25117500CEC66F /* MessagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DA5002C25117500CEC66F /* MessagesModel.swift */; };
 		9F8399582BD44A41001FF105 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 9F8399572BD44A41001FF105 /* ComposableArchitecture */; };
-		9F8FB4752C0A19CB0081FFC3 /* XCGLogFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9F8FB4742C0A19CB0081FFC3 /* XCGLogFeature */; };
 		9FB712B92BF834A70092A9C5 /* AudioFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FB712B82BF834A70092A9C5 /* AudioFeature */; };
 		9FB712BB2BF834E90092A9C5 /* CustomControlFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 9FB712BA2BF834E90092A9C5 /* CustomControlFeature */; };
 		9FDCEEA32B5ED1720055FF11 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9FDCEE972B5ED1720055FF11 /* README.md */; };
@@ -105,7 +104,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F8FB4752C0A19CB0081FFC3 /* XCGLogFeature in Frameworks */,
 				9FDCEEB12B5ED1CE0055FF11 /* FlexApiFeature in Frameworks */,
 				9FDCEEC92B5ED1CE0055FF11 /* VitaFeature in Frameworks */,
 				9F8399582BD44A41001FF105 /* ComposableArchitecture in Frameworks */,
@@ -247,7 +245,6 @@
 				9F8399572BD44A41001FF105 /* ComposableArchitecture */,
 				9FB712B82BF834A70092A9C5 /* AudioFeature */,
 				9FB712BA2BF834E90092A9C5 /* CustomControlFeature */,
-				9F8FB4742C0A19CB0081FFC3 /* XCGLogFeature */,
 				9F6DA4DD2C23176600CEC66F /* SettingsFeature */,
 			);
 			productName = SDRTestViewer;
@@ -282,7 +279,6 @@
 			packageReferences = (
 				9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */,
 				9F8399562BD44A41001FF105 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
-				9F8FB4712C0A18AA0081FFC3 /* XCRemoteSwiftPackageReference "LogFeatures" */,
 			);
 			productRefGroup = 9FDCEE862B5ED1300055FF11 /* Products */;
 			projectDirPath = "";
@@ -490,7 +486,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.k3tzr.SDRApi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -520,7 +516,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.k3tzr.SDRApi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -560,14 +556,6 @@
 				minimumVersion = 1.10.2;
 			};
 		};
-		9F8FB4712C0A18AA0081FFC3 /* XCRemoteSwiftPackageReference "LogFeatures" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/K3TZR/LogFeatures.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		9FDCEEAB2B5ED1CE0055FF11 /* XCRemoteSwiftPackageReference "SDRApiFeatures" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/K3TZR/SDRApiFeatures.git";
@@ -587,10 +575,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9F8399562BD44A41001FF105 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
-		};
-		9F8FB4742C0A19CB0081FFC3 /* XCGLogFeature */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = XCGLogFeature;
 		};
 		9FB712B82BF834A70092A9C5 /* AudioFeature */ = {
 			isa = XCSwiftPackageProductDependency;
