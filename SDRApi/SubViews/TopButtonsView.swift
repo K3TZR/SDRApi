@@ -8,8 +8,6 @@
 import ComposableArchitecture
 import SwiftUI
 
-import FlexApiFeature
-
 // ----------------------------------------------------------------------------
 // MARK: - View
 

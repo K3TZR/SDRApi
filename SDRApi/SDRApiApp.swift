@@ -9,9 +9,6 @@ import os
 import SwiftUI
 
 import FlexApiFeature
-import ListenerFeature
-import SettingsFeature
-
 
 public let appLog = Logger(subsystem: "net.k3tzr.sdrApi", category: "Application")
 
@@ -24,8 +21,6 @@ struct SDRApiApp: App {
   var appDelegate
 
   @State var apiModel = ApiModel.shared
-  @State var listenerModel = ListenerModel.shared
-  @State var messagesModel = MessagesModel.shared
   @State var objectModel = ObjectModel.shared
 
   private var testApiModel: ApiModel { apiModel.testDelegate = MessagesModel.shared ; return apiModel }
@@ -62,8 +57,6 @@ struct SDRApiApp: App {
         SDRApi()
       })
       .environment(testApiModel)
-      .environment(listenerModel)
-      .environment(messagesModel)
       .environment(objectModel)
     }
     
@@ -96,76 +89,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   func applicationWillTerminate(_ notification: Notification) {
     ApiModel.shared.disconnect()
     appLog.debug("SDRApi: application terminated")
-//    apiLoginfo("SDRApi: application terminated")
   }
   
   func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
     true
   }
-}
-
-// ----------------------------------------------------------------------------
-// MARK: - Persistence URL Extension
-
-extension URL {
-  static let appSettings = Self
-    .applicationSupportDirectory
-    .appending(path: "appSettings.json")
-}
-
-// ----------------------------------------------------------------------------
-// MARK: - PersistenceKey Extension
-
-extension PersistenceKey
-where Self == PersistenceKeyDefault<FileStorageKey<AppSettings>> {
-  public static var appSettings: Self {
-    PersistenceKeyDefault(
-      .fileStorage(.appSettings),
-      AppSettings()
-    )
-  }
-}
-
-// ----------------------------------------------------------------------------
-// MARK: - Persistence properties
-
-public struct AppSettings: Codable, Equatable {
-  public var alertOnError = true
-  public var clearOnSend = false
-  public var clearOnStart = true
-  public var clearOnStop = true
-  public var commandsArray = [String]()
-  public var commandsIndex = 0
-  public var commandToSend = ""
-  public var daxSelection = -1
-  public var directEnabled = false
-  public var directGuiIp = ""
-  public var directNonGuiIp = ""
-  public var fontSize = 12
-  public var gotoBottom = false
-  public var guiDefault: String = ""
-  public var isGui = true
-  public var localEnabled = true
-  public var lowBandwidthConnect = false              // FIXME: no provision for setting this
-  public var lowBandwidthDax = false
-  public var messageFilter: MessageFilter = .all
-  public var messageFilterText = ""
-  public var mtuValue = 1_300
-  public var newLineBetweenMessages = false
-  public var nonGuiDefault: String = ""
-  public var previousCommand = ""
-  public var previousIdToken: String = ""
-  public var radioObjectFilter: RadioObjectFilter = .all
-  public var refreshToken: String = ""
-  public var remoteRxAudioCompressed = false
-  public var remoteRxAudioEnabled = false
-  public var remoteTxAudioEnabled = false
-  public var showPings = false
-  public var showTimes = true
-  public var smartlinkEnabled = false
-  public var smartlinkLoginRequired = false
-  public var smartlinkUser = ""
-  public var station = "SDRApi"
-  public var stationObjectFilter: StationObjectFilter = .noMeters  
-  public var useDefaultEnabled = false
 }

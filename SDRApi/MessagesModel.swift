@@ -9,7 +9,6 @@ import ComposableArchitecture
 import Foundation
 
 import SharedFeature
-import FlexApiFeature
 
 @Observable
 public final class MessagesModel: TcpProcessor {

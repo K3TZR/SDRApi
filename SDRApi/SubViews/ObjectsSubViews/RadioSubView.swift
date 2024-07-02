@@ -9,7 +9,6 @@ import ComposableArchitecture
 import SwiftUI
 
 import FlexApiFeature
-import SharedFeature
 
 // ----------------------------------------------------------------------------
 // MARK: - View

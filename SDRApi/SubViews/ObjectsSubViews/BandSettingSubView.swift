@@ -8,7 +8,6 @@
 import ComposableArchitecture
 import SwiftUI
 
-import CustomControlFeature
 import FlexApiFeature
 
 // ----------------------------------------------------------------------------

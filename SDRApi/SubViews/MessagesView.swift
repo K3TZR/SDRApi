@@ -8,9 +8,6 @@
 import ComposableArchitecture
 import SwiftUI
 
-import FlexApiFeature
-import SharedFeature
-
 public enum MessageFilter: String, Codable, CaseIterable {
   case all
   case prefix
