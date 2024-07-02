@@ -11,7 +11,7 @@ import SwiftUI
 import FlexApiFeature
 import ListenerFeature
 import SettingsFeature
-import XCGLogFeature
+
 
 public let appLog = Logger(subsystem: "net.k3tzr.sdrApi", category: "Application")
 

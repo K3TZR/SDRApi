@@ -1,5 +1,5 @@
 {
-  "originHash" : "e32203da6b06bc6792bdec33f5c7f41151ad90f1739fbf26f0ccccbc9b361544",
+  "originHash" : "64ed930097b2637e2e29c958dbf0b8342b6a5ea0de582d9c51b44f492e9bba5e",
   "pins" : [
     {
       "identity" : "cocoaasyncsocket",
@@ -125,15 +125,6 @@
       "state" : {
         "revision" : "7ab04c6e2e6a73d34d5a762970ef88bf0aedb084",
         "version" : "1.4.0"
-      }
-    },
-    {
-      "identity" : "xcglogger",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/DaveWoodCom/XCGLogger.git",
-      "state" : {
-        "revision" : "4def3c1c772ca90ad5e7bfc8ac437c3b0b4276cf",
-        "version" : "7.1.5"
       }
     },
     {

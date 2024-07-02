@@ -18,7 +18,7 @@ import ListenerFeature
 import LoginFeature
 import PickerFeature
 import SharedFeature
-//import XCGLogFeature
+
 
 @Reducer
 public struct SDRApi {
@@ -29,50 +29,9 @@ public struct SDRApi {
   // MARK: - State
   
   @ObservableState
-  public struct State {
-    
+  public struct State {    
     // persistent
-    
     @Shared(.appSettings) var appSettings: AppSettings
-    
-//    @Shared(.appStorage("alertOnError")) var alertOnError = true
-//    @Shared(.appStorage("clearOnSend")) var clearOnSend = false
-//    @Shared(.appStorage("clearOnStart")) var clearOnStart = true
-//    @Shared(.appStorage("clearOnStop")) var clearOnStop = true
-//    @Shared(.appStorage("commandsArray")) var commandsArray = [String]()
-//    @Shared(.appStorage("commandsIndex")) var commandsIndex = 0
-//    @Shared(.appStorage("commandToSend")) var commandToSend = ""
-//    @Shared(.appStorage("daxSelection")) var daxSelection = -1
-//    @Shared(.appStorage("directEnabled")) var directEnabled = false
-//    @Shared(.appStorage("directGuiIp")) var directGuiIp = ""
-//    @Shared(.appStorage("directNonGuiIp")) var directNonGuiIp = ""
-//    @Shared(.appStorage("fontSize")) var fontSize = 12
-//    @Shared(.appStorage("gotoBottom")) var gotoBottom = false
-//    @Shared(.appStorage("guiDefault")) var guiDefault: String = ""
-//    @Shared(.appStorage("isGui")) var isGui = true
-//    @Shared(.appStorage("localEnabled")) var localEnabled = true
-//    @Shared(.appStorage("lowBandwidthConnect")) var lowBandwidthConnect = false
-//    @Shared(.appStorage("lowBandwidthDax")) var lowBandwidthDax = false
-//    @Shared(.appStorage("messageFilter")) var messageFilter: MessageFilter = .all
-//    @Shared(.appStorage("messageFilterText")) var messageFilterText = ""
-//    @Shared(.appStorage("mtuValue")) var mtuValue = 1_300
-//    @Shared(.appStorage("newLineBetweenMessages")) var newLineBetweenMessages = false
-//    @Shared(.appStorage("nonGuiDefault")) var nonGuiDefault: String = ""
-//    @Shared(.appStorage("previousCommand")) var previousCommand = ""
-//    @Shared(.appStorage("previousIdToken")) var previousIdToken: String = ""
-//    @Shared(.appStorage("radioObjectFilter")) var radioObjectFilter: RadioObjectFilter = .all
-//    @Shared(.appStorage("refreshToken")) var refreshToken: String = ""
-//    @Shared(.appStorage("remoteRxAudioCompressed")) var remoteRxAudioCompressed = false
-//    @Shared(.appStorage("remoteRxAudioEnabled")) var remoteRxAudioEnabled = false
-//    @Shared(.appStorage("remoteTxAudioEnabled")) var remoteTxAudioEnabled = false
-//    @Shared(.appStorage("showPings")) var showPings = false
-//    @Shared(.appStorage("showTimes")) var showTimes = true
-//    @Shared(.appStorage("smartlinkEnabled")) var smartlinkEnabled = false
-//    @Shared(.appStorage("smartlinkLoginRequired")) var smartlinkLoginRequired = false
-//    @Shared(.appStorage("smartlinkUser")) var smartlinkUser = ""
-//    @Shared(.appStorage("station")) var station = "SDRApi"
-//    @Shared(.appStorage("stationObjectFilter")) var stationObjectFilter: StationObjectFilter = .noMeters
-//    @Shared(.appStorage("useDefaultEnabled")) var useDefaultEnabled = false
 
     // non-persistent
     var initialized = false
@@ -265,60 +224,8 @@ public struct SDRApi {
         // ----------------------------------------------------------------------------
         // MARK: - Root Binding Actions
         
-//      case .binding(\.directEnabled):
-//        state.localEnabled = false
-//        state.smartlinkEnabled = false
-//        if state.directEnabled {
-//          return .run {
-//            await $0(.showDirectSheet)
-//          }
-//        } else {
-//          return .none
-//        }
-        
-//      case .binding(\.localEnabled):
-//        state.directEnabled = false
-//        return listenerStartStop(&state)
-        
-//      case .binding(\.messageFilter):
-//        MessagesModel.shared.reFilter(state.messageFilter, state.messageFilterText)
-//        return .none
-        
-//      case .binding(\.messageFilterText):
-//        MessagesModel.shared.reFilter(state.messageFilter, state.messageFilterText)
-//        return .none
-        
-//      case .binding(\.remoteRxAudioCompressed):
-//        if state.connectionState == .connected && state.remoteRxAudioEnabled {
-//          state.remoteRxAudioEnabled = false
-//          return remoteRxAudioStop(&state)
-//        }
-//        return .none
-        
-//      case .binding(\.remoteRxAudioEnabled):
-//        if state.remoteRxAudioEnabled {
-//          return remoteRxAudioStart(&state)
-//        } else {
-//          return remoteRxAudioStop(&state)
-//        }
-        
-//      case .binding(\.remoteTxAudioEnabled):
-//        if state.remoteTxAudioEnabled {
-//          return remoteTxAudioStart(&state)
-//        } else {
-//          return remoteTxAudioStop(&state)
-//        }
-        
-//      case .binding(\.showPings):
-//        MessagesModel.shared.showPings(state.showPings)
-//        return .none
-        
-//      case .binding(\.smartlinkEnabled):
-//        state.directEnabled = false
-//        return listenerStartStop(&state)
-        
       case .binding(_):
-        print("----->>>>> Binding")
+        // appSettings are updated by bindings causing them to be persisted
         return .none
         
         // ----------------------------------------------------------------------------

@@ -60,7 +60,6 @@
 /* Begin PBXFileReference section */
 		9F0029D92BE3DCD000E2A401 /* ListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsView.swift; sourceTree = "<group>"; };
 		9F0029E42BE729BF00E2A401 /* MessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
-		9F0029E82BEBFA0000E2A401 /* LogFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LogFeatures; path = ../Packages/LogFeatures; sourceTree = "<group>"; };
 		9F1D15AB2BB894340062A4CD /* SDRApiApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDRApiApp.swift; sourceTree = "<group>"; };
 		9F1D15AC2BB894340062A4CD /* SDRApi.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = SDRApi.entitlements; sourceTree = "<group>"; };
 		9F1D15AD2BB894340062A4CD /* SDRApiCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDRApiCore.swift; sourceTree = "<group>"; };
@@ -172,6 +171,7 @@
 		9F1D15EE2BB8946C0062A4CD /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
+				9F1D15CE2BB8944F0062A4CD /* ObjectsSubViews */,
 				9F0029E42BE729BF00E2A401 /* MessagesView.swift */,
 				9F1D15EB2BB8946C0062A4CD /* ObjectsView.swift */,
 				9F1D15EC2BB8946C0062A4CD /* SendView.swift */,
@@ -185,7 +185,6 @@
 			isa = PBXGroup;
 			children = (
 				9FB712B72BF82F160092A9C5 /* SDRApiFeatures */,
-				9F0029E82BEBFA0000E2A401 /* LogFeatures */,
 				9FDCEE972B5ED1720055FF11 /* README.md */,
 				9FDCEE872B5ED1300055FF11 /* SDRApi */,
 				9FDCEE862B5ED1300055FF11 /* Products */,
@@ -205,13 +204,12 @@
 			isa = PBXGroup;
 			children = (
 				9F6DA5002C25117500CEC66F /* MessagesModel.swift */,
-				9F1D15EE2BB8946C0062A4CD /* SubViews */,
-				9F1D15CE2BB8944F0062A4CD /* ObjectsSubViews */,
 				9F1D15B52BB8944F0062A4CD /* Preview Content */,
 				9F1D15AC2BB894340062A4CD /* SDRApi.entitlements */,
 				9F1D15AB2BB894340062A4CD /* SDRApiApp.swift */,
 				9F1D15AD2BB894340062A4CD /* SDRApiCore.swift */,
 				9F1D15AE2BB894340062A4CD /* SDRApiView.swift */,
+				9F1D15EE2BB8946C0062A4CD /* SubViews */,
 			);
 			path = SDRApi;
 			sourceTree = "<group>";

@@ -13,7 +13,6 @@ import DirectFeature
 import FlexApiFeature
 import LoginFeature
 import PickerFeature
-import XCGLogFeature
 
 // ----------------------------------------------------------------------------
 // MARK: - View
