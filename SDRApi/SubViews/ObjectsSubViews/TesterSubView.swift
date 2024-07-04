@@ -15,7 +15,6 @@ import FlexApiFeature
 
 struct TesterSubView: View {
   
-  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) private var objectModel
   
   var body: some View {
@@ -32,7 +31,7 @@ struct TesterSubView: View {
         
         HStack(spacing: 5) {
           Text("Handle")
-          Text(apiModel.connectionHandle?.hex ?? "???").foregroundColor(.secondary)
+          Text(objectModel.connectionHandle?.hex ?? "???").foregroundColor(.secondary)
         }
         
         HStack(spacing: 5) {
@@ -50,7 +49,6 @@ struct TesterSubView: View {
 #Preview {
   TesterSubView()
     
-    .environment(ApiModel.shared)
     .environment(ObjectModel.shared)
   
     .frame(minWidth: 1250)

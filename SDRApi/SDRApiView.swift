@@ -20,7 +20,7 @@ import PickerFeature
 struct SDRApiView: View {
   @Bindable var store: StoreOf<SDRApi>
       
-  @Environment(ApiModel.self) var apiModel
+  @Environment(ObjectModel.self) var objectModel
   
   var body: some View {
     VStack(alignment: .leading) {
@@ -43,7 +43,7 @@ struct SDRApiView: View {
     
     // initialize on first appearance
     .onAppear() {
-      store.send(.onAppear(apiModel))
+      store.send(.onAppear(objectModel))
     }
 
     // LogAlert Notification
@@ -77,6 +77,8 @@ struct SDRApiView: View {
   SDRApiView(store: Store(initialState: SDRApi.State()) {
     SDRApi()
   })
+  
+  .environment(ObjectModel.shared)
   
   .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 700, maxHeight: .infinity)
   .padding()

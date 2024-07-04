@@ -99,7 +99,7 @@ public struct SDRApi {
     @Shared(.appSettings) var appSettings: AppSettings
 
     // non-persistent
-    var apiModel: ApiModel?
+    var objectModel: ObjectModel?
     var initialized = false
     var connectionState: ConnectionState = .disconnected
     
@@ -116,7 +116,7 @@ public struct SDRApi {
   public enum Action: BindableAction {
     case binding(BindingAction<State>)
     
-    case onAppear(ApiModel)
+    case onAppear(ObjectModel)
     
     // UI control actions
     case connectButtonTapped
@@ -179,8 +179,8 @@ public struct SDRApi {
         // ----------------------------------------------------------------------------
         // MARK: - Root Actions
         
-      case let .onAppear(apiModel):
-        state.apiModel = apiModel
+      case let .onAppear(objectModel):
+        state.objectModel = objectModel
         // perform initialization
         return  initState(&state)
         
@@ -464,7 +464,7 @@ public struct SDRApi {
     state.appSettings.commandsArray.append(state.appSettings.commandToSend)
     return .run { [state] in
       // send command to the radio
-      await state.apiModel?.sendTcp(state.appSettings.commandToSend)
+      await state.objectModel!.sendTcp(state.appSettings.commandToSend)
       if state.appSettings.clearOnSend { await $0(.clearSendTextButtonTapped)}
     }
   }
@@ -487,7 +487,7 @@ public struct SDRApi {
       // attempt to connect to the selected Radio / Station
       do {
         // try to connect
-        try await state.apiModel?.connect(packet: activePacket,
+        try await state.objectModel!.connect(packet: activePacket,
                                           station: activeStation,
                                           isGui: state.appSettings.isGui,
                                           disconnectHandle: disconnectHandle,
@@ -551,7 +551,7 @@ public struct SDRApi {
     if state.appSettings.clearOnStop { MessagesModel.shared.clear(state.appSettings.messageFilter, state.appSettings.messageFilterText) }
     return .run {
       await ObjectModel.shared.clientInitialized(false)
-      await state.apiModel?.disconnect()
+      await state.objectModel!.disconnect()
       await $0(.connectionStatus(.disconnected))
     }
   }
@@ -597,9 +597,9 @@ public struct SDRApi {
     return .run { [state] _ in
       // request a stream
       if channel == 0 {
-        await state.apiModel?.requestStream(.daxMicAudioStream, replyTo: daxRxReplyHandler)
+        await state.objectModel!.requestStream(.daxMicAudioStream, replyTo: daxRxReplyHandler)
       } else {
-        await state.apiModel?.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.appSettings.lowBandwidthDax, replyTo: daxRxReplyHandler)
+        await state.objectModel!.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.appSettings.lowBandwidthDax, replyTo: daxRxReplyHandler)
       }
     }
   }
@@ -630,7 +630,7 @@ public struct SDRApi {
     if state.initialized == false {
             
       // pass Tcp messages to the Tester
-//      state.apiModel?.testDelegate = MessagesModel.shared
+//      state.objectModel!.testDelegate = MessagesModel.shared
       
       // instantiate the Logger, use the group defaults (not the Standard)
 //      XCGWrapper.shared.setup(logLevel: .debug, group: "group.net.k3tzr.flexapps")
@@ -703,7 +703,7 @@ public struct SDRApi {
   private func remoteRxAudioStart(_ state: inout State) -> Effect<SDRApi.Action> {
     return .run { [state] _ in
       // request a stream
-      await state.apiModel?.requestStream(.remoteRxAudioStream, isCompressed: state.appSettings.remoteRxAudioCompressed, replyTo: remoteRxReplyHandler)
+      await state.objectModel!.requestStream(.remoteRxAudioStream, isCompressed: state.appSettings.remoteRxAudioCompressed, replyTo: remoteRxReplyHandler)
     }
   }
   

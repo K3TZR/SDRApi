@@ -51,7 +51,6 @@ struct RadioSubView: View {
 
 private struct Line1View: View {
 
-  @Environment(ApiModel.self) var apiModel
   @Environment(ObjectModel.self) var objectModel
 
   var body: some View {
@@ -87,7 +86,7 @@ private struct Line1View: View {
 
         HStack(spacing: 5) {
           Text("HW")
-          Text(apiModel.hardwareVersion ?? "").foregroundColor(.green)
+          Text(objectModel.hardwareVersion ?? "").foregroundColor(.green)
         }
         
         HStack(spacing: 5) {
@@ -142,7 +141,6 @@ private struct DetailView: View {
     SDRApi()
   })
     
-  .environment(ApiModel.shared)
   .environment(ObjectModel.shared)
     
   .frame(minWidth: 1250)

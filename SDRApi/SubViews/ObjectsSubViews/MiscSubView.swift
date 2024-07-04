@@ -15,7 +15,6 @@ import FlexApiFeature
 
 struct MiscSubView: View {
 
-  @Environment(ApiModel.self) private var apiModel
   @Environment(ObjectModel.self) private var objectModel
 
   @MainActor func list(_ array: [String]) -> String {
@@ -30,7 +29,7 @@ struct MiscSubView: View {
       }
       GridRow {
         Text("Hardware Version").foregroundColor(.yellow)
-        Text(apiModel.hardwareVersion ?? "---").foregroundColor(.secondary)
+        Text(objectModel.hardwareVersion ?? "---").foregroundColor(.secondary)
       }
       GridRow {
         Text("Antenna List").foregroundColor(.yellow)
@@ -54,7 +53,6 @@ struct MiscSubView: View {
 #Preview {
   MiscSubView()
     
-    .environment(ApiModel.shared)
     .environment(ObjectModel.shared)
   
     .frame(width: 1250)

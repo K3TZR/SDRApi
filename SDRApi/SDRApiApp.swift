@@ -21,11 +21,8 @@ struct SDRApiApp: App {
   @NSApplicationDelegateAdaptor(AppDelegate.self)
   var appDelegate
 
-  @State var apiModel = ApiModel.shared
   @State var listenerModel = ListenerModel.shared
   @State var objectModel = ObjectModel.shared
-
-//  private var testApiModel: ApiModel { apiModel.testDelegate = MessagesModel.shared ; return apiModel }
 
   /// Struct to hold a Semantic Version number
   private struct Version {
@@ -58,7 +55,6 @@ struct SDRApiApp: App {
       SDRApiView(store: Store(initialState: SDRApi.State()) {
         SDRApi()
       })
-      .environment(apiModel)
       .environment(listenerModel)
       .environment(objectModel)
     }
@@ -90,7 +86,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
   
   func applicationWillTerminate(_ notification: Notification) {
-    ApiModel.shared.disconnect()
+    ObjectModel.shared.disconnect()
     appLog.debug("SDRApi: application terminated")
   }
   
