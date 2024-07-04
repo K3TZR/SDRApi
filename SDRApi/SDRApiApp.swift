@@ -9,6 +9,7 @@ import os
 import SwiftUI
 
 import FlexApiFeature
+import ListenerFeature
 
 public let appLog = Logger(subsystem: "net.k3tzr.sdrApi", category: "Application")
 
@@ -21,9 +22,10 @@ struct SDRApiApp: App {
   var appDelegate
 
   @State var apiModel = ApiModel.shared
+  @State var listenerModel = ListenerModel.shared
   @State var objectModel = ObjectModel.shared
 
-  private var testApiModel: ApiModel { apiModel.testDelegate = MessagesModel.shared ; return apiModel }
+//  private var testApiModel: ApiModel { apiModel.testDelegate = MessagesModel.shared ; return apiModel }
 
   /// Struct to hold a Semantic Version number
   private struct Version {
@@ -56,7 +58,8 @@ struct SDRApiApp: App {
       SDRApiView(store: Store(initialState: SDRApi.State()) {
         SDRApi()
       })
-      .environment(testApiModel)
+      .environment(apiModel)
+      .environment(listenerModel)
       .environment(objectModel)
     }
     

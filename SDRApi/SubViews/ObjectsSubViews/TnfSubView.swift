@@ -80,20 +80,20 @@ private struct DetailView: View {
       
       HStack(spacing: 5) {
         Text(tnf.frequency, format: .number)
-        Stepper("", value: Binding(get: {tnf.frequency}, set: {tnf.setProperty(.frequency, String(Double($0)/1_000_000))}), step: 100 )
+        Stepper("", value: Binding(get: {tnf.frequency}, set: {tnf.set(.frequency, String(Double($0)/1_000_000))}), step: 100 )
       }
 
       HStack(spacing: 5) {
         Text(tnf.width, format: .number)
-        Stepper("", value: Binding(get: {tnf.width}, set: {tnf.setProperty(.width, String(Double($0)/1_000_000))}), in: 5...6000, step: 100 )
+        Stepper("", value: Binding(get: {tnf.width}, set: {tnf.set(.width, String(Double($0)/1_000_000))}), in: 5...6000, step: 100 )
       }
       
       HStack(spacing: 5) {
         Text(depthName(tnf.depth))
-        Stepper("", value: Binding(get: {tnf.depth}, set: {tnf.setProperty(.depth, String($0) )}), in: 1...3, step: 1 )
+        Stepper("", value: Binding(get: {tnf.depth}, set: {tnf.set(.depth, String($0) )}), in: 1...3, step: 1 )
       }
       
-      Toggle("", isOn: Binding(get: {tnf.permanent}, set: {tnf.setProperty(.permanent, $0.as1or0)} ))
+      Toggle("", isOn: Binding(get: {tnf.permanent}, set: {tnf.set(.permanent, $0.as1or0)} ))
         .gridColumnAlignment(.center)
     }
     .lineLimit(1)

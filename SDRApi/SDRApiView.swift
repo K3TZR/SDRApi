@@ -10,6 +10,7 @@ import SwiftUI
 
 import ClientFeature
 import DirectFeature
+import FlexApiFeature
 import LoginFeature
 import PickerFeature
 
@@ -19,6 +20,8 @@ import PickerFeature
 struct SDRApiView: View {
   @Bindable var store: StoreOf<SDRApi>
       
+  @Environment(ApiModel.self) var apiModel
+  
   var body: some View {
     VStack(alignment: .leading) {
       TopButtonsView(store: store)
@@ -40,7 +43,7 @@ struct SDRApiView: View {
     
     // initialize on first appearance
     .onAppear() {
-      store.send(.onAppear)
+      store.send(.onAppear(apiModel))
     }
 
     // LogAlert Notification

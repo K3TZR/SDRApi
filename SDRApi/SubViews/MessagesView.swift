@@ -98,9 +98,9 @@ struct MessagesView: View {
           }
         }
         
-        .onAppear{
-          store.send(.onAppear)
-        }
+//        .onAppear{
+//          store.send(.onAppear)
+//        }
        
         .frame(minWidth: 1250, maxWidth: .infinity)
       }

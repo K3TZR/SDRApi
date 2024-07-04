@@ -96,9 +96,9 @@ private struct Line1View: View {
           Text("(seconds)")
         }
 
-        Toggle("TNF's Enabled", isOn: Binding(get: {radio.tnfsEnabled}, set: {radio.setProperty(.tnfsEnabled, $0.as1or0)} ))
+        Toggle("TNF's Enabled", isOn: Binding(get: {radio.tnfsEnabled}, set: {radio.set(.tnfsEnabled, $0.as1or0)} ))
 
-        Toggle("MF Enabled", isOn: Binding(get: {radio.multiflexEnabled}, set: {radio.setProperty(.multiflexEnabled, $0.as1or0)} ))
+        Toggle("MF Enabled", isOn: Binding(get: {radio.multiflexEnabled}, set: {radio.set(.multiflexEnabled, $0.as1or0)} ))
 
         .frame(alignment: .leading)
       }.padding(.leading, 20)

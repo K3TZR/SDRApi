@@ -47,9 +47,9 @@ private struct DetailView: View {
         .frame(width: 100, alignment: .leading)
         .foregroundColor(sourceColor)
 
-      Toggle("Atu Enabled", isOn: Binding(get: {atu.enabled}, set: {atu.setProperty(.enabled, $0.as1or0)} ))
+      Toggle("Atu Enabled", isOn: Binding(get: {atu.enabled}, set: {atu.set(.enabled, $0.as1or0)} ))
 
-      Toggle("Memories Enabled", isOn: Binding(get: {atu.memoriesEnabled}, set: {atu.setProperty(.memoriesEnabled, $0.as1or0)} ))
+      Toggle("Memories Enabled", isOn: Binding(get: {atu.memoriesEnabled}, set: {atu.set(.memoriesEnabled, $0.as1or0)} ))
 
       HStack(spacing: 5){
         Text("Using Memories")

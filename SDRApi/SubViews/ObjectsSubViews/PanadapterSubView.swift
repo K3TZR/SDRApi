@@ -67,13 +67,13 @@ private struct PanadapterDetailView: View {
       HStack(spacing: 5) {
         Text("Bandwidth")
         Text(panadapter.bandwidth, format: .number).foregroundColor(.secondary)
-        Stepper("", value: Binding(get: {panadapter.bandwidth}, set: {panadapter.setProperty(.bandwidth, String(Double($0)/1_000_000))} ), step: 100)
+        Stepper("", value: Binding(get: {panadapter.bandwidth}, set: {panadapter.set(.bandwidth, String(Double($0)/1_000_000))} ), step: 100)
       }
       
       HStack(spacing: 5) {
         Text("Center")
         Text(panadapter.center, format: .number).foregroundColor(.secondary)
-        Stepper("", value: Binding(get: {panadapter.center}, set: {panadapter.setProperty(.center, String(Double($0)/1_000_000))} ), step: 100)
+        Stepper("", value: Binding(get: {panadapter.center}, set: {panadapter.set(.center, String(Double($0)/1_000_000))} ), step: 100)
       }
       Spacer()
     }
@@ -92,24 +92,24 @@ private struct WaterfallDetailView: View {
         Text(waterfall.id.hex).padding(.leading, 5).foregroundColor(.secondary)
       }
       
-      Toggle("Auto Black", isOn: Binding(get: {waterfall.autoBlackEnabled}, set: {waterfall.setProperty(.autoBlackEnabled, $0.as1or0)} ))
+      Toggle("Auto Black", isOn: Binding(get: {waterfall.autoBlackEnabled}, set: {waterfall.set(.autoBlackEnabled, $0.as1or0)} ))
       
       HStack(spacing: 5) {
         Text("Color Gain")
         Text(waterfall.colorGain, format: .number).foregroundColor(.secondary)
-        Stepper("", value: Binding(get: {waterfall.colorGain}, set: {waterfall.setProperty(.colorGain, String($0))} ), in: 0...100, step: 1)
+        Stepper("", value: Binding(get: {waterfall.colorGain}, set: {waterfall.set(.colorGain, String($0))} ), in: 0...100, step: 1)
       }
       
       HStack(spacing: 5) {
         Text("Black Level")
         Text(waterfall.blackLevel, format: .number).foregroundColor(.secondary)
-        Stepper("", value: Binding(get: {waterfall.blackLevel}, set: {waterfall.setProperty(.blackLevel, String($0))} ), in: 0...100, step: 1)
+        Stepper("", value: Binding(get: {waterfall.blackLevel}, set: {waterfall.set(.blackLevel, String($0))} ), in: 0...100, step: 1)
       }
       
       HStack(spacing: 5) {
         Text("Duration")
         Text(waterfall.lineDuration, format: .number).foregroundColor(.secondary)
-        Stepper("", value: Binding(get: {waterfall.lineDuration}, set: {waterfall.setProperty(.lineDuration, String($0))} ), in: 0...100, step: 1)
+        Stepper("", value: Binding(get: {waterfall.lineDuration}, set: {waterfall.set(.lineDuration, String($0))} ), in: 0...100, step: 1)
       }
       Spacer()
     }
@@ -165,9 +165,9 @@ private struct SliceDetailView: View {
             Text("\(slice.filterHigh)").foregroundColor(.secondary)
           }
           
-          Toggle("Active", isOn: Binding(get: {slice.active}, set: {slice.setProperty(.active, $0.as1or0)} ))
+          Toggle("Active", isOn: Binding(get: {slice.active}, set: {slice.set(.active, $0.as1or0)} ))
 
-          Toggle("Locked", isOn: Binding(get: {slice.locked}, set: {slice.setProperty(.locked, $0.as1or0)} ))
+          Toggle("Locked", isOn: Binding(get: {slice.locked}, set: {slice.set(.locked, $0.as1or0)} ))
 
         }.frame(width: 100, alignment: .leading)
       }

@@ -63,39 +63,39 @@ private struct DetailView: View {
 
       Text(eq.id)
       
-      Toggle("", isOn: Binding(get: {eq.eqEnabled}, set: {eq.setProperty(.eqEnabled, $0.as1or0)} ))
+      Toggle("", isOn: Binding(get: {eq.eqEnabled}, set: {eq.set(.eqEnabled, $0.as1or0)} ))
 
       HStack(spacing: 5) {
         Text(eq.hz63.formatted(.number))
-        Stepper("", value: Binding(get: {eq.hz63}, set: {eq.setProperty(.hz63, String($0))} ), in: -10...10)
+        Stepper("", value: Binding(get: {eq.hz63}, set: {eq.set(.hz63, String($0))} ), in: -10...10)
       }
       HStack(spacing: 5) {
         Text(eq.hz125.formatted(.number))
-        Stepper("", value: Binding(get: {eq.hz125}, set: {eq.setProperty(.hz125, String($0))} ), in: -10...10)
+        Stepper("", value: Binding(get: {eq.hz125}, set: {eq.set(.hz125, String($0))} ), in: -10...10)
       }
       HStack(spacing: 5) {
         Text(eq.hz250.formatted(.number))
-        Stepper("", value: Binding(get: {eq.hz250}, set: {eq.setProperty(.hz250, String($0))} ), in: -10...10)
+        Stepper("", value: Binding(get: {eq.hz250}, set: {eq.set(.hz250, String($0))} ), in: -10...10)
       }
       HStack(spacing: 5) {
         Text(eq.hz500.formatted(.number))
-        Stepper("", value: Binding(get: {eq.hz500}, set: {eq.setProperty(.hz500, String($0))} ), in: -10...10)
+        Stepper("", value: Binding(get: {eq.hz500}, set: {eq.set(.hz500, String($0))} ), in: -10...10)
       }
       HStack(spacing: 5) {
         Text(eq.hz1000.formatted(.number))
-        Stepper("", value: Binding(get: {eq.hz1000}, set: {eq.setProperty(.hz1000, String($0))} ), in: -10...10)
+        Stepper("", value: Binding(get: {eq.hz1000}, set: {eq.set(.hz1000, String($0))} ), in: -10...10)
       }
       HStack(spacing: 5) {
         Text(eq.hz2000.formatted(.number))
-        Stepper("", value: Binding(get: {eq.hz2000}, set: {eq.setProperty(.hz2000, String($0))} ), in: -10...10)
+        Stepper("", value: Binding(get: {eq.hz2000}, set: {eq.set(.hz2000, String($0))} ), in: -10...10)
       }
       HStack(spacing: 5) {
         Text(eq.hz4000.formatted(.number))
-        Stepper("", value: Binding(get: {eq.hz4000}, set: {eq.setProperty(.hz4000, String($0))} ), in: -10...10)
+        Stepper("", value: Binding(get: {eq.hz4000}, set: {eq.set(.hz4000, String($0))} ), in: -10...10)
       }
       HStack(spacing: 5) {
         Text(eq.hz8000.formatted(.number))
-        Stepper("", value: Binding(get: {eq.hz8000}, set: {eq.setProperty(.hz8000, String($0))} ), in: -10...10)
+        Stepper("", value: Binding(get: {eq.hz8000}, set: {eq.set(.hz8000, String($0))} ), in: -10...10)
       }
     }
     .foregroundColor(.secondary)

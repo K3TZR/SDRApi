@@ -25,7 +25,7 @@ struct BandSettingSubView: View {
       HeadingView(sourceColor: sourceColor)
       if objectModel.bandSettings.count > 0 {
         ForEach(objectModel.bandSettings.sorted(by: {$0.name > $1.name})) { setting in
-          DetailView(setting: setting)
+          DetailView(bandSetting: setting)
         }
       } else {
         GridRow {
@@ -63,29 +63,29 @@ private struct HeadingView: View {
 }
 
 private struct DetailView: View {
-  @Bindable var setting: BandSetting
+  @Bindable var bandSetting: BandSetting
 
   var body: some View {
         
     GridRow {
       Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
-      Text(setting.name == 999 ? " GEN" : String(format: "%#4d", setting.name))
+      Text(bandSetting.name == 999 ? " GEN" : String(format: "%#4d", bandSetting.name))
       HStack(spacing: 5) {
-        Text(setting.rfPower, format: .number)
-        Stepper("", value: Binding(get: {setting.rfPower}, set: {setting.setProperty(.rfPower, String($0))} ), in: 0...100, step: 1)
+        Text(bandSetting.rfPower, format: .number)
+        Stepper("", value: Binding(get: {bandSetting.rfPower}, set: {bandSetting.set(.rfPower, String($0))} ), in: 0...100, step: 1)
       }
       HStack(spacing: 5) {
-        Text(setting.tunePower, format: .number)
-        Stepper("", value: Binding(get: {setting.tunePower}, set: {setting.setProperty(.tunePower, String($0))} ), in: 0...100, step: 1)
+        Text(bandSetting.tunePower, format: .number)
+        Stepper("", value: Binding(get: {bandSetting.tunePower}, set: {bandSetting.set(.tunePower, String($0))} ), in: 0...100, step: 1)
       }
-      Toggle("", isOn: Binding(get: {setting.inhibit}, set: {setting.setProperty(.inhibit, $0.as1or0)} ))
-      Toggle("", isOn: Binding(get: {setting.accTxEnabled}, set: {setting.setProperty(.accTxEnabled, $0.as1or0)} ))
-      Toggle("", isOn: Binding(get: {setting.rcaTxReqEnabled}, set: {setting.setProperty(.rcaTxReqEnabled, $0.as1or0)} ))
-      Toggle("", isOn: Binding(get: {setting.accTxReqEnabled}, set: {setting.setProperty(.accTxReqEnabled, $0.as1or0)} ))
-      Toggle("", isOn: Binding(get: {setting.tx1Enabled}, set: {setting.setProperty(.tx1Enabled, $0.as1or0)} ))
-      Toggle("", isOn: Binding(get: {setting.tx2Enabled}, set: {setting.setProperty(.tx2Enabled, $0.as1or0)} ))
-      Toggle("", isOn: Binding(get: {setting.tx3Enabled}, set: {setting.setProperty(.tx3Enabled, $0.as1or0)} ))
-      Toggle("", isOn: Binding(get: {setting.hwAlcEnabled}, set: {setting.setProperty(.hwAlcEnabled, $0.as1or0)} ))
+      Toggle("", isOn: Binding(get: {bandSetting.inhibit}, set: {bandSetting.set(.inhibit, $0.as1or0)} ))
+      Toggle("", isOn: Binding(get: {bandSetting.accTxEnabled}, set: {bandSetting.set(.accTxEnabled, $0.as1or0)} ))
+      Toggle("", isOn: Binding(get: {bandSetting.rcaTxReqEnabled}, set: {bandSetting.set(.rcaTxReqEnabled, $0.as1or0)} ))
+      Toggle("", isOn: Binding(get: {bandSetting.accTxReqEnabled}, set: {bandSetting.set(.accTxReqEnabled, $0.as1or0)} ))
+      Toggle("", isOn: Binding(get: {bandSetting.tx1Enabled}, set: {bandSetting.set(.tx1Enabled, $0.as1or0)} ))
+      Toggle("", isOn: Binding(get: {bandSetting.tx2Enabled}, set: {bandSetting.set(.tx2Enabled, $0.as1or0)} ))
+      Toggle("", isOn: Binding(get: {bandSetting.tx3Enabled}, set: {bandSetting.set(.tx3Enabled, $0.as1or0)} ))
+      Toggle("", isOn: Binding(get: {bandSetting.hwAlcEnabled}, set: {bandSetting.set(.hwAlcEnabled, $0.as1or0)} ))
     }
     .controlSize(.small)
     .foregroundColor(.secondary)

@@ -19,7 +19,7 @@ struct CwxSubView: View {
 
   var body: some View {
     
-    let cwx = objectModel.cwx
+    let cwx = objectModel.cwx!
     
     Grid(alignment: .leading, horizontalSpacing: 10) {
       GridRow {
@@ -31,15 +31,15 @@ struct CwxSubView: View {
           HStack(spacing: 5) {
             Text("Delay")
             Text(cwx.breakInDelay, format: .number).foregroundColor(.secondary)
-            Stepper("", value: Binding(get: {cwx.breakInDelay}, set: {cwx.setProperty(.breakInDelay, String($0))} ), in: 40...2000, step: 10)
+            Stepper("", value: Binding(get: {cwx.breakInDelay}, set: {cwx.set(.breakInDelay, String($0))} ), in: 40...2000, step: 10)
           }
 
-          Toggle("QSK", isOn: Binding(get: {cwx.qskEnabled }, set: {cwx.setProperty(.qskEnabled, $0.as1or0)} ))
+          Toggle("QSK", isOn: Binding(get: {cwx.qskEnabled }, set: {cwx.set(.qskEnabled, $0.as1or0)} ))
 
           HStack(spacing: 5) {
             Text("Speed")
             Text(cwx.wpm, format: .number).foregroundColor(.secondary)
-            Stepper("", value: Binding(get: {cwx.wpm}, set: {cwx.setProperty(.wpm, String($0))} ), in: 5...60, step: 1)
+            Stepper("", value: Binding(get: {cwx.wpm}, set: {cwx.set(.wpm, String($0))} ), in: 5...60, step: 1)
           }
         }
       }
