@@ -464,7 +464,7 @@ public struct SDRApi {
     state.appSettings.commandsArray.append(state.appSettings.commandToSend)
     return .run { [state] in
       // send command to the radio
-      state.apiModel?.sendTcp(state.appSettings.commandToSend)
+      await state.apiModel?.sendTcp(state.appSettings.commandToSend)
       if state.appSettings.clearOnSend { await $0(.clearSendTextButtonTapped)}
     }
   }
@@ -494,7 +494,8 @@ public struct SDRApi {
                                           programName: "SDRApiViewer",
                                           mtuValue: state.appSettings.mtuValue,
                                           lowBandwidthDax: state.appSettings.lowBandwidthDax,
-                                          lowBandwidthConnect: state.appSettings.lowBandwidthConnect)
+                                          lowBandwidthConnect: state.appSettings.lowBandwidthConnect,
+                                          testDelegate: MessagesModel.shared)
         await $0(.connectionStatus(.connected))
         
       } catch {
@@ -550,7 +551,7 @@ public struct SDRApi {
     if state.appSettings.clearOnStop { MessagesModel.shared.clear(state.appSettings.messageFilter, state.appSettings.messageFilterText) }
     return .run {
       await ObjectModel.shared.clientInitialized(false)
-      state.apiModel?.disconnect()
+      await state.apiModel?.disconnect()
       await $0(.connectionStatus(.disconnected))
     }
   }
@@ -596,9 +597,9 @@ public struct SDRApi {
     return .run { [state] _ in
       // request a stream
       if channel == 0 {
-        state.apiModel?.requestStream(.daxMicAudioStream, replyTo: daxRxReplyHandler)
+        await state.apiModel?.requestStream(.daxMicAudioStream, replyTo: daxRxReplyHandler)
       } else {
-        state.apiModel?.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.appSettings.lowBandwidthDax, replyTo: daxRxReplyHandler)
+        await state.apiModel?.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.appSettings.lowBandwidthDax, replyTo: daxRxReplyHandler)
       }
     }
   }
@@ -629,7 +630,7 @@ public struct SDRApi {
     if state.initialized == false {
             
       // pass Tcp messages to the Tester
-      state.apiModel?.testDelegate = MessagesModel.shared
+//      state.apiModel?.testDelegate = MessagesModel.shared
       
       // instantiate the Logger, use the group defaults (not the Standard)
 //      XCGWrapper.shared.setup(logLevel: .debug, group: "group.net.k3tzr.flexapps")
@@ -702,7 +703,7 @@ public struct SDRApi {
   private func remoteRxAudioStart(_ state: inout State) -> Effect<SDRApi.Action> {
     return .run { [state] _ in
       // request a stream
-      state.apiModel?.requestStream(.remoteRxAudioStream, isCompressed: state.appSettings.remoteRxAudioCompressed, replyTo: remoteRxReplyHandler)
+      await state.apiModel?.requestStream(.remoteRxAudioStream, isCompressed: state.appSettings.remoteRxAudioCompressed, replyTo: remoteRxReplyHandler)
     }
   }
   
