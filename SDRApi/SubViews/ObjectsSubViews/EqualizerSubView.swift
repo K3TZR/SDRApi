@@ -108,5 +108,5 @@ private struct DetailView: View {
 #Preview {
   EqualizerSubView(sourceColor: .blue)
 
-    .environment(ObjectModel.shared)
+    .environment(ObjectModel())
 }

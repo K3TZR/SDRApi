@@ -45,7 +45,7 @@ struct WaveformSubView: View {
 #Preview {
   WaveformSubView()
     
-    .environment(ObjectModel.shared)
+    .environment(ObjectModel())
   
     .frame(minWidth: 1250)
 }

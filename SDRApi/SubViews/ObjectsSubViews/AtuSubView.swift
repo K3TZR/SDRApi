@@ -69,7 +69,7 @@ private struct DetailView: View {
 #Preview {
   AtuSubView(sourceColor: .blue)
   
-    .environment(ObjectModel.shared)
+    .environment(ObjectModel())
   
     .frame(width: 1250)
 }

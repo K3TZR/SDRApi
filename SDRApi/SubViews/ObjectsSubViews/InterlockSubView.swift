@@ -62,7 +62,7 @@ struct InterlockSubView: View {
 #Preview {
   InterlockSubView()
 
-    .environment(ObjectModel.shared)
+    .environment(ObjectModel())
   
     .frame(width: 1250)
 }

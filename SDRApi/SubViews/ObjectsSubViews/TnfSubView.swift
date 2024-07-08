@@ -108,7 +108,7 @@ private struct DetailView: View {
 #Preview {
   TnfSubView(sourceColor: .blue)
     
-    .environment(ObjectModel.shared)
+    .environment(ObjectModel())
   
     .frame(minWidth: 1250)
 }

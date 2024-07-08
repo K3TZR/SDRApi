@@ -22,7 +22,7 @@ struct SDRApiApp: App {
   var appDelegate
 
   @State var listenerModel = ListenerModel.shared
-  @State var objectModel = ObjectModel.shared
+  @State var objectModel = ObjectModel()
 
   /// Struct to hold a Semantic Version number
   private struct Version {
@@ -86,7 +86,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
   
   func applicationWillTerminate(_ notification: Notification) {
-    ObjectModel.shared.disconnect()
+//    ObjectModel.shared.disconnect()
     appLog.debug("SDRApi: application terminated")
   }
   

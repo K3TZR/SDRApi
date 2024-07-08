@@ -187,7 +187,7 @@ private struct MeterStreamView: View {
         .frame(width: 100, alignment: .leading)
         .foregroundColor(.yellow)
       
-      Text(ObjectModel.shared.meterStream?.id.hex ?? "0x0").foregroundColor(.secondary)
+      Text(objectModel.meterStream?.id.hex ?? "0x0").foregroundColor(.secondary)
 //      Spacer()
     }
   }
@@ -279,7 +279,7 @@ private struct WaterfallStreamView: View {
 #Preview {
   StreamSubView(handle: 1)
     
-    .environment(ObjectModel.shared)
+    .environment(ObjectModel())
   
     .frame(minWidth: 1250)
 }

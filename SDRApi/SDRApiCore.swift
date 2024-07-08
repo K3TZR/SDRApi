@@ -181,9 +181,13 @@ public struct SDRApi {
         
       case let .onAppear(objectModel):
         state.objectModel = objectModel
-        // perform initialization
-        return  initState(&state)
-        
+        if state.initialized == false {
+          // mark as initialized
+          state.initialized = true
+          return listenerStartStop(&state)
+        }
+        return .none
+
       case .clearButtonTapped:
         MessagesModel.shared.clear(state.appSettings.messageFilter, state.appSettings.messageFilterText)
         return .none
@@ -550,7 +554,7 @@ public struct SDRApi {
   private func connectionStop(_ state: State)  -> Effect<SDRApi.Action> {
     if state.appSettings.clearOnStop { MessagesModel.shared.clear(state.appSettings.messageFilter, state.appSettings.messageFilterText) }
     return .run {
-      await ObjectModel.shared.clientInitialized(false)
+      await state.objectModel!.clientInitialized(false)
       await state.objectModel!.disconnect()
       await $0(.connectionStatus(.disconnected))
     }
@@ -608,38 +612,21 @@ public struct SDRApi {
     // parse the command to get the type and channel number
     let properties = command.keyValuesArray()
     
-    if let streamId = reply.streamId {
-      Task {
-        if properties[2].value == StreamType.daxMicAudioStream.rawValue {
-          await StreamModel.shared.daxRxAudioStart(streamId, 0)
-        } else {
-          await StreamModel.shared.daxRxAudioStart(streamId, properties[3].value.iValue)
-        }
-      }
-    }
+//    if let streamId = reply.streamId {
+//      Task {
+//        if properties[2].value == StreamType.daxMicAudioStream.rawValue {
+//          await StreamModel.shared.daxRxAudioStart(streamId, 0)
+//        } else {
+//          await StreamModel.shared.daxRxAudioStart(streamId, properties[3].value.iValue)
+//        }
+//      }
+//    }
   }
 
   private func daxRxAudioStop(_ state: inout State, _ channel: Int) -> Effect<SDRApi.Action> {
-    Task {
-      await StreamModel.shared.daxRxAudioStop(channel)
-    }
-    return .none
-  }
-
-  private func initState(_ state: inout State) -> Effect<SDRApi.Action> {
-    if state.initialized == false {
-            
-      // pass Tcp messages to the Tester
-//      state.objectModel!.testDelegate = MessagesModel.shared
-      
-      // instantiate the Logger, use the group defaults (not the Standard)
-//      XCGWrapper.shared.setup(logLevel: .debug, group: "group.net.k3tzr.flexapps")
-      
-      // mark as initialized
-      state.initialized = true
-            
-      return listenerStartStop(&state)
-    }
+//    Task {
+//      await StreamModel.shared.daxRxAudioStop(channel)
+//    }
     return .none
   }
 
@@ -703,21 +690,14 @@ public struct SDRApi {
   private func remoteRxAudioStart(_ state: inout State) -> Effect<SDRApi.Action> {
     return .run { [state] _ in
       // request a stream
-      await state.objectModel!.requestStream(.remoteRxAudioStream, isCompressed: state.appSettings.remoteRxAudioCompressed, replyTo: remoteRxReplyHandler)
+      await state.objectModel!.requestStream(.remoteRxAudioStream, isCompressed: state.appSettings.remoteRxAudioCompressed, replyTo: state.objectModel!.remoteRxAudioReplyHandler)
     }
   }
   
-  private func remoteRxReplyHandler(_ command: String, _ seqNumber: Int, _ responseValue: String, _ reply: String) {
-    if let streamId = reply.streamId {
-      Task {
-        await StreamModel.shared.remoteRxAudioStart(streamId)
-      }
-    }
-  }
 
   private func remoteRxAudioStop(_ state: inout State) -> Effect<SDRApi.Action> {
-    Task {
-      await StreamModel.shared.remoteRxAudioStop()
+    Task { [state] in
+      await state.objectModel!.remoteRxAudio?.stop()
     }
     return .none
   }

@@ -49,7 +49,7 @@ struct TesterSubView: View {
 #Preview {
   TesterSubView()
     
-    .environment(ObjectModel.shared)
+    .environment(ObjectModel())
   
     .frame(minWidth: 1250)
 }

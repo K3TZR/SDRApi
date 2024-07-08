@@ -103,7 +103,7 @@ private struct DetailView: View {
 #Preview {
   GpsSubView(sourceColor: .blue)
 
-    .environment(ObjectModel.shared)
+    .environment(ObjectModel())
   
     .frame(width: 1250)
 }

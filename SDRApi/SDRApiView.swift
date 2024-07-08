@@ -78,7 +78,7 @@ struct SDRApiView: View {
     SDRApi()
   })
   
-  .environment(ObjectModel.shared)
+  .environment(ObjectModel())
   
   .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 700, maxHeight: .infinity)
   .padding()
