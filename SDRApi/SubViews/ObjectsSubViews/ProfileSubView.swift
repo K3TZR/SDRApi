@@ -80,7 +80,8 @@ private struct DetailView: View {
 
 #Preview {
   ProfileSubView()
-    .environment(ObjectModel())
-  
+
+    .environment(ObjectModel.shared)
+
     .frame(width: 1250)
 }

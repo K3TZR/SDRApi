@@ -53,7 +53,7 @@ struct MiscSubView: View {
 #Preview {
   MiscSubView()
     
-    .environment(ObjectModel())
+    .environment(ObjectModel.shared)
   
     .frame(width: 1250)
 }

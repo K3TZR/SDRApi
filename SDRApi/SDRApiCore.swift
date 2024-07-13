@@ -99,7 +99,8 @@ public struct SDRApi {
     @Shared(.appSettings) var appSettings: AppSettings
 
     // non-persistent
-    var objectModel: ObjectModel?
+//    var objectModel: ObjectModel?
+    var streamModel: StreamModel?
     var initialized = false
     var connectionState: ConnectionState = .disconnected
     
@@ -116,7 +117,7 @@ public struct SDRApi {
   public enum Action: BindableAction {
     case binding(BindingAction<State>)
     
-    case onAppear(ObjectModel)
+    case onAppear
     
     // UI control actions
     case connectButtonTapped
@@ -179,8 +180,9 @@ public struct SDRApi {
         // ----------------------------------------------------------------------------
         // MARK: - Root Actions
         
-      case let .onAppear(objectModel):
-        state.objectModel = objectModel
+      case .onAppear:
+//        state.objectModel = objectModel
+//        state.streamModel = streamModel
         if state.initialized == false {
           // mark as initialized
           state.initialized = true
@@ -468,7 +470,7 @@ public struct SDRApi {
     state.appSettings.commandsArray.append(state.appSettings.commandToSend)
     return .run { [state] in
       // send command to the radio
-      await state.objectModel!.sendTcp(state.appSettings.commandToSend)
+      await ObjectModel.shared.sendTcp(state.appSettings.commandToSend)
       if state.appSettings.clearOnSend { await $0(.clearSendTextButtonTapped)}
     }
   }
@@ -491,7 +493,7 @@ public struct SDRApi {
       // attempt to connect to the selected Radio / Station
       do {
         // try to connect
-        try await state.objectModel!.connect(packet: activePacket,
+        try await ObjectModel.shared.connect(packet: activePacket,
                                           station: activeStation,
                                           isGui: state.appSettings.isGui,
                                           disconnectHandle: disconnectHandle,
@@ -554,8 +556,8 @@ public struct SDRApi {
   private func connectionStop(_ state: State)  -> Effect<SDRApi.Action> {
     if state.appSettings.clearOnStop { MessagesModel.shared.clear(state.appSettings.messageFilter, state.appSettings.messageFilterText) }
     return .run {
-      await state.objectModel!.clientInitialized(false)
-      await state.objectModel!.disconnect()
+      await ObjectModel.shared.clientInitialized(false)
+      await ObjectModel.shared.disconnect()
       await $0(.connectionStatus(.disconnected))
     }
   }
@@ -601,14 +603,14 @@ public struct SDRApi {
     return .run { [state] _ in
       // request a stream
       if channel == 0 {
-        await state.objectModel!.requestStream(.daxMicAudioStream, replyTo: daxRxReplyHandler)
+        await ObjectModel.shared.requestStream(.daxMicAudioStream, replyTo: daxRxReplyHandler)
       } else {
-        await state.objectModel!.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.appSettings.lowBandwidthDax, replyTo: daxRxReplyHandler)
+        await ObjectModel.shared.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.appSettings.lowBandwidthDax, replyTo: daxRxReplyHandler)
       }
     }
   }
   
-  private func daxRxReplyHandler(_ command: String, _ seqNumber: Int, _ responseValue: String, _ reply: String) {
+  private func daxRxReplyHandler(_ command: String, _ reply: String) {
     // parse the command to get the type and channel number
     let properties = command.keyValuesArray()
     
@@ -688,17 +690,23 @@ public struct SDRApi {
   }
   
   private func remoteRxAudioStart(_ state: inout State) -> Effect<SDRApi.Action> {
-    return .run { [state] _ in
+    return .run { _ in 
       // request a stream
-      await state.objectModel!.requestStream(.remoteRxAudioStream, isCompressed: state.appSettings.remoteRxAudioCompressed, replyTo: state.objectModel!.remoteRxAudioReplyHandler)
+//      await state.objectModel!.requestStream(.remoteRxAudioStream, isCompressed: state.appSettings.remoteRxAudioCompressed, replyTo: state.objectModel!.remoteRxAudioReplyHandler)
+      let tuple = await ObjectModel.shared.sendTcpAwaitReply("stream create type=remote_audio_rx compression=opus")
+      let components = tuple.reply.components(separatedBy: "|")
+      if components.count >= 3 {
+//        print("----->>>>> StreamId =", components[2].streamId?.hex ?? "onknown")
+        if let streamId = components[2].streamId {
+          StreamModel.shared.remoteRxAudioStart(streamId)
+        }
+      }
     }
   }
   
 
   private func remoteRxAudioStop(_ state: inout State) -> Effect<SDRApi.Action> {
-    Task { [state] in
-      await state.objectModel!.remoteRxAudio?.stop()
-    }
+    StreamModel.shared.remoteRxAudioStop()
     return .none
   }
   

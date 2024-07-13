@@ -100,7 +100,7 @@ private struct DetailView: View {
     SDRApi()
   }, sourceColor: .blue)
   
-  .environment(ObjectModel())
-  
+  .environment(ObjectModel.shared)
+
   .frame(width: 1250)
 }

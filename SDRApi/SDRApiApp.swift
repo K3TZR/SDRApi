@@ -22,7 +22,8 @@ struct SDRApiApp: App {
   var appDelegate
 
   @State var listenerModel = ListenerModel.shared
-  @State var objectModel = ObjectModel()
+  @State var objectModel = ObjectModel.shared
+//  @State var streamModel = StreamModel()
 
   /// Struct to hold a Semantic Version number
   private struct Version {
@@ -57,6 +58,7 @@ struct SDRApiApp: App {
       })
       .environment(listenerModel)
       .environment(objectModel)
+//      .environment(streamModel)
     }
     
     // Settings window

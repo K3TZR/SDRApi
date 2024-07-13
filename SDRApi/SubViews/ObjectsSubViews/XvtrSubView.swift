@@ -48,7 +48,7 @@ struct XvtrSubView: View {
 #Preview {
   XvtrSubView()
 
-    .environment(ObjectModel())
+    .environment(ObjectModel.shared)
   
     .frame(minWidth: 1250)
 }

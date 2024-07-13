@@ -279,7 +279,7 @@ private struct WaterfallStreamView: View {
 #Preview {
   StreamSubView(handle: 1)
     
-    .environment(ObjectModel())
+    .environment(ObjectModel.shared)
   
     .frame(minWidth: 1250)
 }

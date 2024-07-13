@@ -130,7 +130,7 @@ private struct GuiClientDetailView: View {
     SDRApi()
   })
   
-  .environment(ObjectModel())
+  .environment(ObjectModel.shared)
   
   .frame(width: 1250)
 }

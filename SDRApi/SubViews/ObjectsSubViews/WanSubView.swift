@@ -47,7 +47,7 @@ struct WanSubView: View {
 #Preview {
   WanSubView()
     
-    .environment(ObjectModel())
-  
+    .environment(ObjectModel.shared)
+
     .frame(minWidth: 1250)
 }

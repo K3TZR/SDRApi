@@ -141,7 +141,7 @@ private struct DetailView: View {
     SDRApi()
   })
     
-  .environment(ObjectModel())
-    
+  .environment(ObjectModel.shared)
+
   .frame(minWidth: 1250)
 }

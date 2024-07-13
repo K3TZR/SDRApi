@@ -102,7 +102,7 @@ private struct DetailView: View {
 #Preview {
   UsbCableSubView()
     
-    .environment(ObjectModel())
+    .environment(ObjectModel.shared)
   
     .frame(minWidth: 1250)
 }

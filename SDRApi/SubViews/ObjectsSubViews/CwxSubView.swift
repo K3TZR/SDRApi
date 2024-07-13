@@ -55,7 +55,7 @@ struct CwxSubView: View {
 #Preview {
   CwxSubView()
   
-    .environment(ObjectModel())
+    .environment(ObjectModel.shared)
   
     .frame(width: 1250)
   

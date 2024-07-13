@@ -107,7 +107,7 @@ private struct DetailView: View {
 #Preview {
   MeterSubView(sliceId: 1, sliceClientHandle: nil, handle: 1)
     
-    .environment(ObjectModel())
-  
+    .environment(ObjectModel.shared)
+
     .frame(width: 1250)
 }

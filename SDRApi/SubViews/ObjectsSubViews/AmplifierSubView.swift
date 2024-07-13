@@ -76,7 +76,7 @@ private struct DetailView: View {
 #Preview {
   AmplifierSubView()
 
-    .environment(ObjectModel())
-  
+    .environment(ObjectModel.shared)
+
     .frame(width: 1250)
 }

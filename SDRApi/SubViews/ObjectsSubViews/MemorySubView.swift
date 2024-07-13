@@ -107,7 +107,7 @@ private struct DetailView: View {
 #Preview {
   MemorySubView()
   
-    .environment(ObjectModel())
+    .environment(ObjectModel.shared)
   
     .frame(width: 1250)
 }
