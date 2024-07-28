@@ -38,7 +38,7 @@ struct MessagesView: View {
       if let range = attString.range(of: store.appSettings.messageFilterText) {
         attString[range].underlineStyle = .single
         attString[range].foregroundColor = .yellow
-        attString[range].font = .boldSystemFont(ofSize: CGFloat(store.appSettings.fontSize + 4))
+        attString[range].font = .boldSystemFont(ofSize: CGFloat(store.appSettings.fontSize))
       }
     }
     return attString

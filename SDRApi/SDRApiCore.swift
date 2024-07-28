@@ -600,39 +600,29 @@ public struct SDRApi {
   }
   
   private func daxRxAudioStart(_ state: inout State, _ channel: Int) -> Effect<SDRApi.Action> {
-    return .run { [state] _ in
+    return .run { _ in
+      var tuple: (command:String, reply:String)
       // request a stream
       if channel == 0 {
-        await ObjectModel.shared.requestStream(.daxMicAudioStream, replyTo: daxRxReplyHandler)
+        tuple = await ObjectModel.shared.sendTcpAwaitReply("stream create type=dax_mic")
       } else {
-        await ObjectModel.shared.requestStream(.daxRxAudioStream, daxChannel: channel, isCompressed: state.appSettings.lowBandwidthDax, replyTo: daxRxReplyHandler)
+        tuple = await ObjectModel.shared.sendTcpAwaitReply("stream create type=dax_rx dax_channel=\(channel)")
+      }
+      let components = tuple.reply.components(separatedBy: "|")
+      if components.count >= 3 {
+        if let streamId = components[2].streamId {
+          await StreamModel.shared.daxRxAudioStart(streamId, channel)
+        }
       }
     }
   }
-  
-  private func daxRxReplyHandler(_ command: String, _ reply: String) {
-    // parse the command to get the type and channel number
-    let properties = command.keyValuesArray()
-    
-//    if let streamId = reply.streamId {
-//      Task {
-//        if properties[2].value == StreamType.daxMicAudioStream.rawValue {
-//          await StreamModel.shared.daxRxAudioStart(streamId, 0)
-//        } else {
-//          await StreamModel.shared.daxRxAudioStart(streamId, properties[3].value.iValue)
-//        }
-//      }
-//    }
-  }
 
   private func daxRxAudioStop(_ state: inout State, _ channel: Int) -> Effect<SDRApi.Action> {
-//    Task {
-//      await StreamModel.shared.daxRxAudioStop(channel)
-//    }
-    return .none
+    return .run { _ in
+      await StreamModel.shared.daxRxAudioStop(channel)
+    }
   }
 
-  // start/stop listener, as needed
   private func listenerStartStop(_ state: inout State) -> Effect<SDRApi.Action> {
     // start/stop local mode
     ListenerModel.shared.localMode(state.appSettings.localEnabled)
@@ -692,22 +682,20 @@ public struct SDRApi {
   private func remoteRxAudioStart(_ state: inout State) -> Effect<SDRApi.Action> {
     return .run { _ in 
       // request a stream
-//      await state.objectModel!.requestStream(.remoteRxAudioStream, isCompressed: state.appSettings.remoteRxAudioCompressed, replyTo: state.objectModel!.remoteRxAudioReplyHandler)
       let tuple = await ObjectModel.shared.sendTcpAwaitReply("stream create type=remote_audio_rx compression=opus")
       let components = tuple.reply.components(separatedBy: "|")
       if components.count >= 3 {
-//        print("----->>>>> StreamId =", components[2].streamId?.hex ?? "onknown")
         if let streamId = components[2].streamId {
-          StreamModel.shared.remoteRxAudioStart(streamId)
+         await  StreamModel.shared.remoteRxAudioStart(streamId)
         }
       }
     }
   }
   
-
   private func remoteRxAudioStop(_ state: inout State) -> Effect<SDRApi.Action> {
-    StreamModel.shared.remoteRxAudioStop()
-    return .none
+    return .run { _ in
+      await StreamModel.shared.remoteRxAudioStop()
+    }
   }
   
   private func remoteTxAudioStart(_ state: inout State)  -> Effect<SDRApi.Action> {
