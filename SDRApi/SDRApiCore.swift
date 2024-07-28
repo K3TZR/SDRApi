@@ -611,7 +611,7 @@ public struct SDRApi {
       let components = tuple.reply.components(separatedBy: "|")
       if components.count >= 3 {
         if let streamId = components[2].streamId {
-          await StreamModel.shared.daxRxAudioStart(streamId, channel)
+          await StreamModel.shared.daxRxAudioStreams[id: streamId]?.start(channel)
         }
       }
     }
@@ -694,7 +694,7 @@ public struct SDRApi {
   
   private func remoteRxAudioStop(_ state: inout State) -> Effect<SDRApi.Action> {
     return .run { _ in
-      await StreamModel.shared.remoteRxAudioStream?.stop()
+      await StreamModel.shared.remoteRxAudioStop()
     }
   }
   
