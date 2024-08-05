@@ -680,15 +680,10 @@ public struct SDRApi {
   }
   
   private func remoteRxAudioStart(_ state: inout State) -> Effect<SDRApi.Action> {
-    return .run { _ in 
+    return .run { _ in
       // request a stream
       let _ = await ObjectModel.shared.sendTcpAwaitReply("stream create type=remote_audio_rx compression=opus")
-//      let components = tuple.reply.components(separatedBy: "|")
-//      if components.count >= 3 {
-//        if let streamId = components[2].streamId {
-          await  StreamModel.shared.remoteRxAudioStream?.start()
-//        }
-//      }
+      await  StreamModel.shared.remoteRxAudioStream?.start()
     }
   }
   
@@ -699,15 +694,21 @@ public struct SDRApi {
   }
   
   private func remoteTxAudioStart(_ state: inout State)  -> Effect<SDRApi.Action> {
-    print("TODO: remoteTxAudioStart") // TODO
-    return .none
+    return .run { _ in
+      // request a stream
+      let _ = await ObjectModel.shared.sendTcpAwaitReply("stream create type=remote_audio_tx compression=opus")
+      await  ObjectModel.shared.remoteTxAudio?.start()
+    }
   }
-  
+
   private func remoteTxAudioStop(_ state: inout State)  -> Effect<SDRApi.Action> {
-    print("TODO: remoteTxAudioStop") // TODO
-    return .none
+    return .run { _ in
+      if let streamId = await ObjectModel.shared.remoteTxAudio?.stop() {
+        await ObjectModel.shared.sendTcp("stream remove \(streamId.hex)")
+      }
+    }
   }
-  
+
   private func saveMessages(_ state: State) -> Effect<SDRApi.Action> {
     let savePanel = NSSavePanel()
     savePanel.nameFieldStringValue = "SDRApi.messages"

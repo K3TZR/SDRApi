@@ -187,7 +187,7 @@ private struct MeterStreamView: View {
         .frame(width: 100, alignment: .leading)
         .foregroundColor(.yellow)
       
-      Text(objectModel.meterStream?.id.hex ?? "0x0").foregroundColor(.secondary)
+//      Text(StreamModel.shared.meterStream?.id.hex ?? "0x0").foregroundColor(.secondary)
 //      Spacer()
     }
   }

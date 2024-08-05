@@ -113,7 +113,6 @@ public struct TopButtonsView: View {
       .frame(width: 180)
       
       Toggle("Tx Audio", isOn: $store.appSettings.remoteTxAudioEnabled)
-        .disabled(true)
         .help("Enable audio from this Mac to the Radio")
         .onChange(of: store.appSettings.remoteTxAudioEnabled) { _, _ in
           store.send(.remoteTxAudioEnabledChanged)

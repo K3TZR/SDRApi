@@ -16,8 +16,6 @@ import VitaFeature
 
 public struct NetworkSubView: View {
 
-//  @Environment(StreamModel.self) var streamModel
-  
   public var body: some View {
       Grid (alignment: .leading) {
         GridRow {
@@ -43,27 +41,27 @@ private struct DetailView: View {
   @ObservedObject var stream: StreamStatus
   @State var throttledPackets: Int = 0
   
-//  var errorPerCent: Float {
-//    if stream.errors == 0 { return 0 }
-//    return Float(stream.errors) / Float(stream.packets)
-//  }
+  var errorPerCent: Float {
+    if stream.errors == 0 { return 0 }
+    return Float(stream.errors) / Float(stream.packets)
+  }
   
   var body: some View {
     GridRow {
       Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
       Text(stream.type.description())
-//      Group {
-//        Text(throttledPackets.formatted(.number))
-//        Text(stream.errors.formatted(.number))
-//        Text(errorPerCent.formatted(.percent.precision(.fractionLength(4))))
-//      }
-//      .foregroundColor(.secondary)
-//      .gridColumnAlignment(.trailing)
+      Group {
+        Text(throttledPackets.formatted(.number))
+        Text(stream.errors.formatted(.number))
+        Text(errorPerCent.formatted(.percent.precision(.fractionLength(4))))
+      }
+      .foregroundColor(.secondary)
+      .gridColumnAlignment(.trailing)
     }
     
-//    .onReceive(stream.$packets.throttle(for: 1, scheduler: RunLoop.main, latest: true) ) {
-//      self.throttledPackets = $0
-//    }
+    .onReceive(stream.$packets.throttle(for: 1, scheduler: RunLoop.main, latest: true) ) {
+      self.throttledPackets = $0
+    }
   }
 }
 
@@ -73,6 +71,4 @@ private struct DetailView: View {
 
 #Preview {
   NetworkSubView()
-//    .environment(StreamModel.shared)
-
 }
