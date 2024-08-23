@@ -63,6 +63,16 @@ public struct AppSettings: Codable, Equatable {
   public var useDefaultEnabled = false
 }
 
+// alert sub-actions
+//public enum AlertType {
+//  case connectFailed(String)
+//  case disconnectFailed
+//  case logAlert(String)
+//  case remoteRxAudioFailed
+//  case smartlinkLoginFailed
+//  case unknownError
+//}
+
 // ----------------------------------------------------------------------------
 // MARK: - Persistence Extensions
 
@@ -89,7 +99,15 @@ where Self == PersistenceKeyDefault<FileStorageKey<AppSettings>> {
 public struct SDRApi {
   
   public init() {}
-  
+
+  @Reducer
+  public enum Destination {
+    case clientItem(ClientFeature)
+    case directItem(DirectFeature)
+    case loginItem(LoginFeature)
+    case pickerItem(PickerFeature)
+  }
+
   // ----------------------------------------------------------------------------
   // MARK: - State
   
@@ -99,16 +117,12 @@ public struct SDRApi {
     @Shared(.appSettings) var appSettings: AppSettings
 
     // non-persistent
-//    var objectModel: ObjectModel?
     var streamModel: StreamModel?
     var initialized = false
     var connectionState: ConnectionState = .disconnected
     
-    @Presents var showAlert: AlertState<Action.Alert>?
-    @Presents var showClient: ClientFeature.State?
-    @Presents var showDirect: DirectFeature.State?
-    @Presents var showLogin: LoginFeature.State?
-    @Presents var showPicker: PickerFeature.State?
+    @Presents var destination: Destination.State?
+    @Presents var alert: AlertState<Action.Alert>?
   }
   
   // ----------------------------------------------------------------------------
@@ -116,6 +130,9 @@ public struct SDRApi {
   
   public enum Action: BindableAction {
     case binding(BindingAction<State>)
+    
+    case alert(PresentationAction<Alert>)
+    case destination(PresentationAction<Destination.Action>)
     
     case onAppear
     
@@ -137,34 +154,21 @@ public struct SDRApi {
     case sendButtonTapped
     case showPingsChanged
     case smartlinkEnabledChanged
-    case tnfsEnabledClicked
     
     // secondary actions
     case multiflexStatus(String)
     case connect(String, UInt32?)
     case connectionStatus(ConnectionState)
     case saveTokens(Tokens)
-    case showAlert(Alert,String)
+    case showAlert(String, String)
     case showClientSheet(String, IdentifiedArrayOf<GuiClient>)
     case showDirectSheet
-//    case showLogAlert(LogEntry)
     case showLoginSheet
     case showPickerSheet
     
-    // navigation actions
-    case alert(PresentationAction<Alert>)
-    case client(PresentationAction<ClientFeature.Action>)
-    case direct(PresentationAction<DirectFeature.Action>)
-    case login(PresentationAction<LoginFeature.Action>)
-    case picker(PresentationAction<PickerFeature.Action>)
     
-    // alert sub-actions
-    public enum Alert : String {
-      case connectFailed = "Connect FAILED"
-      case disconnectFailed = "Disconnect FAILED"
-      case remoteRxAudioFailed = "RemoteRxAudio FAILED"
-      case smartlinkLoginFailed = "Smartlink login FAILED"
-      case unknownError = "Unknown error logged"
+    public enum Alert {
+      case logAlert
     }
   }
   
@@ -181,8 +185,6 @@ public struct SDRApi {
         // MARK: - Root Actions
         
       case .onAppear:
-//        state.objectModel = objectModel
-//        state.streamModel = streamModel
         if state.initialized == false {
           // mark as initialized
           state.initialized = true
@@ -291,9 +293,6 @@ public struct SDRApi {
       case .smartlinkEnabledChanged:
         state.appSettings.directEnabled = false
         return listenerStartStop(&state)
-
-      case .tnfsEnabledClicked:
-        return .none
         
         // ----------------------------------------------------------------------------
         // MARK: - Root Binding Actions
@@ -332,62 +331,53 @@ public struct SDRApi {
         // ----------------------------------------------------------------------------
         // MARK: - Presented Views
         
-      case let .showAlert(alertType, message):
-        switch alertType {
-        case .connectFailed, .disconnectFailed, .unknownError:
-          break
-        case .remoteRxAudioFailed:
-          state.appSettings.remoteRxAudioEnabled = false
-        case .smartlinkLoginFailed:
-          state.appSettings.smartlinkEnabled = false
-        }
-        state.showAlert = AlertState(title: TextState(alertType.rawValue), message: TextState(message))
+      case let .showAlert(title, message):
+        state.alert = AlertState {
+            TextState(title)
+          } actions: {
+            /* ButtonState(role: .destructive, action: .send(.doSomething)) {
+             TextState("Do Something")
+           }
+             */
+          } message: {
+            TextState(message)
+          }
         return .none
         
       case let .showClientSheet(selection, guiClients):
-        state.showClient = ClientFeature.State(selection: selection, guiClients: guiClients)
+        state.destination = .clientItem(ClientFeature.State(selection: selection, guiClients: guiClients))
         return .none
         
       case .showDirectSheet:
-        state.showDirect = DirectFeature.State(ip: state.appSettings.isGui ? state.appSettings.directGuiIp : state.appSettings.directNonGuiIp)
+        state.destination = .directItem(DirectFeature.State(ip: state.appSettings.isGui ? state.appSettings.directGuiIp : state.appSettings.directNonGuiIp))
         return .none
         
-//      case let .showLogAlert(logEntry):
-//        state.showAlert = AlertState(title: TextState("\(logEntry.level == .warning ? "A Warning" : "An Error") was logged:"), message: TextState(logEntry.msg))
-//        return .none
-        
       case .showLoginSheet:
-        state.showLogin = LoginFeature.State(user: state.appSettings.smartlinkUser)
+        state.destination = .loginItem(LoginFeature.State(user: state.appSettings.smartlinkUser))
         return .none
         
       case .showPickerSheet:
-        state.showPicker = PickerFeature.State(isGui: state.appSettings.isGui, defaultValue: state.appSettings.isGui ? state.appSettings.guiDefault : state.appSettings.nonGuiDefault)
+        state.destination = .pickerItem(PickerFeature.State(isGui: state.appSettings.isGui, defaultValue: state.appSettings.isGui ? state.appSettings.guiDefault : state.appSettings.nonGuiDefault))
         return .none
         
         // ----------------------------------------------------------------------------
         // MARK: - Alert Actions
-        
-      case .alert(_):
+      case .alert:
         return .none
-        
+
         // ----------------------------------------------------------------------------
-        // MARK: - Client Actions
-        
-      case let .client(.presented(.connect(selection, disconnectHandle))):
+        // MARK: - Client actions
+      case let .destination(.presented(.clientItem(.connect(selection, disconnectHandle)))):
         // connect in the chosen manner
         return .run { await $0(.connect(selection, disconnectHandle)) }
-        
-      case .client(_):
-        return .none
-        
+
         // ----------------------------------------------------------------------------
-        // MARK: - Direct Actions
-        
-      case .direct(.presented(.cancelButtonTapped)):
+        // MARK: - Direct actions
+      case .destination(.presented(.directItem(.cancelButtonTapped))):
         state.appSettings.directEnabled = false
         return .none
-        
-      case let .direct(.presented(.saveButtonTapped(ip))):
+
+      case let .destination(.presented(.directItem(.saveButtonTapped(ip)))):
         // Direct is mutually exclusive of the other modes
         state.appSettings.localEnabled = false
         state.appSettings.smartlinkEnabled = false
@@ -397,40 +387,39 @@ public struct SDRApi {
           state.appSettings.directNonGuiIp = ip
         }
         return .none
-        
-      case .direct(_):
-        return .none
-        
+
         // ----------------------------------------------------------------------------
-        // MARK: - Login Actions
-        
-      case .login(.presented(.cancelButtonTapped)):
+        // MARK: - Login actions
+      case .destination(.presented(.loginItem(.cancelButtonTapped))):
         state.appSettings.smartlinkEnabled = false
         return .none
-        
-      case let .login(.presented(.loginButtonTapped(user, password))):
+
+      case let .destination(.presented(.loginItem(.loginButtonTapped(user, password)))):
         // attempt to login to Smartlink
         return smartlinkUserLogin(&state, user, password)
         
-      case .login(_):
-        return .none
-        
         // ----------------------------------------------------------------------------
-        // MARK: - Picker Actions
-        
-      case let .picker(.presented(.connectButtonTapped(selection))):
+        // MARK: - Picker actions
+      case let .destination(.presented(.pickerItem(.connectButtonTapped(selection)))):
         // check the status of the selection
         return .run {await $0(.multiflexStatus(selection)) }
-        
-      case let .picker(.presented(.defaultButtonTapped(selection))):
+
+      case let .destination(.presented(.pickerItem(.defaultButtonTapped(selection)))):
         if state.appSettings.isGui {
           state.appSettings.guiDefault = state.appSettings.guiDefault == selection ? "" : selection
         } else {
           state.appSettings.nonGuiDefault = state.appSettings.nonGuiDefault == selection ? "" : selection
         }
         return .none
+
+      case .destination(.presented(.pickerItem(.testButtonTapped(_, _)))):
+        // FIXME: add code
+        return .none
         
-      case .picker(_):
+        // ----------------------------------------------------------------------------
+        // MARK: - Destination actions
+      case .destination(_):
+        // ignore remaining cases
         return .none
       }
     }
@@ -438,11 +427,8 @@ public struct SDRApi {
     // ----------------------------------------------------------------------------
     // MARK: - Sheet / Alert reducer integration
     
-    .ifLet(\.$showAlert, action: /Action.alert)
-    .ifLet(\.$showClient, action: /Action.client) { ClientFeature() }
-    .ifLet(\.$showDirect, action: /Action.direct) { DirectFeature() }
-    .ifLet(\.$showLogin, action: /Action.login) { LoginFeature() }
-    .ifLet(\.$showPicker, action: /Action.picker) { PickerFeature() }
+    .ifLet(\.$destination, action: \.destination)
+    .ifLet(\.$alert, action: \.alert)
   }
   
   // ----------------------------------------------------------------------------
@@ -514,8 +500,8 @@ public struct SDRApi {
   private func connectionStart(_ state: State)  -> Effect<SDRApi.Action> {
     if state.appSettings.clearOnStart { MessagesModel.shared.clear(state.appSettings.messageFilter, state.appSettings.messageFilterText)}
     if state.appSettings.directEnabled {
-      // DIRECT Mode
-      return .run {
+      return .run { [state] in
+        // DIRECT Mode
         if state.appSettings.isGui && !state.appSettings.directGuiIp.isEmpty {
           let selection = "9999-9999-9999-9999" + state.appSettings.directGuiIp
           await $0(.connect(selection, nil))
@@ -531,7 +517,7 @@ public struct SDRApi {
       }
       
     } else {
-      return .run {
+      return .run { [state] in
         if state.appSettings.useDefaultEnabled {
           // LOCAL/SMARTLINK mode connection using the Default, is there a valid? Default
           if await ListenerModel.shared.isValidDefault(for: state.appSettings.guiDefault, state.appSettings.nonGuiDefault, state.appSettings.isGui) {
@@ -542,10 +528,11 @@ public struct SDRApi {
               await $0(.multiflexStatus(state.appSettings.nonGuiDefault))
             }
           } else {
-            // NO, invalid default
+            // invalid default, open the Picker
             await $0(.showPickerSheet)
           }
-        } else {
+        }
+        else {
           // default not in use, open the Picker
           await $0(.showPickerSheet)
         }
@@ -569,17 +556,17 @@ public struct SDRApi {
       
     case .errorOnConnect:
       state.connectionState = .disconnected
-      return .run {
-        await $0(.showAlert(.connectFailed, ""))
-      }
+      log.error("Connect FAILED")
+      return .none
+
     case .disconnected:
       state.connectionState = .disconnected
       
     case .errorOnDisconnect:
       state.connectionState = .disconnected
-      return .run {
-        await $0(.showAlert(.disconnectFailed, ""))
-      }
+      log.warning("Disconnect FAILED")
+      return .none
+
     case .connecting:
       state.connectionState = .connecting
       return .none

@@ -44,24 +44,36 @@ struct SDRApiView: View {
       store.send(.onAppear)
     }
 
-    // LogAlert Notification
-//    .onReceive(NotificationCenter.default.publisher(for: Notification.Name.logAlertNotification)
-//      .receive(on: RunLoop.main)) { note in
-//        if store.appSettings.alertOnError {
-//          store.send(.showLogAlert(note.object! as! XCGLogFeature.LogEntry))
-//        }
-//    }
-    
+    // LogAlert Warning
+    .onReceive(NotificationCenter.default.publisher(for: Notification.Name.logAlertWarning)
+      .receive(on: RunLoop.main)) { note in
+        if store.appSettings.alertOnError {
+          store.send(.showAlert("A WARNING was logged", note.object! as! String))
+        }
+    }
+
+    // LogAlert Error
+    .onReceive(NotificationCenter.default.publisher(for: Notification.Name.logAlertError)
+      .receive(on: RunLoop.main)) { note in
+        if store.appSettings.alertOnError {
+          store.send(.showAlert("An ERROR was logged", note.object! as! String))
+        }
+    }
+
     // Sheets
-    .alert($store.scope(state: \.showAlert, action: \.alert))
-    .sheet( item: self.$store.scope(state: \.showClient, action: \.client)) {
-      store in ClientView(store: store) }
-    .sheet( item: self.$store.scope(state: \.showDirect, action: \.direct)) {
-      store in DirectView(store: store) }
-    .sheet( item: self.$store.scope(state: \.showLogin, action: \.login)) {
-      store in LoginView(store: store) }
-    .sheet( item: self.$store.scope(state: \.showPicker, action: \.picker)) {
-      store in PickerView(store: store) }
+    .alert($store.scope(state: \.alert, action: \.alert))
+
+    .sheet(item: $store.scope(state: \.destination?.clientItem, action: \.destination.clientItem))
+    { store in ClientView(store: store) }
+
+      .sheet(item: $store.scope(state: \.destination?.directItem, action: \.destination.directItem))
+    { store in DirectView(store: store) }
+
+    .sheet(item: $store.scope(state: \.destination?.loginItem, action: \.destination.loginItem))
+    { store in LoginView(store: store) }
+
+      .sheet(item: $store.scope(state: \.destination?.pickerItem, action: \.destination.pickerItem))
+    { store in PickerView(store: store) }
     
     .frame(minWidth: 1250, maxWidth: .infinity, minHeight: 700, maxHeight: .infinity)
     .padding()
